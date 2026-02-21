@@ -75,11 +75,22 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Transisi fade in khusus box rekening */
+        .fade-in-box {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
         
         /* CSS untuk menghilangkan scrollbar agar rapi tapi tetap bisa scroll */
         ::-webkit-scrollbar {
             width: 0px;
             background: transparent;
+        }
+
+        /* Custom style untuk form select agar panahnya warnanya pas */
+        select option {
+            background-color: #111111;
+            color: #d4af37;
         }
     </style>
 </head>
@@ -511,8 +522,153 @@
                     </p>
                 </div>
 
-                <!-- Ornamen Penutup Cerita -->
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-5-1024x148.png" alt="Ornamen Penutup" class="w-[80%] mt-4 mb-12 reveal" loading="lazy">
+            </div>
+
+            <!-- ORNAMEN BUNGA (Pojok Bawah) -->
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" 
+                 alt="Ornamen Bawah Kiri" 
+                 class="absolute bottom-0 -left-12 w-64 opacity-60 z-10 pointer-events-none mix-blend-screen -scale-y-100">
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" 
+                 alt="Ornamen Bawah Kanan" 
+                 class="absolute bottom-0 -right-12 w-64 opacity-60 z-10 pointer-events-none mix-blend-screen -scale-y-100 -scale-x-100">
+
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 6: RSVP & UCAPAN -->
+        <!-- ========================================== -->
+        <section id="section-ucapan" class="relative w-full min-h-[100dvh] flex flex-col items-center py-16 px-8 shrink-0">
+            
+            <!-- GARIS BINGKAI SECTION 6 -->
+            <div class="absolute inset-3 border-[1.5px] border-gold/60 rounded-3xl pointer-events-none z-10"></div>
+            <div class="absolute inset-5 border border-dashed border-gold/50 rounded-2xl pointer-events-none z-10"></div>
+
+            <!-- KONTEN UTAMA SECTION 6 -->
+            <div class="z-20 flex flex-col items-center w-full mt-2 relative">
+                
+                <!-- Judul Section -->
+                <h3 class="font-cinzel text-xs tracking-widest text-gold mb-2 reveal uppercase text-center">
+                    Doa & Ucapan
+                </h3>
+                <h2 class="font-cinzel text-[26px] font-bold text-gold mb-4 reveal tracking-wide text-center uppercase">
+                    UNTUK MEMPELAI
+                </h2>
+                
+                <!-- Ornamen Garis -->
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line Divider" class="w-[80%] mb-8 reveal" loading="lazy">
+
+                <!-- Teks Pengantar -->
+                <p class="font-playfair text-[13px] text-center leading-relaxed text-gold/90 mb-10 reveal">
+                    Silahkan tuliskan doa & ucapan selamat untuk kedua mempelai serta konfirmasi kehadiran pada kolom ucapan dibawah ini.
+                </p>
+
+                <!-- ================= WADAH RSVP ================= -->
+                <!-- Kotak hitam blur tempat form dan ucapan berada -->
+                <div class="w-full bg-[#131313]/80 border border-gold/20 rounded-xl p-5 shadow-lg reveal mb-16">
+                    
+                    <!-- Kotak Penghitung (Counters) -->
+                    <div class="grid grid-cols-3 gap-3 mb-8">
+                        <!-- Kotak Hadir -->
+                        <div class="bg-[#28a745] text-white rounded-lg py-2 px-1 flex flex-col items-center justify-center shadow">
+                            <strong class="text-2xl font-bold leading-none mb-1">1</strong>
+                            <span class="text-[10px] tracking-wide">Hadir</span>
+                        </div>
+                        <!-- Kotak Tidak Hadir -->
+                        <div class="bg-[#dc3545] text-white rounded-lg py-2 px-1 flex flex-col items-center justify-center shadow">
+                            <strong class="text-2xl font-bold leading-none mb-1">1</strong>
+                            <span class="text-[10px] tracking-wide text-center">Tidak Hadir</span>
+                        </div>
+                        <!-- Kotak Masih Ragu -->
+                        <div class="bg-[#ffc107] text-white rounded-lg py-2 px-1 flex flex-col items-center justify-center shadow">
+                            <strong class="text-2xl font-bold leading-none mb-1">1</strong>
+                            <span class="text-[10px] tracking-wide text-center">Masih Ragu</span>
+                        </div>
+                    </div>
+
+                    <!-- Header Jumlah Ucapan -->
+                    <div class="flex items-center gap-2 mb-4 text-gold border-b border-gold/30 pb-3">
+                        <i class="far fa-envelope-open text-xl"></i>
+                        <h3 class="font-cinzel text-[17px] font-semibold tracking-wide">3 Doa & Ucapan</h3>
+                    </div>
+
+                    <!-- ================= FORM INPUT ================= -->
+                    <form class="flex flex-col gap-3 mb-8">
+                        <input type="text" placeholder="Nama Anda" required
+                               class="w-full bg-transparent border border-gold/40 rounded p-3 text-[13px] text-gold placeholder-gold/50 focus:outline-none focus:border-gold transition-colors">
+                        
+                        <textarea placeholder="Tulis ucapan & doa Anda..." rows="4" required
+                                  class="w-full bg-transparent border border-gold/40 rounded p-3 text-[13px] text-gold placeholder-gold/50 focus:outline-none focus:border-gold transition-colors"></textarea>
+                        
+                        <select required class="w-full bg-transparent border border-gold/40 rounded p-3 text-[13px] text-gold focus:outline-none focus:border-gold transition-colors">
+                            <option value="" disabled selected>Konfirmasi Kehadiran</option>
+                            <option value="Hadir">Hadir</option>
+                            <option value="Masih Ragu">Masih Ragu</option>
+                            <option value="Tidak Hadir">Tidak Hadir</option>
+                        </select>
+                        
+                        <button type="button" class="w-full bg-transparent border border-gold rounded text-gold font-playfair font-bold text-[14px] py-3 mt-1 hover:bg-gold hover:text-black transition-all duration-300">
+                            Kirim Ucapan
+                        </button>
+                    </form>
+
+                    <!-- ================= DAFTAR UCAPAN (Mockup Data) ================= -->
+                    <div class="flex flex-col gap-6">
+                        
+                        <!-- Item Ucapan 1 -->
+                        <div class="flex gap-4">
+                            <!-- Avatar -->
+                            <div class="w-11 h-11 rounded-full bg-[#1e88e5] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md">FI</div>
+                            <!-- Konten -->
+                            <div class="flex flex-col">
+                                <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+                                    <span class="font-bold text-gold text-[14px]">Fira</span>
+                                    <span class="bg-[#dc3545] text-white text-[9px] px-1.5 py-0.5 rounded flex items-center gap-1 shadow-sm">
+                                        Tidak Hadir <i class="fas fa-times"></i>
+                                    </span>
+                                </div>
+                                <p class="text-[13px] text-gold/80 mb-1.5 leading-relaxed font-playfair">Congrats kak, selamat ya <3</p>
+                                <span class="text-[10px] text-gold/50">6 months ago</span>
+                            </div>
+                        </div>
+
+                        <!-- Item Ucapan 2 -->
+                        <div class="flex gap-4">
+                            <!-- Avatar -->
+                            <div class="w-11 h-11 rounded-full bg-[#757575] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md">EL</div>
+                            <!-- Konten -->
+                            <div class="flex flex-col">
+                                <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+                                    <span class="font-bold text-gold text-[14px]">Elvi</span>
+                                    <span class="bg-[#ffc107] text-white text-[9px] px-1.5 py-0.5 rounded flex items-center gap-1 shadow-sm">
+                                        Masih Ragu <i class="fas fa-hourglass-half"></i>
+                                    </span>
+                                </div>
+                                <p class="text-[13px] text-gold/80 mb-1.5 leading-relaxed font-playfair">Samawa kaka ❤️❤️❤️</p>
+                                <span class="text-[10px] text-gold/50">6 months ago</span>
+                            </div>
+                        </div>
+
+                        <!-- Item Ucapan 3 -->
+                        <div class="flex gap-4">
+                            <!-- Avatar -->
+                            <div class="w-11 h-11 rounded-full bg-[#546e7a] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md">AN</div>
+                            <!-- Konten -->
+                            <div class="flex flex-col">
+                                <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+                                    <span class="font-bold text-gold text-[14px]">Angelika</span>
+                                    <span class="bg-[#28a745] text-white text-[9px] px-1.5 py-0.5 rounded flex items-center gap-1 shadow-sm">
+                                        Hadir <i class="fas fa-check"></i>
+                                    </span>
+                                </div>
+                                <p class="text-[13px] text-gold/80 mb-1.5 leading-relaxed font-playfair">Selamat ya kak, happy wedding semoga langgeng aminn 💙🙏🏻🥳</p>
+                                <span class="text-[10px] text-gold/50">6 months ago</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- End Daftar Ucapan -->
+
+                </div>
 
             </div>
 
@@ -523,6 +679,97 @@
             <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" 
                  alt="Ornamen Bawah Kanan" 
                  class="absolute bottom-0 -right-12 w-64 opacity-60 z-10 pointer-events-none mix-blend-screen -scale-y-100 -scale-x-100">
+
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 7: WEDDING GIFT (KIRIM HADIAH) -->
+        <!-- ========================================== -->
+        <section id="section-gift" class="relative w-full min-h-[100dvh] flex flex-col items-center py-16 px-8 shrink-0 pb-28">
+            
+            <!-- GARIS BINGKAI SECTION 7 -->
+            <div class="absolute inset-3 border-[1.5px] border-gold/60 rounded-3xl pointer-events-none z-10"></div>
+            <div class="absolute inset-5 border border-dashed border-gold/50 rounded-2xl pointer-events-none z-10"></div>
+
+            <!-- KONTEN UTAMA SECTION 7 -->
+            <div class="z-20 flex flex-col items-center w-full mt-2 relative text-center">
+                
+                <!-- Judul Section -->
+                <h3 class="font-cinzel text-xs tracking-widest text-gold mb-2 reveal uppercase">
+                    Wedding Gift
+                </h3>
+                <h2 class="font-cinzel text-[26px] font-bold text-gold mb-4 reveal tracking-wide uppercase">
+                    KIRIM HADIAH
+                </h2>
+                
+                <!-- Ornamen Garis -->
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line Divider" class="w-[80%] mb-12 reveal" loading="lazy">
+
+                <!-- Teks Pengantar -->
+                <p class="font-playfair text-[13px] leading-relaxed text-gold/90 mb-10 reveal">
+                    Kehadiran Anda merupakan sebuah do'a serta rasa syukur bagi kami, namun jika memberi adalah bentuk Do'a & cinta kasih bagi Anda, Anda dapat memberi kado secara cashless.
+                </p>
+
+                <!-- Ikon Kado & Alamat -->
+                <div class="flex flex-col items-center reveal mb-10">
+                    <i class="fas fa-gifts text-3xl text-gold mb-4 drop-shadow-md"></i>
+                    <h4 class="font-cinzel text-lg font-bold text-gold mb-2">Kirim Kado / Karangan Bunga</h4>
+                    <p class="font-playfair text-[13px] text-gold/80 leading-relaxed max-w-[80%]">
+                        Jl. Perjuangan Kemerdekaan No 19, Kota Surabaya
+                    </p>
+                </div>
+
+                <!-- Tombol Toggle Rekening -->
+                <button id="btn-toggle-rekening" class="border border-gold rounded text-[11px] tracking-wide font-playfair font-semibold text-gold py-2.5 px-6 hover:bg-gold hover:text-black transition-all duration-300 flex items-center justify-center gap-2 reveal mb-8">
+                    <i id="icon-toggle-rekening" class="fas fa-search"></i>
+                    <span id="text-toggle-rekening">Lihat Rekening</span>
+                </button>
+
+                <!-- Box Rekening (ATM Card Style) -->
+                <!-- Awalnya disembunyikan menggunakan class 'hidden' -->
+                <div id="box-rekening" class="hidden flex-col items-center w-full max-w-sm reveal">
+                    
+                    <!-- Desain mirip Kartu ATM -->
+                    <div class="relative w-full aspect-[1.58/1] bg-gradient-to-br from-[#f8f9fa] via-[#e0e0e0] to-[#b0b0b0] rounded-2xl p-5 shadow-2xl flex flex-col justify-between overflow-hidden border border-gray-400/50">
+                        
+                        <!-- Top Row: Chip ATM & Bank Logo -->
+                        <div class="flex justify-between items-start w-full relative z-10">
+                            <!-- Image Chip ATM (Menggunakan aset yang diberikan) -->
+                            <img src="https://undangandari.com/wp-content/uploads/2025/08/chip-atm-undangan.webp" alt="Chip ATM" class="w-12 h-auto opacity-90 mix-blend-multiply">
+                            
+                            <!-- Logo Bank -->
+                            <img src="https://undangandari.com/wp-content/uploads/2025/08/Logo-Bank-BCA-1.png" alt="BCA" class="w-16 h-auto object-contain drop-shadow-sm">
+                        </div>
+
+                        <!-- Bottom Row: Nama, Nomor Rekening, dan Tombol Salin -->
+                        <div class="flex flex-col items-end w-full relative z-10">
+                            <h5 class="font-cinzel text-sm font-bold tracking-widest text-gray-800 mb-0.5 drop-shadow-sm">COLE PALMER</h5>
+                            <p class="font-mono text-[22px] tracking-[0.1em] font-semibold text-gray-900 mb-3 drop-shadow-sm">12345678987</p>
+                            
+                            <!-- Tombol Salin Nomor -->
+                            <button id="btn-copy-rek" class="bg-gray-100/60 border border-gray-400 text-gray-800 text-[10px] px-3 py-1.5 rounded flex items-center justify-center gap-2 hover:bg-gray-300 transition-colors shadow-sm backdrop-blur-sm">
+                                <i class="far fa-copy"></i>
+                                <span id="text-copy-rek">Salin Nomor</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ornamen Penutup Cerita -->
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-5-1024x148.png" alt="Ornamen Penutup" class="w-[80%] mt-12 mb-8 reveal" loading="lazy">
+
+            </div>
+
+            <!-- ORNAMEN BUNGA (Pojok Bawah) -->
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" 
+                 alt="Ornamen Bawah Kiri" 
+                 class="absolute bottom-0 -left-12 w-64 opacity-60 z-10 pointer-events-none mix-blend-screen -scale-y-100">
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" 
+                 alt="Ornamen Bawah Kanan" 
+                 class="absolute bottom-0 -right-12 w-64 opacity-60 z-10 pointer-events-none mix-blend-screen -scale-y-100 -scale-x-100">
+
+            <!-- Ornamen Penutup Paling Bawah Undangan -->
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-4.png" alt="Line" class="absolute bottom-12 w-[60%] z-20" loading="lazy">
 
         </section>
 
@@ -540,25 +787,26 @@
             const btnText = document.getElementById('btn-text');
             const targetSection = document.getElementById('section-tujuan');
 
-            btnCover.addEventListener('click', () => {
-                // Ubah Tampilan Tombol
-                btnIcon.classList.remove('fa-envelope', 'fa-regular');
-                btnIcon.classList.add('fa-arrow-down', 'fa-solid', 'animate-bounce');
-                btnText.textContent = 'SCROLL KE BAWAH';
-                btnCover.classList.add('bg-gold/10');
-                
-                // Animasi Scroll Otomatis ke Section Berikutnya
-                targetSection.scrollIntoView({ behavior: 'smooth' });
-            });
+            if(btnCover) {
+                btnCover.addEventListener('click', () => {
+                    // Ubah Tampilan Tombol
+                    btnIcon.classList.remove('fa-envelope', 'fa-regular');
+                    btnIcon.classList.add('fa-arrow-down', 'fa-solid', 'animate-bounce');
+                    btnText.textContent = 'SCROLL KE BAWAH';
+                    btnCover.classList.add('bg-gold/10');
+                    
+                    // Animasi Scroll Otomatis ke Section Berikutnya
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                });
+            }
 
             // -----------------------------------------
             // 2. LOGIKA ANIMASI SCROLL (REVEAL)
             // -----------------------------------------
-            // Intersection Observer untuk memunculkan elemen saat dis-scroll
             const revealElements = document.querySelectorAll('.reveal');
             
             const revealOptions = {
-                threshold: 0.15, // Elemen akan muncul jika 15% bagiannya sudah masuk layar
+                threshold: 0.15,
                 rootMargin: "0px 0px -50px 0px"
             };
 
@@ -566,7 +814,7 @@
                 entries.forEach(entry => {
                     if (!entry.isIntersecting) return;
                     entry.target.classList.add('active');
-                    observer.unobserve(entry.target); // Hentikan observasi setelah muncul
+                    observer.unobserve(entry.target); 
                 });
             }, revealOptions);
 
@@ -575,34 +823,98 @@
             // -----------------------------------------
             // 3. LOGIKA COUNTDOWN TIMER
             // -----------------------------------------
-            // Set tanggal tujuan (Format: Bulan Tanggal, Tahun Jam:Menit:Detik)
             const countDownDate = new Date("Jun 11, 2025 08:00:00").getTime();
+            const cdDays = document.getElementById("cd-days");
 
-            const timer = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = countDownDate - now;
+            if (cdDays) {
+                const timer = setInterval(function() {
+                    const now = new Date().getTime();
+                    const distance = countDownDate - now;
 
-                // Kalkulasi waktu
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                // Update HTML (padStart(2, '0') memastikan angka selalu 2 digit, misal '07')
-                document.getElementById("cd-days").textContent = days.toString().padStart(2, '0');
-                document.getElementById("cd-hours").textContent = hours.toString().padStart(2, '0');
-                document.getElementById("cd-mins").textContent = minutes.toString().padStart(2, '0');
-                document.getElementById("cd-secs").textContent = seconds.toString().padStart(2, '0');
+                    document.getElementById("cd-days").textContent = days.toString().padStart(2, '0');
+                    document.getElementById("cd-hours").textContent = hours.toString().padStart(2, '0');
+                    document.getElementById("cd-mins").textContent = minutes.toString().padStart(2, '0');
+                    document.getElementById("cd-secs").textContent = seconds.toString().padStart(2, '0');
 
-                // Jika waktu habis
-                if (distance < 0) {
-                    clearInterval(timer);
-                    document.getElementById("cd-days").textContent = "00";
-                    document.getElementById("cd-hours").textContent = "00";
-                    document.getElementById("cd-mins").textContent = "00";
-                    document.getElementById("cd-secs").textContent = "00";
-                }
-            }, 1000); // Update setiap 1 detik (1000 ms)
+                    if (distance < 0) {
+                        clearInterval(timer);
+                        document.getElementById("cd-days").textContent = "00";
+                        document.getElementById("cd-hours").textContent = "00";
+                        document.getElementById("cd-mins").textContent = "00";
+                        document.getElementById("cd-secs").textContent = "00";
+                    }
+                }, 1000);
+            }
+
+            // -----------------------------------------
+            // 4. LOGIKA TOMBOL TOGGLE REKENING & SALIN
+            // -----------------------------------------
+            const btnToggleRek = document.getElementById('btn-toggle-rekening');
+            const iconToggleRek = document.getElementById('icon-toggle-rekening');
+            const textToggleRek = document.getElementById('text-toggle-rekening');
+            const boxRekening = document.getElementById('box-rekening');
+
+            if (btnToggleRek && boxRekening) {
+                btnToggleRek.addEventListener('click', () => {
+                    // Cek apakah boxRekening sedang tersembunyi
+                    if (boxRekening.classList.contains('hidden')) {
+                        // Tampilkan Kartu
+                        boxRekening.classList.remove('hidden');
+                        boxRekening.classList.add('flex', 'fade-in-box'); // Tambah animasi fade in
+                        
+                        // Ubah tombol jadi "Sembunyikan Rekening"
+                        iconToggleRek.className = 'far fa-eye-slash';
+                        textToggleRek.textContent = 'Sembunyikan Rekening';
+                    } else {
+                        // Sembunyikan Kartu
+                        boxRekening.classList.add('hidden');
+                        boxRekening.classList.remove('flex', 'fade-in-box');
+                        
+                        // Kembalikan tombol ke "Lihat Rekening"
+                        iconToggleRek.className = 'fas fa-search';
+                        textToggleRek.textContent = 'Lihat Rekening';
+                    }
+                });
+            }
+
+            // Logika Salin Nomor ke Clipboard (menggunakan execCommand untuk iframe-safe)
+            const btnCopyRek = document.getElementById('btn-copy-rek');
+            const textCopyRek = document.getElementById('text-copy-rek');
+
+            if (btnCopyRek) {
+                btnCopyRek.addEventListener('click', () => {
+                    const norek = "12345678987"; // Nomor rekening statis untuk disalin
+                    
+                    // Buat elemen input text sementara
+                    const tempInput = document.createElement('input');
+                    tempInput.value = norek;
+                    document.body.appendChild(tempInput);
+                    
+                    // Pilih dan salin
+                    tempInput.select();
+                    document.execCommand('copy');
+                    
+                    // Hapus input sementara
+                    document.body.removeChild(tempInput);
+
+                    // Beri feedback visual ke user
+                    const originalText = textCopyRek.textContent;
+                    textCopyRek.textContent = 'Tersalin!';
+                    btnCopyRek.classList.replace('text-gray-800', 'text-green-600');
+                    
+                    // Kembalikan ke teks awal setelah 2 detik
+                    setTimeout(() => {
+                        textCopyRek.textContent = originalText;
+                        btnCopyRek.classList.replace('text-green-600', 'text-gray-800');
+                    }, 2000);
+                });
+            }
+
         });
     </script>
 </body>
