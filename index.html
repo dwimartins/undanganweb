@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Undangan Pernikahan Lisa & Palmer</title>
     
-    <!-- Google Fonts: Kombinasi Mewah & Modern -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,20 +16,20 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Tailwind Config -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        gold: '#D4AF37',       // Emas klasik
-                        goldlight: '#F3E5AB',  // Emas terang (Champagne)
-                        dark: '#0a0a0a',       // Hitam pekat
-                        darker: '#050505',
-                        glass: 'rgba(20, 20, 20, 0.65)' // Warna kaca
+                        gold: '#d4af37',
+                        goldlight: '#e8c96b',
+                        darkbg: '#000000',
+                        cardbg: '#111111'
                     },
                     fontFamily: {
                         cinzel: ['Cinzel', 'serif'],
-                        vibes: ['Great Vibes', 'cursive'],
+                        alex: ['Alex Brush', 'cursive'],
                         montserrat: ['Montserrat', 'sans-serif'],
                     }
                 }
@@ -38,448 +38,521 @@
     </script>
 
     <style>
-        html { scroll-behavior: smooth; }
-        body { background-color: #050505; }
+        /* Smooth Scrolling */
+        html { scroll-behavior: smooth; background-color: #000; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 4px; background: #000; }
+        ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
+
+        /* --- CLASS CARD SECTION UTAMA --- */
+        /* Ini kunci untuk membuat semua kotak terlihat seragam dan padu */
+        .section-card {
+            position: relative;
+            background-color: #111111;
+            border: 1px solid rgba(212, 175, 55, 0.6);
+            border-radius: 24px;
+            padding: 3rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            z-index: 10;
+        }
+        /* Garis putus-putus di dalam kartu */
+        .section-card::after {
+            content: '';
+            position: absolute;
+            top: 7px; right: 7px; bottom: 7px; left: 7px;
+            border: 1px dashed rgba(212, 175, 55, 0.4);
+            border-radius: 18px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* --- CLASS KHUSUS COVER --- */
+        .cover-card {
+            padding: 2rem 1.5rem;
+        }
+        /* Garis Arch (Kubah) di dalam Cover */
+        .cover-arch {
+            position: absolute;
+            top: 15px; right: 15px; bottom: 15px; left: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-top-left-radius: 200px;
+            border-top-right-radius: 200px;
+            border-bottom-left-radius: 14px;
+            border-bottom-right-radius: 14px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Animasi */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 1.5s ease-out forwards; opacity: 0; }
+        .delay-100 { animation-delay: 0.1s; } .delay-300 { animation-delay: 0.3s; } .delay-500 { animation-delay: 0.5s; }
+
+        /* Scroll Reveal */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
         
-        /* Hilangkan Scrollbar bawaan */
-        ::-webkit-scrollbar { width: 0px; background: transparent; }
-
-        /* --- Custom Styles & Effects --- */
-        .text-gradient {
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
-        }
-
-        .glass-panel {
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Input Form Premium (Underline only) */
-        .input-premium {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 0;
-            padding: 12px 0;
-            color: #F3E5AB;
+        .fade-in-box { animation: fadeIn 0.5s ease-out forwards; }
+        
+        /* Input Styling RSVP */
+        .input-box {
+            background-color: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 6px;
+            padding: 12px 16px;
+            color: #d4af37;
             font-family: 'Montserrat', sans-serif;
             font-size: 13px;
-            transition: all 0.3s ease;
+            width: 100%;
+            transition: all 0.3s;
         }
-        .input-premium:focus {
-            outline: none;
-            border-bottom: 1px solid #D4AF37;
-            box-shadow: 0 1px 0 0 #D4AF37;
-        }
-        .input-premium::placeholder { color: rgba(212, 175, 55, 0.4); }
-        
-        select.input-premium option { background: #0a0a0a; color: #D4AF37; padding: 10px; }
-
-        /* Animasi Masuk */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-        .animate-fade-up { animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-400 { animation-delay: 0.4s; }
-        .delay-600 { animation-delay: 0.6s; }
-        
-        .floating { animation: float 6s ease-in-out infinite; }
-
-        /* Scroll Reveal Trigger */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        .input-box:focus { outline: none; border-color: #d4af37; }
+        .input-box::placeholder { color: rgba(212, 175, 55, 0.4); }
+        select.input-box option { background-color: #111; color: #d4af37; }
     </style>
 </head>
-<body class="flex justify-center text-goldlight antialiased selection:bg-gold selection:text-dark">
+<body class="flex justify-center text-gold antialiased selection:bg-gold selection:text-black">
 
-    <!-- Mobile Wrapper -->
-    <main class="relative w-full max-w-[430px] bg-dark min-h-screen shadow-2xl overflow-x-hidden border-x border-gold/10">
-        
-        <!-- ========================================== -->
-        <!-- SECTION 1: COVER (100dvh - Full Screen) -->
-        <!-- ========================================== -->
-        <section id="section-cover" class="relative w-full h-[100dvh] flex flex-col justify-between items-center px-6 py-10 overflow-hidden shrink-0">
-            
-            <!-- Ornamen Bunga Aesthetic -->
-            <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute top-0 left-0 w-[120%] -ml-[10%] opacity-40 mix-blend-screen pointer-events-none floating">
-            
-            <!-- Garis Tepi Elegan -->
-            <div class="absolute inset-4 border border-gold/20 rounded-[30px] pointer-events-none"></div>
+    <!-- WADAH UTAMA (Background Hitam, jarak antar kotak seragam) -->
+    <!-- gap-5 membuat jarak antar section sangat konsisten -->
+    <main class="relative w-full max-w-[430px] bg-darkbg min-h-screen flex flex-col gap-5 p-4 overflow-x-hidden">
 
-            <!-- HEADER (Top) -->
-            <div class="flex flex-col items-center mt-6 z-10 animate-fade-up">
-                <p class="font-montserrat text-[9px] tracking-[0.4em] uppercase text-gold/70 mb-3">The Wedding Of</p>
-                <div class="w-12 h-[1px] bg-gold/50"></div>
+        <!-- ========================================== -->
+        <!-- SECTION 1: COVER (100dvh) -->
+        <!-- ========================================== -->
+        <section id="section-cover" class="section-card cover-card h-[calc(100dvh-32px)] shrink-0 justify-between">
+            <div class="cover-arch"></div>
+            
+            <!-- Ornamen Bunga Kiri Atas -->
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" 
+                 alt="Ornamen" class="absolute top-0 -left-10 w-64 opacity-50 mix-blend-screen pointer-events-none z-0">
+
+            <!-- Bagian Atas Cover -->
+            <div class="flex flex-col items-center mt-12 z-10 animate-fade-in delay-100">
+                <h2 class="font-montserrat text-[9px] tracking-[0.3em] font-medium text-goldlight uppercase mb-2">The Wedding Invitation</h2>
+                <div class="w-16 h-[1px] bg-gold/50"></div>
             </div>
 
-            <!-- NAMA MEMPELAI (Center) - Fleksibel menyesuaikan layar -->
-            <div class="flex-1 flex flex-col justify-center items-center w-full z-10 animate-fade-up delay-200">
-                <h1 class="font-vibes text-[5.5rem] leading-[0.8] text-gradient drop-shadow-lg text-center pr-8">Lisa</h1>
-                <span class="font-cinzel text-2xl text-gold/50 my-2">&</span>
-                <h1 class="font-vibes text-[5.5rem] leading-[0.8] text-gradient drop-shadow-lg text-center pl-8">Palmer</h1>
-                
-                <p class="font-montserrat text-xs tracking-[0.3em] text-gold/80 mt-10">29 . 03 . 2025</p>
+            <!-- Nama Mempelai -->
+            <div class="flex flex-col items-center justify-center w-full z-10 animate-fade-in delay-300">
+                <h1 class="font-alex text-[5.5rem] leading-[0.8] text-goldlight drop-shadow-md pr-6 transform -rotate-2">Lisa</h1>
+                <span class="font-cinzel text-xl text-gold/60 my-2">&</span>
+                <h1 class="font-alex text-[5.5rem] leading-[0.8] text-goldlight drop-shadow-md pl-8 transform -rotate-2">Palmer</h1>
+                <p class="font-montserrat text-[10px] tracking-[0.4em] text-gold/80 mt-10">29 . 03 . 2025</p>
             </div>
 
-            <!-- KOTAK TAMU (Bottom) -->
-            <div class="glass-panel w-full max-w-[340px] rounded-2xl p-6 flex flex-col items-center z-10 animate-fade-up delay-400">
-                <p class="font-montserrat text-[10px] tracking-widest text-gold/60 mb-2 uppercase">Dear,</p>
-                <h3 class="font-cinzel text-lg font-semibold mb-6 text-goldlight tracking-wide text-center">Tamu Undangan</h3>
+            <!-- Kotak Tamu -->
+            <div class="w-full max-w-[280px] bg-[#0a0a0a]/80 backdrop-blur-sm border border-gold/30 rounded-xl p-5 flex flex-col items-center z-10 animate-fade-in delay-500 mb-2 shadow-lg">
+                <p class="font-montserrat text-[10px] text-gold/80 mb-2">Kepada Yth: Bpk/Ibu/Saudara/i</p>
+                <h3 class="font-montserrat font-semibold text-[15px] mb-5 text-goldlight">Tamu Undangan</h3>
                 
-                <button id="btn-cover" class="w-full py-3.5 bg-gold/10 border border-gold/50 rounded-lg flex items-center justify-center gap-3 hover:bg-gold hover:text-dark transition-all duration-500 group">
-                    <i id="btn-icon" class="fa-regular fa-envelope text-sm"></i>
-                    <span id="btn-text" class="text-[10px] tracking-[0.2em] font-semibold font-montserrat uppercase">Buka Undangan</span>
+                <button id="btn-cover" class="w-full py-3 border border-gold rounded text-[10px] tracking-widest font-bold font-montserrat uppercase text-gold hover:bg-gold hover:text-black transition-all duration-300 flex items-center justify-center gap-2">
+                    <i id="btn-icon" class="fa-regular fa-envelope text-xs"></i>
+                    <span id="btn-text">Buka Undangan</span>
                 </button>
+                
+                <p class="font-montserrat italic text-[8px] text-gold/50 mt-4 text-center leading-relaxed">*) Mohon maaf apabila ada kesalahan penulisan nama/gelar</p>
             </div>
-            
         </section>
 
         <!-- ========================================== -->
         <!-- SECTION 2: INTRO & SAVE THE DATE -->
         <!-- ========================================== -->
-        <section id="section-tujuan" class="relative w-full flex flex-col items-center py-24 px-8">
-            <!-- Ornamen Pembatas -->
-            <div class="flex items-center w-full justify-center mb-12 reveal gap-4">
-                <div class="h-[1px] bg-gold/30 w-16"></div>
-                <i class="fas fa-gem text-gold/60 text-sm"></i>
-                <div class="h-[1px] bg-gold/30 w-16"></div>
-            </div>
-
-            <h2 class="font-cinzel text-2xl font-bold text-gradient mb-4 reveal tracking-[0.15em] uppercase text-center">Save The Date</h2>
-            <h3 class="font-montserrat text-xs tracking-[0.2em] text-gold/70 mb-10 reveal">MINGGU, 11 JUNI 2025</h3>
+        <section id="section-tujuan" class="section-card">
             
-            <p class="font-montserrat text-[12px] font-light text-center leading-loose text-gold/80 mb-10 reveal">
-                "Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
-                <br><br><span class="font-medium text-gold/60">(QS. Ar-Rum: 21)</span>
-            </p>
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-3.png" alt="Line" class="w-[70%] mb-5 reveal">
+            <h2 class="font-cinzel text-2xl font-bold text-goldlight mb-3 reveal uppercase tracking-widest text-center">Lisa & Palmer</h2>
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line" class="w-[70%] mb-10 reveal">
+            
+            <h3 class="font-cinzel text-[13px] tracking-[0.1em] text-gold mb-10 reveal font-semibold">MINGGU, 11 JUNI 2025</h3>
+            
+            <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 reveal px-2">Akhirnya, hari yang kami nantikan telah tiba. Hari kebahagiaan yang sangat spesial bagi kami.</p>
 
-            <!-- Countdown Elegan -->
-            <div class="grid grid-cols-4 gap-3 w-full max-w-[320px] mb-12 reveal">
-                <div class="glass-panel aspect-square rounded-xl flex flex-col justify-center items-center">
-                    <span id="cd-days" class="font-cinzel text-2xl font-bold text-goldlight">00</span>
-                    <span class="font-montserrat text-[9px] uppercase tracking-wider text-gold/60 mt-1">Hari</span>
+            <div class="w-48 h-12 bg-gold mb-10 reveal" style="-webkit-mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"></div>
+
+            <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 reveal px-2">Atas Izin dan Ridho Allah SWT, dan dengan restu orangtua kami. Maka Insya Allah kami akan melangsungkan acara pernikahan kami.</p>
+            
+            <div class="w-32 h-[1px] bg-gold/40 mb-10 reveal"></div>
+            
+            <h2 class="font-cinzel text-xl font-bold tracking-widest text-goldlight mb-8 reveal uppercase">Save The Date</h2>
+
+            <!-- Kotak Countdown Sesuai Screenshot -->
+            <div class="grid grid-cols-4 gap-2 w-full max-w-[300px] mb-10 reveal">
+                <div class="border border-gold/60 rounded-lg py-3 flex flex-col justify-center items-center bg-[#0a0a0a]">
+                    <span id="cd-days" class="font-cinzel text-xl font-bold text-goldlight leading-none mb-1.5">26</span>
+                    <span class="font-montserrat text-[9px] text-gold/80">Days</span>
                 </div>
-                <div class="glass-panel aspect-square rounded-xl flex flex-col justify-center items-center">
-                    <span id="cd-hours" class="font-cinzel text-2xl font-bold text-goldlight">00</span>
-                    <span class="font-montserrat text-[9px] uppercase tracking-wider text-gold/60 mt-1">Jam</span>
+                <div class="border border-gold/60 rounded-lg py-3 flex flex-col justify-center items-center bg-[#0a0a0a]">
+                    <span id="cd-hours" class="font-cinzel text-xl font-bold text-goldlight leading-none mb-1.5">14</span>
+                    <span class="font-montserrat text-[9px] text-gold/80">Hours</span>
                 </div>
-                <div class="glass-panel aspect-square rounded-xl flex flex-col justify-center items-center">
-                    <span id="cd-mins" class="font-cinzel text-2xl font-bold text-goldlight">00</span>
-                    <span class="font-montserrat text-[9px] uppercase tracking-wider text-gold/60 mt-1">Menit</span>
+                <div class="border border-gold/60 rounded-lg py-3 flex flex-col justify-center items-center bg-[#0a0a0a]">
+                    <span id="cd-mins" class="font-cinzel text-xl font-bold text-goldlight leading-none mb-1.5">07</span>
+                    <span class="font-montserrat text-[9px] text-gold/80">Minutes</span>
                 </div>
-                <div class="glass-panel aspect-square rounded-xl flex flex-col justify-center items-center">
-                    <span id="cd-secs" class="font-cinzel text-2xl font-bold text-goldlight">00</span>
-                    <span class="font-montserrat text-[9px] uppercase tracking-wider text-gold/60 mt-1">Detik</span>
+                <div class="border border-gold/60 rounded-lg py-3 flex flex-col justify-center items-center bg-[#0a0a0a]">
+                    <span id="cd-secs" class="font-cinzel text-xl font-bold text-goldlight leading-none mb-1.5">51</span>
+                    <span class="font-montserrat text-[9px] text-gold/80">Seconds</span>
                 </div>
             </div>
 
-            <a href="#" target="_blank" class="border-b border-gold/60 text-[11px] tracking-widest font-montserrat font-medium text-gold pb-1 hover:text-goldlight transition-colors reveal flex items-center gap-2">
-                <i class="far fa-calendar-alt"></i> SIMPAN KE KALENDER
+            <p class="font-montserrat text-[10px] text-center text-gold/70 mb-5 reveal px-4 leading-relaxed">Klik tombol dibawah untuk tambahkan pengingat otomatis ke kalender Google</p>
+            
+            <a href="#" target="_blank" class="border border-gold/70 bg-[#0a0a0a] rounded text-[11px] tracking-wide font-montserrat font-semibold text-gold py-3 px-6 hover:bg-gold hover:text-black transition-all flex items-center gap-2 reveal">
+                <i class="far fa-calendar-alt"></i> Simpan di Kalender
             </a>
+            
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-4.png" alt="Line" class="w-[70%] mt-14 reveal">
         </section>
 
         <!-- ========================================== -->
         <!-- SECTION 3: PROFIL MEMPELAI -->
         <!-- ========================================== -->
-        <section class="relative w-full flex flex-col items-center py-20 px-6">
+        <section id="section-mempelai" class="section-card">
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-6-1024x192.png" alt="Ornamen" class="w-[85%] mb-8 reveal">
             
-            <h3 class="font-montserrat text-[10px] tracking-[0.3em] text-gold/70 mb-2 reveal uppercase text-center">Sang Mempelai</h3>
-            <h2 class="font-cinzel text-3xl font-bold text-gradient mb-16 reveal tracking-wider text-center">GROOM & BRIDE</h2>
+            <h3 class="font-cinzel text-[11px] tracking-[0.1em] text-gold mb-6 reveal uppercase">Assalamu'alaikum Wr. Wb.</h3>
+            <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 reveal px-2">Tanpa mengurangi rasa hormat, kami bermaksud mengundang Bapak/Ibu/Saudara/I untuk menghadiri acara pernikahan kami:</p>
 
-            <!-- Mempelai Wanita -->
-            <div class="glass-panel w-full rounded-2xl p-8 flex flex-col items-center mb-10 reveal relative overflow-hidden">
-                <!-- Aksen Bunga Halus di Kanan Atas -->
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -top-10 -right-10 w-32 opacity-20 pointer-events-none rotate-90">
+            <h4 class="font-playfair text-[13px] text-gold mb-2 reveal italic">Yang Berbahagia</h4>
+            <h2 class="font-cinzel text-2xl font-bold text-goldlight mb-4 reveal tracking-widest uppercase text-center">Kedua Mempelai</h2>
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line" class="w-[70%] mb-12 reveal">
+
+            <!-- Wanita -->
+            <div class="flex flex-col items-center mb-8 reveal w-full">
+                <h1 class="font-alex text-[4.5rem] text-goldlight mb-2 drop-shadow-sm leading-none">Lisa</h1>
+                <h2 class="font-cinzel text-[15px] font-bold tracking-[0.15em] text-gold mb-4 uppercase">Lisa Blackpink</h2>
+                <p class="font-montserrat text-[12px] font-light text-gold/80 mb-2">Putri Pertama dari Keluarga</p>
+                <p class="font-montserrat text-[12px] text-center text-goldlight mb-5 leading-relaxed font-medium">Bapak Jose Mourinho<br>dan Ibu Happy Mourinho</p>
                 
-                <h1 class="font-vibes text-6xl text-goldlight mb-4 drop-shadow-md">Lisa</h1>
-                <h2 class="font-cinzel text-sm font-bold tracking-[0.15em] text-gold mb-4 uppercase">Lisa Blackpink, S.I.Kom</h2>
-                
-                <p class="font-montserrat text-[11px] font-light text-gold/80 mb-1 text-center">Putri Pertama dari Keluarga</p>
-                <p class="font-montserrat text-[12px] font-medium text-center text-goldlight mb-6">Bapak Jose Mourinho<br>& Ibu Happy Mourinho</p>
-                
-                <div class="flex gap-4 justify-center">
-                    <a href="#" class="text-gold/60 hover:text-gold transition-colors text-lg"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-gold/60 hover:text-gold transition-colors text-lg"><i class="fab fa-twitter"></i></a>
+                <div class="flex gap-2 justify-center mb-4">
+                    <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
 
-            <div class="font-cinzel text-4xl text-gold/40 mb-10 reveal">&</div>
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/pngegg-43.png" alt="Cincin" class="w-14 my-6 reveal drop-shadow-md">
 
-            <!-- Mempelai Pria -->
-            <div class="glass-panel w-full rounded-2xl p-8 flex flex-col items-center reveal relative overflow-hidden">
-                <!-- Aksen Bunga Halus di Kiri Bawah -->
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-10 -left-10 w-32 opacity-20 pointer-events-none -rotate-90">
+            <!-- Pria -->
+            <div class="flex flex-col items-center mb-10 reveal w-full">
+                <h1 class="font-alex text-[4.5rem] text-goldlight mb-2 drop-shadow-sm leading-none">Palmer</h1>
+                <h2 class="font-cinzel text-[15px] font-bold tracking-[0.15em] text-gold mb-4 uppercase">Cole Palmer</h2>
+                <p class="font-montserrat text-[12px] font-light text-gold/80 mb-2">Putra Pertama dari Keluarga</p>
+                <p class="font-montserrat text-[12px] text-center text-goldlight mb-5 leading-relaxed font-medium">Bapak Pep Guardiola<br>& Ibu Happy Guardiola</p>
                 
-                <h1 class="font-vibes text-6xl text-goldlight mb-4 drop-shadow-md">Palmer</h1>
-                <h2 class="font-cinzel text-sm font-bold tracking-[0.15em] text-gold mb-4 uppercase">Cole Palmer, S.E</h2>
-                
-                <p class="font-montserrat text-[11px] font-light text-gold/80 mb-1 text-center">Putra Pertama dari Keluarga</p>
-                <p class="font-montserrat text-[12px] font-medium text-center text-goldlight mb-6">Bapak Pep Guardiola<br>& Ibu Happy Guardiola</p>
-                
-                <div class="flex gap-4 justify-center">
-                    <a href="#" class="text-gold/60 hover:text-gold transition-colors text-lg"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-gold/60 hover:text-gold transition-colors text-lg"><i class="fab fa-twitter"></i></a>
+                <div class="flex gap-2 justify-center mb-4">
+                    <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
+            
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-5-1024x148.png" alt="Ornamen" class="w-[70%] mt-4 reveal">
         </section>
 
         <!-- ========================================== -->
         <!-- SECTION 4: DETAIL ACARA -->
         <!-- ========================================== -->
-        <section class="relative w-full flex flex-col items-center py-24 px-6 bg-[#0a0a0a]">
-            <h3 class="font-montserrat text-[10px] tracking-[0.3em] text-gold/70 mb-2 reveal uppercase text-center">Rangkaian Acara</h3>
-            <h2 class="font-cinzel text-3xl font-bold text-gradient mb-12 reveal tracking-wider text-center">WEDDING EVENTS</h2>
-
-            <!-- Garis Penghubung Vertikal Estetik (Timeline di tengah) -->
-            <div class="relative w-full flex flex-col items-center reveal">
-                <div class="absolute top-0 bottom-0 left-1/2 w-[1px] bg-gold/20 -translate-x-1/2"></div>
-
-                <!-- Kartu Akad -->
-                <div class="glass-panel w-full max-w-[320px] rounded-xl p-8 flex flex-col items-center shadow-lg relative mb-16">
-                    <!-- Titik Timeline -->
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 bg-dark border-2 border-gold rounded-full flex items-center justify-center z-10"><div class="w-2 h-2 bg-goldlight rounded-full"></div></div>
-                    
-                    <h3 class="font-cinzel text-xl tracking-[0.1em] text-goldlight uppercase mb-6 mt-2">Akad Nikah</h3>
-                    
-                    <div class="flex flex-col items-center gap-3 mb-6">
-                        <div class="flex items-center gap-3 text-gold/90 font-montserrat text-sm">
-                            <i class="far fa-calendar-alt text-gold/60"></i>
-                            <span>Minggu, 15 Juli 2025</span>
-                        </div>
-                        <div class="flex items-center gap-3 text-gold/90 font-montserrat text-sm">
-                            <i class="far fa-clock text-gold/60"></i>
-                            <span>08.00 - 10.00 WIB</span>
-                        </div>
-                    </div>
-                    
-                    <div class="w-24 h-[1px] bg-gold/20 mb-6"></div>
-                    
-                    <h4 class="font-cinzel font-semibold text-goldlight text-[13px] mb-2 text-center tracking-wider">Kediaman Mempelai Wanita</h4>
-                    <p class="font-montserrat text-gold/60 text-[11px] text-center leading-relaxed font-light mb-6">Jl. Gatot Subroto No. 123, Kec. Medan Petisah, Kota Medan</p>
-                    
-                    <a href="#" class="px-6 py-2.5 bg-gold/10 border border-gold/40 text-gold text-[10px] font-montserrat tracking-[0.15em] uppercase rounded-full hover:bg-gold hover:text-dark transition-colors">Lihat Lokasi</a>
-                </div>
-
-                <!-- Kartu Resepsi -->
-                <div class="glass-panel w-full max-w-[320px] rounded-xl p-8 flex flex-col items-center shadow-lg relative">
-                    <!-- Titik Timeline -->
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 bg-dark border-2 border-gold rounded-full flex items-center justify-center z-10"><div class="w-2 h-2 bg-goldlight rounded-full"></div></div>
-                    
-                    <h3 class="font-cinzel text-xl tracking-[0.1em] text-goldlight uppercase mb-6 mt-2">Resepsi</h3>
-                    
-                    <div class="flex flex-col items-center gap-3 mb-6">
-                        <div class="flex items-center gap-3 text-gold/90 font-montserrat text-sm">
-                            <i class="far fa-calendar-alt text-gold/60"></i>
-                            <span>Minggu, 15 Juli 2025</span>
-                        </div>
-                        <div class="flex items-center gap-3 text-gold/90 font-montserrat text-sm">
-                            <i class="far fa-clock text-gold/60"></i>
-                            <span>11.00 - Selesai</span>
-                        </div>
-                    </div>
-                    
-                    <div class="w-24 h-[1px] bg-gold/20 mb-6"></div>
-                    
-                    <h4 class="font-cinzel font-semibold text-goldlight text-[13px] mb-2 text-center tracking-wider">Gedung Serbaguna ABC</h4>
-                    <p class="font-montserrat text-gold/60 text-[11px] text-center leading-relaxed font-light mb-6">Jl. Jendral Sudirman No. 45, Kec. Medan Baru, Kota Medan</p>
-                    
-                    <a href="#" class="px-6 py-2.5 bg-gold/10 border border-gold/40 text-gold text-[10px] font-montserrat tracking-[0.15em] uppercase rounded-full hover:bg-gold hover:text-dark transition-colors">Lihat Lokasi</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========================================== -->
-        <!-- SECTION 5: LOVE STORY (Vertical Timeline) -->
-        <!-- ========================================== -->
-        <section class="relative w-full flex flex-col items-center py-24 px-6">
-            <h3 class="font-montserrat text-[10px] tracking-[0.3em] text-gold/70 mb-2 reveal uppercase text-center">Perjalanan Cinta</h3>
-            <h2 class="font-cinzel text-3xl font-bold text-gradient mb-16 reveal tracking-wider text-center">LOVE STORY</h2>
-
-            <div class="relative w-full max-w-[340px] border-l border-gold/30 pl-8 ml-4 space-y-12 reveal">
-                
-                <!-- Story 1 -->
-                <div class="relative">
-                    <div class="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-dark border-[3px] border-gold"></div>
-                    <h4 class="font-cinzel text-[11px] font-bold tracking-[0.2em] text-gold/60 uppercase mb-2">Oktober 2023</h4>
-                    <h3 class="font-playfair text-xl text-goldlight mb-3 italic">Awal Bertemu</h3>
-                    <p class="font-montserrat text-[11px] font-light leading-relaxed text-gold/80 text-justify">Takdir mempertemukan kami pada sebuah hari yang tak terlupakan. Saat itu, kami hanyalah dua orang asing yang tanpa sadar dipertemukan oleh semesta.</p>
-                </div>
-
-                <!-- Story 2 -->
-                <div class="relative">
-                    <div class="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-dark border-[3px] border-gold"></div>
-                    <h4 class="font-cinzel text-[11px] font-bold tracking-[0.2em] text-gold/60 uppercase mb-2">Maret 2024</h4>
-                    <h3 class="font-playfair text-xl text-goldlight mb-3 italic">Saling Mengikat</h3>
-                    <p class="font-montserrat text-[11px] font-light leading-relaxed text-gold/80 text-justify">Waktu membawa kami lebih dekat, melewati hari-hari dengan cerita penuh tawa, doa, dan harapan. Di tanggal ini, kami mengikrarkan komitmen.</p>
-                </div>
-
-                <!-- Story 3 -->
-                <div class="relative">
-                    <div class="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-gold shadow-[0_0_10px_rgba(212,175,55,0.5)]"></div>
-                    <h4 class="font-cinzel text-[11px] font-bold tracking-[0.2em] text-gold/60 uppercase mb-2">Januari 2025</h4>
-                    <h3 class="font-playfair text-xl text-goldlight mb-3 italic">Janji Suci</h3>
-                    <p class="font-montserrat text-[11px] font-light leading-relaxed text-gold/80 text-justify">Kini, tibalah saatnya kami mengukir babak baru. Dengan penuh rasa syukur, kami siap mengikat janji suci di hadapan keluarga tercinta.</p>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ========================================== -->
-        <!-- SECTION 6: RSVP & WISHES (Clean Form) -->
-        <!-- ========================================== -->
-        <section class="relative w-full flex flex-col items-center py-20 px-6 bg-[#0a0a0a]">
+        <section id="section-acara" class="section-card">
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-6-1024x192.png" alt="Ornamen" class="w-[85%] mb-8 reveal">
             
-            <h3 class="font-montserrat text-[10px] tracking-[0.3em] text-gold/70 mb-2 reveal uppercase text-center">Konfirmasi Kehadiran</h3>
-            <h2 class="font-cinzel text-3xl font-bold text-gradient mb-12 reveal tracking-wider text-center">RSVP & WISHES</h2>
+            <h3 class="font-cinzel text-[11px] tracking-[0.1em] text-gold mb-2 reveal uppercase">Waktu & Tempat</h3>
+            <h2 class="font-cinzel text-2xl font-bold text-goldlight mb-4 reveal tracking-widest uppercase text-center">Detail Acara</h2>
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line" class="w-[70%] mb-12 reveal">
 
-            <div class="glass-panel w-full max-w-[360px] rounded-2xl p-6 reveal">
+            <!-- Akad -->
+            <div class="w-full flex flex-col items-center reveal mb-10">
+                <h3 class="font-cinzel text-xl tracking-[0.15em] text-gold uppercase mb-4">Akad Nikah</h3>
+                <div class="w-full h-[1px] bg-gold/30 mb-8"></div>
                 
-                <p class="font-montserrat text-[11px] font-light text-center leading-relaxed text-gold/80 mb-8">Silakan isi formulir di bawah ini untuk konfirmasi kehadiran dan memberikan ucapan doa restu.</p>
-
-                <form class="flex flex-col gap-6 mb-10">
-                    <input type="text" placeholder="Nama Lengkap" required class="input-premium w-full">
-                    <textarea placeholder="Tuliskan ucapan & doa..." rows="3" required class="input-premium w-full resize-none"></textarea>
+                <div class="w-full bg-[#0a0a0a] rounded-xl p-6 flex flex-col items-start shadow-md">
+                    <div class="flex flex-col gap-4 mb-6">
+                        <div class="flex items-center gap-3 text-goldlight">
+                            <i class="far fa-calendar-check text-[14px]"></i>
+                            <span class="font-montserrat text-[12px] font-medium">Minggu, 15 Juli 2025</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-goldlight">
+                            <i class="far fa-clock text-[14px]"></i>
+                            <span class="font-montserrat text-[12px] font-medium">08.00 - 10.00 WIB</span>
+                        </div>
+                    </div>
                     
-                    <select required class="input-premium w-full cursor-pointer">
-                        <option value="" disabled selected>Pilih Kehadiran</option>
+                    <div class="flex items-center w-full mb-6 opacity-80">
+                        <div class="h-[1px] bg-gold/40 flex-grow"></div>
+                        <i class="fas fa-map-marked-alt text-gold mx-4 text-2xl"></i>
+                        <div class="h-[1px] bg-gold/40 flex-grow"></div>
+                    </div>
+                    
+                    <h4 class="font-montserrat font-bold text-goldlight text-[13px] mb-2 w-full">Kediaman Mempelai Wanita</h4>
+                    <p class="font-montserrat text-gold/80 text-[11px] leading-[1.8] mb-6 font-light">Jl. Gatot Subroto No. 123, Kec. Medan Petisah, Kota Medan</p>
+                    
+                    <a href="#" class="border border-gold rounded text-[11px] tracking-wide font-montserrat font-medium text-gold py-2.5 px-6 mx-auto hover:bg-gold hover:text-black transition-all flex items-center gap-2">
+                        <i class="fas fa-map-marker-alt"></i> Open Maps
+                    </a>
+                </div>
+            </div>
+
+            <!-- Resepsi -->
+            <div class="w-full flex flex-col items-center reveal mb-8">
+                <h3 class="font-cinzel text-xl tracking-[0.15em] text-gold uppercase mb-4">Acara Resepsi</h3>
+                <div class="w-full h-[1px] bg-gold/30 mb-8"></div>
+                
+                <div class="w-full bg-[#0a0a0a] rounded-xl p-6 flex flex-col items-start shadow-md">
+                    <div class="flex flex-col gap-4 mb-6">
+                        <div class="flex items-center gap-3 text-goldlight">
+                            <i class="far fa-calendar-check text-[14px]"></i>
+                            <span class="font-montserrat text-[12px] font-medium">Minggu, 15 Juli 2025</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-goldlight">
+                            <i class="far fa-clock text-[14px]"></i>
+                            <span class="font-montserrat text-[12px] font-medium">11.00 - 14.00 WIB</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center w-full mb-6 opacity-80">
+                        <div class="h-[1px] bg-gold/40 flex-grow"></div>
+                        <i class="fas fa-map-marked-alt text-gold mx-4 text-2xl"></i>
+                        <div class="h-[1px] bg-gold/40 flex-grow"></div>
+                    </div>
+                    
+                    <h4 class="font-montserrat font-bold text-goldlight text-[13px] mb-2 w-full">Gedung Serbaguna ABC</h4>
+                    <p class="font-montserrat text-gold/80 text-[11px] leading-[1.8] mb-6 font-light">Jl. Jendral Sudirman No. 45, Kec. Medan Baru, Kota Medan</p>
+                    
+                    <a href="#" class="border border-gold rounded text-[11px] tracking-wide font-montserrat font-medium text-gold py-2.5 px-6 mx-auto hover:bg-gold hover:text-black transition-all flex items-center gap-2">
+                        <i class="fas fa-map-marker-alt"></i> Open Maps
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 5: LOVE STORY -->
+        <!-- ========================================== -->
+        <section id="section-lovestory" class="section-card">
+            
+            <h3 class="font-cinzel text-[11px] tracking-[0.1em] text-gold mb-2 reveal uppercase text-center">Cerita Tentang Kami</h3>
+            <h2 class="font-cinzel text-2xl font-bold text-goldlight mb-4 reveal tracking-widest text-center uppercase">Love Story</h2>
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line Divider" class="w-[70%] mb-12 reveal">
+
+            <!-- Cerita 1 -->
+            <div class="w-full bg-[#0a0a0a] rounded-xl p-6 flex flex-col items-center mb-6 reveal">
+                <div class="w-24 h-[1px] bg-gold/30 mb-5"></div>
+                <h4 class="font-cinzel text-[11px] tracking-[0.15em] font-semibold text-goldlight uppercase mb-2">Oktober 2023</h4>
+                <h3 class="font-alex text-[2.5rem] text-gold mb-4 text-center leading-none">Hari Pertemuan</h3>
+                <p class="font-montserrat text-[11px] font-light text-center text-gold/80 leading-[1.8] italic">Takdir mempertemukan kami pada sebuah hari yang tak terlupakan. Saat itu, kami hanyalah dua orang asing yang tanpa sadar dipertemukan oleh semesta.</p>
+            </div>
+
+            <!-- Cerita 2 -->
+            <div class="w-full bg-[#0a0a0a] rounded-xl p-6 flex flex-col items-center mb-6 reveal">
+                <div class="w-24 h-[1px] bg-gold/30 mb-5"></div>
+                <h4 class="font-cinzel text-[11px] tracking-[0.15em] font-semibold text-goldlight uppercase mb-2">Maret 2024</h4>
+                <h3 class="font-alex text-[2.5rem] text-gold mb-4 text-center leading-none">Saling Komitmen</h3>
+                <p class="font-montserrat text-[11px] font-light text-center text-gold/80 leading-[1.8] italic">Waktu membawa kami lebih dekat, melewati hari-hari dengan cerita penuh tawa, doa, dan harapan. Di tanggal ini, kami mengikrarkan janji untuk saling menjaga.</p>
+            </div>
+
+            <!-- Cerita 3 -->
+            <div class="w-full bg-[#0a0a0a] rounded-xl p-6 flex flex-col items-center mb-10 reveal">
+                <div class="w-24 h-[1px] bg-gold/30 mb-5"></div>
+                <h4 class="font-cinzel text-[11px] tracking-[0.15em] font-semibold text-goldlight uppercase mb-2">Januari 2025</h4>
+                <h3 class="font-alex text-[2.5rem] text-gold mb-4 text-center leading-none">Hari Pernikahan</h3>
+                <p class="font-montserrat text-[11px] font-light text-center text-gold/80 leading-[1.8] italic">Kini, tibalah saatnya kami mengukir babak baru dalam perjalanan cinta ini. Dengan penuh rasa syukur, kami siap mengikat janji suci di hadapan keluarga.</p>
+            </div>
+
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-5-1024x148.png" alt="Ornamen" class="w-[70%] mt-2 reveal">
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 6: RSVP & UCAPAN -->
+        <!-- ========================================== -->
+        <section id="section-ucapan" class="section-card">
+            
+            <h3 class="font-cinzel text-[11px] tracking-[0.1em] text-gold mb-2 reveal uppercase text-center">Doa & Ucapan</h3>
+            <h2 class="font-cinzel text-2xl font-bold text-goldlight mb-4 reveal tracking-widest text-center uppercase">Untuk Mempelai</h2>
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line Divider" class="w-[70%] mb-10 reveal">
+
+            <p class="font-montserrat text-[11px] font-light text-center leading-[1.8] text-gold/90 mb-10 reveal px-2">Silahkan tuliskan doa & ucapan selamat untuk kedua mempelai serta konfirmasi kehadiran pada kolom ucapan dibawah ini.</p>
+
+            <div class="w-full reveal mb-4">
+                <!-- Counters (Sesuai gambar kotak warna) -->
+                <div class="grid grid-cols-3 gap-2 mb-8">
+                    <div class="bg-[#28a745] text-white rounded-md py-2.5 flex flex-col items-center"><strong class="text-xl font-bold leading-none mb-1">1</strong><span class="text-[9px] font-medium">Hadir</span></div>
+                    <div class="bg-[#dc3545] text-white rounded-md py-2.5 flex flex-col items-center"><strong class="text-xl font-bold leading-none mb-1">1</strong><span class="text-[9px] font-medium text-center">Tidak Hadir</span></div>
+                    <div class="bg-[#ffc107] text-white rounded-md py-2.5 flex flex-col items-center"><strong class="text-xl font-bold leading-none mb-1">1</strong><span class="text-[9px] font-medium text-center">Masih Ragu</span></div>
+                </div>
+
+                <div class="flex items-center gap-3 mb-6 text-gold border-b border-gold/40 pb-3">
+                    <i class="far fa-envelope-open text-lg"></i>
+                    <h3 class="font-playfair text-[15px] font-medium">3 Doa & Ucapan</h3>
+                </div>
+
+                <!-- Form Sesuai Gambar Kotak -->
+                <form class="flex flex-col gap-4 mb-10">
+                    <input type="text" placeholder="Nama Anda" required class="input-box">
+                    <textarea placeholder="Tulis ucapan & doa Anda..." rows="4" required class="input-box resize-none"></textarea>
+                    <select required class="input-box cursor-pointer">
+                        <option value="" disabled selected>Konfirmasi Kehadiran</option>
                         <option value="Hadir">Hadir</option>
                         <option value="Masih Ragu">Masih Ragu</option>
                         <option value="Tidak Hadir">Tidak Hadir</option>
                     </select>
-
-                    <button type="button" class="w-full mt-4 bg-gold text-dark font-montserrat font-semibold tracking-widest text-[11px] uppercase py-3.5 rounded-md hover:bg-goldlight transition-colors">
-                        Kirim Konfirmasi
-                    </button>
+                    <button type="button" class="w-full bg-[#0a0a0a] border border-gold rounded text-goldlight font-montserrat font-semibold text-[11px] tracking-wider py-3.5 hover:bg-gold hover:text-black transition-all mt-2">Kirim Ucapan</button>
                 </form>
 
-                <!-- Mockup Ucapan -->
-                <div class="border-t border-gold/20 pt-8 flex flex-col gap-6">
-                    <h3 class="font-cinzel text-sm text-goldlight tracking-widest uppercase mb-2"><i class="far fa-comments mr-2"></i>3 Doa Restu</h3>
-                    
-                    <!-- Item -->
-                    <div class="flex gap-4 items-start">
-                        <div class="w-9 h-9 rounded-full bg-gold/20 border border-gold/40 text-gold flex items-center justify-center font-cinzel text-xs shrink-0">F</div>
-                        <div class="flex flex-col">
-                            <div class="flex items-baseline justify-between mb-1">
-                                <span class="font-semibold text-goldlight text-[13px] font-montserrat">Fira</span>
-                                <span class="text-[9px] bg-red-900/40 text-red-300 px-2 py-0.5 rounded border border-red-800/50 ml-2">Tidak Hadir</span>
-                            </div>
-                            <p class="text-[12px] font-light text-gray-300 leading-relaxed font-montserrat mb-1">Congrats kak, selamat ya, maaf belum bisa hadir.</p>
-                            <span class="text-[9px] text-gold/40 font-montserrat">Baru saja</span>
+                <!-- Daftar Ucapan -->
+                <div class="flex flex-col gap-6">
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-[#1e88e5] text-white flex items-center justify-center font-bold text-xs shrink-0">FI</div>
+                        <div class="flex flex-col pt-0.5">
+                            <div class="flex items-center gap-2 mb-1.5 flex-wrap"><span class="font-bold text-white text-[12px] font-montserrat">Fira</span><span class="bg-[#dc3545] text-white text-[8px] px-1.5 py-0.5 rounded flex items-center gap-1 font-medium">Tidak Hadir <i class="fas fa-times"></i></span></div>
+                            <p class="text-[11px] text-gray-300 mb-1 leading-relaxed font-montserrat font-light">Congrats kak, selamat ya &lt;3</p>
+                            <span class="text-[9px] text-gray-500 font-montserrat">6 months ago</span>
                         </div>
                     </div>
-
-                    <!-- Item -->
-                    <div class="flex gap-4 items-start">
-                        <div class="w-9 h-9 rounded-full bg-gold/20 border border-gold/40 text-gold flex items-center justify-center font-cinzel text-xs shrink-0">A</div>
-                        <div class="flex flex-col">
-                            <div class="flex items-baseline justify-between mb-1">
-                                <span class="font-semibold text-goldlight text-[13px] font-montserrat">Angelika</span>
-                                <span class="text-[9px] bg-green-900/40 text-green-300 px-2 py-0.5 rounded border border-green-800/50 ml-2">Hadir</span>
-                            </div>
-                            <p class="text-[12px] font-light text-gray-300 leading-relaxed font-montserrat mb-1">Selamat ya kak, happy wedding semoga langgeng aminn 💙</p>
-                            <span class="text-[9px] text-gold/40 font-montserrat">1 jam lalu</span>
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-[#757575] text-white flex items-center justify-center font-bold text-xs shrink-0">EL</div>
+                        <div class="flex flex-col pt-0.5">
+                            <div class="flex items-center gap-2 mb-1.5 flex-wrap"><span class="font-bold text-white text-[12px] font-montserrat">Elvi</span><span class="bg-[#ffc107] text-white text-[8px] px-1.5 py-0.5 rounded flex items-center gap-1 font-medium">Masih Ragu <i class="fas fa-hourglass-half"></i></span></div>
+                            <p class="text-[11px] text-gray-300 mb-1 leading-relaxed font-montserrat font-light">Samawa kaka ❤️❤️❤️</p>
+                            <span class="text-[9px] text-gray-500 font-montserrat">6 months ago</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-[#546e7a] text-white flex items-center justify-center font-bold text-xs shrink-0">AN</div>
+                        <div class="flex flex-col pt-0.5">
+                            <div class="flex items-center gap-2 mb-1.5 flex-wrap"><span class="font-bold text-white text-[12px] font-montserrat">Angelika</span><span class="bg-[#28a745] text-white text-[8px] px-1.5 py-0.5 rounded flex items-center gap-1 font-medium">Hadir <i class="fas fa-check"></i></span></div>
+                            <p class="text-[11px] text-gray-300 mb-1 leading-relaxed font-montserrat font-light">Selamat ya kak, happy wedding semoga langgeng aminn 💙</p>
+                            <span class="text-[9px] text-gray-500 font-montserrat">6 months ago</span>
                         </div>
                     </div>
                 </div>
-
             </div>
+            
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-5-1024x148.png" alt="Ornamen" class="w-[70%] mt-8 reveal">
         </section>
 
         <!-- ========================================== -->
-        <!-- SECTION 7: WEDDING GIFT (Kartu ATM Estetik)-->
+        <!-- SECTION 7: WEDDING GIFT -->
         <!-- ========================================== -->
-        <section class="relative w-full flex flex-col items-center py-20 px-6">
+        <section id="section-gift" class="section-card">
             
-            <h3 class="font-montserrat text-[10px] tracking-[0.3em] text-gold/70 mb-2 reveal uppercase text-center">Tanda Kasih</h3>
-            <h2 class="font-cinzel text-3xl font-bold text-gradient mb-8 reveal tracking-wider text-center">WEDDING GIFT</h2>
-            
-            <p class="font-montserrat text-[11px] font-light text-center leading-[2] text-gold/80 mb-10 reveal px-2">Doa restu Anda merupakan karunia yang sangat berarti. Namun, jika Anda berniat memberikan tanda kasih secara *cashless*, dapat disalurkan melalui rekening berikut:</p>
+            <h3 class="font-cinzel text-[11px] tracking-[0.1em] text-gold mb-2 reveal uppercase">Wedding Gift</h3>
+            <h2 class="font-cinzel text-2xl font-bold text-goldlight mb-4 reveal tracking-widest uppercase">Kirim Hadiah</h2>
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line Divider" class="w-[70%] mb-10 reveal">
 
-            <!-- ATM Card Replica -->
-            <div class="relative w-full max-w-[320px] aspect-[1.58/1] bg-gradient-to-br from-gray-200 via-gray-100 to-gray-400 rounded-xl p-6 shadow-2xl flex flex-col justify-between overflow-hidden reveal">
-                <!-- Overlay Pattern -->
-                <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, #000 0, #000 1px, transparent 0, transparent 50%); background-size: 8px 8px;"></div>
-                
-                <div class="flex justify-between items-start w-full relative z-10">
-                    <img src="https://undangandari.com/wp-content/uploads/2025/08/chip-atm-undangan.webp" alt="Chip" class="w-10 mix-blend-multiply opacity-80">
-                    <h3 class="font-cinzel font-bold text-blue-900 text-lg italic tracking-wider">BANK BCA</h3>
-                </div>
-                
-                <div class="flex flex-col items-end w-full relative z-10 mt-auto">
-                    <p class="font-mono text-[22px] tracking-[0.15em] font-semibold text-gray-800 drop-shadow-sm leading-none mb-2">1234 5678 987</p>
-                    <h5 class="font-montserrat text-xs font-semibold tracking-[0.2em] text-gray-600 uppercase mb-4">Cole Palmer</h5>
-                    
-                    <button id="btn-copy-rek" class="bg-gray-800/80 backdrop-blur text-white text-[9px] font-montserrat uppercase tracking-wider px-4 py-2 rounded-full flex items-center gap-2 hover:bg-black transition-colors">
-                        <i class="far fa-copy"></i> <span id="text-copy-rek">Salin Nomor</span>
-                    </button>
+            <p class="font-montserrat text-[11px] font-light leading-[1.8] text-gold/90 mb-10 reveal px-2 text-center">Kehadiran Anda merupakan sebuah do'a serta rasa syukur bagi kami, namun jika memberi adalah bentuk Do'a & cinta kasih bagi Anda, Anda dapat memberi kado secara cashless.</p>
+
+            <div class="flex flex-col items-center reveal mb-10 w-full">
+                <i class="fas fa-gifts text-3xl text-gold mb-4"></i>
+                <h4 class="font-playfair text-[15px] font-bold text-goldlight mb-2 italic">Kirim Kado / Karangan Bunga</h4>
+                <p class="font-montserrat text-[11px] font-light text-gold/80 leading-[1.8] text-center max-w-[80%]">Jl. Perjuangan Kemerdekaan No 19, Kota Surabaya</p>
+            </div>
+
+            <button id="btn-toggle-rekening" class="bg-[#0a0a0a] border border-gold/70 rounded text-[10px] font-montserrat font-medium text-gold py-2.5 px-6 hover:bg-gold hover:text-black transition-all flex items-center justify-center gap-2 reveal mb-8">
+                <i id="icon-toggle-rekening" class="fas fa-search"></i>
+                <span id="text-toggle-rekening">Lihat Rekening</span>
+            </button>
+
+            <!-- ATM Card -->
+            <div id="box-rekening" class="hidden flex-col items-center w-full max-w-[290px] reveal">
+                <div class="relative w-full aspect-[1.58/1] bg-gradient-to-br from-[#f2f2f2] to-[#c4c4c4] rounded-xl p-5 shadow-xl flex flex-col justify-between overflow-hidden border border-gray-400">
+                    <div class="flex justify-between items-start w-full z-10">
+                        <img src="https://undangandari.com/wp-content/uploads/2025/08/chip-atm-undangan.webp" alt="Chip" class="w-10 opacity-80 mix-blend-multiply">
+                        <img src="https://undangandari.com/wp-content/uploads/2025/08/Logo-Bank-BCA-1.png" alt="BCA" class="w-14 object-contain">
+                    </div>
+                    <div class="flex flex-col items-end w-full z-10 mt-auto">
+                        <h5 class="font-montserrat text-[10px] font-bold tracking-[0.1em] text-gray-700 mb-1">COLE PALMER</h5>
+                        <p class="font-montserrat text-xl tracking-widest font-semibold text-gray-900 mb-3">12345678987</p>
+                        <button id="btn-copy-rek" class="bg-white/60 border border-gray-400 text-gray-800 text-[9px] font-montserrat font-semibold px-3 py-1.5 rounded flex items-center gap-1.5 hover:bg-gray-200 transition-colors">
+                            <i class="far fa-copy"></i> <span id="text-copy-rek">Salin Nomor</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-5-1024x148.png" alt="Ornamen" class="w-[70%] mt-12 reveal">
         </section>
 
         <!-- ========================================== -->
         <!-- SECTION 8: TURUT MENGUNDANG -->
         <!-- ========================================== -->
-        <section class="relative w-full flex flex-col items-center py-16 px-6 bg-[#0a0a0a]">
+        <section id="section-mengundang" class="section-card">
             
-            <h2 class="font-cinzel text-2xl font-bold text-goldlight mb-12 reveal tracking-wider uppercase text-center leading-relaxed">TURUT<br>MENGUNDANG</h2>
+            <h2 class="font-cinzel text-2xl font-bold text-goldlight mb-4 reveal tracking-widest uppercase text-center leading-tight">Turut<br>Mengundang</h2>
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line Divider" class="w-[70%] mb-10 reveal">
 
-            <p class="font-montserrat text-[11px] font-light text-center leading-[2] text-gold/80 mb-12 reveal px-4">Kami juga berterima kasih kepada semua pihak yang telah membantu mensukseskan acara pernikahan kami.</p>
+            <p class="font-montserrat text-[11px] font-light text-center leading-[1.8] text-gold/90 mb-12 reveal px-2">Kami juga berterima kasih kepada semua pihak yang telah membantu mempersiapkan segala persiapan acara pernikahan kami.</p>
 
-            <h4 class="font-cinzel text-sm font-semibold tracking-widest text-gold mb-6 reveal uppercase">Keluarga Mempelai Wanita</h4>
-            <ul class="font-montserrat font-light text-[12px] text-gold/80 text-center leading-loose reveal mb-10">
-                <li>Bpk. Nama Lengkap & Istri</li>
-                <li>Bpk. Nama Lengkap & Istri</li>
-                <li>Bpk. Nama Lengkap & Istri</li>
-            </ul>
+            <h4 class="font-cinzel text-[13px] font-semibold tracking-wider text-gold uppercase mb-5 reveal">Keluarga Mempelai Wanita</h4>
+            <div class="font-playfair text-[13px] text-goldlight text-center leading-[2] reveal mb-10">
+                1. Nama Turut Mengundang 1<br>
+                2. Nama Turut Mengundang 2<br>
+                3. Nama Turut Mengundang 3<br>
+                4. Nama Turut Mengundang 4
+            </div>
 
-            <div class="w-12 h-[1px] bg-gold/30 mb-10 reveal"></div>
+            <div class="flex items-center w-full my-4 reveal gap-3 justify-center max-w-[60%]">
+                <div class="h-[1px] bg-gold/40 flex-grow"></div>
+                <i class="fas fa-praying-hands text-lg text-gold"></i>
+                <div class="h-[1px] bg-gold/40 flex-grow"></div>
+            </div>
 
-            <h4 class="font-cinzel text-sm font-semibold tracking-widest text-gold mb-6 reveal uppercase">Keluarga Mempelai Pria</h4>
-            <ul class="font-montserrat font-light text-[12px] text-gold/80 text-center leading-loose reveal">
-                <li>Bpk. Nama Lengkap & Istri</li>
-                <li>Bpk. Nama Lengkap & Istri</li>
-                <li>Bpk. Nama Lengkap & Istri</li>
-            </ul>
+            <h4 class="font-cinzel text-[13px] font-semibold tracking-wider text-gold uppercase mb-5 mt-8 reveal">Keluarga Mempelai Pria</h4>
+            <div class="font-playfair text-[13px] text-goldlight text-center leading-[2] reveal mb-10">
+                1. Nama Turut Mengundang 1<br>
+                2. Nama Turut Mengundang 2<br>
+                3. Nama Turut Mengundang 3<br>
+                4. Nama Turut Mengundang 4
+            </div>
 
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-5-1024x148.png" alt="Ornamen" class="w-[70%] mt-4 reveal">
         </section>
 
         <!-- ========================================== -->
-        <!-- SECTION 9: CLOSING -->
+        <!-- SECTION 9: CLOSING (TERIMA KASIH) -->
         <!-- ========================================== -->
-        <section class="relative w-full min-h-[80dvh] flex flex-col items-center justify-center py-20 px-6 overflow-hidden shrink-0">
-            <!-- Ornamen Background Bawah -->
-            <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute bottom-0 right-0 w-[120%] -mr-[10%] opacity-30 mix-blend-screen pointer-events-none rotate-180 floating">
+        <section id="section-penutup" class="section-card pb-16">
             
-            <div class="z-10 flex flex-col items-center text-center w-full">
-                <p class="font-montserrat text-[11px] font-light leading-[2] text-gold/80 mb-12 reveal px-2">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
-                
-                <h3 class="font-cinzel text-[10px] tracking-[0.3em] text-gold/60 mb-2 reveal uppercase">Kami Yang Berbahagia</h3>
-                
-                <div class="flex flex-col items-center reveal my-8">
-                    <h1 class="font-vibes text-6xl text-goldlight drop-shadow-md mb-2">Lisa & Palmer</h1>
-                </div>
+            <h3 class="font-cinzel text-[11px] tracking-[0.1em] text-gold mb-2 reveal uppercase text-center">Kami Mengucapkan</h3>
+            <h2 class="font-cinzel text-2xl font-bold text-goldlight mb-4 reveal tracking-widest text-center uppercase">Terima Kasih</h2>
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line Divider" class="w-[70%] mb-10 reveal">
 
-                <div class="flex items-center gap-3 text-gold/40 mt-8 reveal">
-                    <div class="w-8 h-[1px] bg-gold/30"></div>
-                    <i class="fas fa-heart text-xs text-gold/60"></i>
-                    <div class="w-8 h-[1px] bg-gold/30"></div>
-                </div>
-                <p class="font-montserrat text-[9px] text-gold/40 mt-6 tracking-widest uppercase reveal">Terima Kasih</p>
+            <h3 class="font-playfair text-[16px] text-gold mb-5 reveal italic text-center">Atas Kehadiran & Doa Restunya</h3>
+            <p class="font-montserrat text-[11px] font-light text-center leading-[1.8] text-gold/90 mb-12 reveal px-2">
+                Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.
+            </p>
+
+            <h4 class="font-cinzel text-[14px] font-semibold text-goldlight uppercase mb-1 reveal">Hormat Kami</h4>
+            <h5 class="font-cinzel text-[10px] tracking-widest text-gold uppercase mb-10 reveal text-center">Keluarga besar yang berbahagia</h5>
+
+            <div class="mb-6 reveal flex flex-col items-center">
+                <span class="font-playfair text-[11px] italic font-bold text-gold mb-1">Keluarga Besar</span>
+                <span class="font-playfair text-[16px] text-goldlight mb-2">Mempelai Wanita</span>
+                <span class="font-montserrat text-[11px] font-light text-gold/90 text-center">Bpk. Lorem Ipsum<br>& Ibu Dolor Sit</span>
             </div>
+
+            <div class="mb-10 reveal flex flex-col items-center mt-2">
+                <span class="font-playfair text-[11px] italic font-bold text-gold mb-1">Keluarga Besar</span>
+                <span class="font-playfair text-[16px] text-goldlight mb-2">Mempelai Pria</span>
+                <span class="font-montserrat text-[11px] font-light text-gold/90 text-center">Bpk. Lorem Ipsum<br>& Ibu Dolor Sit</span>
+            </div>
+
+            <div class="flex items-center w-full my-6 reveal gap-4 justify-center">
+                <div class="h-[1px] bg-gold/40 w-10"></div>
+                <span class="text-xl drop-shadow-md">💖</span>
+                <div class="h-[1px] bg-gold/40 w-10"></div>
+            </div>
+
+            <h2 class="font-cinzel text-xl font-bold text-goldlight mt-4 reveal tracking-widest uppercase text-center">LISA & PALMER</h2>
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line Divider" class="w-[70%] mt-8 reveal">
         </section>
 
     </main>
@@ -500,7 +573,7 @@
 
             // 2. ANIMASI SCROLL (REVEAL) yang lebih halus
             const revealElements = document.querySelectorAll('.reveal');
-            const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -30px 0px" };
+            const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -40px 0px" };
 
             const revealOnScroll = new IntersectionObserver(function(entries, observer) {
                 entries.forEach(entry => {
@@ -543,6 +616,27 @@
             }
 
             // 4. LOGIKA SALIN NOMOR REKENING
+            const btnToggleRek = document.getElementById('btn-toggle-rekening');
+            const iconToggleRek = document.getElementById('icon-toggle-rekening');
+            const textToggleRek = document.getElementById('text-toggle-rekening');
+            const boxRekening = document.getElementById('box-rekening');
+
+            if (btnToggleRek && boxRekening) {
+                btnToggleRek.addEventListener('click', () => {
+                    if (boxRekening.classList.contains('hidden')) {
+                        boxRekening.classList.remove('hidden');
+                        boxRekening.classList.add('flex', 'fade-in-box');
+                        iconToggleRek.className = 'far fa-eye-slash';
+                        textToggleRek.textContent = 'Sembunyikan Rekening';
+                    } else {
+                        boxRekening.classList.add('hidden');
+                        boxRekening.classList.remove('flex', 'fade-in-box');
+                        iconToggleRek.className = 'fas fa-search';
+                        textToggleRek.textContent = 'Lihat Rekening';
+                    }
+                });
+            }
+
             const btnCopyRek = document.getElementById('btn-copy-rek');
             const textCopyRek = document.getElementById('text-copy-rek');
 
@@ -557,12 +651,12 @@
                     document.body.removeChild(tempInput);
 
                     const originalText = textCopyRek.textContent;
-                    textCopyRek.textContent = 'TERSALIN!';
-                    btnCopyRek.classList.replace('text-white', 'text-green-400');
+                    textCopyRek.textContent = 'Tersalin!';
+                    btnCopyRek.classList.replace('text-gray-800', 'text-green-600');
                     
                     setTimeout(() => {
                         textCopyRek.textContent = originalText;
-                        btnCopyRek.classList.replace('text-green-400', 'text-white');
+                        btnCopyRek.classList.replace('text-green-600', 'text-gray-800');
                     }, 2000);
                 });
             }
