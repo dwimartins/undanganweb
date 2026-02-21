@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan Lisa & Palmer</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS (Framework) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Konfigurasi Tailwind Kustom -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#d4af37', // Warna emas standar
+                        goldlight: '#e5c158',
+                        darkbg: '#111111', // Latar belakang gelap
+                        boxbg: '#1a1a1a'
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        vibes: ['Great Vibes', 'cursive'],
+                        playfair: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animasi kustom ringan untuk memberikan kesan premium seperti di Elementor */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes floatImage {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-5px, 5px) rotate(-1deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1.5s ease-out forwards;
+            opacity: 0; /* Awalnya transparan sebelum animasi mulai */
+        }
+        
+        .animate-float {
+            animation: floatImage 6s ease-in-out infinite;
+        }
+
+        /* Delay untuk memunculkan elemen satu persatu */
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-700 { animation-delay: 0.7s; }
+    </style>
+</head>
+<body class="bg-black flex justify-center text-gold antialiased selection:bg-gold selection:text-black">
+
+    <!-- Kontainer Utama (Bentuk Mobile) -->
+    <!-- Menggunakan min-h-[100dvh] agar pas dengan tinggi layar HP bahkan jika ada address bar -->
+    <main class="relative w-full max-w-[420px] min-h-[100dvh] bg-darkbg overflow-hidden shadow-2xl flex flex-col items-center">
+        
+        <!-- GARIS BINGKAI -->
+        <!-- 1. Bingkai Luar (Kotak) -->
+        <div class="absolute inset-3 border-[1.5px] border-gold/60 rounded-3xl pointer-events-none z-10"></div>
+        <!-- 2. Bingkai Dalam (Bentuk Kubah / Arch) -->
+        <div class="absolute top-10 bottom-6 left-6 right-6 border-[1px] border-gold rounded-t-[180px] rounded-b-xl pointer-events-none z-10"></div>
+
+        <!-- ORNAMEN BUNGA (Pojok Kiri Atas) -->
+        <!-- Memakai aset dari Elementor-mu -->
+        <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" 
+             alt="Ornamen Bunga" 
+             class="absolute top-0 -left-10 w-64 opacity-80 pointer-events-none z-20 animate-float mix-blend-screen">
+
+        <!-- KONTEN ATAS: Judul -->
+        <section class="mt-28 flex flex-col items-center z-20 animate-fade-in delay-100">
+            <h2 class="font-cinzel text-[11px] tracking-[0.2em] text-center leading-relaxed">
+                OUR WEDDING<br>INVITATION
+            </h2>
+            <div class="w-40 h-[1px] bg-gold/70 mt-3"></div>
+        </section>
+
+        <!-- KONTEN TENGAH: Inisial Mempelai -->
+        <section class="relative h-64 w-full flex justify-center items-center my-2 z-20 animate-fade-in delay-300">
+            <div class="relative w-48 h-48 flex justify-center items-center">
+                <!-- Huruf L: Agak ke kiri atas -->
+                <h1 class="font-vibes text-8xl absolute -top-4 -left-4 text-gold drop-shadow-md">L</h1>
+                <!-- Huruf P: Agak ke kanan bawah -->
+                <h1 class="font-vibes text-8xl absolute top-10 right-0 text-gold drop-shadow-md">P</h1>
+            </div>
+        </section>
+
+        <!-- KONTEN TENGAH BAWAH: Cincin & Tanggal -->
+        <section class="flex flex-col items-center z-20 animate-fade-in delay-500">
+            <img src="https://undangandari.com/wp-content/uploads/2025/08/pngegg-43.png" 
+                 alt="Cincin" 
+                 class="w-16 mb-4 drop-shadow-lg">
+            
+            <div class="w-40 h-[1px] bg-gold/70 mb-3"></div>
+            
+            <h2 class="font-cinzel text-[12px] tracking-[0.15em] text-center leading-loose">
+                SURABAYA<br>29 MARET 2025
+            </h2>
+        </section>
+
+        <!-- KOTAK TAMU (Bagian Bawah) -->
+        <!-- mt-auto memastikan kotak ini selalu berada di bagian bawah layar -->
+        <section class="mt-auto mb-10 w-[85%] bg-boxbg/80 backdrop-blur-md border border-gold/30 rounded-xl p-6 flex flex-col items-center z-20 animate-fade-in delay-700 shadow-xl">
+            
+            <p class="font-playfair text-[13px] text-gold/80 mb-2">
+                Kepada Yth: Bpk/Ibu/Saudara/i
+            </p>
+            
+            <h3 class="font-playfair text-xl font-semibold mb-6">
+                Tamu Undangan
+            </h3>
+            
+            <!-- TOMBOL BUKA UNDANGAN -->
+            <button id="btn-cover" class="w-full py-3 px-4 border border-gold rounded text-xs tracking-widest font-bold font-cinzel text-gold hover:bg-gold hover:text-black transition-all duration-300 flex items-center justify-center gap-3 group">
+                <i id="btn-icon" class="fa-regular fa-envelope text-sm group-hover:scale-110 transition-transform"></i>
+                <span id="btn-text">BUKA UNDANGAN</span>
+            </button>
+            
+            <p class="font-playfair italic text-[9px] text-gold/60 mt-4 text-center leading-relaxed">
+                *) Mohon maaf apabila ada kesalahan penulisan nama/gelar
+            </p>
+
+        </section>
+
+    </main>
+
+    <!-- LOGIKA JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mengambil elemen tombol, ikon, dan teks
+            const btnCover = document.getElementById('btn-cover');
+            const btnIcon = document.getElementById('btn-icon');
+            const btnText = document.getElementById('btn-text');
+
+            // Menambahkan aksi ketika tombol diklik
+            btnCover.addEventListener('click', () => {
+                
+                // 1. Ubah Ikon (Hapus kelas amplop, tambahkan kelas panah)
+                btnIcon.classList.remove('fa-envelope', 'fa-regular');
+                btnIcon.classList.add('fa-arrow-down', 'fa-solid', 'animate-bounce');
+                
+                // 2. Ubah Teks
+                btnText.textContent = 'SCROLL KE BAWAH';
+                
+                // 3. Ubah Gaya Tombol (Opsional: agar terlihat statenya berubah)
+                btnCover.classList.add('bg-gold/10');
+                
+                // --- CATATAN UNTUK NANTI ---
+                // Di sini nanti kita akan tambahkan logika untuk:
+                // 1. Memutar musik auto-play
+                // 2. Menghilangkan scrollbar lock agar user bisa scroll ke section berikutnya
+                // 3. Menjalankan animasi halaman terbuka
+            });
+        });
+    </script>
+</body>
+</html>
