@@ -8,7 +8,6 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Kombinasi Font: Cinzel (Mewah), Playfair Display (Elegan Klasik), Montserrat (Bersih/Modern) -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
@@ -27,11 +26,10 @@
             theme: {
                 extend: {
                     colors: {
-                        /* Ganti warna di sini untuk membuat tema baru secara instan! */
-                        gold: '#d4af37',       /* Warna Utama (Emas Klasik) */
-                        goldlight: '#e8c96b',  /* Warna Terang (Emas Muda/Champagne) */
-                        darkbg: '#000000',     /* Background Paling Luar */
-                        cardbg: '#111111'      /* Background Kotak Section */
+                        gold: '#d4af37',       
+                        goldlight: '#e8c96b',  
+                        darkbg: '#000000',     
+                        cardbg: '#111111'      
                     },
                     fontFamily: {
                         cinzel: ['Cinzel', 'serif'],
@@ -46,7 +44,6 @@
     <!-- PUSAT PENGENDALIAN KOMPONEN -->
     <style type="text/tailwindcss">
         @layer components {
-            /* --- SISTEM TIPOGRAFI --- */
             .teks-judul {
                 @apply font-cinzel text-2xl md:text-3xl font-bold text-goldlight tracking-widest text-center uppercase;
             }
@@ -65,8 +62,6 @@
             .nama-lengkap {
                 @apply font-cinzel text-[16px] font-bold tracking-[0.15em] text-gold uppercase text-center;
             }
-
-            /* --- SISTEM UI & TOMBOL --- */
             .btn-utama {
                 @apply border border-gold/70 bg-[#0a0a0a] rounded text-[11px] tracking-widest font-montserrat font-semibold text-gold py-3 px-6 hover:bg-gold hover:text-black transition-all flex items-center justify-center gap-2 cursor-pointer;
             }
@@ -90,17 +85,12 @@
 
     <!-- CSS STANDAR (Animasi & Layout Khusus) -->
     <style>
-        /* Smooth Scrolling Native Dimatikan agar tidak bentrok dengan GSAP */
         html { scroll-behavior: auto !important; }
         body { background-color: #000; margin: 0; padding: 0; overflow-x: hidden; }
-
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 4px; background: #000; }
         ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
-
         .lock-scroll { overflow: hidden !important; height: 100vh !important; touch-action: none; }
 
-        /* Struktur Kotak Section */
         .section-card {
             position: relative;
             background-color: #0c0c0c;
@@ -115,17 +105,14 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
         .section-card::after {
-            content: '';
-            position: absolute; top: 8px; right: 8px; bottom: 8px; left: 8px;
-            border: 1px dashed rgba(212, 175, 55, 0.3);
-            border-radius: 14px; pointer-events: none; z-index: -1;
+            content: ''; position: absolute; top: 8px; right: 8px; bottom: 8px; left: 8px;
+            border: 1px dashed rgba(212, 175, 55, 0.3); border-radius: 14px; pointer-events: none; z-index: -1;
         }
 
         .cover-arch {
             position: absolute; top: 15px; right: 15px; bottom: 15px; left: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            border-top-left-radius: 200px; border-top-right-radius: 200px;
-            border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.4); border-top-left-radius: 200px;
+            border-top-right-radius: 200px; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;
             pointer-events: none; z-index: 0;
         }
 
@@ -142,7 +129,6 @@
         #enter-fullscreen { bottom: 70px; font-size: 14px; }
         #audio-toggle { bottom: 25px; }
         #audio-toggle svg { width: 14px; height: 14px; fill: white; }
-        
         @keyframes spin-continuous { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         #audio-toggle.rotating { animation: spin-continuous 3s linear infinite; }
 
@@ -151,7 +137,6 @@
         .goyang-2 { animation: goyang2 5s linear infinite; }
         .zoom-1 { animation: zoom 3s infinite; }
         .zoom-2 img { animation: zoom 2s infinite; }
-        
         @keyframes goyang1{ 0%{ transform: rotate(0deg) scale(1); } 50%{ transform: rotate(6deg) scale(1.05); } 100%{ transform: rotate(0deg) scale(1); } }
         @keyframes goyang2{ 0%{ transform: rotate(0deg) scale(1); } 25%{ transform: rotate(-4deg) scale(1.05); } 50%{ transform: rotate(-8deg) scale(1.1); } 75%{ transform: rotate(-4deg) scale(1.05); } 100%{ transform: rotate(0deg) scale(1); } }
         @keyframes zoom { 0% { transform: scale(0.95); } 60% { transform: scale(1); } 100% { transform: scale(0.95); } }
@@ -166,13 +151,14 @@
         .muncul-kanan.active { transform: translateX(0) scale(1); opacity: 1; }
         .zoom { transform: scale(0.5); opacity: 0; transition: transform 1.2s ease, opacity 0.8s ease; }
         .zoom.active { transform: scale(1); opacity: 1; }
-        
-        @media (max-width: 600px){
-            .muncul-kiri{  transform: translateX(-2.5rem) scale(0.95); }
-            .muncul-kanan{ transform: translateX( 2.5rem) scale(0.95); }
-        }
-
+        @media (max-width: 600px){ .muncul-kiri{ transform: translateX(-2.5rem) scale(0.95); } .muncul-kanan{ transform: translateX( 2.5rem) scale(0.95); } }
         @media (prefers-reduced-motion: reduce){ .muncul, .muncul-kiri, .muncul-kanan, .zoom { transition: none !important; } }
+        
+        /* Animasi Avatar RSVP */
+        .avatar-bg-1 { background-color: #d4af37; color: black; }
+        .avatar-bg-2 { background-color: #607d8b; }
+        .avatar-bg-3 { background-color: #795548; }
+        .avatar-bg-4 { background-color: #5d4037; }
     </style>
 </head>
 <body class="flex justify-center text-gold antialiased selection:bg-gold selection:text-black lock-scroll">
@@ -188,7 +174,7 @@
         </div>
     </div>
 
-    <!-- WADAH UTAMA MOBILE (Dibatas 420px meskipun dibuka di Desktop) -->
+    <!-- WADAH UTAMA MOBILE -->
     <main class="w-full max-w-[420px] mx-auto bg-darkbg min-h-[100dvh] relative shadow-2xl overflow-x-hidden">
 
         <!-- ========================================== -->
@@ -464,7 +450,7 @@
             </section>
 
             <!-- ========================================== -->
-            <!-- SECTION 6: RSVP & UCAPAN -->
+            <!-- SECTION 6: RSVP & UCAPAN (TERHUBUNG KE FIREBASE) -->
             <!-- ========================================== -->
             <section id="section-ucapan" class="section-card">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kiri">
@@ -478,64 +464,44 @@
                     <p class="teks-paragraf mb-10 muncul">Silahkan tuliskan doa & ucapan selamat untuk kedua mempelai serta konfirmasi kehadiran pada kolom ucapan dibawah ini.</p>
 
                     <div class="w-full muncul mb-4 relative z-10">
+                        <!-- ANGKA STATISTIK RSVP -->
                         <div class="grid grid-cols-3 gap-2 mb-8 zoom">
-                            <div class="bg-[#28a745] text-white rounded-md py-3 flex flex-col items-center"><strong class="text-xl font-bold leading-none mb-1">1</strong><span class="text-[10px] font-medium">Hadir</span></div>
-                            <div class="bg-[#dc3545] text-white rounded-md py-3 flex flex-col items-center"><strong class="text-xl font-bold leading-none mb-1">1</strong><span class="text-[10px] font-medium text-center">Tidak Hadir</span></div>
-                            <div class="bg-[#ffc107] text-white rounded-md py-3 flex flex-col items-center"><strong class="text-xl font-bold leading-none mb-1">1</strong><span class="text-[10px] font-medium text-center">Masih Ragu</span></div>
+                            <div class="bg-[#28a745] text-white rounded-md py-3 flex flex-col items-center shadow-lg border border-[#28a745]/50">
+                                <strong id="count-hadir" class="text-2xl font-bold leading-none mb-1">0</strong>
+                                <span class="text-[10px] font-medium tracking-wider">HADIR</span>
+                            </div>
+                            <div class="bg-[#dc3545] text-white rounded-md py-3 flex flex-col items-center shadow-lg border border-[#dc3545]/50">
+                                <strong id="count-tidak-hadir" class="text-2xl font-bold leading-none mb-1">0</strong>
+                                <span class="text-[10px] font-medium tracking-wider text-center">TIDAK HADIR</span>
+                            </div>
+                            <div class="bg-[#ffc107] text-white rounded-md py-3 flex flex-col items-center shadow-lg border border-[#ffc107]/50">
+                                <strong id="count-ragu" class="text-2xl font-bold leading-none mb-1">0</strong>
+                                <span class="text-[10px] font-medium tracking-wider text-center">RAGU</span>
+                            </div>
                         </div>
 
                         <div class="flex items-center gap-3 mb-6 text-gold border-b border-gold/40 pb-3 muncul">
-                            <i class="far fa-envelope-open text-lg"></i>
-                            <h3 class="font-playfair text-[16px] font-medium">3 Doa & Ucapan</h3>
+                            <i class="far fa-envelope-open text-xl"></i>
+                            <h3 class="font-playfair text-[17px] font-semibold">Buku Tamu</h3>
                         </div>
 
-                        <form class="flex flex-col gap-4 mb-10 muncul">
-                            <input type="text" placeholder="Nama Anda" required class="input-box">
-                            <textarea placeholder="Tulis ucapan & doa Anda..." rows="4" required class="input-box resize-none"></textarea>
-                            <select required class="input-box cursor-pointer">
+                        <!-- FORM RSVP -->
+                        <form id="form-rsvp" class="flex flex-col gap-4 mb-10 muncul">
+                            <input type="text" id="input-nama" placeholder="Nama Anda" required class="input-box">
+                            <textarea id="input-ucapan" placeholder="Tulis ucapan & doa Anda..." rows="4" required class="input-box resize-none"></textarea>
+                            <select id="input-kehadiran" required class="input-box cursor-pointer">
                                 <option value="" disabled selected>Konfirmasi Kehadiran</option>
                                 <option value="Hadir">Hadir</option>
                                 <option value="Masih Ragu">Masih Ragu</option>
                                 <option value="Tidak Hadir">Tidak Hadir</option>
                             </select>
-                            <button type="button" class="w-full bg-[#0a0a0a] border border-gold rounded text-goldlight font-montserrat font-semibold text-[12px] tracking-wider py-3.5 hover:bg-gold hover:text-black transition-all mt-2">Kirim Ucapan</button>
+                            <button type="submit" id="btn-kirim" class="w-full bg-gold border border-gold rounded text-black font-montserrat font-bold text-[12px] tracking-wider py-3.5 hover:bg-transparent hover:text-gold transition-all mt-2 shadow-lg">KIRIM UCAPAN</button>
                         </form>
 
-                        <div class="flex flex-col gap-6 muncul">
-                            <!-- Komentar -->
-                            <div class="flex gap-4">
-                                <div class="w-10 h-10 rounded-full bg-[#1e88e5] text-white flex items-center justify-center font-bold text-sm shrink-0">FI</div>
-                                <div class="flex flex-col pt-0.5 border-b border-gold/20 pb-4 w-full">
-                                    <div class="flex items-center justify-between mb-1.5 flex-wrap">
-                                        <span class="font-bold text-white text-[13px] font-montserrat">Fira</span>
-                                        <span class="bg-[#dc3545] text-white text-[9px] px-2 py-0.5 rounded flex items-center gap-1 font-medium">Tidak Hadir <i class="fas fa-times"></i></span>
-                                    </div>
-                                    <p class="text-[12px] text-gray-300 mb-1 leading-relaxed font-montserrat font-light">Congrats kak, selamat ya &lt;3</p>
-                                    <span class="text-[10px] text-gray-500 font-montserrat">6 months ago</span>
-                                </div>
-                            </div>
-                            <div class="flex gap-4">
-                                <div class="w-10 h-10 rounded-full bg-[#757575] text-white flex items-center justify-center font-bold text-sm shrink-0">EL</div>
-                                <div class="flex flex-col pt-0.5 border-b border-gold/20 pb-4 w-full">
-                                    <div class="flex items-center justify-between mb-1.5 flex-wrap">
-                                        <span class="font-bold text-white text-[13px] font-montserrat">Elvi</span>
-                                        <span class="bg-[#ffc107] text-white text-[9px] px-2 py-0.5 rounded flex items-center gap-1 font-medium">Masih Ragu <i class="fas fa-hourglass-half"></i></span>
-                                    </div>
-                                    <p class="text-[12px] text-gray-300 mb-1 leading-relaxed font-montserrat font-light">Samawa kaka ❤️❤️❤️</p>
-                                    <span class="text-[10px] text-gray-500 font-montserrat">6 months ago</span>
-                                </div>
-                            </div>
-                            <div class="flex gap-4">
-                                <div class="w-10 h-10 rounded-full bg-[#546e7a] text-white flex items-center justify-center font-bold text-sm shrink-0">AN</div>
-                                <div class="flex flex-col pt-0.5 pb-2 w-full">
-                                    <div class="flex items-center justify-between mb-1.5 flex-wrap">
-                                        <span class="font-bold text-white text-[13px] font-montserrat">Angelika</span>
-                                        <span class="bg-[#28a745] text-white text-[9px] px-2 py-0.5 rounded flex items-center gap-1 font-medium">Hadir <i class="fas fa-check"></i></span>
-                                    </div>
-                                    <p class="text-[12px] text-gray-300 mb-1 leading-relaxed font-montserrat font-light">Selamat ya kak, happy wedding semoga langgeng aminn 💙</p>
-                                    <span class="text-[10px] text-gray-500 font-montserrat">6 months ago</span>
-                                </div>
-                            </div>
+                        <!-- DAFTAR UCAPAN (Dirender oleh Firebase) -->
+                        <div id="daftar-ucapan" class="flex flex-col gap-6 muncul h-[400px] overflow-y-auto pr-2 custom-scroll">
+                            <!-- Pesan Kosong / Loading -->
+                            <p class="text-center text-gold/50 font-montserrat text-xs italic mt-4">Memuat doa dan ucapan...</p>
                         </div>
                     </div>
                     
@@ -563,7 +529,6 @@
                         <p class="teks-paragraf max-w-[80%]">Jl. Perjuangan Kemerdekaan No 19, Kota Surabaya</p>
                     </div>
 
-                    <!-- Wrapper Animasi Tombol -->
                     <div class="muncul mb-8 w-full max-w-[200px]">
                         <button id="btn-toggle-rekening" class="btn-utama w-full">
                             <i id="icon-toggle-rekening" class="fas fa-search"></i>
@@ -579,7 +544,7 @@
                                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Logo-Bank-BCA-1.png" alt="BCA" class="w-14 object-contain">
                             </div>
                             <div class="flex flex-col items-end w-full z-10 mt-auto">
-                                <h5 class="font-montserrat text-[11px] font-bold tracking-[0.1em] text-gray-700 mb-1">COLE PALMER</h5>
+                                <h5 class="font-montserrat text-[10px] font-bold tracking-[0.1em] text-gray-700 mb-1">COLE PALMER</h5>
                                 <p class="font-montserrat text-[20px] tracking-[0.15em] font-semibold text-gray-900 mb-3">12345678987</p>
                                 <button id="btn-copy-rek" class="bg-gray-200 border border-gray-400 text-gray-800 text-[10px] font-montserrat font-semibold px-3 py-1.5 rounded flex items-center gap-1.5 hover:bg-gray-300 transition-colors">
                                     <i class="far fa-copy"></i> <span id="text-copy-rek">Salin Nomor</span>
@@ -677,7 +642,7 @@
         </div> <!-- Akhir Container Kartu -->
     </main>
 
-    <!-- LOGIKA JAVASCRIPT UTAMA -->
+    <!-- LOGIKA JAVASCRIPT UI & ANIMASI -->
     <script>
         // Custom Nama Tamu
         (function () {
@@ -690,15 +655,11 @@
           function getRecipientName(params, keys) {
             for (const key of keys) {
               const value = params.get(key);
-              if (value && value.trim()) {
-                return value.trim();
-              }
+              if (value && value.trim()) { return value.trim(); }
             }
             return '';
           }
-          function escapeRegExp(string) {
-            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); 
-          }
+          function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
           function replaceTextInNode(node, searchValue, replaceValue) {
             if (node.nodeType === 1 || node.nodeType === 11) { 
               node.childNodes.forEach(child => {
@@ -717,20 +678,14 @@
             const recipient = getRecipientName(params, config.urlParams);
             const targets = document.querySelectorAll(config.selector);
             if (targets.length === 0) return;
-
             targets.forEach(element => {
-              if (recipient) {
-                replaceTextInNode(element, config.defaultText, recipient);
-              } else {
-                if (!element.textContent.trim()) {
-                  element.textContent = config.defaultText;
-                }
-              }
+              if (recipient) replaceTextInNode(element, config.defaultText, recipient);
+              else if (!element.textContent.trim()) element.textContent = config.defaultText;
             });
           });
         })();
 
-        // Matikan Native Smooth Scroll agar tidak bentrok dengan GSAP
+        // Matikan Native Smooth Scroll
         (function killNativeSmooth(){
             const style = document.createElement('style');
             style.id = 'gsap-smooth-killer';
@@ -738,27 +693,23 @@
             document.head.appendChild(style);
         })();
 
-        // Daftarkan ScrollToPlugin milik GSAP
         if (typeof gsap !== 'undefined' && typeof ScrollToPlugin !== 'undefined') {
             gsap.registerPlugin(ScrollToPlugin);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- VARIABEL & ELEMEN UTAMA ---
             const btnCover = document.getElementById('tombol-buka');
             const targetSection = document.getElementById('section-tujuan');
             const btnIcon = document.getElementById('btn-icon');
             const btnText = btnCover ? btnCover.querySelector('.elementor-button-text') : null;
             const contentUndangan = document.getElementById('content-undangan');
-            
             const audio = document.getElementById('audio');
             const audioToggle = document.getElementById('audio-toggle');
-            
             const fsButton = document.getElementById('enter-fullscreen');
             const fsIcon = fsButton.querySelector('i');
 
-            // --- 1. LOGIKA SCROLL LOCK ---
+            // --- 1. SCROLL LOCK ---
             const lockScroll = () => {
                 document.body.classList.add('lock-scroll');
                 document.documentElement.classList.add('lock-scroll');
@@ -768,56 +719,21 @@
                 document.body.classList.remove('lock-scroll');
                 document.documentElement.classList.remove('lock-scroll');
             };
-
-            // Kunci scroll mutlak saat web dimuat
             lockScroll();
 
-            // --- 2. HELPER FULLSCREEN ---
-            function isFullscreen() {
-                return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
-            }
-
-            function enterFullscreen(el = document.documentElement) {
-                try {
-                    if (el.requestFullscreen) el.requestFullscreen();
-                    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-                    else if (el.msRequestFullscreen) el.msRequestFullscreen();
-                } catch (_) {}
-            }
-
-            function exitFullscreen() {
-                if (isFullscreen()) {
-                    if (document.exitFullscreen) document.exitFullscreen();
-                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-                    else if (document.msExitFullscreen) document.msExitFullscreen();
-                }
-            }
-
-            function toggleFullscreen() {
-                if (!isFullscreen()) enterFullscreen(document.documentElement);
-                else exitFullscreen();
-            }
-
-            function updateFullscreenIcon() {
-                if (isFullscreen()) {
-                    if(fsIcon) {
-                        fsIcon.classList.remove('fa-expand-arrows-alt');
-                        fsIcon.classList.add('fa-compress-arrows-alt');
-                    }
-                } else {
-                    if(fsIcon) {
-                        fsIcon.classList.remove('fa-compress-arrows-alt');
-                        fsIcon.classList.add('fa-expand-arrows-alt');
-                    }
-                }
-            }
-
+            // --- 2. FULLSCREEN HELPER ---
+            function isFullscreen() { return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement; }
+            function enterFullscreen(el = document.documentElement) { try { if (el.requestFullscreen) el.requestFullscreen(); else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen(); else if (el.msRequestFullscreen) el.msRequestFullscreen(); } catch (_) {} }
+            function exitFullscreen() { if (isFullscreen()) { if (document.exitFullscreen) document.exitFullscreen(); else if (document.webkitExitFullscreen) document.webkitExitFullscreen(); else if (document.msExitFullscreen) document.msExitFullscreen(); } }
+            function toggleFullscreen() { if (!isFullscreen()) enterFullscreen(document.documentElement); else exitFullscreen(); }
+            function updateFullscreenIcon() { if (isFullscreen()) { if(fsIcon) { fsIcon.classList.remove('fa-expand-arrows-alt'); fsIcon.classList.add('fa-compress-arrows-alt'); } } else { if(fsIcon) { fsIcon.classList.remove('fa-compress-arrows-alt'); fsIcon.classList.add('fa-expand-arrows-alt'); } } }
+            
             if(fsButton) fsButton.addEventListener('click', toggleFullscreen);
             document.addEventListener('fullscreenchange', updateFullscreenIcon);
             document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
             document.addEventListener('msfullscreenchange', updateFullscreenIcon);
 
-            // --- 3. LOGIKA TOMBOL BUKA UNDANGAN (GSAP INSTAN & BEBAS LAG) ---
+            // --- 3. BUKA UNDANGAN ---
             const setButtonToScroll = () => {
                 if (btnText) btnText.textContent = 'SCROLL KE BAWAH';
                 if (btnIcon) {
@@ -828,21 +744,14 @@
 
             const scrollKeTujuan = () => {
                 if (!targetSection) return;
-                
                 if (typeof gsap !== 'undefined') {
                     const currentY = window.pageYOffset || document.documentElement.scrollTop || 0;
                     const rect = targetSection.getBoundingClientRect();
                     const targetY = currentY + rect.top;
                     const dist = Math.abs(targetY - currentY);
                     const durasi = Math.max(0.9, Math.min(1.6, dist / 1600));
-
-                    gsap.to(window, {
-                        duration: durasi,
-                        ease: 'power2.out',
-                        scrollTo: { y: targetSection, autoKill: false }
-                    });
+                    gsap.to(window, { duration: durasi, ease: 'power2.out', scrollTo: { y: targetSection, autoKill: false } });
                 } else {
-                    // Fallback jika GSAP gagal load
                     targetSection.scrollIntoView({ behavior: 'smooth' });
                 }
             };
@@ -850,174 +759,275 @@
             const handleFirstClick = (e) => {
                 e.preventDefault();
                 setButtonToScroll();
-
-                // Lepas gembok scroll
                 unlockScroll(); 
-
-                // Tampilkan seluruh konten undangan
-                if(contentUndangan) {
-                    contentUndangan.classList.remove('hidden');
-                    contentUndangan.classList.add('flex');
-                }
-
-                // Mainkan lagu
-                if (audio && audio.paused) {
-                    audio.play().catch(err => console.log("Audio play di-block:", err));
-                }
-
-                // Paksa layar ke mode Fullscreen tanpa diblok/tunggu
+                if(contentUndangan) { contentUndangan.classList.remove('hidden'); contentUndangan.classList.add('flex'); }
+                if (audio && audio.paused) { audio.play().catch(err => console.log("Audio play di-block:", err)); }
                 enterFullscreen(document.documentElement);
+                setTimeout(() => { scrollKeTujuan(); }, 150);
                 
-                // Langsung luncurkan layar ke bawah dengan GSAP (jeda micro 150ms agar DOM ready)
-                setTimeout(() => {
-                    scrollKeTujuan();
-                }, 150);
-
-                // Ubah status event tombol cover menjadi fungsi scroll saja
                 btnCover.removeEventListener('click', handleFirstClick);
-                btnCover.addEventListener('click', (ev) => { 
-                    ev.preventDefault(); 
-                    scrollKeTujuan();
-                });
+                btnCover.addEventListener('click', (ev) => { ev.preventDefault(); scrollKeTujuan(); });
             };
 
-            if (btnCover) {
-                btnCover.addEventListener('click', handleFirstClick);
-            }
-
-            // Jika user secara tak sengaja masuk mode fullscreen via trigger lain, text ikut berganti
-            const onFsChange = () => { 
-                if(isFullscreen() && !document.body.classList.contains('lock-scroll')) {
-                    setButtonToScroll(); 
-                }
-            };
+            if (btnCover) btnCover.addEventListener('click', handleFirstClick);
+            const onFsChange = () => { if(isFullscreen() && !document.body.classList.contains('lock-scroll')) setButtonToScroll(); };
             document.addEventListener('fullscreenchange', onFsChange);
 
-            // --- 4. LOGIKA AUDIO (PLAY/PAUSE) ---
-            if(audioToggle) {
-                audioToggle.addEventListener('click', function () {
-                    if (audio.paused) audio.play();
-                    else audio.pause();
-                });
-            }
-
+            // --- 4. AUDIO ---
+            if(audioToggle) { audioToggle.addEventListener('click', function () { if (audio.paused) audio.play(); else audio.pause(); }); }
             if(audio) {
-                audio.addEventListener('play', function () {
-                    if(audioToggle) audioToggle.classList.add('rotating');
-                });
-                audio.addEventListener('pause', function () {
-                    if(audioToggle) audioToggle.classList.remove('rotating');
-                });
+                audio.addEventListener('play', function () { if(audioToggle) audioToggle.classList.add('rotating'); });
+                audio.addEventListener('pause', function () { if(audioToggle) audioToggle.classList.remove('rotating'); });
             }
-
             document.addEventListener('visibilitychange', function () {
                 if (!audio) return;
-                if (document.hidden) {
-                    if (!audio.paused) {
-                        audio.pause();
-                        audio.dataset.wasPlaying = "true";
-                    } else {
-                        audio.dataset.wasPlaying = "false";
-                    }
-                } else {
-                    if (audio.dataset.wasPlaying === "true") {
-                        audio.play();
-                    }
-                }
+                if (document.hidden) { if (!audio.paused) { audio.pause(); audio.dataset.wasPlaying = "true"; } else { audio.dataset.wasPlaying = "false"; } } 
+                else { if (audio.dataset.wasPlaying === "true") { audio.play(); } }
             });
 
-            // --- 5. ANIMASI SCROLL REPEATING (Intersection Observer) ---
+            // --- 5. ANIMASI SCROLL ---
             const selector = ".muncul, .muncul-kiri, .muncul-kanan, .zoom";
             const elementVisible = 110;
             const qAll = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-
             if ("IntersectionObserver" in window) {
-                const ioEnter = new IntersectionObserver((entries) => {
-                    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("active"); });
-                }, { root: null, rootMargin: `0px 0px -${elementVisible}px 0px`, threshold: 0 });
-
-                const ioExit = new IntersectionObserver((entries) => {
-                    entries.forEach(e => { if (!e.isIntersecting) e.target.classList.remove("active"); });
-                }, { root: null, rootMargin: "0px", threshold: 0 });
-
+                const ioEnter = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("active"); }); }, { root: null, rootMargin: `0px 0px -${elementVisible}px 0px`, threshold: 0 });
+                const ioExit = new IntersectionObserver((entries) => { entries.forEach(e => { if (!e.isIntersecting) e.target.classList.remove("active"); }); }, { root: null, rootMargin: "0px", threshold: 0 });
                 qAll(selector).forEach(el => { ioEnter.observe(el); ioExit.observe(el); });
             }
 
-            // --- 6. COUNTDOWN TIMER ---
+            // --- 6. COUNTDOWN ---
             const countDownDate = new Date("Mar 19, 2026 08:00:00").getTime();
-            const cdDays = document.getElementById("cd-days");
-
-            if (cdDays) {
+            if (document.getElementById("cd-days")) {
                 const timer = setInterval(function() {
                     const now = new Date().getTime();
                     const distance = countDownDate - now;
-
-                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                    document.getElementById("cd-days").textContent = days.toString().padStart(2, '0');
-                    document.getElementById("cd-hours").textContent = hours.toString().padStart(2, '0');
-                    document.getElementById("cd-mins").textContent = minutes.toString().padStart(2, '0');
-                    document.getElementById("cd-secs").textContent = seconds.toString().padStart(2, '0');
-
                     if (distance < 0) {
                         clearInterval(timer);
                         document.getElementById("cd-days").textContent = "00";
                         document.getElementById("cd-hours").textContent = "00";
                         document.getElementById("cd-mins").textContent = "00";
                         document.getElementById("cd-secs").textContent = "00";
+                        return;
                     }
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    document.getElementById("cd-days").textContent = days.toString().padStart(2, '0');
+                    document.getElementById("cd-hours").textContent = hours.toString().padStart(2, '0');
+                    document.getElementById("cd-mins").textContent = minutes.toString().padStart(2, '0');
+                    document.getElementById("cd-secs").textContent = seconds.toString().padStart(2, '0');
                 }, 1000);
             }
 
-            // --- 7. LOGIKA SALIN NOMOR REKENING ---
+            // --- 7. COPY REKENING ---
             const btnToggleRek = document.getElementById('btn-toggle-rekening');
-            const iconToggleRek = document.getElementById('icon-toggle-rekening');
-            const textToggleRek = document.getElementById('text-toggle-rekening');
             const boxRekening = document.getElementById('box-rekening');
-
             if (btnToggleRek && boxRekening) {
                 btnToggleRek.addEventListener('click', () => {
                     if (boxRekening.classList.contains('hidden')) {
-                        boxRekening.classList.remove('hidden');
-                        boxRekening.classList.add('flex', 'fade-in-box');
-                        iconToggleRek.className = 'far fa-eye-slash';
-                        textToggleRek.textContent = 'Sembunyikan Rekening';
+                        boxRekening.classList.remove('hidden'); boxRekening.classList.add('flex', 'fade-in-box');
+                        document.getElementById('icon-toggle-rekening').className = 'far fa-eye-slash';
+                        document.getElementById('text-toggle-rekening').textContent = 'Sembunyikan Rekening';
                     } else {
-                        boxRekening.classList.add('hidden');
-                        boxRekening.classList.remove('flex', 'fade-in-box');
-                        iconToggleRek.className = 'fas fa-search';
-                        textToggleRek.textContent = 'Lihat Rekening';
+                        boxRekening.classList.add('hidden'); boxRekening.classList.remove('flex', 'fade-in-box');
+                        document.getElementById('icon-toggle-rekening').className = 'fas fa-search';
+                        document.getElementById('text-toggle-rekening').textContent = 'Lihat Rekening';
                     }
                 });
             }
 
             const btnCopyRek = document.getElementById('btn-copy-rek');
-            const textCopyRek = document.getElementById('text-copy-rek');
-
             if (btnCopyRek) {
                 btnCopyRek.addEventListener('click', () => {
-                    const norek = "12345678987";
                     const tempInput = document.createElement('input');
-                    tempInput.value = norek;
-                    document.body.appendChild(tempInput);
-                    tempInput.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(tempInput);
-
+                    tempInput.value = "12345678987"; document.body.appendChild(tempInput);
+                    tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput);
+                    const textCopyRek = document.getElementById('text-copy-rek');
                     const originalText = textCopyRek.textContent;
-                    textCopyRek.textContent = 'Tersalin!';
-                    btnCopyRek.classList.replace('text-gray-800', 'text-green-600');
-                    
-                    setTimeout(() => {
-                        textCopyRek.textContent = originalText;
-                        btnCopyRek.classList.replace('text-green-600', 'text-gray-800');
-                    }, 2000);
+                    textCopyRek.textContent = 'Tersalin!'; btnCopyRek.classList.replace('text-gray-800', 'text-green-600');
+                    setTimeout(() => { textCopyRek.textContent = originalText; btnCopyRek.classList.replace('text-green-600', 'text-gray-800'); }, 2000);
                 });
             }
         });
+    </script>
+
+    <!-- ========================================================= -->
+    <!-- LOGIKA BACKEND: FIREBASE RSVP (SISTEM MULTI-TENANT) -->
+    <!-- ========================================================= -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Kunci Rahasia Firebase Milik Diana (Sistem Utama)
+        const firebaseConfig = {
+            apiKey: "AIzaSyAbpnsGjy9p8doAtZx-Jc1U1nod3M-S90Y",
+            authDomain: "sistem-rsvp.firebaseapp.com",
+            projectId: "sistem-rsvp",
+            storageBucket: "sistem-rsvp.firebasestorage.app",
+            messagingSenderId: "634798818741",
+            appId: "1:634798818741:web:83d56bf3122968dc86c5fc"
+        };
+
+        // Inisialisasi Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // --- SISTEM DETEKSI FOLDER OTOMATIS (MULTI-TENANT) ---
+        // Mengambil nama folder dari URL (misal: dwimartins.github.io/lisa-palmer/ -> "lisa-palmer")
+        let pathSegments = window.location.pathname.split('/').filter(segment => segment.length > 0 && !segment.includes('.html'));
+        let brideId = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : "demo-undangan";
+        brideId = brideId.replace(/[^a-zA-Z0-9-_]/g, ''); // Bersihkan teks agar aman untuk nama laci database
+        
+        // Membuat "Laci" spesifik untuk pengantin ini di dalam Firestore
+        const rsvpCollection = collection(db, 'rsvp_' + brideId);
+
+        // --- ELEMEN UI ---
+        const formRsvp = document.getElementById('form-rsvp');
+        const inputNama = document.getElementById('input-nama');
+        const inputUcapan = document.getElementById('input-ucapan');
+        const inputKehadiran = document.getElementById('input-kehadiran');
+        const btnKirim = document.getElementById('btn-kirim');
+        
+        const daftarUcapan = document.getElementById('daftar-ucapan');
+        const countHadir = document.getElementById('count-hadir');
+        const countTidakHadir = document.getElementById('count-tidak-hadir');
+        const countRagu = document.getElementById('count-ragu');
+
+        // Helper Waktu (Cth: "Baru saja", "2 jam yang lalu")
+        function timeAgo(dateInput) {
+            if (!dateInput) return "Baru saja";
+            const date = dateInput.toDate ? dateInput.toDate() : new Date(dateInput);
+            const seconds = Math.round((new Date() - date) / 1000);
+            const minutes = Math.round(seconds / 60);
+            const hours = Math.round(minutes / 60);
+            const days = Math.round(hours / 24);
+
+            if (seconds < 60) return "Baru saja";
+            if (minutes < 60) return `${minutes} menit yang lalu`;
+            if (hours < 24) return `${hours} jam yang lalu`;
+            if (days === 1) return `Kemarin`;
+            return `${days} hari yang lalu`;
+        }
+
+        // Helper Warna Avatar Random Berdasarkan Nama
+        function getAvatarColor(name) {
+            const colors = ['#d4af37', '#607d8b', '#795548', '#5d4037', '#8d6e63', '#a1887f'];
+            let hash = 0;
+            for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+            return colors[Math.abs(hash) % colors.length];
+        }
+
+        // --- FUNGSI TAMPILKAN PESAN REAL-TIME (Membaca Data) ---
+        onSnapshot(rsvpCollection, (snapshot) => {
+            let ucapanHTML = '';
+            let hadir = 0, tidakHadir = 0, ragu = 0;
+            
+            // Ekstrak data dan urutkan dari yang terbaru ke terlama di memori (Tanpa perlu seting index manual di Firebase)
+            const dataPesan = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            dataPesan.sort((a, b) => {
+                const timeA = a.timestamp ? a.timestamp.toMillis() : Date.now();
+                const timeB = b.timestamp ? b.timestamp.toMillis() : Date.now();
+                return timeB - timeA; 
+            });
+
+            if(dataPesan.length === 0) {
+                daftarUcapan.innerHTML = '<p class="text-center text-gold/50 font-montserrat text-xs italic mt-4">Belum ada ucapan. Jadilah yang pertama!</p>';
+                countHadir.innerText = "0"; countTidakHadir.innerText = "0"; countRagu.innerText = "0";
+                return;
+            }
+
+            // Looping untuk membuat elemen daftar
+            dataPesan.forEach(data => {
+                // Hitung Statistik
+                if (data.kehadiran === 'Hadir') hadir++;
+                else if (data.kehadiran === 'Tidak Hadir') tidakHadir++;
+                else ragu++;
+
+                // Buat Tampilan Avatar & Status
+                const inisial = data.nama.substring(0, 2).toUpperCase();
+                const bgColor = getAvatarColor(data.nama);
+                const waktu = timeAgo(data.timestamp);
+                
+                let badgeStatus = '';
+                if (data.kehadiran === 'Hadir') badgeStatus = '<span class="bg-[#28a745] text-white text-[9px] px-2 py-0.5 rounded flex items-center gap-1 font-medium">Hadir <i class="fas fa-check"></i></span>';
+                else if (data.kehadiran === 'Tidak Hadir') badgeStatus = '<span class="bg-[#dc3545] text-white text-[9px] px-2 py-0.5 rounded flex items-center gap-1 font-medium">Tidak Hadir <i class="fas fa-times"></i></span>';
+                else badgeStatus = '<span class="bg-[#ffc107] text-white text-[9px] px-2 py-0.5 rounded flex items-center gap-1 font-medium">Masih Ragu <i class="fas fa-hourglass-half"></i></span>';
+
+                // Susun HTML
+                ucapanHTML += `
+                <div class="flex gap-4">
+                    <div class="w-10 h-10 rounded-full text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md" style="background-color: ${bgColor}">${inisial}</div>
+                    <div class="flex flex-col pt-0.5 border-b border-gold/20 pb-4 w-full">
+                        <div class="flex items-center justify-between mb-1.5 flex-wrap gap-2">
+                            <span class="font-bold text-white text-[13px] font-montserrat">${data.nama}</span>
+                            ${badgeStatus}
+                        </div>
+                        <p class="text-[12px] text-gray-300 mb-1 leading-relaxed font-montserrat font-light">${data.ucapan}</p>
+                        <span class="text-[10px] text-gold/60 font-montserrat">${waktu}</span>
+                    </div>
+                </div>`;
+            });
+
+            // Lempar ke layar
+            daftarUcapan.innerHTML = ucapanHTML;
+            
+            // Animasi Counter menggunakan GSAP
+            gsap.to(countHadir, { innerHTML: hadir, duration: 1, snap: { innerHTML: 1 } });
+            gsap.to(countTidakHadir, { innerHTML: tidakHadir, duration: 1, snap: { innerHTML: 1 } });
+            gsap.to(countRagu, { innerHTML: ragu, duration: 1, snap: { innerHTML: 1 } });
+        });
+
+
+        // --- FUNGSI MENGIRIM PESAN BARU (Menulis Data) ---
+        formRsvp.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Ambil Nilai dari Form
+            const namaVal = inputNama.value.trim();
+            const ucapanVal = inputUcapan.value.trim();
+            const kehadiranVal = inputKehadiran.value;
+
+            if (!namaVal || !ucapanVal || !kehadiranVal) return;
+
+            // Loading State (Ubah Teks Tombol)
+            const textAwal = btnKirim.innerHTML;
+            btnKirim.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+            btnKirim.disabled = true;
+            btnKirim.classList.add('opacity-50', 'cursor-not-allowed');
+
+            try {
+                // Proses penyimpanan ke Firestore
+                await addDoc(rsvpCollection, {
+                    nama: namaVal,
+                    ucapan: ucapanVal,
+                    kehadiran: kehadiranVal,
+                    timestamp: serverTimestamp() // Otomatis catat waktu dari server Google
+                });
+
+                // Reset Form
+                formRsvp.reset();
+                
+                // Sukses State
+                btnKirim.innerHTML = '<i class="fas fa-check"></i> Terkirim!';
+                btnKirim.classList.replace('text-black', 'text-white');
+                btnKirim.classList.replace('bg-gold', 'bg-[#28a745]');
+                btnKirim.classList.replace('border-gold', 'border-[#28a745]');
+
+            } catch (error) {
+                console.error("Gagal mengirim RSVP:", error);
+                alert("Maaf, terjadi kesalahan jaringan. Silakan coba lagi.");
+            } finally {
+                // Kembalikan Tombol ke Semula setelah 3 detik
+                setTimeout(() => {
+                    btnKirim.innerHTML = textAwal;
+                    btnKirim.disabled = false;
+                    btnKirim.classList.remove('opacity-50', 'cursor-not-allowed', 'text-white', 'bg-[#28a745]', 'border-[#28a745]');
+                    btnKirim.classList.add('text-black', 'bg-gold', 'border-gold');
+                }, 3000);
+            }
+        });
+
     </script>
 </body>
 </html>
