@@ -154,7 +154,6 @@
         @media (prefers-reduced-motion: reduce){ .muncul, .muncul-kiri, .muncul-kanan, .zoom { transition: none !important; } }
     </style>
 </head>
-<!-- Body dikunci saat pertama kali dimuat -->
 <body class="flex justify-center text-gold antialiased selection:bg-gold selection:text-black lock-scroll">
 
     <!-- Tombol Mengambang (Fullscreen & Music) -->
@@ -176,7 +175,7 @@
     <main class="w-full max-w-[420px] mx-auto bg-darkbg min-h-[100dvh] relative shadow-2xl overflow-x-hidden">
 
         <!-- ========================================== -->
-        <!-- SECTION 1: COVER (Sampul Sesuai Permintaan) -->
+        <!-- SECTION 1: COVER (Sampul) -->
         <!-- ========================================== -->
         <section id="section-cover" class="relative w-full h-[100dvh] flex flex-col items-center justify-between py-10 px-4 bg-[#0a0a0a] z-50 shrink-0">
             
@@ -188,7 +187,7 @@
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="w-full">
             </div>
 
-            <!-- Teks The Wedding Of (Jarak mt disesuaikan agar proporsional) -->
+            <!-- Teks The Wedding Of -->
             <div class="flex flex-col items-center mt-[10vh] z-10 w-full zoom active">
                 <h2 class="font-cinzel text-[11px] sm:text-[12px] tracking-[0.2em] font-semibold text-goldlight uppercase mb-3 text-center whitespace-nowrap">The Wedding Of</h2>
                 <div class="w-[60%] max-w-[200px] h-[1px] bg-gold/70"></div>
@@ -215,10 +214,9 @@
                 <p class="font-montserrat text-[11px] text-gold/90 mb-2 font-medium">Kepada Yth: Bpk/Ibu/Saudara/i</p>
                 <h3 class="font-montserrat font-semibold text-[16px] mb-6 text-goldlight text-center namatamu">Tamu Undangan</h3>
                 
-                <!-- Tombol Buka Undangan Dipercantik -->
-                <button id="tombol-buka" class="w-full py-3.5 border border-gold/60 rounded-lg text-[10px] tracking-[0.2em] font-bold font-montserrat uppercase text-gold bg-transparent hover:bg-gold/15 hover:border-gold hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] focus:outline-none transition-all duration-500 flex items-center justify-center gap-2 group cursor-pointer">
-                    <i id="btn-icon" class="far fa-envelope-open text-sm elementor-button-icon group-hover:scale-110 transition-transform"></i>
-                    <span class="elementor-button-text">Buka Undangan</span>
+                <button id="tombol-buka" class="w-full py-3.5 border border-gold/60 rounded-lg text-[10px] tracking-[0.2em] font-bold font-montserrat uppercase text-gold bg-transparent hover:bg-gold/15 hover:border-gold focus:outline-none transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer">
+                    <i id="btn-icon" class="far fa-envelope-open text-[13px]"></i>
+                    <span id="btn-text">Buka Undangan</span>
                 </button>
                 
                 <p class="font-montserrat italic text-[8.5px] text-gold/60 mt-5 text-center leading-relaxed">*) Mohon maaf apabila ada kesalahan penulisan nama/gelar</p>
@@ -235,7 +233,7 @@
             <!-- ========================================== -->
             <section id="section-tujuan" class="section-card">
                 
-                <!-- Ornamen Pojok (Opacity 35%) -->
+                <!-- Ornamen Pojok -->
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -top-10 -left-10 w-[180px] opacity-35 mix-blend-screen pointer-events-none z-0">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-10 -right-10 w-[180px] opacity-35 mix-blend-screen pointer-events-none z-0 transform rotate-180">
 
@@ -248,9 +246,9 @@
                     
                     <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Akhirnya, hari yang kami nantikan telah tiba. Hari kebahagiaan yang sangat spesial bagi kami.</p>
 
-                    <!-- MASKING BISMILLAH MENGGUNAKAN CSS ABSOLUTE -->
+                    <!-- MASKING BISMILLAH YANG PASTI MUNCUL EMAS -->
                     <div class="w-full flex justify-center mb-10 zoom">
-                        <div class="bg-[#d4af37]" style="width: 220px; height: 50px; -webkit-mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"></div>
+                        <div style="width: 220px; height: 50px; background-color: #d4af37; -webkit-mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"></div>
                     </div>
 
                     <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Atas Izin dan Ridho Allah SWT, dan dengan restu orangtua kami. Maka Insya Allah kami akan melangsungkan acara pernikahan kami.</p>
@@ -280,7 +278,6 @@
 
                     <p class="font-montserrat text-[10px] text-center text-gold/70 mb-5 muncul px-4 leading-relaxed">Klik tombol dibawah untuk tambahkan pengingat otomatis ke kalender Google</p>
                     
-                    <!-- Wrapper Animasi Tombol -->
                     <div class="zoom">
                         <a href="#" target="_blank" class="border border-gold/70 bg-[#0a0a0a] rounded text-[10px] tracking-[0.1em] font-montserrat font-semibold text-gold py-3 px-6 hover:bg-gold hover:text-black transition-all flex items-center gap-2">
                             <i class="far fa-calendar-alt"></i> Simpan di Kalender
@@ -728,7 +725,18 @@
           });
         })();
 
-        gsap.registerPlugin(ScrollToPlugin);
+        // Matikan Native Smooth Scroll agar tidak bentrok (Sesuai referensi Elementor awal)
+        (function killNativeSmooth(){
+            const style = document.createElement('style');
+            style.id = 'gsap-smooth-killer';
+            style.textContent = 'html{scroll-behavior:auto !important;}';
+            document.head.appendChild(style);
+        })();
+
+        // Daftarkan ScrollToPlugin milik GSAP
+        if (typeof gsap !== 'undefined' && typeof ScrollToPlugin !== 'undefined') {
+            gsap.registerPlugin(ScrollToPlugin);
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -745,29 +753,21 @@
             const fsButton = document.getElementById('enter-fullscreen');
             const fsIcon = fsButton.querySelector('i');
 
-            // --- 1. MATIKAN NATIVE SMOOTH SCROLL ---
-            (function killNativeSmooth(){
-                const style = document.createElement('style');
-                style.id = 'gsap-smooth-killer';
-                style.textContent = 'html{scroll-behavior:auto !important;}';
-                document.head.appendChild(style);
-            })();
-
-            // --- 2. LOGIKA SCROLL LOCK ---
+            // --- 1. LOGIKA SCROLL LOCK ---
             const lockScroll = () => {
-                document.documentElement.style.overflow = 'hidden';
-                document.body.style.overflow = 'hidden';
+                document.body.classList.add('lock-scroll');
+                document.documentElement.classList.add('lock-scroll');
                 window.scrollTo(0, 0);
             };
             const unlockScroll = () => {
-                document.documentElement.style.overflow = '';
-                document.body.style.overflow = '';
+                document.body.classList.remove('lock-scroll');
+                document.documentElement.classList.remove('lock-scroll');
             };
 
-            // Kunci scroll saat pertama kali web dimuat
+            // Kunci scroll mutlak saat web dimuat
             lockScroll();
 
-            // --- 3. HELPER FULLSCREEN ---
+            // --- 2. HELPER FULLSCREEN ---
             function isFullscreen() {
                 return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
             }
@@ -795,20 +795,24 @@
 
             function updateFullscreenIcon() {
                 if (isFullscreen()) {
-                    fsIcon.classList.remove('fa-expand-arrows-alt');
-                    fsIcon.classList.add('fa-compress-arrows-alt');
+                    if(fsIcon) {
+                        fsIcon.classList.remove('fa-expand-arrows-alt');
+                        fsIcon.classList.add('fa-compress-arrows-alt');
+                    }
                 } else {
-                    fsIcon.classList.remove('fa-compress-arrows-alt');
-                    fsIcon.classList.add('fa-expand-arrows-alt');
+                    if(fsIcon) {
+                        fsIcon.classList.remove('fa-compress-arrows-alt');
+                        fsIcon.classList.add('fa-expand-arrows-alt');
+                    }
                 }
             }
 
-            fsButton.addEventListener('click', toggleFullscreen);
+            if(fsButton) fsButton.addEventListener('click', toggleFullscreen);
             document.addEventListener('fullscreenchange', updateFullscreenIcon);
             document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
             document.addEventListener('msfullscreenchange', updateFullscreenIcon);
 
-            // --- 4. LOGIKA TOMBOL BUKA UNDANGAN (GSAP INSTAN) ---
+            // --- 3. LOGIKA TOMBOL BUKA UNDANGAN (GSAP INSTAN & BEBAS LAG) ---
             const setButtonToScroll = () => {
                 if (btnText) btnText.textContent = 'SCROLL KE BAWAH';
                 if (btnIcon) {
@@ -819,40 +823,52 @@
 
             const scrollKeTujuan = () => {
                 if (!targetSection) return;
-                const currentY = window.pageYOffset || document.documentElement.scrollTop || 0;
-                const rect = targetSection.getBoundingClientRect();
-                const targetY = currentY + rect.top;
-                const dist = Math.abs(targetY - currentY);
-                const durasi = Math.max(0.9, Math.min(1.6, dist / 1600));
+                
+                if (typeof gsap !== 'undefined') {
+                    const currentY = window.pageYOffset || document.documentElement.scrollTop || 0;
+                    const rect = targetSection.getBoundingClientRect();
+                    const targetY = currentY + rect.top;
+                    const dist = Math.abs(targetY - currentY);
+                    const durasi = Math.max(0.9, Math.min(1.6, dist / 1600));
 
-                gsap.to(window, {
-                    duration: durasi,
-                    ease: 'power2.out',
-                    scrollTo: { y: targetSection, autoKill: false }
-                });
+                    gsap.to(window, {
+                        duration: durasi,
+                        ease: 'power2.out',
+                        scrollTo: { y: targetSection, autoKill: false }
+                    });
+                } else {
+                    // Fallback jika GSAP gagal load
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
             };
 
             const handleFirstClick = (e) => {
                 e.preventDefault();
                 setButtonToScroll();
 
+                // Lepas gembok scroll
                 unlockScroll(); 
 
-                contentUndangan.classList.remove('hidden');
-                contentUndangan.classList.add('flex');
+                // Tampilkan seluruh konten undangan
+                if(contentUndangan) {
+                    contentUndangan.classList.remove('hidden');
+                    contentUndangan.classList.add('flex');
+                }
 
+                // Mainkan lagu
                 if (audio && audio.paused) {
                     audio.play().catch(err => console.log("Audio play di-block:", err));
                 }
 
-                // Eksekusi Fullscreen instan
+                // Paksa layar ke mode Fullscreen tanpa diblok/tunggu
                 enterFullscreen(document.documentElement);
                 
-                // Animasi scroll instan
+                // Langsung luncurkan layar ke bawah dengan GSAP (jeda micro 150ms agar DOM ready)
                 setTimeout(() => {
                     scrollKeTujuan();
-                }, 50);
+                }, 150);
 
+                // Ubah status event tombol cover menjadi fungsi scroll saja
                 btnCover.removeEventListener('click', handleFirstClick);
                 btnCover.addEventListener('click', (ev) => { 
                     ev.preventDefault(); 
@@ -864,27 +880,33 @@
                 btnCover.addEventListener('click', handleFirstClick);
             }
 
+            // Jika user secara tak sengaja masuk mode fullscreen via trigger lain, text ikut berganti
             const onFsChange = () => { 
-                if(isFullscreen() && !document.body.classList.contains('scroll-lock')) {
+                if(isFullscreen() && !document.body.classList.contains('lock-scroll')) {
                     setButtonToScroll(); 
                 }
             };
             document.addEventListener('fullscreenchange', onFsChange);
 
-            // --- 5. LOGIKA AUDIO ---
-            audioToggle.addEventListener('click', function () {
-                if (audio.paused) audio.play();
-                else audio.pause();
-            });
+            // --- 4. LOGIKA AUDIO (PLAY/PAUSE) ---
+            if(audioToggle) {
+                audioToggle.addEventListener('click', function () {
+                    if (audio.paused) audio.play();
+                    else audio.pause();
+                });
+            }
 
-            audio.addEventListener('play', function () {
-                audioToggle.classList.add('rotating');
-            });
-            audio.addEventListener('pause', function () {
-                audioToggle.classList.remove('rotating');
-            });
+            if(audio) {
+                audio.addEventListener('play', function () {
+                    if(audioToggle) audioToggle.classList.add('rotating');
+                });
+                audio.addEventListener('pause', function () {
+                    if(audioToggle) audioToggle.classList.remove('rotating');
+                });
+            }
 
             document.addEventListener('visibilitychange', function () {
+                if (!audio) return;
                 if (document.hidden) {
                     if (!audio.paused) {
                         audio.pause();
@@ -899,7 +921,7 @@
                 }
             });
 
-            // --- 6. ANIMASI SCROLL REPEATING ---
+            // --- 5. ANIMASI SCROLL REPEATING (Intersection Observer) ---
             const selector = ".muncul, .muncul-kiri, .muncul-kanan, .zoom";
             const elementVisible = 110;
             const qAll = (sel, root=document) => Array.from(root.querySelectorAll(sel));
@@ -916,7 +938,7 @@
                 qAll(selector).forEach(el => { ioEnter.observe(el); ioExit.observe(el); });
             }
 
-            // --- 7. COUNTDOWN TIMER ---
+            // --- 6. COUNTDOWN TIMER ---
             const countDownDate = new Date("Jun 11, 2025 08:00:00").getTime();
             const cdDays = document.getElementById("cd-days");
 
@@ -945,7 +967,7 @@
                 }, 1000);
             }
 
-            // --- 8. LOGIKA SALIN NOMOR REKENING ---
+            // --- 7. LOGIKA SALIN NOMOR REKENING ---
             const btnToggleRek = document.getElementById('btn-toggle-rekening');
             const iconToggleRek = document.getElementById('icon-toggle-rekening');
             const textToggleRek = document.getElementById('text-toggle-rekening');
