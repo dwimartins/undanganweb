@@ -8,6 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Kombinasi Font: Cinzel (Mewah), Playfair Display (Elegan Klasik), Montserrat (Bersih/Modern) -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
@@ -20,16 +21,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
     
-    <!-- Tailwind Config Menerima Variabel CSS -->
+    <!-- Tailwind Config Menerima Variabel -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        gold: 'var(--warna-primer)',
-                        goldlight: 'var(--warna-sekunder)',
-                        darkbg: 'var(--warna-bg-luar)',
-                        cardbg: 'var(--warna-bg-kartu)'
+                        /* Ganti warna di sini untuk membuat tema baru secara instan! */
+                        gold: '#d4af37',       /* Warna Utama (Emas Klasik) */
+                        goldlight: '#e8c96b',  /* Warna Terang (Emas Muda/Champagne) */
+                        darkbg: '#000000',     /* Background Paling Luar */
+                        cardbg: '#111111'      /* Background Kotak Section */
                     },
                     fontFamily: {
                         cinzel: ['Cinzel', 'serif'],
@@ -41,21 +43,8 @@
         }
     </script>
 
-    <!-- PUSAT PENGENDALIAN TEMA (CSS VARIABLES & COMPONENTS) -->
+    <!-- PUSAT PENGENDALIAN KOMPONEN (TIDAK ADA LAGI CSS VARIABEL HEX) -->
     <style type="text/tailwindcss">
-        @layer base {
-            :root {
-                /* Ganti warna di sini untuk membuat tema baru secara instan! */
-                --warna-primer: #d4af37;       /* Warna Utama (Emas Klasik) */
-                --warna-sekunder: #e8c96b;     /* Warna Terang (Emas Muda/Champagne) */
-                --warna-bg-luar: #000000;      /* Background Paling Luar */
-                --warna-bg-kartu: #0c0c0c;     /* Background Kotak Section */
-            }
-            
-            html { scroll-behavior: auto !important; }
-            body { background-color: var(--warna-bg-luar); margin: 0; padding: 0; overflow-x: hidden; }
-        }
-
         @layer components {
             /* --- SISTEM TIPOGRAFI --- */
             .teks-judul {
@@ -101,16 +90,20 @@
 
     <!-- CSS STANDAR (Animasi & Layout Khusus) -->
     <style>
+        /* Smooth Scrolling Native Dimatikan agar tidak bentrok dengan GSAP */
+        html { scroll-behavior: auto !important; }
+        body { background-color: #000; margin: 0; padding: 0; overflow-x: hidden; }
+
         /* Scrollbar */
         ::-webkit-scrollbar { width: 4px; background: #000; }
         ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
 
         .lock-scroll { overflow: hidden !important; height: 100vh !important; touch-action: none; }
 
-        /* Struktur Kotak Section (Tidak pakai apply karena pseudo ::after lebih rumit di tailwind) */
+        /* Struktur Kotak Section */
         .section-card {
             position: relative;
-            background-color: var(--warna-bg-kartu);
+            background-color: #0c0c0c;
             border: 1px solid rgba(212, 175, 55, 0.4);
             border-radius: 20px;
             padding: 4rem 1.5rem;
@@ -180,6 +173,7 @@
             .muncul-kiri{  transform: translateX(-2.5rem) scale(0.95); }
             .muncul-kanan{ transform: translateX( 2.5rem) scale(0.95); }
         }
+
         @media (prefers-reduced-motion: reduce){ .muncul, .muncul-kiri, .muncul-kanan, .zoom { transition: none !important; } }
     </style>
 </head>
@@ -196,7 +190,7 @@
         </div>
     </div>
 
-    <!-- WADAH UTAMA MOBILE -->
+    <!-- WADAH UTAMA MOBILE (Dibatas 420px meskipun dibuka di Desktop) -->
     <main class="w-full max-w-[420px] mx-auto bg-darkbg min-h-[100dvh] relative shadow-2xl overflow-x-hidden">
 
         <!-- ========================================== -->
@@ -825,7 +819,7 @@
             document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
             document.addEventListener('msfullscreenchange', updateFullscreenIcon);
 
-            // --- 3. LOGIKA TOMBOL BUKA UNDANGAN (GSAP INSTAN & BEBAS LAG) ---
+            // --- 3. LOGIKA TOMBOL BUKA UNDANGAN (GSAP INSTAN) ---
             const setButtonToScroll = () => {
                 if (btnText) btnText.textContent = 'SCROLL KE BAWAH';
                 if (btnIcon) {
@@ -1017,11 +1011,11 @@
 
                     const originalText = textCopyRek.textContent;
                     textCopyRek.textContent = 'Tersalin!';
-                    btnCopyRek.classList.replace('text-gold', 'text-green-600');
+                    btnCopyRek.classList.replace('text-gray-800', 'text-green-600');
                     
                     setTimeout(() => {
                         textCopyRek.textContent = originalText;
-                        btnCopyRek.classList.replace('text-green-600', 'text-gold');
+                        btnCopyRek.classList.replace('text-green-600', 'text-gray-800');
                     }, 2000);
                 });
             }
