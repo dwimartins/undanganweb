@@ -8,8 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Kombinasi Font: Cinzel (Mewah), Playfair Display (Elegan Klasik), Montserrat (Bersih/Modern) -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -36,6 +35,7 @@
                         cinzel: ['Cinzel', 'serif'],
                         montserrat: ['Montserrat', 'sans-serif'],
                         playfair: ['Playfair Display', 'serif'],
+                        alex: ['Alex Brush', 'cursive'],
                     }
                 }
             }
@@ -43,12 +43,11 @@
     </script>
 
     <style>
-        /* Base & Native Smooth Scroll Dimatikan (Diurus GSAP) */
-        html { scroll-behavior: auto !important; }
-        body { background-color: #050505; margin: 0; padding: 0; overflow-x: hidden; }
+        /* Base & Native Smooth Scroll Dimatikan agar tidak bentrok dengan GSAP */
+        body { background-color: #000; margin: 0; padding: 0; overflow-x: hidden; }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 4px; background: #050505; }
+        ::-webkit-scrollbar { width: 4px; background: #000; }
         ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
 
         /* --- KOTAK SECTION UTAMA --- */
@@ -106,7 +105,7 @@
 
         /* --- TOMBOL MENGAMBANG (Sesuai Script User) --- */
         #enter-fullscreen {
-            position: fixed; bottom: 70px; right: 20px; width: 32px; height: 32px; font-size: 16px;
+            position: fixed; bottom: 70px; right: 20px; width: 30px; height: 30px; font-size: 16px;
             background-color: #C18800; color: white; border: none; border-radius: 50%;
             cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
@@ -116,17 +115,17 @@
             background-color: #C18800; border-radius: 50%; cursor: pointer; z-index: 1000;
             display: flex; align-items: center; justify-content: center;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
         }
-        #audio-toggle svg { width: 16px; height: 16px; fill: white; }
+        #audio-toggle svg { width: 18px; height: 18px; fill: white; }
         #audio-toggle.rotating { animation: spin-continuous 3s linear infinite; }
         @keyframes spin-continuous { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
 
         /* ==================================================== */
         /* CSS ANIMASI SCROLL & ORNAMEN (DARI REFERENSI USER) */
         /* ==================================================== */
-        .goyang-1 img { animation-name: goyang1; animation-duration: 7s; animation-iteration-count: infinite; animation-timing-function: linear; }
-        .goyang-2 img { animation-name: goyang2; animation-duration: 5s; animation-iteration-count: infinite; animation-timing-function: linear; }
+        .goyang-1 img, .goyang-1 { animation-name: goyang1; animation-duration: 7s; animation-iteration-count: infinite; animation-timing-function: linear; }
+        .goyang-2 img, .goyang-2 { animation-name: goyang2; animation-duration: 5s; animation-iteration-count: infinite; animation-timing-function: linear; }
         .zoom-1 { transform: scale(1); animation: zoom 3s infinite; }
         .zoom-2 img { transform: scale(1); animation: zoom 2s infinite; }
         
@@ -137,17 +136,22 @@
         /* Class Animasi Scroll */
         .muncul, .muncul-kiri, .muncul-kanan, .zoom { will-change: transform, opacity; }
         
-        .muncul{ position: relative; transform: translateY(4rem) scale(0.95); opacity: 0; transition: transform 1s ease, opacity 0.8s ease !important; }
+        .muncul{ position: relative; transform: translateY(6rem) scale(0.93); opacity: 0; transition: transform 1s ease, opacity .5s ease !important; }
         .muncul.active{ transform: translateY(0) scale(1); opacity: 1; }
         
-        .muncul-kiri{ position: relative; transform: translateX(-50%) scale(0.95); opacity: 0; transition: transform 1s ease, opacity 0.8s ease !important; }
+        .muncul-kiri{ position: relative; transform: translateX(-100%) scale(0.93); opacity: 0; transition: transform 1s ease, opacity .5s ease !important; }
         .muncul-kiri.active{ transform: translateX(0) scale(1); opacity: 1; }
         
-        .muncul-kanan{ position: relative; transform: translateX(50%) scale(0.95); opacity: 0; transition: transform 1s ease, opacity 0.8s ease !important; }
+        .muncul-kanan{ position: relative; transform: translateX(100%) scale(0.93); opacity: 0; transition: transform 1s ease, opacity .5s ease !important; }
         .muncul-kanan.active{ transform: translateX(0) scale(1); opacity: 1; }
         
-        .zoom{ position: relative; transform: scale(0.8); opacity: 0; transition: transform 1.2s ease, opacity 0.8s ease !important; }
+        .zoom{ position: relative; transform: scale(0.5); opacity: 0; transition: transform 1.5s ease, opacity .5s ease !important; }
         .zoom.active{ transform: scale(1); opacity: 1; }
+
+        @media (max-width: 600px){
+            .muncul-kiri{  transform: translateX(-2.5rem) scale(0.93); }
+            .muncul-kanan{ transform: translateX( 2.5rem) scale(0.93); }
+        }
 
         @media (prefers-reduced-motion: reduce){ .muncul, .muncul-kiri, .muncul-kanan, .zoom { transition: none !important; } }
     </style>
@@ -156,7 +160,7 @@
 
     <!-- Tombol Mengambang (Fullscreen & Music) -->
     <button id="enter-fullscreen">
-        <i class="fas fa-expand-arrows-alt"></i>
+        <i class="fas fa-expand-arrows-alt" style="font-size: 14px;"></i>
     </button>
     <div id="audio-container">
         <audio id="audio" loop>
@@ -173,17 +177,13 @@
     <main class="w-full max-w-[430px] mx-auto bg-darkbg min-h-[100dvh] relative shadow-2xl overflow-x-hidden">
 
         <!-- ========================================== -->
-        <!-- SECTION 1: COVER (Sesuai Gambar 1 - Pixel Perfect) -->
+        <!-- SECTION 1: COVER -->
         <!-- ========================================== -->
-        <!-- Memiliki 100dvh mutlak. Karena div "content-undangan" di bawahnya di-hide, scroll TIDAK AKAN BISA dilakukan -->
         <section id="section-cover" class="relative w-full h-[100dvh] flex flex-col items-center justify-between py-10 px-4 bg-[#0a0a0a] z-50">
             
-            <!-- Border Luar Solid -->
             <div class="absolute inset-2 border border-gold/70 rounded-[20px] pointer-events-none z-0"></div>
-            <!-- Arch Dalam -->
             <div class="cover-arch"></div>
             
-            <!-- Ornamen Bunga (Kiri Atas) dengan efek goyang -->
             <div class="absolute top-0 -left-6 w-[280px] opacity-70 mix-blend-screen pointer-events-none z-0 goyang-1">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="w-full">
             </div>
@@ -195,7 +195,7 @@
                 <div class="w-[80%] h-[1px] bg-gold/70"></div>
             </div>
 
-            <!-- Inisial Mempelai (Mewah, Serif Italic Tumpang Tindih) -->
+            <!-- Inisial Mempelai -->
             <div class="relative flex justify-center items-center w-full h-32 z-10 my-4 zoom active" style="transition-delay: 0.2s">
                 <h1 class="font-playfair italic text-[7rem] text-goldlight drop-shadow-md absolute -ml-16 -mt-10">L</h1>
                 <h1 class="font-playfair italic text-[7rem] text-goldlight drop-shadow-md absolute ml-16 mt-14">P</h1>
@@ -211,13 +211,13 @@
                 <p class="font-cinzel text-[11px] tracking-[0.25em] font-semibold text-goldlight uppercase mt-1">29 Maret 2025</p>
             </div>
 
-            <!-- Kotak Tamu (Persis Screenshot) -->
+            <!-- Kotak Tamu -->
             <div class="w-[90%] max-w-[320px] bg-[#0c0c0c]/95 border border-gold/40 rounded-xl py-6 px-5 flex flex-col items-center z-10 shadow-2xl mb-2 zoom active" style="transition-delay: 0.6s">
                 <p class="font-montserrat text-[11px] text-gold/90 mb-2 font-medium">Kepada Yth: Bpk/Ibu/Saudara/i</p>
                 <h3 class="font-montserrat font-semibold text-[16px] mb-6 text-goldlight">Tamu Undangan</h3>
                 
                 <button id="tombol-buka" class="w-full py-3.5 border border-gold/80 rounded text-[10px] tracking-widest font-bold font-montserrat uppercase text-gold hover:bg-gold hover:text-black transition-all duration-300 flex items-center justify-center gap-2">
-                    <i class="far fa-envelope-open text-[13px] elementor-button-icon"></i>
+                    <span class="elementor-button-icon"><i class="far fa-envelope-open text-[13px]"></i></span>
                     <span class="elementor-button-text">Buka Undangan</span>
                 </button>
                 
@@ -297,6 +297,7 @@
                     <p class="font-montserrat text-[12px] font-light text-gold/80 mb-2">Putri Pertama dari Keluarga</p>
                     <p class="font-montserrat text-[12px] text-center text-goldlight mb-5 leading-relaxed font-medium">Bapak Jose Mourinho<br>dan Ibu Happy Mourinho</p>
                     <div class="flex gap-2 justify-center mb-4 zoom">
+                        <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
@@ -312,6 +313,7 @@
                     <p class="font-montserrat text-[12px] font-light text-gold/80 mb-2">Putra Pertama dari Keluarga</p>
                     <p class="font-montserrat text-[12px] text-center text-goldlight mb-5 leading-relaxed font-medium">Bapak Pep Guardiola<br>& Ibu Happy Guardiola</p>
                     <div class="flex gap-2 justify-center mb-4 zoom">
+                        <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
@@ -627,7 +629,21 @@
                 document.head.appendChild(style);
             })();
 
-            // --- 2. LOGIKA FULLSCREEN ---
+            // --- 2. LOGIKA SCROLL LOCK (Sesuai Script User) ---
+            const lockScroll = () => {
+                document.documentElement.style.overflow = 'hidden';
+                document.body.style.overflow = 'hidden';
+                window.scrollTo(0, 0);
+            };
+            const unlockScroll = () => {
+                document.documentElement.style.overflow = '';
+                document.body.style.overflow = '';
+            };
+
+            // Kunci scroll saat pertama kali web dimuat!
+            lockScroll();
+
+            // --- 3. HELPER FULLSCREEN & JEDA ---
             const wait = (ms) => new Promise(r => setTimeout(r, ms));
 
             function isFullscreen() {
@@ -688,7 +704,7 @@
             document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
             document.addEventListener('msfullscreenchange', updateFullscreenIcon);
 
-            // --- 3. LOGIKA TOMBOL BUKA UNDANGAN (GSAP) ---
+            // --- 4. LOGIKA TOMBOL BUKA UNDANGAN (GSAP) ---
             const setButtonToScroll = () => {
                 if (btnText) btnText.textContent = 'SCROLL KE BAWAH';
                 if (btnIcon) {
@@ -716,22 +732,30 @@
                 e.preventDefault();
                 setButtonToScroll();
 
-                // Munculkan semua konten yang sebelumnya "hidden"
+                // 1. Lepas kunci Scroll agar GSAP bisa bergerak
+                unlockScroll(); 
+
+                // 2. Munculkan semua konten yang sebelumnya "hidden"
                 contentUndangan.classList.remove('hidden');
                 contentUndangan.classList.add('flex');
 
-                // Mulai musik 
+                // 3. Mulai musik 
                 if (audio && audio.paused) {
                     audio.play().catch(err => console.log("Audio play di-block:", err));
                 }
 
-                // Masuk Fullscreen
-                await enterFullscreen(document.documentElement, 1000);
+                // 4. Masuk Fullscreen dan tunggu buffer (Mencegah Layar Hitam)
+                const DELAY_SETELAH_FULLSCREEN_MS = 800; // Ritual tunggu transisi OS selesai
+                const BUFFER_SETELAH_FS_MS = 180;
+
+                await enterFullscreen(document.documentElement, 2000);
+                await wait(BUFFER_SETELAH_FS_MS);
+                await wait(DELAY_SETELAH_FULLSCREEN_MS);
                 
-                await wait(50); 
-                
+                // 5. Scroll dengan GSAP
                 scrollKeTujuan();
 
+                // 6. Ganti event listener tombol untuk klik berikutnya
                 btnCover.removeEventListener('click', handleFirstClick);
                 btnCover.addEventListener('click', (ev) => { ev.preventDefault(); scrollKeTujuan(); });
             };
@@ -741,13 +765,13 @@
             }
 
             const onFsChange = () => { 
-                if(isFullscreen() && !document.body.classList.contains('scroll-lock')) {
+                if(isFullscreen() && document.documentElement.style.overflow !== 'hidden') {
                     setButtonToScroll(); 
                 }
             };
             document.addEventListener('fullscreenchange', onFsChange);
 
-            // --- 4. LOGIKA AUDIO ---
+            // --- 5. LOGIKA AUDIO ---
             audioToggle.addEventListener('click', function () {
                 if (audio.paused) audio.play();
                 else audio.pause();
@@ -775,13 +799,11 @@
                 }
             });
 
-            // --- 5. ANIMASI SCROLL REPEATING (Intersection Observer) ---
+            // --- 6. ANIMASI SCROLL REPEATING (Intersection Observer) ---
             const selector = ".muncul, .muncul-kiri, .muncul-kanan, .zoom";
             const elementVisible = 110;
             const qAll = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
-            // Kita buat agar setiap kali element masuk layar dia ditambah class 'active', 
-            // setiap kali keluar layar dia dihapus class 'active'-nya.
             if ("IntersectionObserver" in window) {
                 const ioEnter = new IntersectionObserver((entries) => {
                     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("active"); });
@@ -794,7 +816,7 @@
                 qAll(selector).forEach(el => { ioEnter.observe(el); ioExit.observe(el); });
             }
 
-            // --- 6. COUNTDOWN TIMER ---
+            // --- 7. COUNTDOWN TIMER ---
             const countDownDate = new Date("Jun 11, 2025 08:00:00").getTime();
             const cdDays = document.getElementById("cd-days");
 
@@ -823,7 +845,7 @@
                 }, 1000);
             }
 
-            // --- 7. LOGIKA SALIN NOMOR REKENING ---
+            // --- 8. LOGIKA SALIN NOMOR REKENING ---
             const btnToggleRek = document.getElementById('btn-toggle-rekening');
             const iconToggleRek = document.getElementById('icon-toggle-rekening');
             const textToggleRek = document.getElementById('text-toggle-rekening');
