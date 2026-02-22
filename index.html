@@ -17,6 +17,10 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- GSAP & ScrollToPlugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    
     <!-- Tailwind Config -->
     <script>
         tailwind.config = {
@@ -39,8 +43,8 @@
     </script>
 
     <style>
-        /* Smooth Scrolling Native */
-        html { scroll-behavior: smooth; }
+        /* Smooth Scrolling Native Dimatikan agar tidak bentrok dengan GSAP */
+        html { scroll-behavior: auto !important; }
         body { background-color: #000; margin: 0; padding: 0; overflow-x: hidden; }
 
         /* Custom Scrollbar */
@@ -86,11 +90,6 @@
             border-bottom-right-radius: 15px;
             pointer-events: none;
             z-index: 0;
-        }
-
-        /* Trik Filter Emas untuk Gambar Putih */
-        .filter-gold {
-            filter: brightness(0) saturate(100%) invert(72%) sepia(48%) saturate(545%) hue-rotate(6deg) brightness(90%) contrast(88%);
         }
 
         /* Input Styling RSVP */
@@ -180,14 +179,14 @@
             <div class="cover-arch"></div>
             
             <!-- Ornamen Bunga (Kiri Atas) -->
-            <div class="absolute top-0 -left-6 w-[230px] opacity-70 mix-blend-screen pointer-events-none z-0 goyang-1">
+            <div class="absolute top-0 -left-4 w-[210px] opacity-80 mix-blend-screen pointer-events-none z-0 goyang-1">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="w-full">
             </div>
 
-            <!-- Teks The Wedding Of (1 Baris) -->
-            <div class="flex flex-col items-center mt-[15vh] z-10 w-full zoom active">
-                <h2 class="font-cinzel text-[11px] tracking-[0.25em] font-semibold text-goldlight uppercase mb-3 text-center whitespace-nowrap">The Wedding Of</h2>
-                <div class="w-[50%] h-[1px] bg-gold/60"></div>
+            <!-- Teks The Wedding Of (Jarak mt disesuaikan agar proporsional) -->
+            <div class="flex flex-col items-center mt-[10vh] z-10 w-full zoom active">
+                <h2 class="font-cinzel text-[11px] sm:text-[12px] tracking-[0.2em] font-semibold text-goldlight uppercase mb-3 text-center whitespace-nowrap">The Wedding Of</h2>
+                <div class="w-[60%] max-w-[200px] h-[1px] bg-gold/70"></div>
             </div>
 
             <!-- Inisial Mempelai (Playfair Italic Mewah) -->
@@ -198,7 +197,9 @@
 
             <!-- Cincin & Tanggal -->
             <div class="flex flex-col items-center z-10 mt-6 mb-auto zoom active" style="transition-delay: 0.4s">
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/pngegg-43.png" alt="Rings" class="w-[55px] mb-5 drop-shadow-lg zoom-1">
+                <div class="zoom-2">
+                    <img src="https://undangandari.com/wp-content/uploads/2025/08/pngegg-43.png" alt="Rings" class="w-[55px] mb-5 drop-shadow-lg zoom-1">
+                </div>
                 <div class="w-24 h-[1px] bg-gold/50 mb-3"></div>
                 <p class="font-cinzel text-[10px] tracking-[0.2em] font-semibold text-goldlight uppercase">Surabaya</p>
                 <p class="font-cinzel text-[10px] tracking-[0.2em] font-semibold text-goldlight uppercase mt-1">29 Maret 2025</p>
@@ -207,14 +208,14 @@
             <!-- Kotak Tamu -->
             <div class="w-[85%] max-w-[300px] bg-[#0c0c0c]/95 border border-gold/40 rounded-xl py-6 px-5 flex flex-col items-center z-10 shadow-2xl mb-2 zoom active" style="transition-delay: 0.6s">
                 <p class="font-montserrat text-[11px] text-gold/90 mb-2 font-medium">Kepada Yth: Bpk/Ibu/Saudara/i</p>
-                <h3 class="font-montserrat font-semibold text-[15px] mb-6 text-goldlight text-center">Tamu Undangan</h3>
+                <h3 class="font-montserrat font-semibold text-[16px] mb-6 text-goldlight text-center namatamu">Tamu Undangan</h3>
                 
                 <button id="tombol-buka" class="w-full py-3.5 border border-gold/80 rounded text-[10px] tracking-widest font-bold font-montserrat uppercase text-gold hover:bg-gold hover:text-black transition-all duration-300 flex items-center justify-center gap-2">
-                    <i id="btn-icon" class="far fa-envelope-open text-[13px]"></i>
-                    <span id="btn-text">Buka Undangan</span>
+                    <span class="elementor-button-icon"><i class="far fa-envelope-open text-[13px]"></i></span>
+                    <span class="elementor-button-text">Buka Undangan</span>
                 </button>
                 
-                <p class="font-montserrat italic text-[8px] text-gold/60 mt-5 text-center leading-relaxed">*) Mohon maaf apabila ada kesalahan penulisan nama/gelar</p>
+                <p class="font-montserrat italic text-[8.5px] text-gold/60 mt-5 text-center leading-relaxed">*) Mohon maaf apabila ada kesalahan penulisan nama/gelar</p>
             </div>
         </section>
 
@@ -228,7 +229,7 @@
             <!-- ========================================== -->
             <section id="section-tujuan" class="section-card">
                 
-                <!-- Ornamen Pojok -->
+                <!-- Ornamen Pojok (Opacity 35%) -->
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -top-10 -left-10 w-[180px] opacity-35 mix-blend-screen pointer-events-none z-0">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-10 -right-10 w-[180px] opacity-35 mix-blend-screen pointer-events-none z-0 transform rotate-180">
 
@@ -241,15 +242,15 @@
                     
                     <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Akhirnya, hari yang kami nantikan telah tiba. Hari kebahagiaan yang sangat spesial bagi kami.</p>
 
-                    <!-- MASKING KALIGRAFI (Menggunakan Filter Emas agar anti lag dan pasti muncul) -->
+                    <!-- MASKING BISMILLAH YANG PASTI MUNCUL EMAS -->
                     <div class="w-full flex justify-center mb-10 zoom">
-                        <img src="https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png" alt="Assalamualaikum" class="w-[200px] h-auto filter-gold drop-shadow-md">
+                        <div style="width: 220px; height: 45px; background-color: #d4af37; -webkit-mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"></div>
                     </div>
 
                     <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Atas Izin dan Ridho Allah SWT, dan dengan restu orangtua kami. Maka Insya Allah kami akan melangsungkan acara pernikahan kami.</p>
                     <div class="w-32 h-[1px] bg-gold/40 mb-10 muncul"></div>
                     
-                    <h2 class="font-cinzel text-xl font-bold tracking-[0.15em] text-goldlight mb-8 muncul uppercase">Save The Date</h2>
+                    <h2 class="font-cinzel text-xl font-bold tracking-widest text-goldlight mb-8 muncul uppercase">Save The Date</h2>
 
                     <!-- Kotak Countdown -->
                     <div class="grid grid-cols-4 gap-2 w-full max-w-[280px] mb-10 zoom">
@@ -583,7 +584,7 @@
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-10 -right-10 w-[180px] opacity-35 mix-blend-screen pointer-events-none z-0 transform rotate-180">
 
                 <div class="relative z-10 flex flex-col items-center w-full">
-                    <h2 class="font-cinzel text-[22px] font-bold text-goldlight mb-4 zoom tracking-widest uppercase text-center leading-tight">Turut<br>Mengundang</h2>
+                    <h2 class="font-cinzel text-2xl font-bold text-goldlight mb-4 zoom tracking-widest uppercase text-center leading-tight">Turut<br>Mengundang</h2>
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line Divider" class="w-[70%] mb-10 muncul">
 
                     <p class="font-montserrat text-[11px] font-light text-center leading-[1.8] text-gold/90 mb-12 muncul px-2">Kami juga berterima kasih kepada semua pihak yang telah membantu mempersiapkan segala persiapan acara pernikahan kami.</p>
@@ -627,12 +628,12 @@
                     <h2 class="font-cinzel text-2xl font-bold text-goldlight mb-4 zoom tracking-widest text-center uppercase">Terima Kasih</h2>
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line Divider" class="w-[70%] mb-10 muncul">
 
-                    <h3 class="font-playfair text-[15px] text-gold mb-5 muncul italic text-center">Atas Kehadiran & Doa Restunya</h3>
+                    <h3 class="font-playfair text-[16px] text-gold mb-5 muncul italic text-center">Atas Kehadiran & Doa Restunya</h3>
                     <p class="font-montserrat text-[11px] font-light text-center leading-[1.8] text-gold/90 mb-12 muncul px-2">
                         Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.
                     </p>
 
-                    <h4 class="font-cinzel text-[13px] font-semibold text-goldlight uppercase mb-1 muncul">Hormat Kami</h4>
+                    <h4 class="font-cinzel text-[14px] font-semibold text-goldlight uppercase mb-1 muncul">Hormat Kami</h4>
                     <h5 class="font-cinzel text-[10px] tracking-widest text-gold uppercase mb-10 muncul text-center">Keluarga besar yang berbahagia</h5>
 
                     <div class="mb-6 muncul flex flex-col items-center">
@@ -649,11 +650,11 @@
 
                     <div class="flex items-center w-full my-6 zoom gap-4 justify-center">
                         <div class="h-[1px] bg-gold/40 w-10"></div>
-                        <span class="text-lg drop-shadow-md">💖</span>
+                        <span class="text-xl drop-shadow-md">💖</span>
                         <div class="h-[1px] bg-gold/40 w-10"></div>
                     </div>
 
-                    <h2 class="font-cinzel text-[18px] font-bold text-goldlight mt-4 zoom tracking-widest uppercase text-center">LISA & PALMER</h2>
+                    <h2 class="font-cinzel text-xl font-bold text-goldlight mt-4 zoom tracking-widest uppercase text-center">LISA & PALMER</h2>
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line" class="w-[70%] mt-8 muncul">
                 </div>
             </section>
@@ -663,6 +664,59 @@
 
     <!-- LOGIKA JAVASCRIPT UTAMA -->
     <script>
+        // Custom Nama Tamu
+        (function () {
+          'use strict';
+          const config = {
+            selector: '.namatamu',
+            urlParams: ['to', 'dear', 'kepada'],
+            defaultText: 'Tamu Undangan'
+          };
+          function getRecipientName(params, keys) {
+            for (const key of keys) {
+              const value = params.get(key);
+              if (value && value.trim()) {
+                return value.trim();
+              }
+            }
+            return '';
+          }
+          function escapeRegExp(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); 
+          }
+          function replaceTextInNode(node, searchValue, replaceValue) {
+            if (node.nodeType === 1 || node.nodeType === 11) { 
+              node.childNodes.forEach(child => {
+                if (child.nodeType === 3) { 
+                  const safeSearchValue = escapeRegExp(searchValue);
+                  const regex = new RegExp(safeSearchValue, 'gi');
+                  child.textContent = child.textContent.replace(regex, replaceValue);
+                } else {
+                  replaceTextInNode(child, searchValue, replaceValue);
+                }
+              });
+            }
+          }
+          window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const recipient = getRecipientName(params, config.urlParams);
+            const targets = document.querySelectorAll(config.selector);
+            if (targets.length === 0) return;
+
+            targets.forEach(element => {
+              if (recipient) {
+                replaceTextInNode(element, config.defaultText, recipient);
+              } else {
+                if (!element.textContent.trim()) {
+                  element.textContent = config.defaultText;
+                }
+              }
+            });
+          });
+        })();
+
+        gsap.registerPlugin(ScrollToPlugin);
+
         document.addEventListener('DOMContentLoaded', () => {
             
             // --- VARIABEL & ELEMEN UTAMA ---
@@ -720,15 +774,32 @@
             document.addEventListener('msfullscreenchange', updateFullscreenIcon);
 
             // --- 2. LOGIKA TOMBOL BUKA UNDANGAN (AUTO SCROLL CEPAT) ---
-            const handleFirstClick = (e) => {
-                e.preventDefault();
-                
-                // Ubah Teks & Ikon
+            const setButtonToScroll = () => {
                 if (btnText) btnText.textContent = 'SCROLL KE BAWAH';
                 if (btnIcon) {
                     btnIcon.classList.remove('fa-envelope-open', 'far');
                     btnIcon.classList.add('fas', 'fa-arrow-down');
                 }
+            };
+
+            const scrollKeTujuan = () => {
+                if (!targetSection) return;
+                const currentY = window.pageYOffset || document.documentElement.scrollTop || 0;
+                const rect = targetSection.getBoundingClientRect();
+                const targetY = currentY + rect.top;
+                const dist = Math.abs(targetY - currentY);
+                const durasi = Math.max(0.9, Math.min(1.6, dist / 1600));
+
+                gsap.to(window, {
+                    duration: durasi,
+                    ease: 'power2.out',
+                    scrollTo: { y: targetSection, autoKill: false }
+                });
+            };
+
+            const handleFirstClick = (e) => {
+                e.preventDefault();
+                setButtonToScroll();
 
                 // 1. Lepas Kunci Scroll
                 document.body.classList.remove('lock-scroll');
@@ -745,16 +816,17 @@
                 // 4. Minta Fullscreen (Tanpa Menunggu)
                 enterFullscreen(document.documentElement);
                 
-                // 5. Scroll Langsung ke Bawah (Jeda 100ms saja untuk render DOM)
+                // 5. Scroll Langsung ke Bawah 
+                // Menggunakan jeda sekecil mungkin hanya agar DOM dirender menjadi display:flex
                 setTimeout(() => {
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
+                    scrollKeTujuan();
+                }, 50);
 
                 // Ganti event click untuk selanjutnya (hanya scroll)
                 btnCover.removeEventListener('click', handleFirstClick);
                 btnCover.addEventListener('click', (ev) => { 
                     ev.preventDefault(); 
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                    scrollKeTujuan();
                 });
             };
 
