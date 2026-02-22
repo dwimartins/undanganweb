@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Undangan Pernikahan Lisa & Palmer</title>
     
-    <!-- Google Fonts: Elegan & Bersih -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Kombinasi Font: Cinzel (Mewah), Playfair Display (Elegan Klasik), Montserrat (Bersih/Modern) -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
@@ -28,7 +29,7 @@
                     colors: {
                         gold: '#d4af37',
                         goldlight: '#e8c96b',
-                        darkbg: '#050505', /* Lebih pekat seperti di gambar */
+                        darkbg: '#000000',
                         cardbg: '#111111'
                     },
                     fontFamily: {
@@ -724,14 +725,13 @@
                     audio.play().catch(err => console.log("Audio play di-block:", err));
                 }
 
-                // Ritual Fullscreen (Sesuai referensi script user)
-                await enterFullscreen(document.documentElement, 2500);
-                await wait(180);  // Buffer setelah masuk fullscreen
-                await wait(1000); // Delay ritual agar mulus sebelum scroll
+                // Masuk Fullscreen
+                await enterFullscreen(document.documentElement, 1000);
+                
+                await wait(50); 
                 
                 scrollKeTujuan();
 
-                // Ganti fungsi klik untuk klik berikutnya
                 btnCover.removeEventListener('click', handleFirstClick);
                 btnCover.addEventListener('click', (ev) => { ev.preventDefault(); scrollKeTujuan(); });
             };
@@ -739,6 +739,13 @@
             if (btnCover) {
                 btnCover.addEventListener('click', handleFirstClick);
             }
+
+            const onFsChange = () => { 
+                if(isFullscreen() && !document.body.classList.contains('scroll-lock')) {
+                    setButtonToScroll(); 
+                }
+            };
+            document.addEventListener('fullscreenchange', onFsChange);
 
             // --- 4. LOGIKA AUDIO ---
             audioToggle.addEventListener('click', function () {
