@@ -51,6 +51,10 @@
         /* Kunci Scroll Cover */
         .lock-scroll { overflow: hidden !important; height: 100vh !important; touch-action: none; }
 
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 4px; background: #000; }
+        ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
+
         /* --- KOTAK SECTION UTAMA --- */
         .section-card {
             position: relative;
@@ -180,43 +184,43 @@
         <!-- ========================================== -->
         <!-- SECTION 1: COVER -->
         <!-- ========================================== -->
-        <section id="section-cover" class="relative w-full h-[100dvh] flex flex-col items-center py-10 px-4 bg-[#0a0a0a] z-50 shrink-0">
+        <section id="section-cover" class="relative w-full h-[100dvh] flex flex-col items-center justify-between py-10 px-4 bg-[#0a0a0a] z-50 shrink-0">
             
             <div class="absolute inset-2 border-[1.5px] border-gold/70 rounded-[20px] pointer-events-none z-0"></div>
             <div class="cover-arch"></div>
             
             <!-- Ornamen Bunga (Kiri Atas) -->
-            <div class="absolute top-0 -left-4 w-[210px] opacity-80 mix-blend-screen pointer-events-none z-0 goyang-1">
+            <div class="absolute top-0 -left-4 w-[clamp(160px,50vw,210px)] opacity-80 mix-blend-screen pointer-events-none z-0 goyang-1">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="w-full">
             </div>
 
-            <!-- WADAH TENGAH: Memusatkan konten secara dinamis menyesuaikan tinggi HP -->
-            <div class="flex-1 flex flex-col justify-center items-center w-full z-10 mt-8">
+            <!-- WADAH TENGAH: Memusatkan konten secara dinamis (Fluid Sizing) menyesuaikan tinggi HP -->
+            <div class="flex-1 flex flex-col justify-center items-center w-full z-10 my-[clamp(1rem,3vh,2rem)]">
                 <!-- Teks The Wedding Of -->
                 <div class="flex flex-col items-center w-full zoom active">
-                    <h2 class="font-cinzel text-[11px] sm:text-[12px] tracking-[0.2em] font-semibold text-goldlight uppercase mb-3 text-center whitespace-nowrap">The Wedding Of</h2>
+                    <h2 class="font-cinzel text-[clamp(10px,2.5vh,13px)] tracking-[0.2em] font-semibold text-goldlight uppercase mb-[clamp(0.5rem,1.5vh,0.75rem)] text-center whitespace-nowrap">The Wedding Of</h2>
                     <div class="w-[60%] max-w-[200px] h-[1px] bg-gold/70"></div>
                 </div>
 
-                <!-- Inisial Mempelai (Playfair Italic Mewah) -->
-                <div class="relative flex justify-center items-center w-full h-32 my-6 zoom active" style="transition-delay: 0.2s">
-                    <h1 class="font-playfair italic text-[7.5rem] text-goldlight drop-shadow-md absolute -ml-14 -mt-12 leading-none">L</h1>
-                    <h1 class="font-playfair italic text-[7.5rem] text-goldlight drop-shadow-md absolute ml-14 mt-12 leading-none">P</h1>
+                <!-- Inisial Mempelai (Playfair Italic Mewah dengan proporsi dinamis & unit em) -->
+                <div class="relative flex justify-center items-center w-full h-[clamp(6rem,18vh,9rem)] my-[clamp(0.5rem,2vh,1.5rem)] zoom active" style="transition-delay: 0.2s">
+                    <h1 class="font-playfair italic text-[clamp(5.5rem,18vh,8.5rem)] text-goldlight drop-shadow-md absolute -ml-[0.45em] -mt-[0.4em] leading-none">L</h1>
+                    <h1 class="font-playfair italic text-[clamp(5.5rem,18vh,8.5rem)] text-goldlight drop-shadow-md absolute ml-[0.45em] mt-[0.4em] leading-none">P</h1>
                 </div>
 
                 <!-- Cincin & Tanggal -->
-                <div class="flex flex-col items-center mt-2 zoom active" style="transition-delay: 0.4s">
+                <div class="flex flex-col items-center mt-[clamp(0.5rem,2vh,1.5rem)] zoom active" style="transition-delay: 0.4s">
                     <div class="zoom-2">
-                        <img src="https://undangandari.com/wp-content/uploads/2025/08/pngegg-43.png" alt="Rings" class="w-[55px] mb-5 drop-shadow-lg zoom-1">
+                        <img src="https://undangandari.com/wp-content/uploads/2025/08/pngegg-43.png" alt="Rings" class="w-[clamp(45px,8vh,60px)] mb-[clamp(0.5rem,2vh,1.25rem)] drop-shadow-lg zoom-1">
                     </div>
-                    <div class="w-24 h-[1px] bg-gold/50 mb-3"></div>
-                    <p class="font-cinzel text-[10px] tracking-[0.2em] font-semibold text-goldlight uppercase">Surabaya</p>
-                    <p class="font-cinzel text-[10px] tracking-[0.2em] font-semibold text-goldlight uppercase mt-1">29 Maret 2025</p>
+                    <div class="w-24 h-[1px] bg-gold/50 mb-[clamp(0.5rem,1.5vh,0.75rem)]"></div>
+                    <p class="font-cinzel text-[clamp(9px,2vh,11px)] tracking-[0.2em] font-semibold text-goldlight uppercase">Surabaya</p>
+                    <p class="font-cinzel text-[clamp(9px,2vh,11px)] tracking-[0.2em] font-semibold text-goldlight uppercase mt-1">29 Maret 2025</p>
                 </div>
             </div>
 
             <!-- Kotak Tamu -->
-            <div class="w-[85%] max-w-[300px] bg-[#0c0c0c]/95 border border-gold/40 rounded-xl py-6 px-5 flex flex-col items-center z-10 shadow-2xl mb-4 mt-6 zoom active" style="transition-delay: 0.6s">
+            <div class="w-[85%] max-w-[300px] bg-[#0c0c0c]/95 border border-gold/40 rounded-xl py-6 px-5 flex flex-col items-center z-10 shadow-2xl mb-4 mt-2 zoom active" style="transition-delay: 0.6s">
                 <p class="font-montserrat text-[11px] text-gold/90 mb-2 font-medium">Kepada Yth: Bpk/Ibu/Saudara/i</p>
                 <h3 class="font-montserrat font-semibold text-[16px] mb-6 text-goldlight text-center namatamu">Tamu Undangan</h3>
                 
@@ -248,12 +252,11 @@
                     <h2 class="font-cinzel text-[22px] font-bold text-goldlight mb-3 muncul uppercase tracking-widest text-center">Lisa & Palmer</h2>
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line" class="w-[70%] mb-10 muncul">
                     
-                    <!-- Update Tanggal agar sesuai target Countdown 19 Maret 2026 -->
                     <h3 class="font-cinzel text-[12px] tracking-[0.15em] text-gold mb-10 zoom font-semibold uppercase">Kamis, 19 Maret 2026</h3>
                     
                     <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Akhirnya, hari yang kami nantikan telah tiba. Hari kebahagiaan yang sangat spesial bagi kami.</p>
 
-                    <!-- KALIGRAFI ARAB DENGAN CSS FILTER (Anti Gagal di HP) -->
+                    <!-- KALIGRAFI ARAB DENGAN CSS FILTER -->
                     <div class="w-full flex justify-center mb-10 zoom">
                         <img src="https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png" alt="Assalamualaikum" class="w-[200px] h-auto filter-gold drop-shadow-md">
                     </div>
@@ -320,7 +323,6 @@
                         <p class="font-montserrat text-[12px] font-light text-gold/80 mb-2">Putri Pertama dari Keluarga</p>
                         <p class="font-montserrat text-[12px] text-center text-goldlight mb-5 leading-relaxed font-medium">Bapak Jose Mourinho<br>dan Ibu Happy Mourinho</p>
                         
-                        <!-- SOSMED IG LANGSUNG NAMA USERNAME -->
                         <div class="zoom">
                             <a href="#" target="_blank" class="px-5 py-2 border border-gold/50 rounded-full text-goldlight text-[11px] font-montserrat tracking-wide hover:bg-gold hover:text-black hover:border-gold transition-all flex items-center gap-2">
                                 <i class="fab fa-instagram text-[14px]"></i> @lisablackpink
@@ -339,7 +341,6 @@
                         <p class="font-montserrat text-[12px] font-light text-gold/80 mb-2">Putra Pertama dari Keluarga</p>
                         <p class="font-montserrat text-[12px] text-center text-goldlight mb-5 leading-relaxed font-medium">Bapak Pep Guardiola<br>& Ibu Happy Guardiola</p>
                         
-                        <!-- SOSMED IG LANGSUNG NAMA USERNAME -->
                         <div class="zoom">
                             <a href="#" target="_blank" class="px-5 py-2 border border-gold/50 rounded-full text-goldlight text-[11px] font-montserrat tracking-wide hover:bg-gold hover:text-black hover:border-gold transition-all flex items-center gap-2">
                                 <i class="fab fa-instagram text-[14px]"></i> @colepalmer
