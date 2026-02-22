@@ -8,8 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Kombinasi Font: Cinzel (Mewah), Playfair Display (Elegan Klasik), Montserrat (Bersih/Modern) -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -36,6 +35,7 @@
                         cinzel: ['Cinzel', 'serif'],
                         montserrat: ['Montserrat', 'sans-serif'],
                         playfair: ['Playfair Display', 'serif'],
+                        alex: ['Alex Brush', 'cursive'],
                     }
                 }
             }
@@ -46,7 +46,7 @@
         /* Base & Native Smooth Scroll Dimatikan agar tidak bentrok dengan GSAP */
         body { background-color: #000; margin: 0; padding: 0; overflow-x: hidden; }
 
-        /* Kunci Scroll (Akan dihapus JS saat tombol Buka diklik) */
+        /* Kunci Scroll */
         .scroll-lock { overflow: hidden !important; height: 100vh; }
 
         /* Custom Scrollbar */
@@ -152,7 +152,7 @@
         .muncul-kanan{ position: relative; transform: translateX(50%) scale(0.95); opacity: 0; transition: transform 1s ease, opacity 0.8s ease !important; }
         .muncul-kanan.active{ transform: translateX(0) scale(1); opacity: 1; }
         
-        .zoom{ position: relative; transform: scale(0.5); opacity: 0; transition: transform 1.2s ease, opacity 0.8s ease !important; }
+        .zoom{ position: relative; transform: scale(0.5); opacity: 0; transition: transform 1.5s ease, opacity 0.8s ease !important; }
         .zoom.active{ transform: scale(1); opacity: 1; }
 
         @media (max-width: 600px){
@@ -196,16 +196,16 @@
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="w-full">
             </div>
 
-            <!-- Teks The Wedding Of (1 Baris) -->
+            <!-- Teks The Wedding Of -->
             <div class="flex flex-col items-center mt-[15vh] z-10 zoom active w-full">
                 <h2 class="font-cinzel text-[11px] sm:text-[12px] tracking-[0.2em] font-semibold text-goldlight uppercase mb-3 text-center whitespace-nowrap">The Wedding Of</h2>
                 <div class="w-[60%] max-w-[200px] h-[1px] bg-gold/70"></div>
             </div>
 
-            <!-- Inisial Mempelai (Playfair Italic) -->
+            <!-- Inisial Mempelai (Sesuai Referensi Gambar) -->
             <div class="relative flex justify-center items-center w-full h-32 z-10 my-4 zoom active" style="transition-delay: 0.2s">
-                <h1 class="font-playfair italic text-[7rem] text-goldlight drop-shadow-md absolute -ml-16 -mt-10">L</h1>
-                <h1 class="font-playfair italic text-[7rem] text-goldlight drop-shadow-md absolute ml-16 mt-14">P</h1>
+                <h1 class="font-alex text-[6.5rem] text-goldlight drop-shadow-md absolute -ml-16 -mt-10">L</h1>
+                <h1 class="font-alex text-[6.5rem] text-goldlight drop-shadow-md absolute ml-16 mt-14">P</h1>
             </div>
 
             <!-- Cincin & Tanggal -->
@@ -233,7 +233,7 @@
         </section>
 
         <!-- ========================================================================= -->
-        <!-- WADAH KONTEN (Disembunyikan 100% sampai tombol Buka diklik)  -->
+        <!-- WADAH KONTEN (Disembunyikan sampai tombol Buka diklik)  -->
         <!-- ========================================================================= -->
         <div id="content-undangan" class="hidden flex-col gap-6 w-full px-4 pb-12 pt-6 bg-[#000]">
 
@@ -242,7 +242,6 @@
             <!-- ========================================== -->
             <section id="section-tujuan" class="section-card">
                 
-                <!-- Ornamen Pojok (Opacity dinaikkan) -->
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
 
@@ -255,9 +254,9 @@
                     
                     <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Akhirnya, hari yang kami nantikan telah tiba. Hari kebahagiaan yang sangat spesial bagi kami.</p>
 
-                    <!-- Masking Bismillah Sesuai Elementor -->
+                    <!-- MASKING BISMILLAH YANG DIPERBAIKI -->
                     <div class="w-full flex justify-center mb-10 zoom">
-                        <div class="w-48 h-12 bg-gold" style="-webkit-mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"></div>
+                        <div style="width: 220px; height: 50px; background-color: #d4af37; -webkit-mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"></div>
                     </div>
 
                     <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Atas Izin dan Ridho Allah SWT, dan dengan restu orangtua kami. Maka Insya Allah kami akan melangsungkan acara pernikahan kami.</p>
@@ -314,7 +313,7 @@
 
                     <!-- Wanita -->
                     <div class="flex flex-col items-center mb-8 w-full muncul">
-                        <h1 class="font-playfair italic text-[4.5rem] text-goldlight mb-2 drop-shadow-sm leading-none">Lisa</h1>
+                        <h1 class="font-alex text-[4.5rem] text-goldlight mb-2 drop-shadow-sm leading-none">Lisa</h1>
                         <h2 class="font-cinzel text-[15px] font-bold tracking-[0.15em] text-gold mb-4 uppercase">Lisa Blackpink</h2>
                         <p class="font-montserrat text-[12px] font-light text-gold/80 mb-2">Putri Pertama dari Keluarga</p>
                         <p class="font-montserrat text-[12px] text-center text-goldlight mb-5 leading-relaxed font-medium">Bapak Jose Mourinho<br>dan Ibu Happy Mourinho</p>
@@ -330,7 +329,7 @@
 
                     <!-- Pria -->
                     <div class="flex flex-col items-center mb-10 w-full muncul">
-                        <h1 class="font-playfair italic text-[4.5rem] text-goldlight mb-2 drop-shadow-sm leading-none">Palmer</h1>
+                        <h1 class="font-alex text-[4.5rem] text-goldlight mb-2 drop-shadow-sm leading-none">Palmer</h1>
                         <h2 class="font-cinzel text-[15px] font-bold tracking-[0.15em] text-gold mb-4 uppercase">Cole Palmer</h2>
                         <p class="font-montserrat text-[12px] font-light text-gold/80 mb-2">Putra Pertama dari Keluarga</p>
                         <p class="font-montserrat text-[12px] text-center text-goldlight mb-5 leading-relaxed font-medium">Bapak Pep Guardiola<br>& Ibu Happy Guardiola</p>
@@ -436,7 +435,7 @@
                     <div class="w-full bg-[#0a0a0a] border border-gold/10 rounded-xl p-6 flex flex-col items-center mb-6 muncul shadow-md relative z-10">
                         <div class="w-24 h-[1px] bg-gold/30 mb-5"></div>
                         <h4 class="font-cinzel text-[11px] tracking-[0.15em] font-semibold text-goldlight uppercase mb-2">Oktober 2023</h4>
-                        <h3 class="font-playfair italic text-[1.8rem] text-gold mb-4 text-center leading-none">Hari Pertemuan</h3>
+                        <h3 class="font-alex text-[2.5rem] text-gold mb-4 text-center leading-none">Hari Pertemuan</h3>
                         <p class="font-montserrat text-[11px] font-light text-center text-gold/80 leading-[1.8] italic">Takdir mempertemukan kami pada sebuah hari yang tak terlupakan. Saat itu, kami hanyalah dua orang asing yang tanpa sadar dipertemukan oleh semesta.</p>
                     </div>
 
@@ -444,7 +443,7 @@
                     <div class="w-full bg-[#0a0a0a] border border-gold/10 rounded-xl p-6 flex flex-col items-center mb-6 muncul shadow-md relative z-10">
                         <div class="w-24 h-[1px] bg-gold/30 mb-5"></div>
                         <h4 class="font-cinzel text-[11px] tracking-[0.15em] font-semibold text-goldlight uppercase mb-2">Maret 2024</h4>
-                        <h3 class="font-playfair italic text-[1.8rem] text-gold mb-4 text-center leading-none">Saling Komitmen</h3>
+                        <h3 class="font-alex text-[2.5rem] text-gold mb-4 text-center leading-none">Saling Komitmen</h3>
                         <p class="font-montserrat text-[11px] font-light text-center text-gold/80 leading-[1.8] italic">Waktu membawa kami lebih dekat, melewati hari-hari dengan cerita penuh tawa, doa, dan harapan. Di tanggal ini, kami mengikrarkan janji untuk saling menjaga.</p>
                     </div>
 
@@ -452,7 +451,7 @@
                     <div class="w-full bg-[#0a0a0a] border border-gold/10 rounded-xl p-6 flex flex-col items-center mb-10 muncul shadow-md relative z-10">
                         <div class="w-24 h-[1px] bg-gold/30 mb-5"></div>
                         <h4 class="font-cinzel text-[11px] tracking-[0.15em] font-semibold text-goldlight uppercase mb-2">Januari 2025</h4>
-                        <h3 class="font-playfair italic text-[1.8rem] text-gold mb-4 text-center leading-none">Hari Pernikahan</h3>
+                        <h3 class="font-alex text-[2.5rem] text-gold mb-4 text-center leading-none">Hari Pernikahan</h3>
                         <p class="font-montserrat text-[11px] font-light text-center text-gold/80 leading-[1.8] italic">Kini, tibalah saatnya kami mengukir babak baru dalam perjalanan cinta ini. Dengan penuh rasa syukur, kami siap mengikat janji suci di hadapan keluarga.</p>
                     </div>
 
@@ -552,7 +551,7 @@
                 <div class="relative z-10 flex flex-col items-center w-full">
                     <h3 class="font-cinzel text-[11px] tracking-[0.1em] text-gold mb-2 muncul uppercase">Wedding Gift</h3>
                     <h2 class="font-cinzel text-2xl font-bold text-goldlight mb-4 zoom tracking-widest uppercase">Kirim Hadiah</h2>
-                    <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line" class="w-[70%] mb-10 muncul">
+                    <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line Divider" class="w-[70%] mb-10 muncul">
 
                     <p class="font-montserrat text-[11px] font-light leading-[1.8] text-gold/90 mb-10 muncul px-2 text-center">Kehadiran Anda merupakan sebuah do'a serta rasa syukur bagi kami, namun jika memberi adalah bentuk Do'a & cinta kasih bagi Anda, Anda dapat memberi kado secara cashless.</p>
 
@@ -716,7 +715,7 @@
             // Kunci scroll saat pertama kali web dimuat
             lockScroll();
 
-            // --- 3. HELPER FULLSCREEN ---
+            // --- 3. HELPER FULLSCREEN (Tanpa Delay) ---
             function isFullscreen() {
                 return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
             }
@@ -726,7 +725,7 @@
                     if (el.requestFullscreen) el.requestFullscreen();
                     else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
                     else if (el.msRequestFullscreen) el.msRequestFullscreen();
-                } catch (_) { }
+                } catch (_) {}
             }
 
             function exitFullscreen() {
@@ -757,7 +756,7 @@
             document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
             document.addEventListener('msfullscreenchange', updateFullscreenIcon);
 
-            // --- 4. LOGIKA TOMBOL BUKA UNDANGAN (GSAP Tanpa Lag) ---
+            // --- 4. LOGIKA TOMBOL BUKA UNDANGAN (Scroll Instan) ---
             const setButtonToScroll = () => {
                 if (btnText) btnText.textContent = 'SCROLL KE BAWAH';
                 if (btnIcon) {
@@ -794,13 +793,13 @@
                     audio.play().catch(err => console.log("Audio play di-block:", err));
                 }
 
-                // Masuk Fullscreen di belakang layar tanpa menahan fungsi lain
+                // Eksekusi Fullscreen tapi jangan jadikan patokan waktu (tidak diblock/await)
                 enterFullscreen(document.documentElement);
                 
-                // Cukup beri jeda sangat sebentar agar DOM selesai di-render sebelum GSAP menghitung posisi
+                // Langsung eksekusi animasi scroll dengan jeda minimum untuk render DOM display:flex
                 setTimeout(() => {
                     scrollKeTujuan();
-                }, 300);
+                }, 100);
 
                 btnCover.removeEventListener('click', handleFirstClick);
                 btnCover.addEventListener('click', (ev) => { ev.preventDefault(); scrollKeTujuan(); });
