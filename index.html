@@ -43,7 +43,7 @@
     </script>
 
     <style>
-        /* Smooth Scrolling Native Dimatikan oleh JS nanti agar tidak bentrok dengan GSAP */
+        /* Base styles */
         body { background-color: #000; margin: 0; padding: 0; }
 
         /* Custom Scrollbar */
@@ -142,7 +142,7 @@
         .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
-<body>
+<body class="flex justify-center text-gold antialiased selection:bg-gold selection:text-black">
 
     <!-- ========================================== -->
     <!-- FLOATING BUTTONS (FULLSCREEN & MUSIC) -->
@@ -207,8 +207,8 @@
                 <h3 class="font-montserrat font-semibold text-[15px] mb-6 text-goldlight">Tamu Undangan</h3>
                 
                 <!-- Tombol Buka Undangan -->
-                <button id="tombol-buka" class="w-full py-3.5 border border-gold/80 rounded text-[10px] tracking-widest font-bold font-montserrat uppercase text-gold hover:bg-gold hover:text-black transition-all duration-300 flex items-center justify-center gap-2 group">
-                    <i class="far fa-envelope-open text-sm elementor-button-icon"></i>
+                <button id="tombol-buka" class="w-full py-3.5 border border-gold/80 rounded text-[10px] tracking-widest font-bold font-montserrat uppercase text-gold hover:bg-gold hover:text-black transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer">
+                    <i id="btn-icon" class="far fa-envelope-open text-sm elementor-button-icon"></i>
                     <span class="elementor-button-text">Buka Undangan</span>
                 </button>
                 
@@ -647,16 +647,7 @@
             const fsButton = document.getElementById('enter-fullscreen');
             const fsIcon = fsButton.querySelector('i');
 
-            // --- 1. LOGIKA SCROLL LOCK ---
-            const lockScroll = () => {
-                document.body.classList.add('scroll-lock');
-                window.scrollTo(0, 0);
-            };
-            const unlockScroll = () => {
-                document.body.classList.remove('scroll-lock');
-            };
-
-            // Matikan native smooth scroll agar GSAP jalan mulus
+            // --- 1. MATIKAN NATIVE SMOOTH SCROLL (Konflik GSAP) ---
             (function killNativeSmooth(){
                 const style = document.createElement('style');
                 style.id = 'gsap-smooth-killer';
@@ -664,11 +655,23 @@
                 document.head.appendChild(style);
             })();
 
-            // Pastikan halaman terkunci saat awal dimuat
+            // --- 2. LOGIKA SCROLL LOCK ---
+            const lockScroll = () => {
+                document.documentElement.style.overflow = 'hidden';
+                document.body.style.overflow = 'hidden';
+                window.scrollTo(0, 0);
+            };
+            const unlockScroll = () => {
+                document.documentElement.style.overflow = '';
+                document.body.style.overflow = '';
+            };
+
+            // Kunci scroll saat awal cover
             lockScroll();
 
+            // --- 3. HELPER FULLSCREEN & JEDA ---
+            const wait = (ms) => new Promise(r => setTimeout(r, ms));
 
-            // --- 2. LOGIKA FULLSCREEN ---
             function isFullscreen() {
                 return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
             }
@@ -733,7 +736,7 @@
             document.addEventListener('msfullscreenchange', updateFullscreenIcon);
 
 
-            // --- 3. LOGIKA TOMBOL BUKA UNDANGAN (GSAP) ---
+            // --- 4. LOGIKA TOMBOL BUKA UNDANGAN (GSAP) ---
             const setButtonToScroll = () => {
                 if (btnText) btnText.textContent = 'SCROLL KE BAWAH';
                 if (btnIcon) {
@@ -748,7 +751,7 @@
                 const rect = targetSection.getBoundingClientRect();
                 const targetY = currentY + rect.top;
                 const dist = Math.abs(targetY - currentY);
-                const durasi = Math.max(0.9, Math.min(1.6, dist / 1600));
+                const durasi = Math.max(0.9, Math.min(1.6, dist / 1600)); // durasi adaptif
 
                 gsap.to(window, {
                     duration: durasi,
@@ -763,22 +766,24 @@
                 unlockScroll(); 
 
                 // Mulai musik saat tombol diklik
-                if (audio.paused) {
+                if (audio && audio.paused) {
                     audio.play().catch(err => console.log("Audio play di-block:", err));
                 }
 
-                // Masuk Fullscreen
+                // Masuk Fullscreen dan tunggu buffer
+                const DELAY_SETELAH_FULLSCREEN_MS = 1000; // Jeda ritual agar elegan
+                const BUFFER_SETELAH_FS_MS = 180;
+
                 await enterFullscreen(document.documentElement, 2000);
+                await wait(BUFFER_SETELAH_FS_MS);
+                await wait(DELAY_SETELAH_FULLSCREEN_MS);
                 
-                // Beri waktu browser bernapas setelah fullscreen
-                await new Promise(r => setTimeout(r, 180)); 
-                
-                // Lakukan scroll
+                // Lakukan scroll dengan GSAP
                 scrollKeTujuan();
 
                 // Ubah event listener agar klik berikutnya cuma berfungsi scroll
                 btnCover.removeEventListener('click', handleFirstClick);
-                btnCover.addEventListener('click', (e) => { e.preventDefault(); scrollKeTujuan(); });
+                btnCover.addEventListener('click', (ev) => { ev.preventDefault(); scrollKeTujuan(); });
             };
 
             if (btnCover) {
@@ -786,11 +791,15 @@
             }
 
             // Jika masuk fullscreen lewat tombol lain, pastikan tombol cover berubah teksnya
-            const onFsChange = () => { if(isFullscreen() && document.body.classList.contains('scroll-lock') === false) setButtonToScroll(); };
+            const onFsChange = () => { 
+                if(isFullscreen() && document.documentElement.style.overflow !== 'hidden') {
+                    setButtonToScroll(); 
+                }
+            };
             document.addEventListener('fullscreenchange', onFsChange);
 
 
-            // --- 4. LOGIKA AUDIO ---
+            // --- 5. LOGIKA AUDIO ---
             audioToggle.addEventListener('click', function () {
                 if (audio.paused) {
                     audio.play();
@@ -821,7 +830,7 @@
                 }
             });
 
-            // --- 5. ANIMASI SCROLL (REVEAL) ---
+            // --- 6. ANIMASI SCROLL (REVEAL) ---
             const revealElements = document.querySelectorAll('.reveal');
             const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -40px 0px" };
 
@@ -837,7 +846,7 @@
             revealElements.forEach(el => revealOnScroll.observe(el));
 
 
-            // --- 6. COUNTDOWN TIMER ---
+            // --- 7. COUNTDOWN TIMER ---
             const countDownDate = new Date("Jun 11, 2025 08:00:00").getTime();
             const cdDays = document.getElementById("cd-days");
 
@@ -866,7 +875,7 @@
                 }, 1000);
             }
 
-            // --- 7. LOGIKA SALIN NOMOR REKENING ---
+            // --- 8. LOGIKA SALIN NOMOR REKENING ---
             const btnToggleRek = document.getElementById('btn-toggle-rekening');
             const iconToggleRek = document.getElementById('icon-toggle-rekening');
             const textToggleRek = document.getElementById('text-toggle-rekening');
