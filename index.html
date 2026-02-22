@@ -8,8 +8,8 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Kombinasi Font: Cinzel (Mewah), Playfair Display (Elegan Klasik), Montserrat (Bersih/Modern), Amiri (Arab) -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Kombinasi Font: Cinzel (Mewah), Playfair Display (Elegan Klasik), Montserrat (Bersih/Modern) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -36,7 +36,6 @@
                         cinzel: ['Cinzel', 'serif'],
                         montserrat: ['Montserrat', 'sans-serif'],
                         playfair: ['Playfair Display', 'serif'],
-                        amiri: ['Amiri', 'serif'],
                     }
                 }
             }
@@ -185,15 +184,15 @@
     <main class="w-full max-w-[430px] mx-auto bg-darkbg min-h-[100dvh] relative shadow-2xl overflow-x-hidden">
 
         <!-- ========================================== -->
-        <!-- SECTION 1: COVER (Disempurnakan) -->
+        <!-- SECTION 1: COVER -->
         <!-- ========================================== -->
         <section id="section-cover" class="relative w-full h-[100dvh] flex flex-col items-center justify-between py-10 px-4 bg-[#0a0a0a] z-50">
             
             <div class="absolute inset-2 border border-gold/70 rounded-[20px] pointer-events-none z-0"></div>
             <div class="cover-arch"></div>
             
-            <!-- Ornamen Bunga (Kiri Atas) - Diperkecil agar proporsional -->
-            <div class="absolute top-0 -left-4 w-[210px] opacity-60 mix-blend-screen pointer-events-none z-0 goyang-1">
+            <!-- Ornamen Bunga (Kiri Atas) -->
+            <div class="absolute top-0 -left-4 w-[210px] opacity-80 mix-blend-screen pointer-events-none z-0 goyang-1">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="w-full">
             </div>
 
@@ -243,9 +242,9 @@
             <!-- ========================================== -->
             <section id="section-tujuan" class="section-card">
                 
-                <!-- Ornamen Pojok -->
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
+                <!-- Ornamen Pojok (Opacity dinaikkan) -->
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
 
                 <div class="relative z-10 flex flex-col items-center w-full">
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-3.png" alt="Line" class="w-[70%] mb-5 muncul">
@@ -256,8 +255,10 @@
                     
                     <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Akhirnya, hari yang kami nantikan telah tiba. Hari kebahagiaan yang sangat spesial bagi kami.</p>
 
-                    <!-- Tulisan Arab Pengganti Masking -->
-                    <h2 class="font-amiri text-3xl text-goldlight mb-10 zoom drop-shadow-md text-center leading-relaxed" dir="rtl">السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ</h2>
+                    <!-- Masking Bismillah Sesuai Elementor -->
+                    <div class="w-full flex justify-center mb-10 zoom">
+                        <div class="w-48 h-12 bg-gold" style="-webkit-mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"></div>
+                    </div>
 
                     <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Atas Izin dan Ridho Allah SWT, dan dengan restu orangtua kami. Maka Insya Allah kami akan melangsungkan acara pernikahan kami.</p>
                     <div class="w-32 h-[1px] bg-gold/40 mb-10 muncul"></div>
@@ -298,8 +299,8 @@
             <!-- ========================================== -->
             <section id="section-mempelai" class="section-card">
                 
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
 
                 <div class="relative z-10 flex flex-col items-center w-full">
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-6-1024x192.png" alt="Ornamen" class="w-[85%] mb-8 zoom">
@@ -348,8 +349,8 @@
             <!-- ========================================== -->
             <section id="section-acara" class="section-card">
                 
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
 
                 <div class="relative z-10 flex flex-col items-center w-full">
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-6-1024x192.png" alt="Ornamen" class="w-[85%] mb-8 zoom">
@@ -423,8 +424,8 @@
             <!-- ========================================== -->
             <section id="section-lovestory" class="section-card">
                 
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
 
                 <div class="relative z-10 flex flex-col items-center w-full">
                     <h3 class="font-cinzel text-[11px] tracking-[0.1em] text-gold mb-2 muncul uppercase text-center">Cerita Tentang Kami</h3>
@@ -464,8 +465,8 @@
             <!-- ========================================== -->
             <section id="section-ucapan" class="section-card">
                 
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
 
                 <div class="relative z-10 flex flex-col items-center w-full">
                     <h3 class="font-cinzel text-[11px] tracking-[0.1em] text-gold mb-2 muncul uppercase text-center">Doa & Ucapan</h3>
@@ -474,7 +475,7 @@
 
                     <p class="font-montserrat text-[11px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Silahkan tuliskan doa & ucapan selamat untuk kedua mempelai serta konfirmasi kehadiran pada kolom ucapan dibawah ini.</p>
 
-                    <div class="w-full muncul mb-4">
+                    <div class="w-full muncul mb-4 relative z-10">
                         <div class="grid grid-cols-3 gap-2 mb-8 zoom">
                             <div class="bg-[#28a745] text-white rounded-md py-2.5 flex flex-col items-center"><strong class="text-xl font-bold leading-none mb-1">1</strong><span class="text-[9px] font-medium">Hadir</span></div>
                             <div class="bg-[#dc3545] text-white rounded-md py-2.5 flex flex-col items-center"><strong class="text-xl font-bold leading-none mb-1">1</strong><span class="text-[9px] font-medium text-center">Tidak Hadir</span></div>
@@ -486,7 +487,7 @@
                             <h3 class="font-playfair text-[15px] font-medium">3 Doa & Ucapan</h3>
                         </div>
 
-                        <form class="flex flex-col gap-4 mb-10 muncul relative z-10">
+                        <form class="flex flex-col gap-4 mb-10 muncul">
                             <input type="text" placeholder="Nama Anda" required class="input-box">
                             <textarea placeholder="Tulis ucapan & doa Anda..." rows="4" required class="input-box resize-none"></textarea>
                             <select required class="input-box cursor-pointer">
@@ -498,7 +499,7 @@
                             <button type="button" class="w-full bg-[#0a0a0a] border border-gold rounded text-goldlight font-montserrat font-semibold text-[11px] tracking-wider py-3.5 hover:bg-gold hover:text-black transition-all mt-2">Kirim Ucapan</button>
                         </form>
 
-                        <div class="flex flex-col gap-6 muncul relative z-10">
+                        <div class="flex flex-col gap-6 muncul">
                             <!-- Komentar -->
                             <div class="flex gap-4">
                                 <div class="w-10 h-10 rounded-full bg-[#1e88e5] text-white flex items-center justify-center font-bold text-xs shrink-0">FI</div>
@@ -545,8 +546,8 @@
             <!-- ========================================== -->
             <section id="section-gift" class="section-card">
                 
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
 
                 <div class="relative z-10 flex flex-col items-center w-full">
                     <h3 class="font-cinzel text-[11px] tracking-[0.1em] text-gold mb-2 muncul uppercase">Wedding Gift</h3>
@@ -592,8 +593,8 @@
             <!-- ========================================== -->
             <section id="section-mengundang" class="section-card">
                 
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
 
                 <div class="relative z-10 flex flex-col items-center w-full">
                     <h2 class="font-cinzel text-2xl font-bold text-goldlight mb-4 zoom tracking-widest uppercase text-center leading-tight">Turut<br>Mengundang</h2>
@@ -632,8 +633,8 @@
             <!-- ========================================== -->
             <section id="section-penutup" class="section-card pb-16">
                 
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-20 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -left-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-8 -right-8 w-[160px] opacity-45 mix-blend-screen pointer-events-none z-0 transform -scale-y-100 -scale-x-100">
 
                 <div class="relative z-10 flex flex-col items-center w-full">
                     <h3 class="font-cinzel text-[11px] tracking-[0.1em] text-gold mb-2 muncul uppercase text-center">Kami Mengucapkan</h3>
@@ -715,49 +716,29 @@
             // Kunci scroll saat pertama kali web dimuat
             lockScroll();
 
-            // --- 3. HELPER FULLSCREEN & JEDA ---
-            const wait = (ms) => new Promise(r => setTimeout(r, ms));
-
+            // --- 3. HELPER FULLSCREEN ---
             function isFullscreen() {
                 return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
             }
 
-            async function enterFullscreen(el = document.documentElement, timeout = 2500) {
-                let settled = false;
-                return new Promise(async (resolve) => {
-                    const done = () => { if (!settled) { settled = true; cleanup(); resolve(); } };
-                    const onChange = () => done();
-                    const onError  = () => done();
-                    const cleanup = () => {
-                        document.removeEventListener('fullscreenchange', onChange);
-                        document.removeEventListener('webkitfullscreenchange', onChange);
-                        document.removeEventListener('msfullscreenchange', onChange);
-                        document.removeEventListener('fullscreenerror', onError);
-                    };
-
-                    document.addEventListener('fullscreenchange', onChange);
-                    document.addEventListener('webkitfullscreenchange', onChange);
-                    document.addEventListener('msfullscreenchange', onChange);
-                    document.addEventListener('fullscreenerror', onError);
-
-                    try {
-                        if (el.requestFullscreen) await el.requestFullscreen();
-                        else if (el.webkitRequestFullscreen) await el.webkitRequestFullscreen();
-                        else if (el.msRequestFullscreen) await el.msRequestFullscreen();
-                    } catch (_) { }
-
-                    setTimeout(done, timeout);
-                });
+            function enterFullscreen(el = document.documentElement) {
+                try {
+                    if (el.requestFullscreen) el.requestFullscreen();
+                    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+                    else if (el.msRequestFullscreen) el.msRequestFullscreen();
+                } catch (_) { }
             }
 
             function exitFullscreen() {
-                if (document.exitFullscreen) document.exitFullscreen();
-                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-                else if (document.msExitFullscreen) document.msExitFullscreen();
+                if (isFullscreen()) {
+                    if (document.exitFullscreen) document.exitFullscreen();
+                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                    else if (document.msExitFullscreen) document.msExitFullscreen();
+                }
             }
 
             function toggleFullscreen() {
-                if (!isFullscreen()) enterFullscreen(document.documentElement, 1000);
+                if (!isFullscreen()) enterFullscreen(document.documentElement);
                 else exitFullscreen();
             }
 
@@ -776,7 +757,7 @@
             document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
             document.addEventListener('msfullscreenchange', updateFullscreenIcon);
 
-            // --- 4. LOGIKA TOMBOL BUKA UNDANGAN (GSAP) ---
+            // --- 4. LOGIKA TOMBOL BUKA UNDANGAN (GSAP Tanpa Lag) ---
             const setButtonToScroll = () => {
                 if (btnText) btnText.textContent = 'SCROLL KE BAWAH';
                 if (btnIcon) {
@@ -800,7 +781,7 @@
                 });
             };
 
-            const handleFirstClick = async (e) => {
+            const handleFirstClick = (e) => {
                 e.preventDefault();
                 setButtonToScroll();
 
@@ -813,15 +794,13 @@
                     audio.play().catch(err => console.log("Audio play di-block:", err));
                 }
 
-                // Buffer fullscreen agar tidak terjadi layar hitam
-                const DELAY_SETELAH_FULLSCREEN_MS = 800; 
-                const BUFFER_SETELAH_FS_MS = 180;
-
-                await enterFullscreen(document.documentElement, 2000);
-                await wait(BUFFER_SETELAH_FS_MS);
-                await wait(DELAY_SETELAH_FULLSCREEN_MS);
+                // Masuk Fullscreen di belakang layar tanpa menahan fungsi lain
+                enterFullscreen(document.documentElement);
                 
-                scrollKeTujuan();
+                // Cukup beri jeda sangat sebentar agar DOM selesai di-render sebelum GSAP menghitung posisi
+                setTimeout(() => {
+                    scrollKeTujuan();
+                }, 300);
 
                 btnCover.removeEventListener('click', handleFirstClick);
                 btnCover.addEventListener('click', (ev) => { ev.preventDefault(); scrollKeTujuan(); });
