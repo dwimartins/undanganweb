@@ -42,6 +42,12 @@
         /* Smooth Scrolling */
         html { scroll-behavior: smooth; background-color: #000; }
 
+        /* Lock Scroll (Agar tidak bisa di-scroll sebelum dibuka) */
+        .scroll-lock {
+            overflow: hidden !important;
+            height: 100vh;
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 4px; background: #000; }
         ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
@@ -113,7 +119,8 @@
         }
     </style>
 </head>
-<body class="flex justify-center text-gold antialiased selection:bg-gold selection:text-black">
+<!-- Menambahkan scroll-lock secara default -->
+<body class="flex justify-center text-gold antialiased selection:bg-gold selection:text-black scroll-lock">
 
     <!-- Tombol Mengambang (Fullscreen & Music) -->
     <div class="fixed bottom-6 right-5 z-[1000] flex flex-col gap-3 items-center">
@@ -178,7 +185,7 @@
                 <p class="font-montserrat text-[10px] text-gold/90 mb-2 font-medium">Kepada Yth: Bpk/Ibu/Saudara/i</p>
                 <h3 class="font-montserrat font-semibold text-[15px] mb-6 text-goldlight">Tamu Undangan</h3>
                 
-                <!-- Tombol Buka Undangan (ID telah disesuaikan menjadi tombol-buka) -->
+                <!-- Tombol Buka Undangan -->
                 <button id="tombol-buka" class="w-full py-3.5 border border-gold/80 rounded text-[10px] tracking-widest font-bold font-montserrat uppercase text-gold hover:bg-gold hover:text-black transition-all duration-300 flex items-center justify-center gap-2 group">
                     <i id="btn-icon" class="fa-regular fa-envelope text-sm"></i>
                     <span id="btn-text">Buka Undangan</span>
@@ -588,9 +595,66 @@
 
     <!-- LOGIKA JAVASCRIPT -->
     <script>
+        // --- 1. FUNGSI FULLSCREEN ---
+        const fsButton = document.getElementById('enter-fullscreen');
+        const fsIcon = fsButton.querySelector('i');
+
+        function isFullscreen() {
+            return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+        }
+
+        function activateFullscreen() {
+            const elem = document.documentElement;
+            if (!isFullscreen()) {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen().catch(err => console.log("Fullscreen Error:", err));
+                } else if (elem.webkitRequestFullscreen) { // Safari
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) { // IE/Edge
+                    elem.msRequestFullscreen();
+                }
+            }
+        }
+
+        function exitFullscreen() {
+            if (isFullscreen()) {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        function toggleFullscreen() {
+            if (!isFullscreen()) {
+                activateFullscreen();
+            } else {
+                exitFullscreen();
+            }
+        }
+
+        function updateFullscreenIcon() {
+            if (isFullscreen()) {
+                fsIcon.classList.remove('fa-expand-arrows-alt');
+                fsIcon.classList.add('fa-compress-arrows-alt');
+            } else {
+                fsIcon.classList.remove('fa-compress-arrows-alt');
+                fsIcon.classList.add('fa-expand-arrows-alt');
+            }
+        }
+
+        fsButton.addEventListener('click', toggleFullscreen);
+        document.addEventListener('fullscreenchange', updateFullscreenIcon);
+        document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
+        document.addEventListener('msfullscreenchange', updateFullscreenIcon);
+
+        // --- DOM LOADED ---
         document.addEventListener('DOMContentLoaded', () => {
             
-            // 1. ELEMEN MUSIK & TOMBOL BUKA
+            // 2. ELEMEN MUSIK & TOMBOL BUKA
             const btnCover = document.getElementById('tombol-buka');
             const targetSection = document.getElementById('section-tujuan');
             const btnIcon = document.getElementById('btn-icon');
@@ -599,11 +663,19 @@
             const audio = document.getElementById('audio');
             const audioToggle = document.getElementById('audio-toggle');
 
-            // Logika Tombol Buka Undangan
+            // Logika Tombol Buka Undangan (Otomatis Fullscreen & Unlock Scroll)
             if(btnCover) {
                 btnCover.addEventListener('click', () => {
-                    // Scroll ke bawah
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                    // Buka kunci scroll
+                    document.body.classList.remove('scroll-lock');
+
+                    // Masuk ke mode fullscreen otomatis
+                    activateFullscreen();
+                    
+                    // Beri jeda sangat singkat agar render fullscreen tidak nabrak dengan scroll
+                    setTimeout(() => {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }, 150);
                     
                     // Ubah Ikon Tombol
                     if(btnIcon) {
@@ -652,44 +724,6 @@
                     }
                 }
             });
-
-
-            // 2. LOGIKA FULLSCREEN
-            const fsButton = document.getElementById('enter-fullscreen');
-            const fsIcon = fsButton.querySelector('i');
-
-            function isFullscreen() {
-                return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
-            }
-
-            function updateFullscreenIcon() {
-                if (isFullscreen()) {
-                    fsIcon.classList.remove('fa-expand-arrows-alt');
-                    fsIcon.classList.add('fa-compress-arrows-alt');
-                } else {
-                    fsIcon.classList.remove('fa-compress-arrows-alt');
-                    fsIcon.classList.add('fa-expand-arrows-alt');
-                }
-            }
-
-            function toggleFullscreen() {
-                const elem = document.documentElement;
-                if (!isFullscreen()) {
-                    if (elem.requestFullscreen) elem.requestFullscreen();
-                    else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-                    else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
-                } else {
-                    if (document.exitFullscreen) document.exitFullscreen();
-                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-                    else if (document.msExitFullscreen) document.msExitFullscreen();
-                }
-            }
-
-            fsButton.addEventListener('click', toggleFullscreen);
-            document.addEventListener('fullscreenchange', updateFullscreenIcon);
-            document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
-            document.addEventListener('msfullscreenchange', updateFullscreenIcon);
-
 
             // 3. ANIMASI SCROLL (REVEAL)
             const revealElements = document.querySelectorAll('.reveal');
