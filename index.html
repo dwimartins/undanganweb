@@ -92,6 +92,11 @@
             z-index: 0;
         }
 
+        /* Filter Emas untuk Gambar Putih */
+        .filter-gold {
+            filter: brightness(0) saturate(100%) invert(66%) sepia(45%) saturate(763%) hue-rotate(3deg) brightness(98%) contrast(88%);
+        }
+
         /* Input Styling RSVP */
         .input-box {
             background-color: transparent;
@@ -210,8 +215,9 @@
                 <p class="font-montserrat text-[11px] text-gold/90 mb-2 font-medium">Kepada Yth: Bpk/Ibu/Saudara/i</p>
                 <h3 class="font-montserrat font-semibold text-[16px] mb-6 text-goldlight text-center namatamu">Tamu Undangan</h3>
                 
-                <button id="tombol-buka" class="w-full py-3.5 border border-gold/80 rounded text-[10px] tracking-widest font-bold font-montserrat uppercase text-gold hover:bg-gold hover:text-black transition-all duration-300 flex items-center justify-center gap-2">
-                    <span class="elementor-button-icon"><i class="far fa-envelope-open text-[13px]"></i></span>
+                <!-- Tombol Buka Undangan Dipercantik -->
+                <button id="tombol-buka" class="w-full py-3.5 border border-gold/60 rounded-lg text-[10px] tracking-[0.2em] font-bold font-montserrat uppercase text-gold bg-transparent hover:bg-gold/15 hover:border-gold hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] focus:outline-none transition-all duration-500 flex items-center justify-center gap-2 group cursor-pointer">
+                    <i id="btn-icon" class="far fa-envelope-open text-sm elementor-button-icon group-hover:scale-110 transition-transform"></i>
                     <span class="elementor-button-text">Buka Undangan</span>
                 </button>
                 
@@ -242,9 +248,9 @@
                     
                     <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Akhirnya, hari yang kami nantikan telah tiba. Hari kebahagiaan yang sangat spesial bagi kami.</p>
 
-                    <!-- MASKING BISMILLAH YANG PASTI MUNCUL EMAS -->
+                    <!-- MASKING BISMILLAH DIGANTI GAMBAR & FILTER AGAR PASTI MUNCUL -->
                     <div class="w-full flex justify-center mb-10 zoom">
-                        <div style="width: 220px; height: 45px; background-color: #d4af37; -webkit-mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"></div>
+                        <img src="https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png" alt="Assalamualaikum" class="w-[200px] h-auto filter-gold drop-shadow-md">
                     </div>
 
                     <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Atas Izin dan Ridho Allah SWT, dan dengan restu orangtua kami. Maka Insya Allah kami akan melangsungkan acara pernikahan kami.</p>
@@ -777,8 +783,8 @@
             const setButtonToScroll = () => {
                 if (btnText) btnText.textContent = 'SCROLL KE BAWAH';
                 if (btnIcon) {
-                    btnIcon.classList.remove('fa-envelope-open', 'far');
-                    btnIcon.classList.add('fas', 'fa-arrow-down');
+                    btnIcon.classList.remove('fa-envelope-open', 'far', 'group-hover:scale-110');
+                    btnIcon.classList.add('fas', 'fa-arrow-down', 'animate-bounce');
                 }
             };
 
