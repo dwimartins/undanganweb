@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -31,6 +31,7 @@
                         cinzel: ['Cinzel', 'serif'],
                         alex: ['Alex Brush', 'cursive'],
                         montserrat: ['Montserrat', 'sans-serif'],
+                        playfair: ['Playfair Display', 'serif'],
                     }
                 }
             }
@@ -46,7 +47,6 @@
         ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
 
         /* --- CLASS CARD SECTION UTAMA --- */
-        /* Ini kunci untuk membuat semua kotak terlihat seragam dan padu */
         .section-card {
             position: relative;
             background-color: #111111;
@@ -59,8 +59,9 @@
             overflow: hidden;
             z-index: 10;
         }
-        /* Garis putus-putus di dalam kartu */
-        .section-card::after {
+        
+        /* Garis putus-putus di dalam kartu (kecuali untuk cover) */
+        .section-card:not(#section-cover)::after {
             content: '';
             position: absolute;
             top: 7px; right: 7px; bottom: 7px; left: 7px;
@@ -72,22 +73,10 @@
 
         /* --- CLASS KHUSUS COVER --- */
         .cover-card {
-            padding: 2rem 1.5rem;
-        }
-        /* Garis Arch (Kubah) di dalam Cover */
-        .cover-arch {
-            position: absolute;
-            top: 15px; right: 15px; bottom: 15px; left: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-top-left-radius: 200px;
-            border-top-right-radius: 200px;
-            border-bottom-left-radius: 14px;
-            border-bottom-right-radius: 14px;
-            pointer-events: none;
-            z-index: 0;
+            padding: 0; /* Cover menggunakan full width/height custom */
         }
 
-        /* Animasi */
+        /* Animasi Masuk */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade-in { animation: fadeIn 1.5s ease-out forwards; opacity: 0; }
         .delay-100 { animation-delay: 0.1s; } .delay-300 { animation-delay: 0.3s; } .delay-500 { animation-delay: 0.5s; }
@@ -113,49 +102,89 @@
         .input-box:focus { outline: none; border-color: #d4af37; }
         .input-box::placeholder { color: rgba(212, 175, 55, 0.4); }
         select.input-box option { background-color: #111; color: #d4af37; }
+
+        /* Animasi Audio Berputar */
+        @keyframes spin-continuous {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        #audio-toggle.rotating {
+            animation: spin-continuous 3s linear infinite;
+        }
     </style>
 </head>
 <body class="flex justify-center text-gold antialiased selection:bg-gold selection:text-black">
 
+    <!-- Tombol Mengambang (Fullscreen & Music) -->
+    <div class="fixed bottom-6 right-5 z-[1000] flex flex-col gap-3 items-center">
+        <!-- Tombol Fullscreen -->
+        <button id="enter-fullscreen" class="w-8 h-8 bg-[#C18800] text-white rounded-full flex items-center justify-center cursor-pointer shadow-md transition-transform hover:scale-110">
+            <i class="fas fa-expand-arrows-alt text-[14px]"></i>
+        </button>
+
+        <!-- Tombol Audio -->
+        <div id="audio-container">
+            <audio id="audio" loop>
+                <source src="https://github.com/undangandigitalku/laguundangan/raw/refs/heads/main/Bermuara%20-%20Rizky%20Febian%20-%20Reff%20(1).mp3" type="audio/mpeg">
+            </audio>
+            <div id="audio-toggle" class="w-8 h-8 bg-[#C18800] rounded-full flex items-center justify-center cursor-pointer shadow-md transition-transform hover:scale-110">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-[16px] h-[16px] fill-white">
+                    <path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 32a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm-96-32a96 96 0 1 0 192 0 96 96 0 1 0 -192 0zM96 240c0-35 17.5-71.1 45.2-98.8S205 96 240 96c8.8 0 16-7.2 16-16s-7.2-16-16-16c-45.4 0-89.2 22.3-121.5 54.5S64 194.6 64 240c0 8.8 7.2 16 16 16s16-7.2 16-16z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
     <!-- WADAH UTAMA (Background Hitam, jarak antar kotak seragam) -->
-    <!-- gap-5 membuat jarak antar section sangat konsisten -->
     <main class="relative w-full max-w-[430px] bg-darkbg min-h-screen flex flex-col gap-5 p-4 overflow-x-hidden">
 
         <!-- ========================================== -->
-        <!-- SECTION 1: COVER (100dvh) -->
+        <!-- SECTION 1: COVER (Sesuai Screenshot Terbaru) -->
         <!-- ========================================== -->
-        <section id="section-cover" class="section-card cover-card h-[calc(100dvh-32px)] shrink-0 justify-between">
-            <div class="cover-arch"></div>
+        <section id="section-cover" class="section-card cover-card h-[calc(100dvh-32px)] shrink-0 flex flex-col items-center justify-between py-10 relative">
+            
+            <!-- Garis Arch (Kubah Dalam) -->
+            <div class="absolute inset-[15px] border border-gold/40 rounded-t-[200px] rounded-b-xl pointer-events-none z-0"></div>
             
             <!-- Ornamen Bunga Kiri Atas -->
             <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" 
-                 alt="Ornamen" class="absolute top-0 -left-10 w-64 opacity-50 mix-blend-screen pointer-events-none z-0">
+                 alt="Ornamen" class="absolute top-0 -left-6 w-[260px] opacity-70 mix-blend-screen pointer-events-none z-0">
 
-            <!-- Bagian Atas Cover -->
-            <div class="flex flex-col items-center mt-12 z-10 animate-fade-in delay-100">
-                <h2 class="font-montserrat text-[9px] tracking-[0.3em] font-medium text-goldlight uppercase mb-2">The Wedding Invitation</h2>
-                <div class="w-16 h-[1px] bg-gold/50"></div>
+            <!-- Bagian Atas Cover (Teks Our Wedding) -->
+            <div class="flex flex-col items-center mt-16 z-10 animate-fade-in delay-100">
+                <h2 class="font-cinzel text-[11px] tracking-[0.3em] font-semibold text-goldlight uppercase mb-1">Our Wedding</h2>
+                <h2 class="font-cinzel text-[11px] tracking-[0.3em] font-semibold text-goldlight uppercase mb-3">Invitation</h2>
+                <div class="w-48 h-[1px] bg-gold/60"></div>
             </div>
 
-            <!-- Nama Mempelai -->
-            <div class="flex flex-col items-center justify-center w-full z-10 animate-fade-in delay-300">
-                <h1 class="font-alex text-[5.5rem] leading-[0.8] text-goldlight drop-shadow-md pr-6 transform -rotate-2">Lisa</h1>
-                <span class="font-cinzel text-xl text-gold/60 my-2">&</span>
-                <h1 class="font-alex text-[5.5rem] leading-[0.8] text-goldlight drop-shadow-md pl-8 transform -rotate-2">Palmer</h1>
-                <p class="font-montserrat text-[10px] tracking-[0.4em] text-gold/80 mt-10">29 . 03 . 2025</p>
+            <!-- Inisial Mempelai (Tumpang Tindih Elegan) -->
+            <div class="relative flex justify-center items-center w-full h-40 z-10 animate-fade-in delay-300 my-4">
+                <!-- Huruf L lebih ke atas dan kiri -->
+                <h1 class="font-playfair italic text-[7.5rem] text-goldlight absolute -ml-16 -mt-10 leading-none drop-shadow-md">L</h1>
+                <!-- Huruf P lebih ke bawah dan kanan -->
+                <h1 class="font-playfair italic text-[7.5rem] text-goldlight absolute ml-16 mt-14 leading-none drop-shadow-md">P</h1>
+            </div>
+
+            <!-- Cincin & Tanggal -->
+            <div class="flex flex-col items-center z-10 animate-fade-in delay-500 mt-6 mb-auto">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/pngegg-43.png" alt="Rings" class="w-14 mb-5 drop-shadow-lg">
+                <div class="w-32 h-[1px] bg-gold/60 mb-4"></div>
+                <p class="font-cinzel text-[11px] tracking-[0.2em] font-semibold text-goldlight uppercase">Surabaya</p>
+                <p class="font-cinzel text-[11px] tracking-[0.2em] font-semibold text-goldlight uppercase mt-1">29 Maret 2025</p>
             </div>
 
             <!-- Kotak Tamu -->
-            <div class="w-full max-w-[280px] bg-[#0a0a0a]/80 backdrop-blur-sm border border-gold/30 rounded-xl p-5 flex flex-col items-center z-10 animate-fade-in delay-500 mb-2 shadow-lg">
-                <p class="font-montserrat text-[10px] text-gold/80 mb-2">Kepada Yth: Bpk/Ibu/Saudara/i</p>
-                <h3 class="font-montserrat font-semibold text-[15px] mb-5 text-goldlight">Tamu Undangan</h3>
+            <div class="w-[85%] max-w-[290px] bg-[#0c0c0c] border border-gold/40 rounded-xl py-6 px-5 flex flex-col items-center z-10 animate-fade-in delay-500 shadow-xl mb-4 relative">
+                <p class="font-montserrat text-[10px] text-gold/90 mb-2 font-medium">Kepada Yth: Bpk/Ibu/Saudara/i</p>
+                <h3 class="font-montserrat font-semibold text-[15px] mb-6 text-goldlight">Tamu Undangan</h3>
                 
-                <button id="btn-cover" class="w-full py-3 border border-gold rounded text-[10px] tracking-widest font-bold font-montserrat uppercase text-gold hover:bg-gold hover:text-black transition-all duration-300 flex items-center justify-center gap-2">
-                    <i id="btn-icon" class="fa-regular fa-envelope text-xs"></i>
+                <!-- Tombol Buka Undangan (ID telah disesuaikan menjadi tombol-buka) -->
+                <button id="tombol-buka" class="w-full py-3.5 border border-gold/80 rounded text-[10px] tracking-widest font-bold font-montserrat uppercase text-gold hover:bg-gold hover:text-black transition-all duration-300 flex items-center justify-center gap-2 group">
+                    <i id="btn-icon" class="fa-regular fa-envelope text-sm"></i>
                     <span id="btn-text">Buka Undangan</span>
                 </button>
                 
-                <p class="font-montserrat italic text-[8px] text-gold/50 mt-4 text-center leading-relaxed">*) Mohon maaf apabila ada kesalahan penulisan nama/gelar</p>
+                <p class="font-montserrat italic text-[8px] text-gold/60 mt-5 text-center leading-relaxed">*) Mohon maaf apabila ada kesalahan penulisan nama/gelar</p>
             </div>
         </section>
 
@@ -561,17 +590,108 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // 1. TOMBOL BUKA UNDANGAN (Scroll otomatis)
-            const btnCover = document.getElementById('btn-cover');
+            // 1. ELEMEN MUSIK & TOMBOL BUKA
+            const btnCover = document.getElementById('tombol-buka');
             const targetSection = document.getElementById('section-tujuan');
+            const btnIcon = document.getElementById('btn-icon');
+            const btnText = document.getElementById('btn-text');
+            
+            const audio = document.getElementById('audio');
+            const audioToggle = document.getElementById('audio-toggle');
 
+            // Logika Tombol Buka Undangan
             if(btnCover) {
                 btnCover.addEventListener('click', () => {
+                    // Scroll ke bawah
                     targetSection.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Ubah Ikon Tombol
+                    if(btnIcon) {
+                        btnIcon.classList.remove('fa-envelope', 'fa-regular');
+                        btnIcon.classList.add('fa-arrow-down', 'fa-solid', 'animate-bounce');
+                    }
+                    if(btnText) btnText.textContent = 'SCROLL KE BAWAH';
+                    
+                    // Mainkan Musik secara otomatis
+                    if (audio.paused) {
+                        audio.play().catch(err => console.log("Autoplay dicegah oleh browser:", err));
+                    }
                 });
             }
 
-            // 2. ANIMASI SCROLL (REVEAL) yang lebih halus
+            // Logika Play/Pause Musik dari Ikon Mengambang
+            audioToggle.addEventListener('click', function () {
+                if (audio.paused) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
+            });
+
+            // Putar CD saat lagu main
+            audio.addEventListener('play', function () {
+                audioToggle.classList.add('rotating');
+            });
+            // Hentikan putaran saat pause
+            audio.addEventListener('pause', function () {
+                audioToggle.classList.remove('rotating');
+            });
+
+            // Pause lagu jika user pindah tab (Visibility Change)
+            document.addEventListener('visibilitychange', function () {
+                if (document.hidden) {
+                    if (!audio.paused) {
+                        audio.pause();
+                        audio.dataset.wasPlaying = "true";
+                    } else {
+                        audio.dataset.wasPlaying = "false";
+                    }
+                } else {
+                    if (audio.dataset.wasPlaying === "true") {
+                        audio.play();
+                    }
+                }
+            });
+
+
+            // 2. LOGIKA FULLSCREEN
+            const fsButton = document.getElementById('enter-fullscreen');
+            const fsIcon = fsButton.querySelector('i');
+
+            function isFullscreen() {
+                return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+            }
+
+            function updateFullscreenIcon() {
+                if (isFullscreen()) {
+                    fsIcon.classList.remove('fa-expand-arrows-alt');
+                    fsIcon.classList.add('fa-compress-arrows-alt');
+                } else {
+                    fsIcon.classList.remove('fa-compress-arrows-alt');
+                    fsIcon.classList.add('fa-expand-arrows-alt');
+                }
+            }
+
+            function toggleFullscreen() {
+                const elem = document.documentElement;
+                if (!isFullscreen()) {
+                    if (elem.requestFullscreen) elem.requestFullscreen();
+                    else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+                    else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+                } else {
+                    if (document.exitFullscreen) document.exitFullscreen();
+                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                    else if (document.msExitFullscreen) document.msExitFullscreen();
+                }
+            }
+
+            fsButton.addEventListener('click', toggleFullscreen);
+            document.addEventListener('fullscreenchange', updateFullscreenIcon);
+            document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
+            document.addEventListener('msfullscreenchange', updateFullscreenIcon);
+
+
+            // 3. ANIMASI SCROLL (REVEAL)
             const revealElements = document.querySelectorAll('.reveal');
             const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -40px 0px" };
 
@@ -586,7 +706,8 @@
 
             revealElements.forEach(el => revealOnScroll.observe(el));
 
-            // 3. COUNTDOWN TIMER
+
+            // 4. COUNTDOWN TIMER
             const countDownDate = new Date("Jun 11, 2025 08:00:00").getTime();
             const cdDays = document.getElementById("cd-days");
 
@@ -615,7 +736,7 @@
                 }, 1000);
             }
 
-            // 4. LOGIKA SALIN NOMOR REKENING
+            // 5. LOGIKA SALIN NOMOR REKENING
             const btnToggleRek = document.getElementById('btn-toggle-rekening');
             const iconToggleRek = document.getElementById('icon-toggle-rekening');
             const textToggleRek = document.getElementById('text-toggle-rekening');
