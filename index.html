@@ -36,6 +36,7 @@
                         cinzel: ['Cinzel', 'serif'],
                         montserrat: ['Montserrat', 'sans-serif'],
                         playfair: ['Playfair Display', 'serif'],
+                        alex: ['Alex Brush', 'cursive'],
                     }
                 }
             }
@@ -46,10 +47,6 @@
         /* Smooth Scrolling Native Dimatikan agar tidak bentrok dengan GSAP */
         html { scroll-behavior: auto !important; }
         body { background-color: #000; margin: 0; padding: 0; overflow-x: hidden; }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 4px; background: #000; }
-        ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
 
         /* Kunci Scroll Cover */
         .lock-scroll { overflow: hidden !important; height: 100vh !important; touch-action: none; }
@@ -90,6 +87,11 @@
             border-bottom-right-radius: 15px;
             pointer-events: none;
             z-index: 0;
+        }
+
+        /* Filter Emas untuk Gambar Putih (Anti-Gagal di HP) */
+        .filter-gold {
+            filter: brightness(0) saturate(100%) invert(71%) sepia(50%) saturate(600%) hue-rotate(5deg) brightness(95%) contrast(88%);
         }
 
         /* Input Styling RSVP */
@@ -154,6 +156,7 @@
         @media (prefers-reduced-motion: reduce){ .muncul, .muncul-kiri, .muncul-kanan, .zoom { transition: none !important; } }
     </style>
 </head>
+<!-- Body dikunci saat pertama kali dimuat -->
 <body class="flex justify-center text-gold antialiased selection:bg-gold selection:text-black lock-scroll">
 
     <!-- Tombol Mengambang (Fullscreen & Music) -->
@@ -175,7 +178,7 @@
     <main class="w-full max-w-[420px] mx-auto bg-darkbg min-h-[100dvh] relative shadow-2xl overflow-x-hidden">
 
         <!-- ========================================== -->
-        <!-- SECTION 1: COVER (Sampul) -->
+        <!-- SECTION 1: COVER -->
         <!-- ========================================== -->
         <section id="section-cover" class="relative w-full h-[100dvh] flex flex-col items-center justify-between py-10 px-4 bg-[#0a0a0a] z-50 shrink-0">
             
@@ -215,8 +218,8 @@
                 <h3 class="font-montserrat font-semibold text-[16px] mb-6 text-goldlight text-center namatamu">Tamu Undangan</h3>
                 
                 <button id="tombol-buka" class="w-full py-3.5 border border-gold/60 rounded-lg text-[10px] tracking-[0.2em] font-bold font-montserrat uppercase text-gold bg-transparent hover:bg-gold/15 hover:border-gold focus:outline-none transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer">
-                    <i id="btn-icon" class="far fa-envelope-open text-[13px]"></i>
-                    <span id="btn-text">Buka Undangan</span>
+                    <i id="btn-icon" class="far fa-envelope-open text-[13px] elementor-button-icon"></i>
+                    <span class="elementor-button-text">Buka Undangan</span>
                 </button>
                 
                 <p class="font-montserrat italic text-[8.5px] text-gold/60 mt-5 text-center leading-relaxed">*) Mohon maaf apabila ada kesalahan penulisan nama/gelar</p>
@@ -242,13 +245,14 @@
                     <h2 class="font-cinzel text-[22px] font-bold text-goldlight mb-3 muncul uppercase tracking-widest text-center">Lisa & Palmer</h2>
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line" class="w-[70%] mb-10 muncul">
                     
-                    <h3 class="font-cinzel text-[12px] tracking-[0.15em] text-gold mb-10 zoom font-semibold">MINGGU, 11 JUNI 2025</h3>
+                    <!-- Update Tanggal agar sesuai target Countdown 19 Maret 2026 -->
+                    <h3 class="font-cinzel text-[12px] tracking-[0.15em] text-gold mb-10 zoom font-semibold uppercase">Kamis, 19 Maret 2026</h3>
                     
                     <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Akhirnya, hari yang kami nantikan telah tiba. Hari kebahagiaan yang sangat spesial bagi kami.</p>
 
-                    <!-- MASKING BISMILLAH YANG PASTI MUNCUL EMAS -->
+                    <!-- KALIGRAFI ARAB DENGAN CSS FILTER (Anti Gagal di HP) -->
                     <div class="w-full flex justify-center mb-10 zoom">
-                        <div style="width: 220px; height: 50px; background-color: #d4af37; -webkit-mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"></div>
+                        <img src="https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png" alt="Assalamualaikum" class="w-[200px] h-auto filter-gold drop-shadow-md">
                     </div>
 
                     <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Atas Izin dan Ridho Allah SWT, dan dengan restu orangtua kami. Maka Insya Allah kami akan melangsungkan acara pernikahan kami.</p>
@@ -312,9 +316,12 @@
                         <h2 class="font-cinzel text-[15px] font-bold tracking-[0.15em] text-gold mb-4 uppercase text-center">Lisa Blackpink</h2>
                         <p class="font-montserrat text-[12px] font-light text-gold/80 mb-2">Putri Pertama dari Keluarga</p>
                         <p class="font-montserrat text-[12px] text-center text-goldlight mb-5 leading-relaxed font-medium">Bapak Jose Mourinho<br>dan Ibu Happy Mourinho</p>
-                        <div class="flex gap-2 justify-center mb-4 zoom">
-                            <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-instagram"></i></a>
+                        
+                        <!-- SOSMED IG LANGSUNG NAMA USERNAME -->
+                        <div class="zoom">
+                            <a href="#" target="_blank" class="px-5 py-2 border border-gold/50 rounded-full text-goldlight text-[11px] font-montserrat tracking-wide hover:bg-gold hover:text-black hover:border-gold transition-all flex items-center gap-2">
+                                <i class="fab fa-instagram text-[14px]"></i> @lisablackpink
+                            </a>
                         </div>
                     </div>
 
@@ -328,9 +335,12 @@
                         <h2 class="font-cinzel text-[15px] font-bold tracking-[0.15em] text-gold mb-4 uppercase text-center">Cole Palmer</h2>
                         <p class="font-montserrat text-[12px] font-light text-gold/80 mb-2">Putra Pertama dari Keluarga</p>
                         <p class="font-montserrat text-[12px] text-center text-goldlight mb-5 leading-relaxed font-medium">Bapak Pep Guardiola<br>& Ibu Happy Guardiola</p>
-                        <div class="flex gap-2 justify-center mb-4 zoom">
-                            <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="w-[30px] h-[30px] flex items-center justify-center border border-gold/50 rounded text-gold text-xs hover:bg-gold hover:text-black transition-all"><i class="fab fa-instagram"></i></a>
+                        
+                        <!-- SOSMED IG LANGSUNG NAMA USERNAME -->
+                        <div class="zoom">
+                            <a href="#" target="_blank" class="px-5 py-2 border border-gold/50 rounded-full text-goldlight text-[11px] font-montserrat tracking-wide hover:bg-gold hover:text-black hover:border-gold transition-all flex items-center gap-2">
+                                <i class="fab fa-instagram text-[14px]"></i> @colepalmer
+                            </a>
                         </div>
                     </div>
                     
@@ -725,7 +735,7 @@
           });
         })();
 
-        // Matikan Native Smooth Scroll agar tidak bentrok (Sesuai referensi Elementor awal)
+        // Matikan Native Smooth Scroll agar tidak bentrok dengan GSAP
         (function killNativeSmooth(){
             const style = document.createElement('style');
             style.id = 'gsap-smooth-killer';
@@ -939,7 +949,7 @@
             }
 
             // --- 6. COUNTDOWN TIMER ---
-            const countDownDate = new Date("Jun 11, 2025 08:00:00").getTime();
+            const countDownDate = new Date("Mar 19, 2026 08:00:00").getTime();
             const cdDays = document.getElementById("cd-days");
 
             if (cdDays) {
