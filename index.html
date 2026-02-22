@@ -92,11 +92,6 @@
             z-index: 0;
         }
 
-        /* Filter Emas untuk Gambar Putih */
-        .filter-gold {
-            filter: brightness(0) saturate(100%) invert(66%) sepia(45%) saturate(763%) hue-rotate(3deg) brightness(98%) contrast(88%);
-        }
-
         /* Input Styling RSVP */
         .input-box {
             background-color: transparent;
@@ -151,6 +146,11 @@
         .zoom { transform: scale(0.5); opacity: 0; transition: transform 1.2s ease, opacity 0.8s ease; }
         .zoom.active { transform: scale(1); opacity: 1; }
         
+        @media (max-width: 600px){
+            .muncul-kiri{  transform: translateX(-2.5rem) scale(0.95); }
+            .muncul-kanan{ transform: translateX( 2.5rem) scale(0.95); }
+        }
+
         @media (prefers-reduced-motion: reduce){ .muncul, .muncul-kiri, .muncul-kanan, .zoom { transition: none !important; } }
     </style>
 </head>
@@ -248,9 +248,9 @@
                     
                     <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Akhirnya, hari yang kami nantikan telah tiba. Hari kebahagiaan yang sangat spesial bagi kami.</p>
 
-                    <!-- MASKING BISMILLAH DIGANTI GAMBAR & FILTER AGAR PASTI MUNCUL -->
+                    <!-- MASKING BISMILLAH MENGGUNAKAN CSS ABSOLUTE -->
                     <div class="w-full flex justify-center mb-10 zoom">
-                        <img src="https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png" alt="Assalamualaikum" class="w-[200px] h-auto filter-gold drop-shadow-md">
+                        <div class="bg-[#d4af37]" style="width: 220px; height: 50px; -webkit-mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('https://undangandari.com/wp-content/uploads/2025/08/assalamualaikum-putih.png'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;"></div>
                     </div>
 
                     <p class="font-montserrat text-[12px] font-light text-center leading-[1.8] text-gold/90 mb-10 muncul px-2">Atas Izin dan Ridho Allah SWT, dan dengan restu orangtua kami. Maka Insya Allah kami akan melangsungkan acara pernikahan kami.</p>
@@ -279,9 +279,13 @@
                     </div>
 
                     <p class="font-montserrat text-[10px] text-center text-gold/70 mb-5 muncul px-4 leading-relaxed">Klik tombol dibawah untuk tambahkan pengingat otomatis ke kalender Google</p>
-                    <a href="#" target="_blank" class="border border-gold/70 bg-[#0a0a0a] rounded text-[10px] tracking-[0.1em] font-montserrat font-semibold text-gold py-3 px-6 hover:bg-gold hover:text-black transition-all flex items-center gap-2 zoom">
-                        <i class="far fa-calendar-alt"></i> Simpan di Kalender
-                    </a>
+                    
+                    <!-- Wrapper Animasi Tombol -->
+                    <div class="zoom">
+                        <a href="#" target="_blank" class="border border-gold/70 bg-[#0a0a0a] rounded text-[10px] tracking-[0.1em] font-montserrat font-semibold text-gold py-3 px-6 hover:bg-gold hover:text-black transition-all flex items-center gap-2">
+                            <i class="far fa-calendar-alt"></i> Simpan di Kalender
+                        </a>
+                    </div>
                     
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-4.png" alt="Line" class="w-[70%] mt-14 muncul">
                 </div>
@@ -555,10 +559,13 @@
                         <p class="font-montserrat text-[11px] font-light text-gold/80 leading-[1.8] text-center max-w-[80%]">Jl. Perjuangan Kemerdekaan No 19, Kota Surabaya</p>
                     </div>
 
-                    <button id="btn-toggle-rekening" class="bg-[#0a0a0a] border border-gold/70 rounded text-[10px] font-montserrat font-medium text-gold py-2.5 px-6 hover:bg-gold hover:text-black transition-all flex items-center justify-center gap-2 muncul mb-8">
-                        <i id="icon-toggle-rekening" class="fas fa-search"></i>
-                        <span id="text-toggle-rekening">Lihat Rekening</span>
-                    </button>
+                    <!-- Wrapper Animasi Tombol -->
+                    <div class="muncul mb-8 w-full max-w-[200px]">
+                        <button id="btn-toggle-rekening" class="w-full bg-[#0a0a0a] border border-gold/70 rounded text-[10px] font-montserrat font-medium text-gold py-2.5 px-6 hover:bg-gold hover:text-black transition-all flex items-center justify-center gap-2">
+                            <i id="icon-toggle-rekening" class="fas fa-search"></i>
+                            <span id="text-toggle-rekening">Lihat Rekening</span>
+                        </button>
+                    </div>
 
                     <!-- ATM Card -->
                     <div id="box-rekening" class="hidden flex-col items-center w-full max-w-[280px] muncul">
@@ -582,49 +589,9 @@
             </section>
 
             <!-- ========================================== -->
-            <!-- SECTION 8: TURUT MENGUNDANG -->
+            <!-- SECTION 8: CLOSING (TERIMA KASIH) -->
             <!-- ========================================== -->
-            <section id="section-mengundang" class="section-card">
-                
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -top-10 -left-10 w-[180px] opacity-35 mix-blend-screen pointer-events-none z-0">
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-10 -right-10 w-[180px] opacity-35 mix-blend-screen pointer-events-none z-0 transform rotate-180">
-
-                <div class="relative z-10 flex flex-col items-center w-full">
-                    <h2 class="font-cinzel text-2xl font-bold text-goldlight mb-4 zoom tracking-widest uppercase text-center leading-tight">Turut<br>Mengundang</h2>
-                    <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line Divider" class="w-[70%] mb-10 muncul">
-
-                    <p class="font-montserrat text-[11px] font-light text-center leading-[1.8] text-gold/90 mb-12 muncul px-2">Kami juga berterima kasih kepada semua pihak yang telah membantu mempersiapkan segala persiapan acara pernikahan kami.</p>
-
-                    <h4 class="font-cinzel text-[13px] font-semibold tracking-wider text-gold uppercase mb-5 muncul">Keluarga Mempelai Wanita</h4>
-                    <div class="font-playfair text-[13px] text-goldlight text-center leading-[2] muncul mb-10">
-                        1. Nama Turut Mengundang 1<br>
-                        2. Nama Turut Mengundang 2<br>
-                        3. Nama Turut Mengundang 3<br>
-                        4. Nama Turut Mengundang 4
-                    </div>
-
-                    <div class="flex items-center w-full my-4 zoom gap-3 justify-center max-w-[60%]">
-                        <div class="h-[1px] bg-gold/40 flex-grow"></div>
-                        <i class="fas fa-praying-hands text-lg text-gold"></i>
-                        <div class="h-[1px] bg-gold/40 flex-grow"></div>
-                    </div>
-
-                    <h4 class="font-cinzel text-[13px] font-semibold tracking-wider text-gold uppercase mb-5 mt-8 muncul">Keluarga Mempelai Pria</h4>
-                    <div class="font-playfair text-[13px] text-goldlight text-center leading-[2] muncul mb-10">
-                        1. Nama Turut Mengundang 1<br>
-                        2. Nama Turut Mengundang 2<br>
-                        3. Nama Turut Mengundang 3<br>
-                        4. Nama Turut Mengundang 4
-                    </div>
-
-                    <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-5-1024x148.png" alt="Ornamen" class="w-[70%] mt-4 zoom">
-                </div>
-            </section>
-
-            <!-- ========================================== -->
-            <!-- SECTION 9: CLOSING (TERIMA KASIH) -->
-            <!-- ========================================== -->
-            <section id="section-penutup" class="section-card pb-16">
+            <section id="section-penutup" class="section-card">
                 
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -top-10 -left-10 w-[180px] opacity-35 mix-blend-screen pointer-events-none z-0">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-10 -right-10 w-[180px] opacity-35 mix-blend-screen pointer-events-none z-0 transform rotate-180">
@@ -662,6 +629,46 @@
 
                     <h2 class="font-cinzel text-xl font-bold text-goldlight mt-4 zoom tracking-widest uppercase text-center">LISA & PALMER</h2>
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line" class="w-[70%] mt-8 muncul">
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- SECTION 9: TURUT MENGUNDANG (PALING BAWAH) -->
+            <!-- ========================================== -->
+            <section id="section-mengundang" class="section-card pb-16">
+                
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -top-10 -left-10 w-[180px] opacity-35 mix-blend-screen pointer-events-none z-0">
+                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="absolute -bottom-10 -right-10 w-[180px] opacity-35 mix-blend-screen pointer-events-none z-0 transform rotate-180">
+
+                <div class="relative z-10 flex flex-col items-center w-full">
+                    <h2 class="font-cinzel text-2xl font-bold text-goldlight mb-4 zoom tracking-widest uppercase text-center leading-tight">Turut<br>Mengundang</h2>
+                    <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line Divider" class="w-[70%] mb-10 muncul">
+
+                    <p class="font-montserrat text-[11px] font-light text-center leading-[1.8] text-gold/90 mb-12 muncul px-2">Kami juga berterima kasih kepada semua pihak yang telah membantu mempersiapkan segala persiapan acara pernikahan kami.</p>
+
+                    <h4 class="font-cinzel text-[13px] font-semibold tracking-wider text-gold uppercase mb-5 muncul">Keluarga Mempelai Wanita</h4>
+                    <div class="font-playfair text-[13px] text-goldlight text-center leading-[2] muncul mb-10">
+                        1. Nama Turut Mengundang 1<br>
+                        2. Nama Turut Mengundang 2<br>
+                        3. Nama Turut Mengundang 3<br>
+                        4. Nama Turut Mengundang 4
+                    </div>
+
+                    <div class="flex items-center w-full my-4 zoom gap-3 justify-center max-w-[60%]">
+                        <div class="h-[1px] bg-gold/40 flex-grow"></div>
+                        <i class="fas fa-praying-hands text-lg text-gold"></i>
+                        <div class="h-[1px] bg-gold/40 flex-grow"></div>
+                    </div>
+
+                    <h4 class="font-cinzel text-[13px] font-semibold tracking-wider text-gold uppercase mb-5 mt-8 muncul">Keluarga Mempelai Pria</h4>
+                    <div class="font-playfair text-[13px] text-goldlight text-center leading-[2] muncul mb-10">
+                        1. Nama Turut Mengundang 1<br>
+                        2. Nama Turut Mengundang 2<br>
+                        3. Nama Turut Mengundang 3<br>
+                        4. Nama Turut Mengundang 4
+                    </div>
+
+                    <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-5-1024x148.png" alt="Ornamen" class="w-[70%] mt-4 zoom">
                 </div>
             </section>
 
@@ -738,7 +745,29 @@
             const fsButton = document.getElementById('enter-fullscreen');
             const fsIcon = fsButton.querySelector('i');
 
-            // --- 1. LOGIKA FULLSCREEN INSTAN ---
+            // --- 1. MATIKAN NATIVE SMOOTH SCROLL ---
+            (function killNativeSmooth(){
+                const style = document.createElement('style');
+                style.id = 'gsap-smooth-killer';
+                style.textContent = 'html{scroll-behavior:auto !important;}';
+                document.head.appendChild(style);
+            })();
+
+            // --- 2. LOGIKA SCROLL LOCK ---
+            const lockScroll = () => {
+                document.documentElement.style.overflow = 'hidden';
+                document.body.style.overflow = 'hidden';
+                window.scrollTo(0, 0);
+            };
+            const unlockScroll = () => {
+                document.documentElement.style.overflow = '';
+                document.body.style.overflow = '';
+            };
+
+            // Kunci scroll saat pertama kali web dimuat
+            lockScroll();
+
+            // --- 3. HELPER FULLSCREEN ---
             function isFullscreen() {
                 return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
             }
@@ -779,7 +808,7 @@
             document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
             document.addEventListener('msfullscreenchange', updateFullscreenIcon);
 
-            // --- 2. LOGIKA TOMBOL BUKA UNDANGAN (AUTO SCROLL CEPAT) ---
+            // --- 4. LOGIKA TOMBOL BUKA UNDANGAN (GSAP INSTAN) ---
             const setButtonToScroll = () => {
                 if (btnText) btnText.textContent = 'SCROLL KE BAWAH';
                 if (btnIcon) {
@@ -807,28 +836,23 @@
                 e.preventDefault();
                 setButtonToScroll();
 
-                // 1. Lepas Kunci Scroll
-                document.body.classList.remove('lock-scroll');
+                unlockScroll(); 
 
-                // 2. Munculkan Konten
                 contentUndangan.classList.remove('hidden');
                 contentUndangan.classList.add('flex');
 
-                // 3. Putar Musik
                 if (audio && audio.paused) {
                     audio.play().catch(err => console.log("Audio play di-block:", err));
                 }
 
-                // 4. Minta Fullscreen (Tanpa Menunggu)
+                // Eksekusi Fullscreen instan
                 enterFullscreen(document.documentElement);
                 
-                // 5. Scroll Langsung ke Bawah 
-                // Menggunakan jeda sekecil mungkin hanya agar DOM dirender menjadi display:flex
+                // Animasi scroll instan
                 setTimeout(() => {
                     scrollKeTujuan();
                 }, 50);
 
-                // Ganti event click untuk selanjutnya (hanya scroll)
                 btnCover.removeEventListener('click', handleFirstClick);
                 btnCover.addEventListener('click', (ev) => { 
                     ev.preventDefault(); 
@@ -840,7 +864,14 @@
                 btnCover.addEventListener('click', handleFirstClick);
             }
 
-            // --- 3. LOGIKA AUDIO ---
+            const onFsChange = () => { 
+                if(isFullscreen() && !document.body.classList.contains('scroll-lock')) {
+                    setButtonToScroll(); 
+                }
+            };
+            document.addEventListener('fullscreenchange', onFsChange);
+
+            // --- 5. LOGIKA AUDIO ---
             audioToggle.addEventListener('click', function () {
                 if (audio.paused) audio.play();
                 else audio.pause();
@@ -868,7 +899,7 @@
                 }
             });
 
-            // --- 4. ANIMASI SCROLL REPEATING ---
+            // --- 6. ANIMASI SCROLL REPEATING ---
             const selector = ".muncul, .muncul-kiri, .muncul-kanan, .zoom";
             const elementVisible = 110;
             const qAll = (sel, root=document) => Array.from(root.querySelectorAll(sel));
@@ -885,7 +916,7 @@
                 qAll(selector).forEach(el => { ioEnter.observe(el); ioExit.observe(el); });
             }
 
-            // --- 5. COUNTDOWN TIMER ---
+            // --- 7. COUNTDOWN TIMER ---
             const countDownDate = new Date("Jun 11, 2025 08:00:00").getTime();
             const cdDays = document.getElementById("cd-days");
 
@@ -914,7 +945,7 @@
                 }, 1000);
             }
 
-            // --- 6. LOGIKA SALIN NOMOR REKENING ---
+            // --- 8. LOGIKA SALIN NOMOR REKENING ---
             const btnToggleRek = document.getElementById('btn-toggle-rekening');
             const iconToggleRek = document.getElementById('icon-toggle-rekening');
             const textToggleRek = document.getElementById('text-toggle-rekening');
