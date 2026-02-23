@@ -473,8 +473,23 @@
         btnKirimPreview.addEventListener('click', (e) => {
             e.preventDefault();
             const namaVal = inputNama.value.trim(); const ucapanVal = inputUcapan.value.trim(); const kehadiranVal = inputKehadiran.value;
-            if (!namaVal || !ucapanVal || !kehadiranVal) { showModal("Peringatan", "Lengkapi semua form", [{text:"Oke", color:"bg-gold text-black", action:"tutupModal()"}]); return; }
-            kirimRsvpFinal();
+            if (!namaVal || !ucapanVal || !kehadiranVal) { showModal("Peringatan", "Mohon lengkapi semua kolom form RSVP terlebih dahulu.", [{text:"Mengerti", color:"bg-gold text-black", action:"tutupModal()"}]); return; }
+            
+            // Cek Spammer via LocalStorage
+            if(localStorage.getItem('rsvp_demo-undangan')) { showModal("Terima Kasih", "Anda sudah mengirimkan RSVP/Ucapan sebelumnya. 1 perangkat hanya dapat mengirim 1 kali.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); return; }
+            
+            // Cek Kata Kotor & Link
+            const badWords = ['anjing', 'babi', 'monyet', 'bangsat', 'kontol', 'memek', 'jembut', 'goblok', 'tolol', 'ngentot', 'fuck', 'shit', 'bitch'];
+            const urlRegex = /(https?:\/\/|www\.)[a-zA-Z0-9\-\.\+\/?\=\&#]+/gi;
+            const ucapanLower = ucapanVal.toLowerCase();
+            const containsBadWord = badWords.some(word => ucapanLower.includes(word));
+            if(containsBadWord || urlRegex.test(ucapanVal)) { showModal("Peringatan Keamanan", "Maaf, ucapan tidak dapat dikirim karena mengandung tautan/link atau kata-kata yang tidak pantas.", [{text:"Ubah Ucapan", color:"bg-gold text-black", action:"tutupModal()"}]); return; }
+            
+            // Konfirmasi Akhir
+            showModal("Konfirmasi Pengiriman", "Pastikan ucapan dan kehadiran Anda sudah benar. Pesan yang telah dikirim tidak dapat diubah kembali.", [
+                {text:"Periksa Lagi", color:"bg-gray-600", action:"tutupModal()"},
+                {text:"Ya, Kirim", color:"bg-[#28a745]", action:"kirimRsvpFinal()"}
+            ]);
         });
         
         window.kirimRsvpFinal = async function() {
@@ -483,7 +498,7 @@
             tutupModal();
             try {
                 await addDoc(rsvpCollection, { nama: namaVal, ucapan: ucapanVal, kehadiran: kehadiranVal, timestamp: serverTimestamp() });
-                // Anti spam dinonaktifkan
+                localStorage.setItem('rsvp_demo-undangan', 'true');
                 formRsvp.reset(); btnKirimPreview.innerHTML = '<i class="fas fa-check"></i> Terkirim!'; btnKirimPreview.classList.replace('text-black', 'text-white'); btnKirimPreview.classList.replace('bg-gold', 'bg-[#28a745]'); btnKirimPreview.classList.replace('border-gold', 'border-[#28a745]');
             } catch (error) { showModal("Error", "Maaf, terjadi kesalahan jaringan. Silakan coba lagi.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); } 
             finally { setTimeout(() => { btnKirimPreview.innerHTML = textAwal; btnKirimPreview.disabled = false; btnKirimPreview.classList.remove('opacity-50', 'cursor-not-allowed', 'text-white', 'bg-[#28a745]', 'border-[#28a745]'); btnKirimPreview.classList.add('text-black', 'bg-gold', 'border-gold'); }, 3000); }
