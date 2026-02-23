@@ -136,7 +136,7 @@
             <div class="w-[85%] max-w-[300px] bg-[#0c0c0c]/95 border border-gold/40 rounded-xl py-6 px-5 flex flex-col items-center z-10 shadow-2xl mb-4 mt-2 zoom active" style="transition-delay: 0.6s">
                 <p class="font-montserrat text-[12px] text-gold/90 mb-2 font-medium">Kepada Yth: Bpk/Ibu/Saudara/i</p>
                 <h3 class="font-playfair italic text-[14px] md:text-[16px] mb-6 text-goldlight text-center namatamu tracking-wide drop-shadow-md">Tamu Undangan</h3>
-                <button id="tombol-buka" class="w-full py-3.5 border border-gold/60 rounded-lg text-[11px] tracking-[0.2em] font-bold font-montserrat uppercase text-gold bg-transparent hover:bg-gold/15 hover:border-gold hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] focus:outline-none transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer group">
+                <button id="tombol-buka-undangan" class="w-full py-3.5 border border-gold/60 rounded-lg text-[11px] tracking-[0.2em] font-bold font-montserrat uppercase text-gold bg-transparent hover:bg-gold/15 hover:border-gold hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] focus:outline-none transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer group">
                     <i id="btn-icon" class="far fa-envelope-open text-[14px] elementor-button-icon group-hover:scale-110 transition-transform"></i>
                     <span class="elementor-button-text">Buka Undangan</span>
                 </button>
@@ -156,9 +156,9 @@
                     
                     <p class="teks-paragraf mb-10 muncul">Akhirnya, hari yang kami nantikan telah tiba. Hari kebahagiaan yang sangat spesial bagi kami.</p>
                     
-                    <div class="w-full flex justify-center mb-10 zoom"><img src="https://ik.imagekit.io/asetundangan/aset/kaligrafi/bismillah-emas.png" alt="Bismillah" class="w-[200px] h-auto drop-shadow-md"></div>
                     
-                    <p class="teks-paragraf mb-10 muncul">Atas Izin dan Ridho Allah SWT, dan dengan restu orangtua kami. Maka Insya Allah kami akan melangsungkan acara pernikahan kami.</p>
+                    
+                    <p class="teks-paragraf mb-10 muncul">Tuhan membuat segala sesuatu indah pada waktunya. Indah saat Dia mempertemukan, indah saat Dia menumbuhkan kasih, dan indah saat Dia mempersatukan kami dalam suatu Ikatan Pernikahan Kudus.</p>
                     <div class="w-32 h-[1px] bg-gold/40 mb-10 muncul"></div>
                     <h2 class="teks-judul text-xl mb-8 muncul">Save The Date</h2>
                     <div class="grid grid-cols-4 gap-2 w-full max-w-[280px] mb-10 zoom">
@@ -179,7 +179,7 @@
                 <img src="https://ik.imagekit.io/asetundangan/aset/gold/bunga%20emas%20transparan.png" alt="Ornamen" class="ornamen-pojok-kanan">
                 <div class="relative z-10 flex flex-col items-center w-full">
                     <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%201%20devider.webp" alt="Ornamen" class="w-[85%] mb-8 zoom">
-                    <h3 class="teks-subjudul mb-6 muncul">Assalamu'alaikum Wr. Wb.</h3>
+                    <h3 class="teks-subjudul mb-6 muncul">Shalom!</h3>
                     <p class="teks-paragraf mb-10 muncul">Tanpa mengurangi rasa hormat, kami bermaksud mengundang Bapak/Ibu/Saudara/I untuk menghadiri acara pernikahan kami:</p>
                     <h4 class="teks-aksen text-[15px] mb-2 muncul">Yang Berbahagia</h4>
                     <h2 class="teks-judul mb-4 zoom">Kedua Mempelai</h2>
@@ -272,8 +272,8 @@
                 <img src="https://ik.imagekit.io/asetundangan/aset/gold/bunga%20emas%20transparan.png" alt="Ornamen" class="ornamen-pojok-kanan">
                 <div class="relative z-10 flex flex-col items-center w-full justify-center min-h-[40vh] py-8">
                     <i class="fas fa-quote-left text-3xl text-gold/40 mb-6 muncul"></i>
-                    <p class="font-playfair text-[14px] md:text-[15px] text-gold/90 text-center leading-[2] mb-8 muncul px-2">"Dan di antara tanda-tanda kekuasaan-Nya diciptakan-Nya untukmu pasangan hidup dari jenismu sendiri supaya kamu dapat ketenangan hati dan dijadikannya kasih sayang di antara kamu. Sesungguhnya yang demikian menjadi tanda-tanda kebesaran-Nya bagi orang-orang yang berpikir."</p>
-                    <h3 class="teks-subjudul mb-0 zoom font-bold">- QS. Ar - Rum 21 -</h3>
+                    <p class="font-playfair text-[14px] md:text-[15px] text-gold/90 text-center leading-[2] mb-8 muncul px-2">"Demikianlah mereka bukan lagi dua, melainkan satu. Karena itu, apa yang telah dipersatukan Allah, tidak boleh diceraikan manusia."</p>
+                    <h3 class="teks-subjudul mb-0 zoom font-bold">- Matius 19:6 -</h3>
                 </div>
             </section>
 
@@ -391,7 +391,7 @@
         if (typeof gsap !== 'undefined' && typeof ScrollToPlugin !== 'undefined') { gsap.registerPlugin(ScrollToPlugin); }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const btnCover = document.getElementById('tombol-buka'); 
+            const btnCover = document.getElementById('tombol-buka-undangan'); 
             const targetSection = document.getElementById('section-tujuan'); 
             const btnIcon = document.getElementById('btn-icon'); 
             const btnText = btnCover ? btnCover.querySelector('.elementor-button-text') : null; 
