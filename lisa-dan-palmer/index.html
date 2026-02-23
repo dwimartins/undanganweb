@@ -92,7 +92,6 @@
     <!-- Modal Konfirmasi/Peringatan -->
     <div id="custom-modal" class="modal-overlay">
         <div class="modal-box">
-            <!-- REVISI 4: Ganti font modal title menjadi montserrat -->
             <h3 id="modal-title" class="font-montserrat text-goldlight text-base font-bold text-center mb-2 border-b border-gold/30 pb-2">Pemberitahuan</h3>
             <p id="modal-msg" class="font-montserrat text-gray-300 text-[13px] text-center mb-6 leading-relaxed">Pesan</p>
             <div id="modal-actions" class="flex gap-3 justify-center">
@@ -128,7 +127,7 @@
                     <h1 class="font-playfair italic text-[clamp(5.5rem,18vh,8.5rem)] text-goldlight drop-shadow-md absolute ml-[0.45em] mt-[0.4em] leading-none">P</h1>
                 </div>
                 <div class="flex flex-col items-center mt-[clamp(0.5rem,2vh,1.5rem)] zoom active" style="transition-delay: 0.4s">
-                    <div class="zoom-2"><img src="https://ik.imagekit.io/asetundangan/aset/gold/cincin%20emas.png" alt="Rings" class="w-[clamp(45px,8vh,60px)] mb-[clamp(0.5rem,2vh,1.25rem)] drop-shadow-[0_0_12px_rgba(212,175,55,0.6)] brightness-110 zoom-1"></div>
+                    <div class="zoom-2"><img src="https://ik.imagekit.io/asetundangan/aset/gold/cincin%20emas.png" alt="Rings" class="w-[clamp(45px,8vh,60px)] mb-[clamp(0.5rem,2vh,1.25rem)] drop-shadow-lg zoom-1"></div>
                     <div class="w-24 h-[1px] bg-gold/50 mb-[clamp(0.5rem,1.5vh,0.75rem)]"></div>
                     <p class="font-cinzel text-[clamp(11px,2.5vh,13px)] tracking-[0.2em] font-semibold text-goldlight uppercase">Surabaya</p>
                     <p class="font-cinzel text-[clamp(11px,2.5vh,13px)] tracking-[0.2em] font-semibold text-goldlight uppercase mt-1">Minggu, 15 Juli 2025</p>
@@ -136,7 +135,6 @@
             </div>
             <div class="w-[85%] max-w-[300px] bg-[#0c0c0c]/95 border border-gold/40 rounded-xl py-6 px-5 flex flex-col items-center z-10 shadow-2xl mb-4 mt-2 zoom active" style="transition-delay: 0.6s">
                 <p class="font-montserrat text-[12px] text-gold/90 mb-2 font-medium">Kepada Yth: Bpk/Ibu/Saudara/i</p>
-                <!-- REVISI 2: Font Tamu Italic dan Ukuran Diperkecil Lebih Pas -->
                 <h3 class="font-playfair italic text-[14px] md:text-[16px] mb-6 text-goldlight text-center namatamu tracking-wide drop-shadow-md">Tamu Undangan</h3>
                 <button id="tombol-buka-undangan" class="w-full py-3.5 border border-gold/60 rounded-lg text-[11px] tracking-[0.2em] font-bold font-montserrat uppercase text-gold bg-transparent hover:bg-gold/15 hover:border-gold hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] focus:outline-none transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer group">
                     <i id="btn-icon" class="far fa-envelope-open text-[14px] elementor-button-icon group-hover:scale-110 transition-transform"></i>
@@ -194,7 +192,7 @@
                         <p class="teks-paragraf text-goldlight mb-5 font-medium">Bpk. Jose Mourinho<br>& Ibu Happy Mourinho</p>
                         <div class="zoom"><a href="https://instagram.com/lisablackpink" target="_blank" class="px-5 py-2.5 border border-gold/50 rounded-full text-goldlight text-[12px] font-montserrat tracking-wide hover:bg-gold hover:text-black hover:border-gold transition-all flex items-center gap-2"><i class="fab fa-instagram text-[15px]"></i> @lisablackpink</a></div>
                     </div>
-                    <div class="zoom-2"><img src="https://ik.imagekit.io/asetundangan/aset/gold/cincin%20emas.png" alt="Cincin" class="w-14 my-6 drop-shadow-[0_0_12px_rgba(212,175,55,0.6)] brightness-110"></div>
+                    <div class="zoom-2"><img src="https://ik.imagekit.io/asetundangan/aset/gold/cincin%20emas.png" alt="Cincin" class="w-14 my-6 drop-shadow-md"></div>
                     <div class="flex flex-col items-center mb-10 w-full muncul">
                         <h1 class="nama-mempelai">Palmer</h1>
                         <h2 class="nama-lengkap mb-4">Cole Palmer</h2>
@@ -372,7 +370,7 @@
         </div>
     </main>
 
-    <!-- PUSAT LOGIKA JS (Perbaikan Buka Undangan agar Robust) -->
+    <!-- PUSAT LOGIKA JS -->
     <script>
         (function () {
           'use strict';
@@ -404,9 +402,8 @@
                     const currentY = window.pageYOffset || document.documentElement.scrollTop || 0; 
                     const rect = targetSection.getBoundingClientRect(); 
                     const targetY = currentY + rect.top; 
-                    const dist = Math.abs(targetY - currentY); 
-                    const durasi = Math.max(0.9, Math.min(1.6, dist / 1600)); 
-                    gsap.to(window, { duration: durasi, ease: 'power2.out', scrollTo: { y: targetSection, autoKill: false } }); 
+                    // Scroll diayun halus menggunakan power3.inOut dengan durasi 1.5 detik
+                    gsap.to(window, { duration: 1.5, ease: 'power3.inOut', scrollTo: { y: targetSection, autoKill: false } }); 
                 } else { 
                     targetSection.scrollIntoView({ behavior: 'smooth' }); 
                 } 
@@ -418,7 +415,6 @@
             const audioToggle = document.getElementById('audio-toggle');
             let isOpened = false;
 
-            // REVISI 1: Logika Buka Undangan (Fullscreen -> Delay 1.5s -> Scroll)
             if(btnCover) {
                 btnCover.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -441,6 +437,7 @@
                             else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
                         } catch(err) {}
 
+                        // Tahan 1.5 detik di cover lalu baru gulir ke bawah
                         setTimeout(() => { scrollKeTujuan(); }, 1500);
                     } else {
                         scrollKeTujuan();
@@ -517,7 +514,6 @@
             }
         };
 
-        // Langsung eksekusi setupUI saat DOM dirender di iFrame
         setupUI();
         
         window.copyRekening = function(elementId, btnElement) { 
@@ -534,7 +530,7 @@
             btnElement.classList.replace('text-gray-800', 'text-green-600'); 
             setTimeout(() => { spanText.textContent = originalText; btnElement.classList.replace('text-green-600', 'text-gray-800'); }, 2000); 
         };
-    <\/script>
+    </script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -573,8 +569,7 @@
                 else if (data.kehadiran === 'Tidak Hadir') badgeStatus = '<span class="bg-[#ef4444] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Tidak Hadir <i class="fas fa-times"></i></span>';
                 else badgeStatus = '<span class="bg-[#eab308] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Masih Ragu <i class="fas fa-hourglass-half"></i></span>';
                 
-                // REVISI 3: Ukuran teks nama tamu RSVP diperkecil menjadi text-[12px]
-                ucapanHTML += `<div class="flex gap-4 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded-xl border border-gold/10 shadow-lg relative overflow-hidden shrink-0"><div class="w-11 h-11 rounded-full text-white flex items-center justify-center font-extrabold text-[15px] shrink-0 shadow-inner z-10" style="background-color: ${bgColor}">${inisial}</div><div class="flex flex-col w-full z-10"><div class="flex items-center justify-between mb-2 flex-wrap gap-2"><span class="font-bold text-goldlight text-[12px] font-playfair tracking-wide">${data.nama}</span>${badgeStatus}</div><p class="text-[13px] text-gray-300 mb-2 leading-relaxed font-montserrat">${data.ucapan}</p><span class="text-[11px] text-gold/70 font-montserrat font-medium">${waktu}</span></div><div class="absolute -bottom-4 -right-4 text-gold/5 text-6xl pointer-events-none"><i class="fas fa-quote-right"></i></div></div>`;
+                ucapanHTML += `<div class="flex gap-4 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded-xl border border-gold/10 shadow-lg relative overflow-hidden shrink-0"><div class="w-11 h-11 rounded-full text-white flex items-center justify-center font-extrabold text-[15px] shrink-0 shadow-inner z-10" style="background-color: ${bgColor}">${inisial}</div><div class="flex flex-col w-full z-10"><div class="flex items-center justify-between mb-2 flex-wrap gap-2"><span class="font-bold text-goldlight text-[12px] md:text-[13px] font-playfair tracking-wide">${data.nama}</span>${badgeStatus}</div><p class="text-[13px] text-gray-300 mb-2 leading-relaxed font-montserrat">${data.ucapan}</p><span class="text-[11px] text-gold/70 font-montserrat font-medium">${waktu}</span></div><div class="absolute -bottom-4 -right-4 text-gold/5 text-6xl pointer-events-none"><i class="fas fa-quote-right"></i></div></div>`;
             });
             daftarUcapan.innerHTML = ucapanHTML;
             if(typeof gsap !== 'undefined'){ gsap.to(countHadir, { innerHTML: hadir, duration: 1, snap: { innerHTML: 1 } }); gsap.to(countTidakHadir, { innerHTML: tidakHadir, duration: 1, snap: { innerHTML: 1 } }); gsap.to(countRagu, { innerHTML: ragu, duration: 1, snap: { innerHTML: 1 } }); }
@@ -624,6 +619,6 @@
         }
         window.tutupModal = function() { modal.classList.remove('active'); }
 
-    <\/script>
+    </script>
 </body>
 </html>
