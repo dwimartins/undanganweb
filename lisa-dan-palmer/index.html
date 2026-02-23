@@ -91,7 +91,8 @@
     <!-- Modal Konfirmasi/Peringatan -->
     <div id="custom-modal" class="modal-overlay">
         <div class="modal-box">
-            <h3 id="modal-title" class="font-cinzel text-goldlight text-lg font-bold text-center mb-2 border-b border-gold/30 pb-2">Pemberitahuan</h3>
+            <!-- REVISI 4: Ganti font modal title menjadi montserrat -->
+            <h3 id="modal-title" class="font-montserrat text-goldlight text-base font-bold text-center mb-2 border-b border-gold/30 pb-2">Pemberitahuan</h3>
             <p id="modal-msg" class="font-montserrat text-gray-300 text-[13px] text-center mb-6 leading-relaxed">Pesan</p>
             <div id="modal-actions" class="flex gap-3 justify-center">
                 <!-- Tombol dinamis -->
@@ -134,8 +135,8 @@
             </div>
             <div class="w-[85%] max-w-[300px] bg-[#0c0c0c]/95 border border-gold/40 rounded-xl py-6 px-5 flex flex-col items-center z-10 shadow-2xl mb-4 mt-2 zoom active" style="transition-delay: 0.6s">
                 <p class="font-montserrat text-[12px] text-gold/90 mb-2 font-medium">Kepada Yth: Bpk/Ibu/Saudara/i</p>
-                <!-- PERBAIKAN: Font Tamu Italic dan Ukuran Pas -->
-                <h3 class="font-playfair italic text-[20px] md:text-[22px] mb-6 text-goldlight text-center namatamu tracking-wide drop-shadow-md">Tamu Undangan</h3>
+                <!-- REVISI 2: Font Tamu Italic dan Ukuran Diperkecil Lebih Pas -->
+                <h3 class="font-playfair italic text-[16px] md:text-[18px] mb-6 text-goldlight text-center namatamu tracking-wide drop-shadow-md">Tamu Undangan</h3>
                 <button id="tombol-buka" class="w-full py-3.5 border border-gold/60 rounded-lg text-[11px] tracking-[0.2em] font-bold font-montserrat uppercase text-gold bg-transparent hover:bg-gold/15 hover:border-gold hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] focus:outline-none transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer group">
                     <i id="btn-icon" class="far fa-envelope-open text-[14px] elementor-button-icon group-hover:scale-110 transition-transform"></i>
                     <span class="elementor-button-text">Buka Undangan</span>
@@ -404,16 +405,19 @@
 
             const setButtonToScroll = () => { if (btnText) btnText.textContent = 'SCROLL KE BAWAH'; if (btnIcon) { btnIcon.classList.remove('fa-envelope-open', 'far', 'group-hover:scale-110'); btnIcon.classList.add('fas', 'fa-arrow-down', 'animate-bounce'); } };
             
-            // PERBAIKAN: Transisi Mulus & Penghapusan Paksa Fullscreen
             const scrollKeTujuan = () => { if (!targetSection) return; if (typeof gsap !== 'undefined') { const currentY = window.pageYOffset || document.documentElement.scrollTop || 0; const rect = targetSection.getBoundingClientRect(); const targetY = currentY + rect.top; const dist = Math.abs(targetY - currentY); const durasi = Math.max(0.9, Math.min(1.6, dist / 1600)); gsap.to(window, { duration: durasi, ease: 'power2.out', scrollTo: { y: targetSection, autoKill: false } }); } else { targetSection.scrollIntoView({ behavior: 'smooth' }); } };
 
+            // REVISI 1: Buka undangan -> Fullscreen instan -> Tunggu 1.5 detik -> Auto Scroll mulus
             const handleFirstClick = (e) => { 
                 e.preventDefault(); 
                 setButtonToScroll(); 
                 unlockScroll(); 
                 if(contentUndangan) { contentUndangan.classList.remove('hidden'); contentUndangan.classList.add('flex'); } 
                 if (audio && audio.paused) { audio.play().catch(err => console.log("Audio play di-block:", err)); } 
-                scrollKeTujuan();
+                
+                enterFullscreen(document.documentElement); 
+                setTimeout(() => { scrollKeTujuan(); }, 1500);
+                
                 btnCover.removeEventListener('click', handleFirstClick); 
                 btnCover.addEventListener('click', (ev) => { ev.preventDefault(); scrollKeTujuan(); }); 
             };
@@ -437,7 +441,7 @@
         if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initUI); } else { initUI(); }
         
         window.copyRekening = function(elementId, btnElement) { const norek = document.getElementById(elementId).innerText; const tempInput = document.createElement('input'); tempInput.value = norek; document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); const spanText = btnElement.querySelector('span'); const originalText = spanText.textContent; spanText.textContent = 'Tersalin!'; btnElement.classList.replace('text-gray-800', 'text-green-600'); setTimeout(() => { spanText.textContent = originalText; btnElement.classList.replace('text-green-600', 'text-gray-800'); }, 2000); }
-    </script>
+    <\/script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -454,7 +458,7 @@
         const app = initializeApp(firebaseConfig); const db = getFirestore(app);
 
         let pathSegments = window.location.pathname.split('/').filter(segment => segment.length > 0 && !segment.includes('.html'));
-        let brideId = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : "lisa-dan-palmer";
+        let brideId = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : "demo-undangan";
         brideId = brideId.replace(/[^a-zA-Z0-9-_]/g, ''); 
         
         const rsvpCollection = collection(db, 'rsvp_' + brideId);
@@ -476,7 +480,8 @@
                 else if (data.kehadiran === 'Tidak Hadir') badgeStatus = '<span class="bg-[#ef4444] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Tidak Hadir <i class="fas fa-times"></i></span>';
                 else badgeStatus = '<span class="bg-[#eab308] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Masih Ragu <i class="fas fa-hourglass-half"></i></span>';
                 
-                ucapanHTML += `<div class="flex gap-4 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded-xl border border-gold/10 shadow-lg relative overflow-hidden shrink-0"><div class="w-11 h-11 rounded-full text-white flex items-center justify-center font-extrabold text-[15px] shrink-0 shadow-inner z-10" style="background-color: ${bgColor}">${inisial}</div><div class="flex flex-col w-full z-10"><div class="flex items-center justify-between mb-2 flex-wrap gap-2"><span class="font-bold text-goldlight text-[15px] font-playfair tracking-wide">${data.nama}</span>${badgeStatus}</div><p class="text-[13px] text-gray-300 mb-2 leading-relaxed font-montserrat">${data.ucapan}</p><span class="text-[11px] text-gold/70 font-montserrat font-medium">${waktu}</span></div><div class="absolute -bottom-4 -right-4 text-gold/5 text-6xl pointer-events-none"><i class="fas fa-quote-right"></i></div></div>`;
+                // REVISI 3: Ukuran teks nama tamu RSVP diperkecil menjadi text-[13px]
+                ucapanHTML += `<div class="flex gap-4 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded-xl border border-gold/10 shadow-lg relative overflow-hidden shrink-0"><div class="w-11 h-11 rounded-full text-white flex items-center justify-center font-extrabold text-[15px] shrink-0 shadow-inner z-10" style="background-color: ${bgColor}">${inisial}</div><div class="flex flex-col w-full z-10"><div class="flex items-center justify-between mb-2 flex-wrap gap-2"><span class="font-bold text-goldlight text-[13px] font-playfair tracking-wide">${data.nama}</span>${badgeStatus}</div><p class="text-[13px] text-gray-300 mb-2 leading-relaxed font-montserrat">${data.ucapan}</p><span class="text-[11px] text-gold/70 font-montserrat font-medium">${waktu}</span></div><div class="absolute -bottom-4 -right-4 text-gold/5 text-6xl pointer-events-none"><i class="fas fa-quote-right"></i></div></div>`;
             });
             daftarUcapan.innerHTML = ucapanHTML;
             if(typeof gsap !== 'undefined'){ gsap.to(countHadir, { innerHTML: hadir, duration: 1, snap: { innerHTML: 1 } }); gsap.to(countTidakHadir, { innerHTML: tidakHadir, duration: 1, snap: { innerHTML: 1 } }); gsap.to(countRagu, { innerHTML: ragu, duration: 1, snap: { innerHTML: 1 } }); }
@@ -486,7 +491,21 @@
         
         btnKirimPreview.addEventListener('click', (e) => {
             e.preventDefault();
-            showModal("Mode Demo", "Maaf, RSVP dan ucapan tidak dapat dikirim karena ini adalah versi demo/preview tema.", [{text:"Mengerti", color:"bg-gold text-black", action:"tutupModal()"}]);
+            const namaVal = inputNama.value.trim(); const ucapanVal = inputUcapan.value.trim(); const kehadiranVal = inputKehadiran.value;
+            if (!namaVal || !ucapanVal || !kehadiranVal) { showModal("Peringatan", "Mohon lengkapi semua kolom form RSVP terlebih dahulu.", [{text:"Mengerti", color:"bg-gold text-black", action:"tutupModal()"}]); return; }
+            
+            if(localStorage.getItem('rsvp_demo-undangan')) { showModal("Terima Kasih", "Anda sudah mengirimkan RSVP/Ucapan sebelumnya. 1 perangkat hanya dapat mengirim 1 kali.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); return; }
+            
+            const badWords = ['anjing', 'babi', 'monyet', 'bangsat', 'kontol', 'memek', 'jembut', 'goblok', 'tolol', 'ngentot', 'fuck', 'shit', 'bitch'];
+            const urlRegex = /(https?:\/\/|www\.)[a-zA-Z0-9\-\.\+\/?\=\&#]+/gi;
+            const ucapanLower = ucapanVal.toLowerCase();
+            const containsBadWord = badWords.some(word => ucapanLower.includes(word));
+            if(containsBadWord || urlRegex.test(ucapanVal)) { showModal("Peringatan Keamanan", "Maaf, ucapan tidak dapat dikirim karena mengandung tautan/link atau kata-kata yang tidak pantas.", [{text:"Ubah Ucapan", color:"bg-gold text-black", action:"tutupModal()"}]); return; }
+            
+            showModal("Konfirmasi Pengiriman", "Pastikan ucapan dan kehadiran Anda sudah benar. Pesan yang telah dikirim tidak dapat diubah kembali.", [
+                {text:"Periksa Lagi", color:"bg-gray-600", action:"tutupModal()"},
+                {text:"Ya, Kirim", color:"bg-[#28a745]", action:"kirimRsvpFinal()"}
+            ]);
         });
         
         window.kirimRsvpFinal = async function() {
@@ -495,7 +514,7 @@
             tutupModal();
             try {
                 await addDoc(rsvpCollection, { nama: namaVal, ucapan: ucapanVal, kehadiran: kehadiranVal, timestamp: serverTimestamp() });
-                // Demo Mode, no local storage
+                localStorage.setItem('rsvp_demo-undangan', 'true');
                 formRsvp.reset(); btnKirimPreview.innerHTML = '<i class="fas fa-check"></i> Terkirim!'; btnKirimPreview.classList.replace('text-black', 'text-white'); btnKirimPreview.classList.replace('bg-gold', 'bg-[#28a745]'); btnKirimPreview.classList.replace('border-gold', 'border-[#28a745]');
             } catch (error) { showModal("Error", "Maaf, terjadi kesalahan jaringan. Silakan coba lagi.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); } 
             finally { setTimeout(() => { btnKirimPreview.innerHTML = textAwal; btnKirimPreview.disabled = false; btnKirimPreview.classList.remove('opacity-50', 'cursor-not-allowed', 'text-white', 'bg-[#28a745]', 'border-[#28a745]'); btnKirimPreview.classList.add('text-black', 'bg-gold', 'border-gold'); }, 3000); }
@@ -509,6 +528,6 @@
         }
         window.tutupModal = function() { modal.classList.remove('active'); }
 
-    </script>
+    <\/script>
 </body>
 </html>
