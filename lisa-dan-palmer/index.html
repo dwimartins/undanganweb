@@ -2,6 +2,8 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <!-- REVISI 2: Tambah favicon agar error log browser hilang -->
+    <link rel="icon" href="data:,">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Undangan Pernikahan Lisa & Palmer</title>
     
@@ -91,7 +93,6 @@
     <!-- Modal Konfirmasi/Peringatan -->
     <div id="custom-modal" class="modal-overlay">
         <div class="modal-box">
-            <!-- REVISI 4: Ganti font modal title menjadi montserrat -->
             <h3 id="modal-title" class="font-montserrat text-goldlight text-base font-bold text-center mb-2 border-b border-gold/30 pb-2">Pemberitahuan</h3>
             <p id="modal-msg" class="font-montserrat text-gray-300 text-[13px] text-center mb-6 leading-relaxed">Pesan</p>
             <div id="modal-actions" class="flex gap-3 justify-center">
@@ -135,9 +136,9 @@
             </div>
             <div class="w-[85%] max-w-[300px] bg-[#0c0c0c]/95 border border-gold/40 rounded-xl py-6 px-5 flex flex-col items-center z-10 shadow-2xl mb-4 mt-2 zoom active" style="transition-delay: 0.6s">
                 <p class="font-montserrat text-[12px] text-gold/90 mb-2 font-medium">Kepada Yth: Bpk/Ibu/Saudara/i</p>
-                <!-- REVISI 2: Font Tamu Italic dan Ukuran Diperkecil Lebih Pas -->
                 <h3 class="font-playfair italic text-[16px] md:text-[18px] mb-6 text-goldlight text-center namatamu tracking-wide drop-shadow-md">Tamu Undangan</h3>
-                <button id="tombol-buka" class="w-full py-3.5 border border-gold/60 rounded-lg text-[11px] tracking-[0.2em] font-bold font-montserrat uppercase text-gold bg-transparent hover:bg-gold/15 hover:border-gold hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] focus:outline-none transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer group">
+                <!-- PERBAIKAN 1: Tambahkan event klik via JS delegate di bawah untuk tombol -->
+                <button id="tombol-buka-undangan" class="w-full py-3.5 border border-gold/60 rounded-lg text-[11px] tracking-[0.2em] font-bold font-montserrat uppercase text-gold bg-transparent hover:bg-gold/15 hover:border-gold hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] focus:outline-none transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer group">
                     <i id="btn-icon" class="far fa-envelope-open text-[14px] elementor-button-icon group-hover:scale-110 transition-transform"></i>
                     <span class="elementor-button-text">Buka Undangan</span>
                 </button>
@@ -371,6 +372,7 @@
         </div>
     </main>
 
+    <!-- PUSAT LOGIKA JS (Perbaikan Buka Undangan Delegation) -->
     <script>
         (function () {
           'use strict';
@@ -390,8 +392,12 @@
         (function killNativeSmooth(){ const style = document.createElement('style'); style.id = 'gsap-smooth-killer'; style.textContent = 'html{scroll-behavior:auto !important;}'; document.head.appendChild(style); })();
         if (typeof gsap !== 'undefined' && typeof ScrollToPlugin !== 'undefined') { gsap.registerPlugin(ScrollToPlugin); }
 
+        // --- SISTEM KEAMANAN EVENT LISTENER ---
+        let uiInitialized = false;
         const initUI = () => {
-            const btnCover = document.getElementById('tombol-buka'); const targetSection = document.getElementById('section-tujuan'); const btnIcon = document.getElementById('btn-icon'); const btnText = btnCover ? btnCover.querySelector('.elementor-button-text') : null; const contentUndangan = document.getElementById('content-undangan'); const audio = document.getElementById('audio'); const audioToggle = document.getElementById('audio-toggle'); const fsButton = document.getElementById('enter-fullscreen'); const fsIcon = fsButton ? fsButton.querySelector('i') : null;
+            if(uiInitialized) return;
+            uiInitialized = true;
+            
             const lockScroll = () => { document.body.classList.add('lock-scroll'); document.documentElement.classList.add('lock-scroll'); window.scrollTo(0, 0); };
             const unlockScroll = () => { document.body.classList.remove('lock-scroll'); document.documentElement.classList.remove('lock-scroll'); };
             lockScroll();
@@ -400,44 +406,90 @@
             function enterFullscreen(el = document.documentElement) { try { if (el.requestFullscreen) el.requestFullscreen(); else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen(); else if (el.msRequestFullscreen) el.msRequestFullscreen(); } catch (_) {} }
             function exitFullscreen() { if (isFullscreen()) { if (document.exitFullscreen) document.exitFullscreen(); else if (document.webkitExitFullscreen) document.webkitExitFullscreen(); else if (document.msExitFullscreen) document.msExitFullscreen(); } }
             function toggleFullscreen() { if (!isFullscreen()) enterFullscreen(document.documentElement); else exitFullscreen(); }
-            function updateFullscreenIcon() { if (isFullscreen()) { if(fsIcon) { fsIcon.classList.remove('fa-expand-arrows-alt'); fsIcon.classList.add('fa-compress-arrows-alt'); } } else { if(fsIcon) { fsIcon.classList.remove('fa-compress-arrows-alt'); fsIcon.classList.add('fa-expand-arrows-alt'); } } }
-            if(fsButton) fsButton.addEventListener('click', toggleFullscreen); document.addEventListener('fullscreenchange', updateFullscreenIcon); document.addEventListener('webkitfullscreenchange', updateFullscreenIcon); document.addEventListener('msfullscreenchange', updateFullscreenIcon);
-
-            const setButtonToScroll = () => { if (btnText) btnText.textContent = 'SCROLL KE BAWAH'; if (btnIcon) { btnIcon.classList.remove('fa-envelope-open', 'far', 'group-hover:scale-110'); btnIcon.classList.add('fas', 'fa-arrow-down', 'animate-bounce'); } };
+            function updateFullscreenIcon() { 
+                const fsIcon = document.querySelector('#enter-fullscreen i');
+                if(!fsIcon) return;
+                if (isFullscreen()) { fsIcon.classList.remove('fa-expand-arrows-alt'); fsIcon.classList.add('fa-compress-arrows-alt'); } 
+                else { fsIcon.classList.remove('fa-compress-arrows-alt'); fsIcon.classList.add('fa-expand-arrows-alt'); } 
+            }
             
-            const scrollKeTujuan = () => { if (!targetSection) return; if (typeof gsap !== 'undefined') { const currentY = window.pageYOffset || document.documentElement.scrollTop || 0; const rect = targetSection.getBoundingClientRect(); const targetY = currentY + rect.top; const dist = Math.abs(targetY - currentY); const durasi = Math.max(0.9, Math.min(1.6, dist / 1600)); gsap.to(window, { duration: durasi, ease: 'power2.out', scrollTo: { y: targetSection, autoKill: false } }); } else { targetSection.scrollIntoView({ behavior: 'smooth' }); } };
+            const fsButton = document.getElementById('enter-fullscreen');
+            if(fsButton) fsButton.addEventListener('click', toggleFullscreen); 
+            document.addEventListener('fullscreenchange', updateFullscreenIcon); document.addEventListener('webkitfullscreenchange', updateFullscreenIcon); document.addEventListener('msfullscreenchange', updateFullscreenIcon);
 
-            // REVISI 1: Buka undangan -> Fullscreen instan -> Tunggu 1.5 detik -> Auto Scroll mulus
-            const handleFirstClick = (e) => { 
-                e.preventDefault(); 
-                setButtonToScroll(); 
-                unlockScroll(); 
-                if(contentUndangan) { contentUndangan.classList.remove('hidden'); contentUndangan.classList.add('flex'); } 
-                if (audio && audio.paused) { audio.play().catch(err => console.log("Audio play di-block:", err)); } 
-                
-                enterFullscreen(document.documentElement); 
-                setTimeout(() => { scrollKeTujuan(); }, 1500);
-                
-                btnCover.removeEventListener('click', handleFirstClick); 
-                btnCover.addEventListener('click', (ev) => { ev.preventDefault(); scrollKeTujuan(); }); 
+            const scrollKeTujuan = () => { 
+                const targetSection = document.getElementById('section-tujuan');
+                if (!targetSection) return; 
+                if (typeof gsap !== 'undefined') { 
+                    const currentY = window.pageYOffset || document.documentElement.scrollTop || 0; const rect = targetSection.getBoundingClientRect(); const targetY = currentY + rect.top; const dist = Math.abs(targetY - currentY); const durasi = Math.max(0.9, Math.min(1.6, dist / 1600)); gsap.to(window, { duration: durasi, ease: 'power2.out', scrollTo: { y: targetSection, autoKill: false } }); 
+                } else { 
+                    targetSection.scrollIntoView({ behavior: 'smooth' }); 
+                } 
             };
-            
-            if (btnCover) btnCover.addEventListener('click', handleFirstClick);
-            const onFsChange = () => { if(isFullscreen() && !document.body.classList.contains('lock-scroll')) setButtonToScroll(); }; document.addEventListener('fullscreenchange', onFsChange);
 
-            if(audioToggle) { audioToggle.addEventListener('click', function () { if (audio.paused) audio.play(); else audio.pause(); }); }
+            // Event Delegation untuk mendeteksi klik tombol secara universal
+            document.addEventListener('click', function(e) {
+                // Tombol Buka Undangan
+                if(e.target.closest('#tombol-buka-undangan')) {
+                    e.preventDefault();
+                    const btnCover = document.getElementById('tombol-buka-undangan');
+                    const btnIcon = document.getElementById('btn-icon');
+                    const btnText = btnCover ? btnCover.querySelector('.elementor-button-text') : null;
+                    const contentUndangan = document.getElementById('content-undangan');
+                    const audio = document.getElementById('audio');
+                    
+                    if (btnText) btnText.textContent = 'SCROLL KE BAWAH'; 
+                    if (btnIcon) { btnIcon.classList.remove('fa-envelope-open', 'far', 'group-hover:scale-110'); btnIcon.classList.add('fas', 'fa-arrow-down', 'animate-bounce'); }
+                    
+                    unlockScroll(); 
+                    if(contentUndangan) { contentUndangan.classList.remove('hidden'); contentUndangan.classList.add('flex'); } 
+                    if (audio && audio.paused) { audio.play().catch(err => console.log("Audio play di-block:", err)); } 
+                    
+                    enterFullscreen(document.documentElement); 
+                    setTimeout(() => { scrollKeTujuan(); }, 1500);
+                }
+                
+                // Tombol Rekening
+                if(e.target.closest('#btn-toggle-rekening')) {
+                    const boxRekening = document.getElementById('box-rekening');
+                    const iconToggle = document.getElementById('icon-toggle-rekening');
+                    const textToggle = document.getElementById('text-toggle-rekening');
+                    if (boxRekening && boxRekening.classList.contains('hidden')) { 
+                        boxRekening.classList.remove('hidden'); boxRekening.classList.add('flex', 'fade-in-box'); 
+                        if(iconToggle) iconToggle.className = 'far fa-eye-slash'; 
+                        if(textToggle) textToggle.textContent = 'Sembunyikan Rekening'; 
+                    } else if(boxRekening) { 
+                        boxRekening.classList.add('hidden'); boxRekening.classList.remove('flex', 'fade-in-box'); 
+                        if(iconToggle) iconToggle.className = 'fas fa-search'; 
+                        if(textToggle) textToggle.textContent = 'Lihat Rekening'; 
+                    }
+                }
+            });
+
+            const onFsChange = () => { 
+                const btnIcon = document.getElementById('btn-icon');
+                if(isFullscreen() && !document.body.classList.contains('lock-scroll') && btnIcon && btnIcon.classList.contains('fa-envelope-open')) {
+                    const btnText = document.querySelector('#tombol-buka-undangan .elementor-button-text');
+                    if (btnText) btnText.textContent = 'SCROLL KE BAWAH'; 
+                    btnIcon.classList.remove('fa-envelope-open', 'far', 'group-hover:scale-110'); btnIcon.classList.add('fas', 'fa-arrow-down', 'animate-bounce');
+                }
+            }; 
+            document.addEventListener('fullscreenchange', onFsChange);
+
+            const audioToggle = document.getElementById('audio-toggle');
+            const audio = document.getElementById('audio');
+            if(audioToggle) { audioToggle.addEventListener('click', function () { if (audio && audio.paused) audio.play(); else if(audio) audio.pause(); }); }
             if(audio) { audio.addEventListener('play', function () { if(audioToggle) audioToggle.classList.add('rotating'); }); audio.addEventListener('pause', function () { if(audioToggle) audioToggle.classList.remove('rotating'); }); }
+            
             document.addEventListener('visibilitychange', function () { if (!audio) return; if (document.hidden) { if (!audio.paused) { audio.pause(); audio.dataset.wasPlaying = "true"; } else { audio.dataset.wasPlaying = "false"; } } else { if (audio.dataset.wasPlaying === "true") { audio.play(); } } });
 
             const selector = ".muncul, .muncul-kiri, .muncul-kanan, .zoom"; const elementVisible = 110; const qAll = (sel, root=document) => Array.from(root.querySelectorAll(sel));
             if ("IntersectionObserver" in window) { const ioEnter = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("active"); }); }, { root: null, rootMargin: `0px 0px -${elementVisible}px 0px`, threshold: 0 }); const ioExit = new IntersectionObserver((entries) => { entries.forEach(e => { if (!e.isIntersecting) e.target.classList.remove("active"); }); }, { root: null, rootMargin: "0px", threshold: 0 }); qAll(selector).forEach(el => { ioEnter.observe(el); ioExit.observe(el); }); }
 
             const countDownDate = new Date("15 Jul 2025 11:00:00").getTime();
-
-            const btnToggleRek = document.getElementById('btn-toggle-rekening'); const boxRekening = document.getElementById('box-rekening');
-            if (btnToggleRek && boxRekening) { btnToggleRek.addEventListener('click', () => { if (boxRekening.classList.contains('hidden')) { boxRekening.classList.remove('hidden'); boxRekening.classList.add('flex', 'fade-in-box'); document.getElementById('icon-toggle-rekening').className = 'far fa-eye-slash'; document.getElementById('text-toggle-rekening').textContent = 'Sembunyikan Rekening'; } else { boxRekening.classList.add('hidden'); boxRekening.classList.remove('flex', 'fade-in-box'); document.getElementById('icon-toggle-rekening').className = 'fas fa-search'; document.getElementById('text-toggle-rekening').textContent = 'Lihat Rekening'; } }); }
         };
 
+        // Eksekusi segera, tidak menunggu loading jika sudah ready
         if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initUI); } else { initUI(); }
         
         window.copyRekening = function(elementId, btnElement) { const norek = document.getElementById(elementId).innerText; const tempInput = document.createElement('input'); tempInput.value = norek; document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); const spanText = btnElement.querySelector('span'); const originalText = spanText.textContent; spanText.textContent = 'Tersalin!'; btnElement.classList.replace('text-gray-800', 'text-green-600'); setTimeout(() => { spanText.textContent = originalText; btnElement.classList.replace('text-green-600', 'text-gray-800'); }, 2000); }
@@ -458,7 +510,7 @@
         const app = initializeApp(firebaseConfig); const db = getFirestore(app);
 
         let pathSegments = window.location.pathname.split('/').filter(segment => segment.length > 0 && !segment.includes('.html'));
-        let brideId = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : "lisa-dan-palmer";
+        let brideId = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : "demo-undangan";
         brideId = brideId.replace(/[^a-zA-Z0-9-_]/g, ''); 
         
         const rsvpCollection = collection(db, 'rsvp_' + brideId);
@@ -480,7 +532,6 @@
                 else if (data.kehadiran === 'Tidak Hadir') badgeStatus = '<span class="bg-[#ef4444] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Tidak Hadir <i class="fas fa-times"></i></span>';
                 else badgeStatus = '<span class="bg-[#eab308] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Masih Ragu <i class="fas fa-hourglass-half"></i></span>';
                 
-                // REVISI 3: Ukuran teks nama tamu RSVP diperkecil menjadi text-[13px]
                 ucapanHTML += `<div class="flex gap-4 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded-xl border border-gold/10 shadow-lg relative overflow-hidden shrink-0"><div class="w-11 h-11 rounded-full text-white flex items-center justify-center font-extrabold text-[15px] shrink-0 shadow-inner z-10" style="background-color: ${bgColor}">${inisial}</div><div class="flex flex-col w-full z-10"><div class="flex items-center justify-between mb-2 flex-wrap gap-2"><span class="font-bold text-goldlight text-[13px] font-playfair tracking-wide">${data.nama}</span>${badgeStatus}</div><p class="text-[13px] text-gray-300 mb-2 leading-relaxed font-montserrat">${data.ucapan}</p><span class="text-[11px] text-gold/70 font-montserrat font-medium">${waktu}</span></div><div class="absolute -bottom-4 -right-4 text-gold/5 text-6xl pointer-events-none"><i class="fas fa-quote-right"></i></div></div>`;
             });
             daftarUcapan.innerHTML = ucapanHTML;
@@ -489,23 +540,26 @@
 
         // --- SISTEM KEAMANAN RSVP & ANTI SPAM ---
         
-        btnKirimPreview.addEventListener('click', (e) => {
-            e.preventDefault();
-            const namaVal = inputNama.value.trim(); const ucapanVal = inputUcapan.value.trim(); const kehadiranVal = inputKehadiran.value;
-            if (!namaVal || !ucapanVal || !kehadiranVal) { showModal("Peringatan", "Mohon lengkapi semua kolom form RSVP terlebih dahulu.", [{text:"Mengerti", color:"bg-gold text-black", action:"tutupModal()"}]); return; }
-            
-            if(localStorage.getItem('rsvp_lisa-dan-palmer')) { showModal("Terima Kasih", "Anda sudah mengirimkan RSVP/Ucapan sebelumnya. 1 perangkat hanya dapat mengirim 1 kali.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); return; }
-            
-            const badWords = ['anjing', 'babi', 'monyet', 'bangsat', 'kontol', 'memek', 'jembut', 'goblok', 'tolol', 'ngentot', 'fuck', 'shit', 'bitch'];
-            const urlRegex = /(https?:\/\/|www\.)[a-zA-Z0-9\-\.\+\/?\=\&#]+/gi;
-            const ucapanLower = ucapanVal.toLowerCase();
-            const containsBadWord = badWords.some(word => ucapanLower.includes(word));
-            if(containsBadWord || urlRegex.test(ucapanVal)) { showModal("Peringatan Keamanan", "Maaf, ucapan tidak dapat dikirim karena mengandung tautan/link atau kata-kata yang tidak pantas.", [{text:"Ubah Ucapan", color:"bg-gold text-black", action:"tutupModal()"}]); return; }
-            
-            showModal("Konfirmasi Pengiriman", "Pastikan ucapan dan kehadiran Anda sudah benar. Pesan yang telah dikirim tidak dapat diubah kembali.", [
-                {text:"Periksa Lagi", color:"bg-gray-600", action:"tutupModal()"},
-                {text:"Ya, Kirim", color:"bg-[#28a745]", action:"kirimRsvpFinal()"}
-            ]);
+        document.addEventListener('click', function(e) {
+            if(e.target.closest('#btn-preview-kirim')) {
+                e.preventDefault();
+                const inputNama = document.getElementById('input-nama'); const inputUcapan = document.getElementById('input-ucapan'); const inputKehadiran = document.getElementById('input-kehadiran');
+                const namaVal = inputNama ? inputNama.value.trim() : ''; const ucapanVal = inputUcapan ? inputUcapan.value.trim() : ''; const kehadiranVal = inputKehadiran ? inputKehadiran.value : '';
+                if (!namaVal || !ucapanVal || !kehadiranVal) { showModal("Peringatan", "Mohon lengkapi semua kolom form RSVP terlebih dahulu.", [{text:"Mengerti", color:"bg-gold text-black", action:"tutupModal()"}]); return; }
+                
+                if(localStorage.getItem('rsvp_demo-undangan')) { showModal("Terima Kasih", "Anda sudah mengirimkan RSVP/Ucapan sebelumnya. 1 perangkat hanya dapat mengirim 1 kali.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); return; }
+                
+                const badWords = ['anjing', 'babi', 'monyet', 'bangsat', 'kontol', 'memek', 'jembut', 'goblok', 'tolol', 'ngentot', 'fuck', 'shit', 'bitch'];
+                const urlRegex = /(https?:\/\/|www\.)[a-zA-Z0-9\-\.\+\/?\=\&#]+/gi;
+                const ucapanLower = ucapanVal.toLowerCase();
+                const containsBadWord = badWords.some(word => ucapanLower.includes(word));
+                if(containsBadWord || urlRegex.test(ucapanVal)) { showModal("Peringatan Keamanan", "Maaf, ucapan tidak dapat dikirim karena mengandung tautan/link atau kata-kata yang tidak pantas.", [{text:"Ubah Ucapan", color:"bg-gold text-black", action:"tutupModal()"}]); return; }
+                
+                showModal("Konfirmasi Pengiriman", "Pastikan ucapan dan kehadiran Anda sudah benar. Pesan yang telah dikirim tidak dapat diubah kembali.", [
+                    {text:"Periksa Lagi", color:"bg-gray-600", action:"tutupModal()"},
+                    {text:"Ya, Kirim", color:"bg-[#28a745]", action:"kirimRsvpFinal()"}
+                ]);
+            }
         });
         
         window.kirimRsvpFinal = async function() {
@@ -514,7 +568,7 @@
             tutupModal();
             try {
                 await addDoc(rsvpCollection, { nama: namaVal, ucapan: ucapanVal, kehadiran: kehadiranVal, timestamp: serverTimestamp() });
-                localStorage.setItem('rsvp_lisa-dan-palmer', 'true');
+                localStorage.setItem('rsvp_demo-undangan', 'true');
                 formRsvp.reset(); btnKirimPreview.innerHTML = '<i class="fas fa-check"></i> Terkirim!'; btnKirimPreview.classList.replace('text-black', 'text-white'); btnKirimPreview.classList.replace('bg-gold', 'bg-[#28a745]'); btnKirimPreview.classList.replace('border-gold', 'border-[#28a745]');
             } catch (error) { showModal("Error", "Maaf, terjadi kesalahan jaringan. Silakan coba lagi.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); } 
             finally { setTimeout(() => { btnKirimPreview.innerHTML = textAwal; btnKirimPreview.disabled = false; btnKirimPreview.classList.remove('opacity-50', 'cursor-not-allowed', 'text-white', 'bg-[#28a745]', 'border-[#28a745]'); btnKirimPreview.classList.add('text-black', 'bg-gold', 'border-gold'); }, 3000); }
