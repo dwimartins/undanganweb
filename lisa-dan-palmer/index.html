@@ -38,7 +38,6 @@
             .ornamen-pojok-kiri { @apply absolute -top-10 -left-10 w-[180px] opacity-35 mix-blend-screen pointer-events-none z-0; }
             .ornamen-pojok-kanan { @apply absolute -bottom-10 -right-10 w-[180px] opacity-35 mix-blend-screen pointer-events-none z-0 transform rotate-180; }
             .kartu-dalam { @apply w-full bg-[#0a0a0a] rounded-xl p-6 flex flex-col items-start shadow-md border border-gold/10 relative z-10; }
-            /* Perbaikan Form RSVP Font: Lebih rapi, mudah dibaca, background sedikit gelap untuk kenyamanan mengetik */
             .input-box { @apply bg-[#1a1a1a] border border-gold/40 rounded-md p-[14px_16px] text-gray-100 font-sans text-[14px] w-full transition-colors duration-300 focus:outline-none focus:border-gold focus:bg-[#222222] placeholder:text-gray-500 shadow-inner; }
         }
     </style>
@@ -79,14 +78,31 @@
         .zoom.active { transform: scale(1); opacity: 1; }
         @media (max-width: 600px){ .muncul-kiri{ transform: translateX(-2.5rem) scale(0.95); } .muncul-kanan{ transform: translateX( 2.5rem) scale(0.95); } }
         @media (prefers-reduced-motion: reduce){ .muncul, .muncul-kiri, .muncul-kanan, .zoom { transition: none !important; } }
+        
+        /* Modal Style */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); z-index: 9999; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
+        .modal-box { background: #111; border: 1px solid #d4af37; border-radius: 12px; padding: 24px; width: 90%; max-width: 320px; transform: scale(0.9); transition: transform 0.3s ease; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-overlay.active .modal-box { transform: scale(1); }
     </style>
 </head>
 <body class="flex justify-center text-gold antialiased selection:bg-gold selection:text-black lock-scroll">
 
+    <!-- Modal Konfirmasi/Peringatan -->
+    <div id="custom-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3 id="modal-title" class="font-cinzel text-goldlight text-lg font-bold text-center mb-2 border-b border-gold/30 pb-2">Pemberitahuan</h3>
+            <p id="modal-msg" class="font-montserrat text-gray-300 text-[13px] text-center mb-6 leading-relaxed">Pesan</p>
+            <div id="modal-actions" class="flex gap-3 justify-center">
+                <!-- Tombol dinamis -->
+            </div>
+        </div>
+    </div>
+
     <button id="enter-fullscreen" class="floating-btn"><i class="fas fa-expand-arrows-alt"></i></button>
     <div id="audio-container">
         <audio id="audio" loop>
-            <source src="https://github.com/undangandigitalku/laguundangan/raw/refs/heads/main/NaFF%20-%20Akhirnya%20Ku%20Menemukanmu%20Official%20Video%20Clip.mp3" type="audio/mpeg">
+            <source src="https://github.com/undangandigitalku/laguundangan/raw/refs/heads/main/Bermuara%20-%20Rizky%20Febian%20-%20Reff%20(1).mp3" type="audio/mpeg">
         </audio>
         <div id="audio-toggle" class="floating-btn">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 32a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm-96-32a96 96 0 1 0 192 0 96 96 0 1 0 -192 0zM96 240c0-35 17.5-71.1 45.2-98.8S205 96 240 96c8.8 0 16-7.2 16-16s-7.2-16-16-16c-45.4 0-89.2 22.3-121.5 54.5S64 194.6 64 240c0 8.8 7.2 16 16 16s16-7.2 16-16z"/></svg>
@@ -118,8 +134,7 @@
             </div>
             <div class="w-[85%] max-w-[300px] bg-[#0c0c0c]/95 border border-gold/40 rounded-xl py-6 px-5 flex flex-col items-center z-10 shadow-2xl mb-4 mt-2 zoom active" style="transition-delay: 0.6s">
                 <p class="font-montserrat text-[12px] text-gold/90 mb-2 font-medium">Kepada Yth: Bpk/Ibu/Saudara/i</p>
-                <!-- PERBAIKAN 1: NAMA TAMU SAMPUL MENGGUNAKAN FONT PLAYFAIR DISPLAY BOLD, BUKAN CURSIVE, LEBIH ELEGAN -->
-                <h3 class="font-playfair font-italic text-[18px] md:text-[22px] mb-6 text-goldlight text-center namatamu tracking-wide drop-shadow-md">Tamu Undangan</h3>
+                <h3 class="font-playfair font-bold text-[24px] md:text-[28px] mb-6 text-goldlight text-center namatamu tracking-wide drop-shadow-md">Tamu Undangan</h3>
                 <button id="tombol-buka" class="w-full py-3.5 border border-gold/60 rounded-lg text-[11px] tracking-[0.2em] font-bold font-montserrat uppercase text-gold bg-transparent hover:bg-gold/15 hover:border-gold hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] focus:outline-none transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer group">
                     <i id="btn-icon" class="far fa-envelope-open text-[14px] elementor-button-icon group-hover:scale-110 transition-transform"></i>
                     <span class="elementor-button-text">Buka Undangan</span>
@@ -153,8 +168,7 @@
                     </div>
                     <p class="font-montserrat text-[11px] text-center text-gold/70 mb-5 muncul px-4 leading-relaxed">Klik tombol dibawah untuk tambahkan pengingat otomatis ke kalender Google</p>
                     
-                    <!-- PERBAIKAN 2: Link Kalender Otomatis Di-generate Sesuai Tanggal Acara -->
-                    <div class="zoom"><a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The%20Wedding%20Of%20Lisa%20%26%20Palmer&details=Kami%20sangat%20mengharapkan%20kehadiran%20Bapak%2FIbu%2FSaudara%2Fi%20pada%20acara%20pernikahan%20kami.&location=Gedung%20Serbaguna%20ABC%2C%20Jl.%20Jendral%20Sudirman%20No.%2045%0AKec.%20Medan%20Baru%2C%20Kota%20Medan&dates=20250715T110000/20250715T140000" target="_blank" class="btn-utama"><i class="far fa-calendar-alt"></i> Simpan di Kalender</a></div>
+                    <div class="zoom"><a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The%20Wedding%20Of%20Lisa%20%26%20Palmer&details=Kami%20sangat%20mengharapkan%20kehadiran%20Bapak%2FIbu%2FSaudara%2Fi%20pada%20acara%20pernikahan%20kami.&location=Gedung%20Serbaguna%20ABC%2C%20Jl.%20Jendral%20Sudirman%20No.%2045&dates=20250715T110000/20250715T140000" target="_blank" class="btn-utama"><i class="far fa-calendar-alt"></i> Simpan di Kalender</a></div>
                     <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%205.webp" alt="Line" class="garis-pembatas mt-14 muncul">
                 </div>
             </section>
@@ -207,9 +221,8 @@
                             </div>
                             <div class="flex items-center w-full mb-6 opacity-80 zoom"><div class="h-[1px] bg-gold/40 flex-grow"></div><i class="fas fa-map-marked-alt text-gold mx-4 text-2xl"></i><div class="h-[1px] bg-gold/40 flex-grow"></div></div>
                             <h4 class="font-montserrat font-bold text-goldlight text-[14px] mb-2 w-full text-center">Kediaman Mempelai Wanita</h4>
-                            <p class="font-montserrat text-gold/80 text-[12px] leading-[1.8] mb-6 font-light text-center">Jl. Jendral Sudirman No. 45
-Kec. Medan Baru, Kota Medan</p>
-                            <a href="maps.google.com" target="_blank" class="btn-utama mx-auto"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
+                            <p class="font-montserrat text-gold/80 text-[12px] leading-[1.8] mb-6 font-light text-center">Jl. Gatot Subroto No. 123</p>
+                            <a href="#" target="_blank" class="btn-utama mx-auto"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
                         </div>
                     </div>
                     <div class="w-full flex flex-col items-center mb-10 muncul-kiri">
@@ -222,9 +235,8 @@ Kec. Medan Baru, Kota Medan</p>
                             </div>
                             <div class="flex items-center w-full mb-6 opacity-80 zoom"><div class="h-[1px] bg-gold/40 flex-grow"></div><i class="fas fa-map-marked-alt text-gold mx-4 text-2xl"></i><div class="h-[1px] bg-gold/40 flex-grow"></div></div>
                             <h4 class="font-montserrat font-bold text-goldlight text-[14px] mb-2 w-full text-center">Gedung Serbaguna ABC</h4>
-                            <p class="font-montserrat text-gold/80 text-[12px] leading-[1.8] mb-6 font-light text-center">Jl. Jendral Sudirman No. 45
-Kec. Medan Baru, Kota Medan</p>
-                            <a href="maps.google.com" target="_blank" class="btn-utama mx-auto"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
+                            <p class="font-montserrat text-gold/80 text-[12px] leading-[1.8] mb-6 font-light text-center">Jl. Jendral Sudirman No. 45</p>
+                            <a href="#" target="_blank" class="btn-utama mx-auto"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
                         </div>
                     </div></div></section>
 
@@ -282,16 +294,15 @@ Kec. Medan Baru, Kota Medan</p>
                             <i class="far fa-envelope-open text-xl"></i><h3 class="font-playfair text-[17px] font-semibold">Buku Tamu</h3>
                         </div>
                         <form id="form-rsvp" class="flex flex-col gap-4 mb-10 muncul">
-                            <input type="text" id="input-nama" placeholder="Nama Anda" required class="input-box">
-                            <!-- PERBAIKAN 3: Textarea sekarang lebih enak diketik dengan font-sans ukuran wajar dan text terang -->
-                            <textarea id="input-ucapan" placeholder="Tulis ucapan & doa Anda..." rows="4" required class="input-box resize-none"></textarea>
+                            <input type="text" id="input-nama" placeholder="Nama Anda" required class="input-box" maxlength="50">
+                            <textarea id="input-ucapan" placeholder="Tulis ucapan & doa Anda..." rows="4" required class="input-box resize-none" maxlength="300"></textarea>
                             <select id="input-kehadiran" required class="input-box cursor-pointer">
                                 <option value="" disabled selected>Konfirmasi Kehadiran</option>
                                 <option value="Hadir">Hadir</option>
                                 <option value="Masih Ragu">Masih Ragu</option>
                                 <option value="Tidak Hadir">Tidak Hadir</option>
                             </select>
-                            <button type="submit" id="btn-kirim" class="w-full bg-gold border border-gold rounded text-black font-montserrat font-bold text-[12px] tracking-wider py-3.5 hover:bg-transparent hover:text-gold transition-all mt-2 shadow-lg">KIRIM UCAPAN</button>
+                            <button type="button" id="btn-preview-kirim" class="w-full bg-gold border border-gold rounded text-black font-montserrat font-bold text-[12px] tracking-wider py-3.5 hover:bg-transparent hover:text-gold transition-all mt-2 shadow-lg">KIRIM UCAPAN</button>
                         </form>
                         <div id="daftar-ucapan" class="flex flex-col gap-4 muncul max-h-[400px] overflow-y-auto pr-2 custom-scroll pb-2">
                             <p class="text-center text-gold/50 font-montserrat text-xs italic mt-4">Memuat doa dan ucapan...</p>
@@ -314,11 +325,8 @@ Kec. Medan Baru, Kota Medan</p>
                     <p class="teks-paragraf max-w-[80%]">Jl. Perjuangan Kemerdekaan No 19, Kota Surabaya</p>
                 </div><div class="muncul mb-8 w-max max-w-[250px]"><button id="btn-toggle-rekening" class="btn-utama px-8 whitespace-nowrap"><i id="icon-toggle-rekening" class="fas fa-search"></i><span id="text-toggle-rekening">Lihat Rekening</span></button></div>
                     <div id="box-rekening" class="hidden flex-col gap-4 w-full items-center muncul"><div class="relative w-full max-w-[280px] aspect-[1.58/1] bg-[#e0e0e0] bg-cover bg-center rounded-xl p-5 shadow-xl flex flex-col justify-between overflow-hidden border border-gray-400" style="background-image: url('https://ik.imagekit.io/asetundangan/aset/icon-bank/Background-atm.webp');">
-                        <div class="flex justify-between items-start w-full z-10"><img src="https://ik.imagekit.io/asetundangan/aset/icon-bank/chip-atm-undangan.webp" alt="Chip" class="w-10 opacity-80 mix-blend-multiply"><img src="https://ik.imagekit.io/asetundangan/aset/icon-bank/BNI_logo.svg" onerror="this.src='https://ik.imagekit.io/asetundangan/aset/icon-bank/Logo-Bank-BCA-1.png'" alt="BNI" class="h-[28px] w-auto object-contain"></div>
+                        <div class="flex justify-between items-start w-full z-10"><img src="https://ik.imagekit.io/asetundangan/aset/icon-bank/chip-atm-undangan.webp" alt="Chip" class="w-10 opacity-80 mix-blend-multiply"><img src="https://ik.imagekit.io/asetundangan/aset/icon-bank/Logo-Bank-BCA-1.png" onerror="this.src='https://ik.imagekit.io/asetundangan/aset/icon-bank/Logo-Bank-BCA-1.png'" alt="BCA" class="h-[28px] w-auto object-contain"></div>
                         <div class="flex flex-col items-end w-full z-10 mt-auto"><h5 class="font-montserrat text-[10px] font-bold tracking-[0.1em] text-gray-700 mb-1">COLE PALMER</h5><p class="font-montserrat text-[20px] tracking-[0.15em] font-semibold text-gray-900 mb-3" id="rek-0">12345678987</p><button onclick="copyRekening('rek-0', this)" class="bg-gray-200 border border-gray-400 text-gray-800 text-[10px] font-montserrat font-semibold px-3 py-1.5 rounded flex items-center gap-1.5 hover:bg-gray-300 transition-colors"><i class="far fa-copy"></i> <span>Salin Nomor</span></button></div>
-                    </div><div class="relative w-full max-w-[280px] aspect-[1.58/1] bg-[#e0e0e0] bg-cover bg-center rounded-xl p-5 shadow-xl flex flex-col justify-between overflow-hidden border border-gray-400" style="background-image: url('https://ik.imagekit.io/asetundangan/aset/icon-bank/Background-atm.webp');">
-                        <div class="flex justify-between items-start w-full z-10"><img src="https://ik.imagekit.io/asetundangan/aset/icon-bank/chip-atm-undangan.webp" alt="Chip" class="w-10 opacity-80 mix-blend-multiply"><img src="https://ik.imagekit.io/asetundangan/aset/icon-bank/Logo-Bank-Sumut.png" onerror="this.src='https://ik.imagekit.io/asetundangan/aset/icon-bank/Logo-Bank-BCA-1.png'" alt="Bank Sumut" class="h-[28px] w-auto object-contain"></div>
-                        <div class="flex flex-col items-end w-full z-10 mt-auto"><h5 class="font-montserrat text-[10px] font-bold tracking-[0.1em] text-gray-700 mb-1">COLE PALMER</h5><p class="font-montserrat text-[20px] tracking-[0.15em] font-semibold text-gray-900 mb-3" id="rek-1">12345678987</p><button onclick="copyRekening('rek-1', this)" class="bg-gray-200 border border-gray-400 text-gray-800 text-[10px] font-montserrat font-semibold px-3 py-1.5 rounded flex items-center gap-1.5 hover:bg-gray-300 transition-colors"><i class="far fa-copy"></i> <span>Salin Nomor</span></button></div>
                     </div></div><img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%206.webp" alt="Ornamen" class="garis-pembatas mt-12 zoom"></div></section>
 
             <section id="section-penutup" class="section-card">
@@ -422,7 +430,7 @@ Kec. Medan Baru, Kota Medan</p>
         });
         
         window.copyRekening = function(elementId, btnElement) { const norek = document.getElementById(elementId).innerText; const tempInput = document.createElement('input'); tempInput.value = norek; document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); const spanText = btnElement.querySelector('span'); const originalText = spanText.textContent; spanText.textContent = 'Tersalin!'; btnElement.classList.replace('text-gray-800', 'text-green-600'); setTimeout(() => { spanText.textContent = originalText; btnElement.classList.replace('text-green-600', 'text-gray-800'); }, 2000); }
-    </script>
+    <\/script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -439,11 +447,11 @@ Kec. Medan Baru, Kota Medan</p>
         const app = initializeApp(firebaseConfig); const db = getFirestore(app);
 
         let pathSegments = window.location.pathname.split('/').filter(segment => segment.length > 0 && !segment.includes('.html'));
-        let brideId = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : "lisa-dan-palmer";
+        let brideId = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : "demo-undangan";
         brideId = brideId.replace(/[^a-zA-Z0-9-_]/g, ''); 
         
         const rsvpCollection = collection(db, 'rsvp_' + brideId);
-        const formRsvp = document.getElementById('form-rsvp'); const inputNama = document.getElementById('input-nama'); const inputUcapan = document.getElementById('input-ucapan'); const inputKehadiran = document.getElementById('input-kehadiran'); const btnKirim = document.getElementById('btn-kirim'); const daftarUcapan = document.getElementById('daftar-ucapan'); const countHadir = document.getElementById('count-hadir'); const countTidakHadir = document.getElementById('count-tidak-hadir'); const countRagu = document.getElementById('count-ragu');
+        const formRsvp = document.getElementById('form-rsvp'); const inputNama = document.getElementById('input-nama'); const inputUcapan = document.getElementById('input-ucapan'); const inputKehadiran = document.getElementById('input-kehadiran'); const btnKirimPreview = document.getElementById('btn-preview-kirim'); const daftarUcapan = document.getElementById('daftar-ucapan'); const countHadir = document.getElementById('count-hadir'); const countTidakHadir = document.getElementById('count-tidak-hadir'); const countRagu = document.getElementById('count-ragu');
 
         function timeAgo(dateInput) { if (!dateInput) return "Baru saja"; const date = dateInput.toDate ? dateInput.toDate() : new Date(dateInput); const seconds = Math.round((new Date() - date) / 1000); const minutes = Math.round(seconds / 60); const hours = Math.round(minutes / 60); const days = Math.round(hours / 24); if (seconds < 60) return "Baru saja"; if (minutes < 60) return `${minutes} menit yang lalu`; if (hours < 24) return `${hours} jam yang lalu`; if (days === 1) return `Kemarin`; return `${days} hari yang lalu`; }
         function getAvatarColor(name) { const colors = ['#6d4c41', '#8d6e63', '#a1887f', '#bcaaa4', '#d4af37', '#c19a6b', '#a67c00']; let hash = 0; for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash); return colors[Math.abs(hash) % colors.length]; }
@@ -467,17 +475,54 @@ Kec. Medan Baru, Kota Medan</p>
             if(typeof gsap !== 'undefined'){ gsap.to(countHadir, { innerHTML: hadir, duration: 1, snap: { innerHTML: 1 } }); gsap.to(countTidakHadir, { innerHTML: tidakHadir, duration: 1, snap: { innerHTML: 1 } }); gsap.to(countRagu, { innerHTML: ragu, duration: 1, snap: { innerHTML: 1 } }); }
         });
 
-        formRsvp.addEventListener('submit', async (e) => {
+        // --- SISTEM KEAMANAN RSVP & ANTI SPAM ---
+        
+        btnKirimPreview.addEventListener('click', (e) => {
             e.preventDefault();
             const namaVal = inputNama.value.trim(); const ucapanVal = inputUcapan.value.trim(); const kehadiranVal = inputKehadiran.value;
-            if (!namaVal || !ucapanVal || !kehadiranVal) return;
-            const textAwal = btnKirim.innerHTML; btnKirim.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...'; btnKirim.disabled = true; btnKirim.classList.add('opacity-50', 'cursor-not-allowed');
+            if (!namaVal || !ucapanVal || !kehadiranVal) { showModal("Peringatan", "Mohon lengkapi semua kolom form RSVP terlebih dahulu.", [{text:"Mengerti", color:"bg-gold text-black", action:"tutupModal()"}]); return; }
+            
+            // Cek Spammer via LocalStorage
+            if(localStorage.getItem('rsvp_demo-undangan')) { showModal("Terima Kasih", "Anda sudah mengirimkan RSVP/Ucapan sebelumnya. 1 perangkat hanya dapat mengirim 1 kali.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); return; }
+            
+            // Cek Kata Kotor & Link
+            const badWords = ['anjing', 'babi', 'monyet', 'bangsat', 'kontol', 'memek', 'jembut', 'goblok', 'tolol', 'ngentot', 'fuck', 'shit', 'bitch'];
+            const urlRegex = /(https?:\/\/|www\.)[\w\-\.\+\/?\=\&#]+/gi;
+            const ucapanLower = ucapanVal.toLowerCase();
+            const containsBadWord = badWords.some(word => ucapanLower.includes(word));
+            if(containsBadWord || urlRegex.test(ucapanVal)) { showModal("Peringatan Keamanan", "Maaf, ucapan tidak dapat dikirim karena mengandung tautan/link atau kata-kata yang tidak pantas.", [{text:"Ubah Ucapan", color:"bg-gold text-black", action:"tutupModal()"}]); return; }
+            
+            // Konfirmasi Akhir
+            showModal("Konfirmasi Pengiriman", "Pastikan ucapan dan kehadiran Anda sudah benar. Pesan yang telah dikirim tidak dapat diubah kembali.", [
+                {text:"Periksa Lagi", color:"bg-gray-600", action:"tutupModal()"},
+                {text:"Ya, Kirim", color:"bg-[#28a745]", action:"kirimRsvpFinal()"}
+            ]);
+        });
+        
+        async function kirimRsvpFinal() {
+            const namaVal = inputNama.value.trim(); const ucapanVal = inputUcapan.value.trim(); const kehadiranVal = inputKehadiran.value;
+            const textAwal = btnKirimPreview.innerHTML; btnKirimPreview.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...'; btnKirimPreview.disabled = true; btnKirimPreview.classList.add('opacity-50', 'cursor-not-allowed');
+            tutupModal();
             try {
                 await addDoc(rsvpCollection, { nama: namaVal, ucapan: ucapanVal, kehadiran: kehadiranVal, timestamp: serverTimestamp() });
-                formRsvp.reset(); btnKirim.innerHTML = '<i class="fas fa-check"></i> Terkirim!'; btnKirim.classList.replace('text-black', 'text-white'); btnKirim.classList.replace('bg-gold', 'bg-[#28a745]'); btnKirim.classList.replace('border-gold', 'border-[#28a745]');
-            } catch (error) { alert("Maaf, terjadi kesalahan jaringan. Silakan coba lagi."); } 
-            finally { setTimeout(() => { btnKirim.innerHTML = textAwal; btnKirim.disabled = false; btnKirim.classList.remove('opacity-50', 'cursor-not-allowed', 'text-white', 'bg-[#28a745]', 'border-[#28a745]'); btnKirim.classList.add('text-black', 'bg-gold', 'border-gold'); }, 3000); }
-        });
-    </script>
+                localStorage.setItem('rsvp_demo-undangan', 'true');
+                formRsvp.reset(); btnKirimPreview.innerHTML = '<i class="fas fa-check"></i> Terkirim!'; btnKirimPreview.classList.replace('text-black', 'text-white'); btnKirimPreview.classList.replace('bg-gold', 'bg-[#28a745]'); btnKirimPreview.classList.replace('border-gold', 'border-[#28a745]');
+            } catch (error) { showModal("Error", "Maaf, terjadi kesalahan jaringan. Silakan coba lagi.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); } 
+            finally { setTimeout(() => { btnKirimPreview.innerHTML = textAwal; btnKirimPreview.disabled = false; btnKirimPreview.classList.remove('opacity-50', 'cursor-not-allowed', 'text-white', 'bg-[#28a745]', 'border-[#28a745]'); btnKirimPreview.classList.add('text-black', 'bg-gold', 'border-gold'); }, 3000); }
+        }
+
+        // Custom Modal Logic
+        const modal = document.getElementById('custom-modal');
+        window.showModal = function(title, msg, buttons) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-msg').innerText = msg;
+            let btnHtml = '';
+            buttons.forEach(b => { btnHtml += `<button onclick="${b.action}" class="px-5 py-2 rounded text-white text-xs font-bold ${b.color}">${b.text}</button>`; });
+            document.getElementById('modal-actions').innerHTML = btnHtml;
+            modal.classList.add('active');
+        }
+        window.tutupModal = function() { modal.classList.remove('active'); }
+
+    <\/script>
 </body>
 </html>
