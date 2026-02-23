@@ -201,8 +201,8 @@
 
                 <div class="flex flex-col items-center mt-[clamp(0.5rem,2vh,1.5rem)] zoom active" style="transition-delay: 0.4s">
                     <div class="zoom-2">
-                        <!-- Revisi 2: Cincin lebih tajam bercahaya -->
-                        <img src="https://ik.imagekit.io/asetundangan/aset/gold/cincin%20emas.png" alt="Rings" class="w-[clamp(45px,8vh,60px)] mb-[clamp(0.5rem,2vh,1.25rem)] drop-shadow-[0_0_12px_rgba(212,175,55,0.6)] brightness-110 zoom-1">
+                        <!-- Revisi: Menghilangkan efek sparkling / brightness berlebih -->
+                        <img src="https://ik.imagekit.io/asetundangan/aset/gold/cincin%20emas.png" alt="Rings" class="w-[clamp(45px,8vh,60px)] mb-[clamp(0.5rem,2vh,1.25rem)] drop-shadow-lg zoom-1">
                     </div>
                     <div class="w-24 h-[1px] bg-gold/50 mb-[clamp(0.5rem,1.5vh,0.75rem)]"></div>
                     <p class="font-cinzel text-[clamp(11px,2.5vh,13px)] tracking-[0.2em] font-semibold text-goldlight uppercase">Surabaya</p>
@@ -319,8 +319,8 @@
                     </div>
 
                     <div class="zoom-2">
-                        <!-- Revisi 2: Cincin tajam bercahaya -->
-                        <img src="https://ik.imagekit.io/asetundangan/aset/gold/cincin%20emas.png" alt="Cincin" class="w-14 my-6 drop-shadow-[0_0_12px_rgba(212,175,55,0.6)] brightness-110">
+                        <!-- Revisi: Menghilangkan efek sparkling / brightness berlebih -->
+                        <img src="https://ik.imagekit.io/asetundangan/aset/gold/cincin%20emas.png" alt="Cincin" class="w-14 my-6 drop-shadow-md">
                     </div>
 
                     <!-- Pria -->
@@ -961,8 +961,9 @@
                 else badgeStatus = '<span class="bg-[#eab308] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Masih Ragu <i class="fas fa-hourglass-half"></i></span>';
 
                 // Revisi 4: Susun HTML Card Ucapan (Elegan dengan Gradasi Gelap dan Box-Shadow)
+                // Ditambahkan shrink-0 pada pembungkus utama agar elemen tidak tertekan/gepeng saat list kepenuhan
                 ucapanHTML += `
-                <div class="flex gap-4 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded-xl border border-gold/10 shadow-[0_4px_12px_rgba(0,0,0,0.5)] relative overflow-hidden">
+                <div class="flex gap-4 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded-xl border border-gold/10 shadow-lg relative overflow-hidden shrink-0">
                     <div class="w-11 h-11 rounded-full text-white flex items-center justify-center font-extrabold text-[15px] shrink-0 shadow-inner z-10" style="background-color: ${bgColor}">${inisial}</div>
                     <div class="flex flex-col w-full z-10">
                         <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
