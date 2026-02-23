@@ -118,17 +118,22 @@
 
         select.input-box option { background-color: #111; color: #d4af37; }
 
-        /* Floating Buttons */
+        /* Floating Buttons Premium */
         .floating-btn {
-            position: fixed; right: 20px; width: 32px; height: 32px;
-            background-color: #C18800; color: white; border: none; border-radius: 50%;
+            position: fixed; right: 20px; width: 42px; height: 42px;
+            background: linear-gradient(135deg, #d4af37 0%, #a67c00 100%); 
+            color: white; border: none; border-radius: 50%;
             cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); transition: transform 0.2s ease;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.6), 0px 0px 10px rgba(212, 175, 55, 0.3); 
+            transition: transform 0.2s ease, filter 0.2s ease;
         }
+        .floating-btn:hover { filter: brightness(1.1); }
         .floating-btn:active { transform: scale(0.9); }
-        #enter-fullscreen { bottom: 70px; font-size: 14px; }
+        
+        #enter-fullscreen { bottom: 80px; font-size: 16px; }
         #audio-toggle { bottom: 25px; }
-        #audio-toggle svg { width: 14px; height: 14px; fill: white; }
+        #audio-toggle svg { width: 18px; height: 18px; fill: white; }
+        
         @keyframes spin-continuous { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         #audio-toggle.rotating { animation: spin-continuous 3s linear infinite; }
 
@@ -158,7 +163,7 @@
 </head>
 <body class="flex justify-center text-gold antialiased selection:bg-gold selection:text-black lock-scroll">
 
-    <!-- Tombol Mengambang -->
+    <!-- Tombol Mengambang (Revisi 3: Elegan & Bergradasi) -->
     <button id="enter-fullscreen" class="floating-btn"><i class="fas fa-expand-arrows-alt"></i></button>
     <div id="audio-container">
         <audio id="audio" loop>
@@ -196,7 +201,8 @@
 
                 <div class="flex flex-col items-center mt-[clamp(0.5rem,2vh,1.5rem)] zoom active" style="transition-delay: 0.4s">
                     <div class="zoom-2">
-                        <img src="https://ik.imagekit.io/asetundangan/aset/gold/cincin%20emas.png" alt="Rings" class="w-[clamp(45px,8vh,60px)] mb-[clamp(0.5rem,2vh,1.25rem)] drop-shadow-lg zoom-1">
+                        <!-- Revisi 2: Cincin lebih tajam bercahaya -->
+                        <img src="https://ik.imagekit.io/asetundangan/aset/gold/cincin%20emas.png" alt="Rings" class="w-[clamp(45px,8vh,60px)] mb-[clamp(0.5rem,2vh,1.25rem)] drop-shadow-[0_0_12px_rgba(212,175,55,0.6)] brightness-110 zoom-1">
                     </div>
                     <div class="w-24 h-[1px] bg-gold/50 mb-[clamp(0.5rem,1.5vh,0.75rem)]"></div>
                     <p class="font-cinzel text-[clamp(11px,2.5vh,13px)] tracking-[0.2em] font-semibold text-goldlight uppercase">Surabaya</p>
@@ -237,8 +243,10 @@
                     
                     <p class="teks-paragraf mb-10 muncul">Akhirnya, hari yang kami nantikan telah tiba. Hari kebahagiaan yang sangat spesial bagi kami.</p>
 
-                    <!-- VARIABEL KALIGRAFI ARAB EMAS -->
-                    {{KALIGRAFI_BISMILLAH}}
+                    <!-- Revisi 1: KALIGRAFI ARAB EMAS Default Islam -->
+                    <div class="w-full flex justify-center mb-10 zoom">
+                        <img src="https://ik.imagekit.io/asetundangan/aset/kaligrafi/bismillah-emas.png" alt="Bismillah" class="w-[200px] h-auto drop-shadow-md">
+                    </div>
 
                     <p class="teks-paragraf mb-10 muncul">Atas Izin dan Ridho Allah SWT, dan dengan restu orangtua kami. Maka Insya Allah kami akan melangsungkan acara pernikahan kami.</p>
                     <div class="w-32 h-[1px] bg-gold/40 mb-10 muncul"></div>
@@ -288,8 +296,8 @@
                 <div class="relative z-10 flex flex-col items-center w-full">
                     <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%201%20devider.webp" alt="Ornamen" class="w-[85%] mb-8 zoom">
                     
-                    <!-- VARIABEL SALAM AGAMA -->
-                    <h3 class="teks-subjudul mb-6 muncul">{{SALAM_PEMBUKA}}</h3>
+                    <!-- Revisi 1: Salam Default Islam -->
+                    <h3 class="teks-subjudul mb-6 muncul">Assalamu'alaikum Wr. Wb.</h3>
                     
                     <p class="teks-paragraf mb-10 muncul">Tanpa mengurangi rasa hormat, kami bermaksud mengundang Bapak/Ibu/Saudara/I untuk menghadiri acara pernikahan kami:</p>
 
@@ -311,7 +319,8 @@
                     </div>
 
                     <div class="zoom-2">
-                        <img src="https://ik.imagekit.io/asetundangan/aset/gold/cincin%20emas.png" alt="Cincin" class="w-14 my-6 drop-shadow-md">
+                        <!-- Revisi 2: Cincin tajam bercahaya -->
+                        <img src="https://ik.imagekit.io/asetundangan/aset/gold/cincin%20emas.png" alt="Cincin" class="w-14 my-6 drop-shadow-[0_0_12px_rgba(212,175,55,0.6)] brightness-110">
                     </div>
 
                     <!-- Pria -->
@@ -495,7 +504,7 @@
                         </form>
 
                         <!-- DAFTAR UCAPAN (Dirender oleh Firebase) -->
-                        <div id="daftar-ucapan" class="flex flex-col gap-6 muncul max-h-[400px] overflow-y-auto pr-2 custom-scroll">
+                        <div id="daftar-ucapan" class="flex flex-col gap-4 muncul max-h-[400px] overflow-y-auto pr-2 custom-scroll pb-2">
                             <!-- Pesan Kosong / Loading -->
                             <p class="text-center text-gold/50 font-montserrat text-xs italic mt-4">Memuat doa dan ucapan...</p>
                         </div>
@@ -525,8 +534,9 @@
                         <p class="teks-paragraf max-w-[80%]">Jl. Perjuangan Kemerdekaan No 19, Kota Surabaya</p>
                     </div>
 
-                    <div class="muncul mb-8 w-full max-w-[200px]">
-                        <button id="btn-toggle-rekening" class="btn-utama w-full">
+                    <!-- Revisi 5: Tombol Sembunyikan Rekening menjadi 1 Baris Penuh -->
+                    <div class="muncul mb-8 w-max max-w-[250px]">
+                        <button id="btn-toggle-rekening" class="btn-utama px-8 whitespace-nowrap">
                             <i id="icon-toggle-rekening" class="fas fa-search"></i>
                             <span id="text-toggle-rekening">Lihat Rekening</span>
                         </button>
@@ -950,18 +960,20 @@
                 else if (data.kehadiran === 'Tidak Hadir') badgeStatus = '<span class="bg-[#ef4444] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Tidak Hadir <i class="fas fa-times"></i></span>';
                 else badgeStatus = '<span class="bg-[#eab308] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Masih Ragu <i class="fas fa-hourglass-half"></i></span>';
 
-                // Susun HTML (Sesuai Referensi Gambar)
+                // Revisi 4: Susun HTML Card Ucapan (Elegan dengan Gradasi Gelap dan Box-Shadow)
                 ucapanHTML += `
-                <div class="flex gap-4">
-                    <div class="w-11 h-11 rounded-full text-white flex items-center justify-center font-extrabold text-[15px] shrink-0 shadow-lg" style="background-color: ${bgColor}">${inisial}</div>
-                    <div class="flex flex-col pt-1 border-b border-[#333] pb-5 w-full">
+                <div class="flex gap-4 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded-xl border border-gold/10 shadow-[0_4px_12px_rgba(0,0,0,0.5)] relative overflow-hidden">
+                    <div class="w-11 h-11 rounded-full text-white flex items-center justify-center font-extrabold text-[15px] shrink-0 shadow-inner z-10" style="background-color: ${bgColor}">${inisial}</div>
+                    <div class="flex flex-col w-full z-10">
                         <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
                             <span class="font-bold text-white text-[14px] font-montserrat tracking-wide">${data.nama}</span>
                             ${badgeStatus}
                         </div>
                         <p class="text-[13px] text-gray-300 mb-2 leading-relaxed font-montserrat">${data.ucapan}</p>
-                        <span class="text-[11px] text-gold/80 font-montserrat">${waktu}</span>
+                        <span class="text-[11px] text-gold/70 font-montserrat font-medium">${waktu}</span>
                     </div>
+                    <!-- Ornamen tipis di pojok kartu -->
+                    <div class="absolute -bottom-4 -right-4 text-gold/5 text-6xl pointer-events-none"><i class="fas fa-quote-right"></i></div>
                 </div>`;
             });
 
