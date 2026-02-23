@@ -166,7 +166,6 @@
     <!-- Tombol Mengambang -->
     <button id="enter-fullscreen" class="floating-btn"><i class="fas fa-expand-arrows-alt"></i></button>
     <div id="audio-container">
-        <!-- VAR: URL MUSIK -->
         <audio id="audio" loop>
             <source src="https://github.com/undangandigitalku/laguundangan/raw/refs/heads/main/Bermuara%20-%20Rizky%20Febian%20-%20Reff%20(1).mp3" type="audio/mpeg">
         </audio>
@@ -178,7 +177,9 @@
     <!-- WADAH UTAMA MOBILE -->
     <main class="w-full max-w-[420px] mx-auto bg-darkbg min-h-[100dvh] relative shadow-2xl overflow-x-hidden">
 
-        <!-- AWAL SECTION COVER -->
+        <!-- ========================================== -->
+        <!-- SECTION 1: COVER -->
+        <!-- ========================================== -->
         <section id="section-cover" class="relative w-full h-[100dvh] flex flex-col items-center justify-between py-10 px-4 bg-cardbg z-50 shrink-0">
             <div class="absolute inset-2 border-[1.5px] border-gold/70 rounded-[20px] pointer-events-none z-0"></div>
             <div class="cover-arch"></div>
@@ -194,9 +195,7 @@
                 </div>
 
                 <div class="relative flex justify-center items-center w-full h-[clamp(6rem,18vh,9rem)] my-[clamp(0.5rem,2vh,1.5rem)] zoom active" style="transition-delay: 0.2s">
-                    <!-- VAR: INISIAL WANITA -->
                     <h1 class="font-playfair italic text-[clamp(5.5rem,18vh,8.5rem)] text-goldlight drop-shadow-md absolute -ml-[0.45em] -mt-[0.4em] leading-none">L</h1>
-                    <!-- VAR: INISIAL PRIA -->
                     <h1 class="font-playfair italic text-[clamp(5.5rem,18vh,8.5rem)] text-goldlight drop-shadow-md absolute ml-[0.45em] mt-[0.4em] leading-none">P</h1>
                 </div>
 
@@ -205,9 +204,7 @@
                         <img src="https://undangandari.com/wp-content/uploads/2025/08/pngegg-43.png" alt="Rings" class="w-[clamp(45px,8vh,60px)] mb-[clamp(0.5rem,2vh,1.25rem)] drop-shadow-lg zoom-1">
                     </div>
                     <div class="w-24 h-[1px] bg-gold/50 mb-[clamp(0.5rem,1.5vh,0.75rem)]"></div>
-                    <!-- VAR: LOKASI COVER -->
                     <p class="font-cinzel text-[clamp(11px,2.5vh,13px)] tracking-[0.2em] font-semibold text-goldlight uppercase">Surabaya</p>
-                    <!-- VAR: TANGGAL COVER -->
                     <p class="font-cinzel text-[clamp(11px,2.5vh,13px)] tracking-[0.2em] font-semibold text-goldlight uppercase mt-1">29 Maret 2025</p>
                 </div>
             </div>
@@ -223,23 +220,24 @@
                 <p class="font-montserrat italic text-[9px] text-gold/60 mt-5 text-center leading-relaxed">*) Mohon maaf apabila ada kesalahan penulisan nama/gelar</p>
             </div>
         </section>
-        <!-- AKHIR SECTION COVER -->
 
-        <!-- WADAH KONTEN UTAMA -->
+        <!-- ========================================================================= -->
+        <!-- WADAH KONTEN (Disembunyikan sampai tombol Buka diklik)  -->
+        <!-- ========================================================================= -->
         <div id="content-undangan" class="hidden flex-col gap-6 w-full px-3 pb-12 pt-6 bg-darkbg">
 
-            <!-- AWAL SECTION INTRO -->
+            <!-- ========================================== -->
+            <!-- SECTION 2: INTRO & SAVE THE DATE -->
+            <!-- ========================================== -->
             <section id="section-tujuan" class="section-card">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kiri">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kanan">
 
                 <div class="relative z-10 flex flex-col items-center w-full">
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-3.png" alt="Line" class="garis-pembatas mb-5 muncul">
-                    <!-- VAR: NAMA PANGGILAN GABUNGAN -->
                     <h2 class="teks-judul mb-3 muncul">Lisa & Palmer</h2>
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line" class="garis-pembatas mb-10 muncul">
                     
-                    <!-- VAR: TANGGAL UTAMA -->
                     <h3 class="teks-subjudul mb-10 zoom font-semibold">Kamis, 19 Maret 2026</h3>
                     
                     <p class="teks-paragraf mb-10 muncul">Akhirnya, hari yang kami nantikan telah tiba. Hari kebahagiaan yang sangat spesial bagi kami.</p>
@@ -254,7 +252,7 @@
                     
                     <h2 class="teks-judul text-xl mb-8 muncul">Save The Date</h2>
 
-                    <!-- KOTAK COUNTDOWN -->
+                    <!-- Kotak Countdown -->
                     <div class="grid grid-cols-4 gap-2 w-full max-w-[280px] mb-10 zoom">
                         <div class="border border-gold/60 rounded-lg py-3 flex flex-col justify-center items-center bg-[#0a0a0a]">
                             <span id="cd-days" class="font-cinzel text-[22px] font-bold text-goldlight leading-none mb-1.5">00</span>
@@ -276,19 +274,20 @@
 
                     <p class="font-montserrat text-[11px] text-center text-gold/70 mb-5 muncul px-4 leading-relaxed">Klik tombol dibawah untuk tambahkan pengingat otomatis ke kalender Google</p>
                     
-                    <!-- VAR: LINK KALENDER -->
+                    <!-- Link Auto-Save ke Google Calendar -->
                     <div class="zoom">
-                        <a href="#" target="_blank" class="btn-utama">
-                            <i class="far fa-calendar-alt"></i> Simpan di Kalender
+                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The%20Wedding%20Of%20Lisa%20%26%20Palmer&details=Kami%20sangat%20mengharapkan%20kehadiran%20Bapak%2FIbu%2FSaudara%2Fi%20pada%20acara%20pernikahan%20kami.&location=Surabaya&dates=20260319T080000/20260319T140000" target="_blank" class="btn-utama">
+                            <i class="far fa-calendar-alt text-[14px]"></i> Simpan di Kalender
                         </a>
                     </div>
                     
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-4.png" alt="Line" class="garis-pembatas mt-14 muncul">
                 </div>
             </section>
-            <!-- AKHIR SECTION INTRO -->
 
-            <!-- AWAL SECTION MEMPELAI -->
+            <!-- ========================================== -->
+            <!-- SECTION 3: PROFIL MEMPELAI -->
+            <!-- ========================================== -->
             <section id="section-mempelai" class="section-card">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kiri">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kanan">
@@ -303,16 +302,12 @@
                     <h2 class="teks-judul mb-4 zoom">Kedua Mempelai</h2>
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line" class="garis-pembatas mb-12 muncul">
 
-                    <!-- MEMPELAI WANITA -->
+                    <!-- Wanita -->
                     <div class="flex flex-col items-center mb-8 w-full muncul">
-                        <!-- VAR: PANGGILAN WANITA -->
                         <h1 class="nama-mempelai">Lisa</h1>
-                        <!-- VAR: NAMA LENGKAP WANITA -->
                         <h2 class="nama-lengkap mb-4">Lisa Blackpink</h2>
                         <p class="teks-paragraf mb-2 font-normal">Putri Pertama dari Keluarga</p>
-                        <!-- VAR: ORTU WANITA -->
                         <p class="teks-paragraf text-goldlight mb-5 font-medium">Bapak Jose Mourinho<br>dan Ibu Happy Mourinho</p>
-                        <!-- VAR: IG WANITA -->
                         <div class="zoom">
                             <a href="#" target="_blank" class="px-5 py-2.5 border border-gold/50 rounded-full text-goldlight text-[12px] font-montserrat tracking-wide hover:bg-gold hover:text-black hover:border-gold transition-all flex items-center gap-2">
                                 <i class="fab fa-instagram text-[15px]"></i> @lisablackpink
@@ -324,16 +319,12 @@
                         <img src="https://undangandari.com/wp-content/uploads/2025/08/pngegg-43.png" alt="Cincin" class="w-14 my-6 drop-shadow-md">
                     </div>
 
-                    <!-- MEMPELAI PRIA -->
+                    <!-- Pria -->
                     <div class="flex flex-col items-center mb-10 w-full muncul">
-                        <!-- VAR: PANGGILAN PRIA -->
                         <h1 class="nama-mempelai">Palmer</h1>
-                        <!-- VAR: NAMA LENGKAP PRIA -->
                         <h2 class="nama-lengkap mb-4">Cole Palmer</h2>
                         <p class="teks-paragraf mb-2 font-normal">Putra Pertama dari Keluarga</p>
-                        <!-- VAR: ORTU PRIA -->
                         <p class="teks-paragraf text-goldlight mb-5 font-medium">Bapak Pep Guardiola<br>& Ibu Happy Guardiola</p>
-                        <!-- VAR: IG PRIA -->
                         <div class="zoom">
                             <a href="#" target="_blank" class="px-5 py-2.5 border border-gold/50 rounded-full text-goldlight text-[12px] font-montserrat tracking-wide hover:bg-gold hover:text-black hover:border-gold transition-all flex items-center gap-2">
                                 <i class="fab fa-instagram text-[15px]"></i> @colepalmer
@@ -344,10 +335,10 @@
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-5-1024x148.png" alt="Ornamen" class="garis-pembatas mt-4 zoom">
                 </div>
             </section>
-            <!-- AKHIR SECTION MEMPELAI -->
 
-            <!-- AWAL SECTION ACARA -->
-            <!-- Note Generator: Section ini opsional diisi loop dari data array acara -->
+            <!-- ========================================== -->
+            <!-- SECTION 4: DETAIL ACARA -->
+            <!-- ========================================== -->
             <section id="section-acara" class="section-card">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kiri">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kanan">
@@ -359,9 +350,8 @@
                     <h2 class="teks-judul mb-4 zoom">Detail Acara</h2>
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line" class="garis-pembatas mb-12 muncul">
 
-                    <!-- ITEM ACARA 1 (Cth: Akad) -->
-                    <div class="w-full flex flex-col items-center mb-10 muncul">
-                        <!-- VAR: NAMA ACARA 1 -->
+                    <!-- Akad -->
+                    <div class="w-full flex flex-col items-center mb-10 muncul-kanan">
                         <h3 class="font-cinzel text-[18px] tracking-[0.15em] text-gold uppercase mb-4 font-bold">Akad Nikah</h3>
                         <div class="w-[80%] h-[1px] bg-gold/30 mb-8"></div>
                         
@@ -369,12 +359,10 @@
                             <div class="flex flex-col gap-4 mb-6">
                                 <div class="flex items-center gap-3 text-goldlight">
                                     <i class="far fa-calendar-check text-[15px]"></i>
-                                    <!-- VAR: TANGGAL ACARA 1 -->
                                     <span class="font-montserrat text-[13px] font-medium">Minggu, 15 Juli 2025</span>
                                 </div>
                                 <div class="flex items-center gap-3 text-goldlight">
                                     <i class="far fa-clock text-[15px]"></i>
-                                    <!-- VAR: JAM ACARA 1 -->
                                     <span class="font-montserrat text-[13px] font-medium">08.00 - 10.00 WIB</span>
                                 </div>
                             </div>
@@ -383,20 +371,16 @@
                                 <i class="fas fa-map-marked-alt text-gold mx-4 text-2xl"></i>
                                 <div class="h-[1px] bg-gold/40 flex-grow"></div>
                             </div>
-                            <!-- VAR: NAMA LOKASI ACARA 1 -->
                             <h4 class="font-montserrat font-bold text-goldlight text-[14px] mb-2 w-full text-center">Kediaman Mempelai Wanita</h4>
-                            <!-- VAR: ALAMAT LENGKAP ACARA 1 -->
                             <p class="font-montserrat text-gold/80 text-[12px] leading-[1.8] mb-6 font-light text-center">Jl. Gatot Subroto No. 123, Kec. Medan Petisah, Kota Medan</p>
-                            <!-- VAR: MAPS ACARA 1 -->
-                            <a href="#" target="_blank" class="btn-utama mx-auto">
+                            <a href="#" class="btn-utama mx-auto">
                                 <i class="fas fa-map-marker-alt"></i> Open Maps
                             </a>
                         </div>
                     </div>
 
-                    <!-- ITEM ACARA 2 (Cth: Resepsi) -->
-                    <div class="w-full flex flex-col items-center mb-8 muncul">
-                        <!-- VAR: NAMA ACARA 2 -->
+                    <!-- Resepsi -->
+                    <div class="w-full flex flex-col items-center mb-8 muncul-kiri">
                         <h3 class="font-cinzel text-[18px] tracking-[0.15em] text-gold uppercase mb-4 font-bold">Acara Resepsi</h3>
                         <div class="w-[80%] h-[1px] bg-gold/30 mb-8"></div>
                         
@@ -404,12 +388,10 @@
                             <div class="flex flex-col gap-4 mb-6">
                                 <div class="flex items-center gap-3 text-goldlight">
                                     <i class="far fa-calendar-check text-[15px]"></i>
-                                    <!-- VAR: TANGGAL ACARA 2 -->
                                     <span class="font-montserrat text-[13px] font-medium">Minggu, 15 Juli 2025</span>
                                 </div>
                                 <div class="flex items-center gap-3 text-goldlight">
                                     <i class="far fa-clock text-[15px]"></i>
-                                    <!-- VAR: JAM ACARA 2 -->
                                     <span class="font-montserrat text-[13px] font-medium">11.00 - 14.00 WIB</span>
                                 </div>
                             </div>
@@ -418,22 +400,19 @@
                                 <i class="fas fa-map-marked-alt text-gold mx-4 text-2xl"></i>
                                 <div class="h-[1px] bg-gold/40 flex-grow"></div>
                             </div>
-                            <!-- VAR: NAMA LOKASI ACARA 2 -->
                             <h4 class="font-montserrat font-bold text-goldlight text-[14px] mb-2 w-full text-center">Gedung Serbaguna ABC</h4>
-                            <!-- VAR: ALAMAT LENGKAP ACARA 2 -->
                             <p class="font-montserrat text-gold/80 text-[12px] leading-[1.8] mb-6 font-light text-center">Jl. Jendral Sudirman No. 45, Kec. Medan Baru, Kota Medan</p>
-                            <!-- VAR: MAPS ACARA 2 -->
-                            <a href="#" target="_blank" class="btn-utama mx-auto">
+                            <a href="#" class="btn-utama mx-auto">
                                 <i class="fas fa-map-marker-alt"></i> Open Maps
                             </a>
                         </div>
                     </div>
                 </div>
             </section>
-            <!-- AKHIR SECTION ACARA -->
 
-            <!-- AWAL SECTION LOVE STORY -->
-            <!-- Note Generator: Sembunyikan section ini jika data love story kosong -->
+            <!-- ========================================== -->
+            <!-- SECTION 5: LOVE STORY -->
+            <!-- ========================================== -->
             <section id="section-lovestory" class="section-card">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kiri">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kanan">
@@ -443,18 +422,15 @@
                     <h2 class="teks-judul mb-4 zoom">Love Story</h2>
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line Divider" class="garis-pembatas mb-12 muncul">
 
-                    <!-- ITEM STORY 1 -->
+                    <!-- Cerita 1 -->
                     <div class="kartu-dalam items-center mb-6 muncul">
                         <div class="w-20 h-[1px] bg-gold/30 mb-4"></div>
-                        <!-- VAR: TANGGAL STORY 1 -->
                         <h4 class="font-cinzel text-[12px] tracking-[0.15em] font-semibold text-goldlight uppercase mb-2">Oktober 2023</h4>
-                        <!-- VAR: JUDUL STORY 1 -->
                         <h3 class="teks-aksen text-[1.5rem] mb-4 leading-none">Hari Pertemuan</h3>
-                        <!-- VAR: ISI STORY 1 -->
                         <p class="teks-paragraf italic">Takdir mempertemukan kami pada sebuah hari yang tak terlupakan. Saat itu, kami hanyalah dua orang asing yang tanpa sadar dipertemukan oleh semesta.</p>
                     </div>
 
-                    <!-- ITEM STORY 2 -->
+                    <!-- Cerita 2 -->
                     <div class="kartu-dalam items-center mb-6 muncul">
                         <div class="w-20 h-[1px] bg-gold/30 mb-4"></div>
                         <h4 class="font-cinzel text-[12px] tracking-[0.15em] font-semibold text-goldlight uppercase mb-2">Maret 2024</h4>
@@ -462,7 +438,7 @@
                         <p class="teks-paragraf italic">Waktu membawa kami lebih dekat, melewati hari-hari dengan cerita penuh tawa, doa, dan harapan. Di tanggal ini, kami mengikrarkan janji untuk saling menjaga.</p>
                     </div>
 
-                    <!-- ITEM STORY 3 -->
+                    <!-- Cerita 3 -->
                     <div class="kartu-dalam items-center mb-10 muncul">
                         <div class="w-20 h-[1px] bg-gold/30 mb-4"></div>
                         <h4 class="font-cinzel text-[12px] tracking-[0.15em] font-semibold text-goldlight uppercase mb-2">Januari 2025</h4>
@@ -473,26 +449,10 @@
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-5-1024x148.png" alt="Ornamen" class="garis-pembatas mt-2 zoom">
                 </div>
             </section>
-            <!-- AKHIR SECTION LOVE STORY -->
 
-            <!-- AWAL SECTION QUOTES -->
-            <section id="section-quotes" class="section-card">
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kiri">
-                <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kanan">
-
-                <div class="relative z-10 flex flex-col items-center w-full justify-center min-h-[40vh] py-8">
-                    <i class="fas fa-quote-left text-3xl text-gold/40 mb-6 muncul"></i>
-                    <!-- VAR: ISI QUOTES -->
-                    <p class="font-playfair text-[14px] md:text-[15px] text-gold/90 text-center leading-[2] mb-8 muncul px-2">
-                        "Dan di antara tanda-tanda kekuasaan-Nya diciptakan-Nya untukmu pasangan hidup dari jenismu sendiri supaya kamu dapat ketenangan hati dan dijadikannya kasih sayang di antara kamu. Sesungguhnya yang demikian menjadi tanda-tanda kebesaran-Nya bagi orang-orang yang berpikir."
-                    </p>
-                    <!-- VAR: AUTHOR QUOTES -->
-                    <h3 class="teks-subjudul mb-0 zoom font-bold">- QS. Ar - Rum 21 -</h3>
-                </div>
-            </section>
-            <!-- AKHIR SECTION QUOTES -->
-
-            <!-- AWAL SECTION RSVP (FIREBASE) -->
+            <!-- ========================================== -->
+            <!-- SECTION 6: RSVP & UCAPAN (TERHUBUNG KE FIREBASE) -->
+            <!-- ========================================== -->
             <section id="section-ucapan" class="section-card">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kiri">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kanan">
@@ -539,8 +499,9 @@
                             <button type="submit" id="btn-kirim" class="w-full bg-gold border border-gold rounded text-black font-montserrat font-bold text-[12px] tracking-wider py-3.5 hover:bg-transparent hover:text-gold transition-all mt-2 shadow-lg">KIRIM UCAPAN</button>
                         </form>
 
-                        <!-- DAFTAR UCAPAN -->
-                        <div id="daftar-ucapan" class="flex flex-col gap-6 muncul h-[400px] overflow-y-auto pr-2 custom-scroll">
+                        <!-- DAFTAR UCAPAN (Dirender oleh Firebase) -->
+                        <div id="daftar-ucapan" class="flex flex-col gap-6 muncul max-h-[400px] overflow-y-auto pr-2 custom-scroll">
+                            <!-- Pesan Kosong / Loading -->
                             <p class="text-center text-gold/50 font-montserrat text-xs italic mt-4">Memuat doa dan ucapan...</p>
                         </div>
                     </div>
@@ -548,10 +509,10 @@
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-5-1024x148.png" alt="Ornamen" class="garis-pembatas mt-8 zoom">
                 </div>
             </section>
-            <!-- AKHIR SECTION RSVP -->
 
-            <!-- AWAL SECTION WEDDING GIFT -->
-            <!-- Note Generator: Sembunyikan jika data rekening tidak ada -->
+            <!-- ========================================== -->
+            <!-- SECTION 7: WEDDING GIFT -->
+            <!-- ========================================== -->
             <section id="section-gift" class="section-card">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kiri">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kanan">
@@ -566,7 +527,6 @@
                     <div class="flex flex-col items-center zoom mb-10 w-full">
                         <i class="fas fa-gifts text-4xl text-gold mb-4"></i>
                         <h4 class="teks-aksen text-[16px] font-bold text-goldlight mb-2">Kirim Kado / Karangan Bunga</h4>
-                        <!-- VAR: ALAMAT KADO -->
                         <p class="teks-paragraf max-w-[80%]">Jl. Perjuangan Kemerdekaan No 19, Kota Surabaya</p>
                     </div>
 
@@ -577,22 +537,18 @@
                         </button>
                     </div>
 
-                    <!-- KUMPULAN REKENING (Bisa di-loop jika lebih dari 1) -->
-                    <div id="box-rekening" class="hidden flex-col gap-4 w-full items-center muncul">
-                        <!-- ITEM REKENING 1 -->
-                        <div class="relative w-full max-w-[280px] aspect-[1.58/1] bg-gradient-to-br from-[#e0e0e0] to-[#ffffff] rounded-xl p-5 shadow-xl flex flex-col justify-between overflow-hidden border border-gray-400">
+                    <!-- ATM Card -->
+                    <div id="box-rekening" class="hidden flex-col items-center w-full max-w-[280px] muncul">
+                        <div class="relative w-full aspect-[1.58/1] bg-gradient-to-br from-[#e0e0e0] to-[#ffffff] rounded-xl p-5 shadow-xl flex flex-col justify-between overflow-hidden border border-gray-400">
                             <div class="flex justify-between items-start w-full z-10">
                                 <img src="https://undangandari.com/wp-content/uploads/2025/08/chip-atm-undangan.webp" alt="Chip" class="w-10 opacity-80 mix-blend-multiply">
-                                <!-- VAR: LOGO BANK -->
                                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Logo-Bank-BCA-1.png" alt="BCA" class="w-14 object-contain">
                             </div>
                             <div class="flex flex-col items-end w-full z-10 mt-auto">
-                                <!-- VAR: NAMA PEMILIK REKENING -->
                                 <h5 class="font-montserrat text-[10px] font-bold tracking-[0.1em] text-gray-700 mb-1">COLE PALMER</h5>
-                                <!-- VAR: NOMOR REKENING -->
-                                <p class="font-montserrat text-[20px] tracking-[0.15em] font-semibold text-gray-900 mb-3" id="nomor-rek-1">12345678987</p>
-                                <button onclick="copyRekening('nomor-rek-1', this)" class="bg-gray-200 border border-gray-400 text-gray-800 text-[10px] font-montserrat font-semibold px-3 py-1.5 rounded flex items-center gap-1.5 hover:bg-gray-300 transition-colors">
-                                    <i class="far fa-copy"></i> <span>Salin Nomor</span>
+                                <p class="font-montserrat text-[20px] tracking-[0.15em] font-semibold text-gray-900 mb-3">12345678987</p>
+                                <button id="btn-copy-rek" class="bg-gray-200 border border-gray-400 text-gray-800 text-[10px] font-montserrat font-semibold px-3 py-1.5 rounded flex items-center gap-1.5 hover:bg-gray-300 transition-colors">
+                                    <i class="far fa-copy"></i> <span id="text-copy-rek">Salin Nomor</span>
                                 </button>
                             </div>
                         </div>
@@ -601,9 +557,10 @@
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-5-1024x148.png" alt="Ornamen" class="garis-pembatas mt-12 zoom">
                 </div>
             </section>
-            <!-- AKHIR SECTION WEDDING GIFT -->
 
-            <!-- AWAL SECTION PENUTUP -->
+            <!-- ========================================== -->
+            <!-- SECTION 8: CLOSING (TERIMA KASIH) -->
+            <!-- ========================================== -->
             <section id="section-penutup" class="section-card">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kiri">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kanan">
@@ -624,15 +581,13 @@
                     <div class="mb-6 muncul flex flex-col items-center">
                         <span class="font-playfair text-[13px] italic font-bold text-gold mb-1">Keluarga Besar</span>
                         <span class="font-playfair text-[18px] text-goldlight mb-2">Mempelai Wanita</span>
-                        <!-- VAR: KELUARGA WANITA BAWAH -->
-                        <span class="font-montserrat text-[12px] font-light text-gold/90 text-center">Bpk. Jose Mourinho<br>& Ibu Happy Mourinho</span>
+                        <span class="font-montserrat text-[12px] font-light text-gold/90 text-center">Bpk. Lorem Ipsum<br>& Ibu Dolor Sit</span>
                     </div>
 
                     <div class="mb-10 muncul flex flex-col items-center mt-2">
                         <span class="font-playfair text-[13px] italic font-bold text-gold mb-1">Keluarga Besar</span>
                         <span class="font-playfair text-[18px] text-goldlight mb-2">Mempelai Pria</span>
-                        <!-- VAR: KELUARGA PRIA BAWAH -->
-                        <span class="font-montserrat text-[12px] font-light text-gold/90 text-center">Bpk. Pep Guardiola<br>& Ibu Happy Guardiola</span>
+                        <span class="font-montserrat text-[12px] font-light text-gold/90 text-center">Bpk. Lorem Ipsum<br>& Ibu Dolor Sit</span>
                     </div>
 
                     <div class="flex items-center w-full my-6 zoom gap-4 justify-center">
@@ -641,15 +596,14 @@
                         <div class="h-[1px] bg-gold/40 w-12"></div>
                     </div>
 
-                    <!-- VAR: NAMA PANGGILAN GABUNGAN -->
                     <h2 class="teks-judul mt-4 zoom">LISA & PALMER</h2>
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-2-e1734471334329.png" alt="Line" class="garis-pembatas mt-8 muncul">
                 </div>
             </section>
-            <!-- AKHIR SECTION PENUTUP -->
 
-            <!-- AWAL SECTION TURUT MENGUNDANG -->
-            <!-- Note Generator: Sembunyikan jika daftar turut mengundang kosong -->
+            <!-- ========================================== -->
+            <!-- SECTION 9: TURUT MENGUNDANG (PALING BAWAH) -->
+            <!-- ========================================== -->
             <section id="section-mengundang" class="section-card pb-16">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kiri">
                 <img src="https://undangandari.com/wp-content/uploads/2025/08/Black-and-Orange-Aesthetic-Wedding-Invitations-e1696435055784.png" alt="Ornamen" class="ornamen-pojok-kanan">
@@ -661,15 +615,11 @@
                     <p class="teks-paragraf mb-12 muncul">Kami juga berterima kasih kepada semua pihak yang telah membantu mempersiapkan segala persiapan acara pernikahan kami.</p>
 
                     <h4 class="font-cinzel text-[14px] font-semibold tracking-wider text-gold uppercase mb-5 muncul">Keluarga Mempelai Wanita</h4>
-                    
-                    <!-- DAFTAR MENGUNDANG WANITA (Wadah Looping) -->
-                    <div class="flex flex-col items-center gap-2 mb-10 muncul w-full">
-                        <!-- ITEM MENGUNDANG -->
-                        <p class="font-playfair text-[14px] text-goldlight text-center">1. Nama Turut Mengundang 1</p>
-                        <!-- ITEM MENGUNDANG -->
-                        <p class="font-playfair text-[14px] text-goldlight text-center">2. Nama Turut Mengundang 2</p>
-                        <!-- ITEM MENGUNDANG -->
-                        <p class="font-playfair text-[14px] text-goldlight text-center">3. Nama Turut Mengundang 3</p>
+                    <div class="font-playfair text-[14px] text-goldlight text-center leading-[2] muncul mb-10">
+                        1. Nama Turut Mengundang 1<br>
+                        2. Nama Turut Mengundang 2<br>
+                        3. Nama Turut Mengundang 3<br>
+                        4. Nama Turut Mengundang 4
                     </div>
 
                     <div class="flex items-center w-full my-4 zoom gap-3 justify-center max-w-[60%]">
@@ -679,19 +629,16 @@
                     </div>
 
                     <h4 class="font-cinzel text-[14px] font-semibold tracking-wider text-gold uppercase mb-5 mt-8 muncul">Keluarga Mempelai Pria</h4>
-                    
-                    <!-- DAFTAR MENGUNDANG PRIA (Wadah Looping) -->
-                    <div class="flex flex-col items-center gap-2 mb-10 muncul w-full">
-                        <!-- ITEM MENGUNDANG -->
-                        <p class="font-playfair text-[14px] text-goldlight text-center">1. Nama Turut Mengundang 1</p>
-                        <!-- ITEM MENGUNDANG -->
-                        <p class="font-playfair text-[14px] text-goldlight text-center">2. Nama Turut Mengundang 2</p>
+                    <div class="font-playfair text-[14px] text-goldlight text-center leading-[2] muncul mb-10">
+                        1. Nama Turut Mengundang 1<br>
+                        2. Nama Turut Mengundang 2<br>
+                        3. Nama Turut Mengundang 3<br>
+                        4. Nama Turut Mengundang 4
                     </div>
 
                     <img src="https://undangandari.com/wp-content/uploads/2025/08/gold-line-5-1024x148.png" alt="Ornamen" class="garis-pembatas mt-4 zoom">
                 </div>
             </section>
-            <!-- AKHIR SECTION TURUT MENGUNDANG -->
 
         </div> <!-- Akhir Container Kartu -->
     </main>
@@ -850,7 +797,6 @@
             }
 
             // --- 6. COUNTDOWN ---
-            // VAR: TARGET COUNTDOWN
             const countDownDate = new Date("Mar 19, 2026 08:00:00").getTime();
             if (document.getElementById("cd-days")) {
                 const timer = setInterval(function() {
@@ -875,7 +821,7 @@
                 }, 1000);
             }
 
-            // --- 7. TOGGLE REKENING ---
+            // --- 7. COPY REKENING ---
             const btnToggleRek = document.getElementById('btn-toggle-rekening');
             const boxRekening = document.getElementById('box-rekening');
             if (btnToggleRek && boxRekening) {
@@ -891,29 +837,20 @@
                     }
                 });
             }
+
+            const btnCopyRek = document.getElementById('btn-copy-rek');
+            if (btnCopyRek) {
+                btnCopyRek.addEventListener('click', () => {
+                    const tempInput = document.createElement('input');
+                    tempInput.value = "12345678987"; document.body.appendChild(tempInput);
+                    tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput);
+                    const textCopyRek = document.getElementById('text-copy-rek');
+                    const originalText = textCopyRek.textContent;
+                    textCopyRek.textContent = 'Tersalin!'; btnCopyRek.classList.replace('text-gray-800', 'text-green-600');
+                    setTimeout(() => { textCopyRek.textContent = originalText; btnCopyRek.classList.replace('text-green-600', 'text-gray-800'); }, 2000);
+                });
+            }
         });
-        
-        // --- 8. FUNGSI COPY REKENING DINAMIS ---
-        // Dipisahkan agar tombol dinamis hasil looping bisa memanggil fungsi ini
-        window.copyRekening = function(elementId, btnElement) {
-            const norek = document.getElementById(elementId).innerText;
-            const tempInput = document.createElement('input');
-            tempInput.value = norek;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            
-            const spanText = btnElement.querySelector('span');
-            const originalText = spanText.textContent;
-            spanText.textContent = 'Tersalin!';
-            btnElement.classList.replace('text-gray-800', 'text-green-600');
-            
-            setTimeout(() => {
-                spanText.textContent = originalText;
-                btnElement.classList.replace('text-green-600', 'text-gray-800');
-            }, 2000);
-        }
     </script>
 
     <!-- ========================================================= -->
@@ -923,7 +860,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Kunci Rahasia Firebase
+        // Kunci Rahasia Firebase Milik Diana (Sistem Utama)
         const firebaseConfig = {
             apiKey: "AIzaSyAbpnsGjy9p8doAtZx-Jc1U1nod3M-S90Y",
             authDomain: "sistem-rsvp.firebaseapp.com",
@@ -933,17 +870,20 @@
             appId: "1:634798818741:web:83d56bf3122968dc86c5fc"
         };
 
+        // Inisialisasi Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Identifikasi Folder Klien
+        // --- SISTEM DETEKSI FOLDER OTOMATIS (MULTI-TENANT) ---
+        // Mengambil nama folder dari URL (misal: dwimartins.github.io/lisa-palmer/ -> "lisa-palmer")
         let pathSegments = window.location.pathname.split('/').filter(segment => segment.length > 0 && !segment.includes('.html'));
         let brideId = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : "demo-undangan";
-        brideId = brideId.replace(/[^a-zA-Z0-9-_]/g, ''); 
+        brideId = brideId.replace(/[^a-zA-Z0-9-_]/g, ''); // Bersihkan teks agar aman untuk nama laci database
         
+        // Membuat "Laci" spesifik untuk pengantin ini di dalam Firestore
         const rsvpCollection = collection(db, 'rsvp_' + brideId);
 
-        // Elemen UI Form
+        // --- ELEMEN UI ---
         const formRsvp = document.getElementById('form-rsvp');
         const inputNama = document.getElementById('input-nama');
         const inputUcapan = document.getElementById('input-ucapan');
@@ -955,6 +895,7 @@
         const countTidakHadir = document.getElementById('count-tidak-hadir');
         const countRagu = document.getElementById('count-ragu');
 
+        // Helper Waktu (Cth: "Baru saja", "2 jam yang lalu")
         function timeAgo(dateInput) {
             if (!dateInput) return "Baru saja";
             const date = dateInput.toDate ? dateInput.toDate() : new Date(dateInput);
@@ -970,6 +911,7 @@
             return `${days} hari yang lalu`;
         }
 
+        // Helper Warna Avatar Random Berdasarkan Nama
         function getAvatarColor(name) {
             const colors = ['#d4af37', '#607d8b', '#795548', '#5d4037', '#8d6e63', '#a1887f'];
             let hash = 0;
@@ -977,10 +919,12 @@
             return colors[Math.abs(hash) % colors.length];
         }
 
+        // --- FUNGSI TAMPILKAN PESAN REAL-TIME (Membaca Data) ---
         onSnapshot(rsvpCollection, (snapshot) => {
             let ucapanHTML = '';
             let hadir = 0, tidakHadir = 0, ragu = 0;
             
+            // Ekstrak data dan urutkan dari yang terbaru ke terlama di memori (Tanpa perlu seting index manual di Firebase)
             const dataPesan = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             dataPesan.sort((a, b) => {
                 const timeA = a.timestamp ? a.timestamp.toMillis() : Date.now();
@@ -994,65 +938,78 @@
                 return;
             }
 
+            // Looping untuk membuat elemen daftar
             dataPesan.forEach(data => {
+                // Hitung Statistik
                 if (data.kehadiran === 'Hadir') hadir++;
                 else if (data.kehadiran === 'Tidak Hadir') tidakHadir++;
                 else ragu++;
 
+                // Buat Tampilan Avatar & Status
                 const inisial = data.nama.substring(0, 2).toUpperCase();
                 const bgColor = getAvatarColor(data.nama);
                 const waktu = timeAgo(data.timestamp);
                 
                 let badgeStatus = '';
-                if (data.kehadiran === 'Hadir') badgeStatus = '<span class="bg-[#28a745] text-white text-[9px] px-2 py-0.5 rounded flex items-center gap-1 font-medium">Hadir <i class="fas fa-check"></i></span>';
-                else if (data.kehadiran === 'Tidak Hadir') badgeStatus = '<span class="bg-[#dc3545] text-white text-[9px] px-2 py-0.5 rounded flex items-center gap-1 font-medium">Tidak Hadir <i class="fas fa-times"></i></span>';
-                else badgeStatus = '<span class="bg-[#ffc107] text-white text-[9px] px-2 py-0.5 rounded flex items-center gap-1 font-medium">Masih Ragu <i class="fas fa-hourglass-half"></i></span>';
+                if (data.kehadiran === 'Hadir') badgeStatus = '<span class="bg-[#28a745] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Hadir <i class="fas fa-check"></i></span>';
+                else if (data.kehadiran === 'Tidak Hadir') badgeStatus = '<span class="bg-[#dc3545] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Tidak Hadir <i class="fas fa-times"></i></span>';
+                else badgeStatus = '<span class="bg-[#ffc107] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Masih Ragu <i class="fas fa-hourglass-half"></i></span>';
 
+                // Susun HTML (Sesuai Referensi Gambar)
                 ucapanHTML += `
                 <div class="flex gap-4">
-                    <div class="w-10 h-10 rounded-full text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md" style="background-color: ${bgColor}">${inisial}</div>
-                    <div class="flex flex-col pt-0.5 border-b border-gold/20 pb-4 w-full">
-                        <div class="flex items-center justify-between mb-1.5 flex-wrap gap-2">
-                            <span class="font-bold text-white text-[13px] font-montserrat">${data.nama}</span>
+                    <div class="w-11 h-11 rounded-full text-white flex items-center justify-center font-extrabold text-[15px] shrink-0 shadow-lg" style="background-color: ${bgColor}">${inisial}</div>
+                    <div class="flex flex-col pt-1 border-b border-gold/20 pb-5 w-full">
+                        <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+                            <span class="font-bold text-white text-[14px] font-montserrat tracking-wide">${data.nama}</span>
                             ${badgeStatus}
                         </div>
-                        <p class="text-[12px] text-gray-300 mb-1 leading-relaxed font-montserrat font-light">${data.ucapan}</p>
-                        <span class="text-[10px] text-gold/60 font-montserrat">${waktu}</span>
+                        <p class="text-[13px] text-gray-300 mb-2 leading-relaxed font-montserrat">${data.ucapan}</p>
+                        <span class="text-[10px] text-gold/70 font-montserrat font-medium">${waktu}</span>
                     </div>
                 </div>`;
             });
 
+            // Lempar ke layar
             daftarUcapan.innerHTML = ucapanHTML;
             
+            // Animasi Counter menggunakan GSAP
             gsap.to(countHadir, { innerHTML: hadir, duration: 1, snap: { innerHTML: 1 } });
             gsap.to(countTidakHadir, { innerHTML: tidakHadir, duration: 1, snap: { innerHTML: 1 } });
             gsap.to(countRagu, { innerHTML: ragu, duration: 1, snap: { innerHTML: 1 } });
         });
 
+
+        // --- FUNGSI MENGIRIM PESAN BARU (Menulis Data) ---
         formRsvp.addEventListener('submit', async (e) => {
             e.preventDefault();
             
+            // Ambil Nilai dari Form
             const namaVal = inputNama.value.trim();
             const ucapanVal = inputUcapan.value.trim();
             const kehadiranVal = inputKehadiran.value;
 
             if (!namaVal || !ucapanVal || !kehadiranVal) return;
 
+            // Loading State (Ubah Teks Tombol)
             const textAwal = btnKirim.innerHTML;
             btnKirim.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
             btnKirim.disabled = true;
             btnKirim.classList.add('opacity-50', 'cursor-not-allowed');
 
             try {
+                // Proses penyimpanan ke Firestore
                 await addDoc(rsvpCollection, {
                     nama: namaVal,
                     ucapan: ucapanVal,
                     kehadiran: kehadiranVal,
-                    timestamp: serverTimestamp() 
+                    timestamp: serverTimestamp() // Otomatis catat waktu dari server Google
                 });
 
+                // Reset Form
                 formRsvp.reset();
                 
+                // Sukses State
                 btnKirim.innerHTML = '<i class="fas fa-check"></i> Terkirim!';
                 btnKirim.classList.replace('text-black', 'text-white');
                 btnKirim.classList.replace('bg-gold', 'bg-[#28a745]');
@@ -1062,6 +1019,7 @@
                 console.error("Gagal mengirim RSVP:", error);
                 alert("Maaf, terjadi kesalahan jaringan. Silakan coba lagi.");
             } finally {
+                // Kembalikan Tombol ke Semula setelah 3 detik
                 setTimeout(() => {
                     btnKirim.innerHTML = textAwal;
                     btnKirim.disabled = false;
@@ -1070,6 +1028,7 @@
                 }, 3000);
             }
         });
+
     </script>
 </body>
 </html>
