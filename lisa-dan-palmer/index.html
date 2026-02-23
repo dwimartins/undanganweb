@@ -276,7 +276,7 @@
                         </a>
                     </div>
                     
-                    <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%206.webp" alt="Line" class="garis-pembatas mt-14 muncul">
+                    <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%205.webp" alt="Line" class="garis-pembatas mt-14 muncul">
                 </div>
             </section>
 
@@ -327,7 +327,7 @@
                         </div>
                     </div>
                     
-                    <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%205.webp" alt="Ornamen" class="garis-pembatas mt-4 zoom">
+                    <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%206.webp" alt="Ornamen" class="garis-pembatas mt-4 zoom">
                 </div>
             </section>
 
@@ -441,7 +441,7 @@
                         <p class="teks-paragraf italic">Kini, tibalah saatnya kami mengukir babak baru dalam perjalanan cinta ini. Dengan penuh rasa syukur, kami siap mengikat janji suci di hadapan keluarga.</p>
                     </div>
 
-                    <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%205.webp" alt="Ornamen" class="garis-pembatas mt-2 zoom">
+                    <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%206.webp" alt="Ornamen" class="garis-pembatas mt-2 zoom">
                 </div>
             </section>
 
@@ -501,7 +501,7 @@
                         </div>
                     </div>
                     
-                    <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%205.webp" alt="Ornamen" class="garis-pembatas mt-8 zoom">
+                    <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%206.webp" alt="Ornamen" class="garis-pembatas mt-8 zoom">
                 </div>
             </section>
 
@@ -549,7 +549,7 @@
                         </div>
                     </div>
 
-                    <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%205.webp" alt="Ornamen" class="garis-pembatas mt-12 zoom">
+                    <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%206.webp" alt="Ornamen" class="garis-pembatas mt-12 zoom">
                 </div>
             </section>
 
@@ -631,7 +631,7 @@
                         4. Nama Turut Mengundang 4
                     </div>
 
-                    <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%205.webp" alt="Ornamen" class="garis-pembatas mt-4 zoom">
+                    <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%206.webp" alt="Ornamen" class="garis-pembatas mt-4 zoom">
                 </div>
             </section>
 
@@ -908,7 +908,7 @@
 
         // Helper Warna Avatar Random Berdasarkan Nama (Disesuaikan jadi warna gelap elegan)
         function getAvatarColor(name) {
-            const colors = ['#8b7355', '#6d4c41', '#bcaaa4', '#d4af37', '#a1887f', '#795548', '#a67c00'];
+            const colors = ['#6d4c41', '#8d6e63', '#a1887f', '#bcaaa4', '#d4af37', '#c19a6b', '#a67c00'];
             let hash = 0;
             for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
             return colors[Math.abs(hash) % colors.length];
@@ -946,21 +946,21 @@
                 const waktu = timeAgo(data.timestamp);
                 
                 let badgeStatus = '';
-                if (data.kehadiran === 'Hadir') badgeStatus = '<span class="bg-[#28a745] text-white text-[9px] px-2 py-0.5 rounded flex items-center gap-1 font-semibold">Hadir <i class="fas fa-check"></i></span>';
-                else if (data.kehadiran === 'Tidak Hadir') badgeStatus = '<span class="bg-[#dc3545] text-white text-[9px] px-2 py-0.5 rounded flex items-center gap-1 font-semibold">Tidak Hadir <i class="fas fa-times"></i></span>';
-                else badgeStatus = '<span class="bg-[#ffc107] text-white text-[9px] px-2 py-0.5 rounded flex items-center gap-1 font-semibold">Masih Ragu <i class="fas fa-hourglass-half"></i></span>';
+                if (data.kehadiran === 'Hadir') badgeStatus = '<span class="bg-[#22c55e] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Hadir <i class="fas fa-check"></i></span>';
+                else if (data.kehadiran === 'Tidak Hadir') badgeStatus = '<span class="bg-[#ef4444] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Tidak Hadir <i class="fas fa-times"></i></span>';
+                else badgeStatus = '<span class="bg-[#eab308] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Masih Ragu <i class="fas fa-hourglass-half"></i></span>';
 
                 // Susun HTML (Sesuai Referensi Gambar)
                 ucapanHTML += `
                 <div class="flex gap-4">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-montserrat font-bold text-[14px] text-white shrink-0" style="background-color: ${bgColor}">${inisial}</div>
-                    <div class="flex flex-col pt-0.5 border-b border-[#333] pb-4 w-full">
-                        <div class="flex items-center justify-between mb-1 flex-wrap gap-2">
-                            <span class="font-bold text-white text-[13px] font-montserrat tracking-wide">${data.nama}</span>
+                    <div class="w-11 h-11 rounded-full text-white flex items-center justify-center font-extrabold text-[15px] shrink-0 shadow-lg" style="background-color: ${bgColor}">${inisial}</div>
+                    <div class="flex flex-col pt-1 border-b border-[#333] pb-5 w-full">
+                        <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+                            <span class="font-bold text-white text-[14px] font-montserrat tracking-wide">${data.nama}</span>
                             ${badgeStatus}
                         </div>
-                        <p class="text-[12px] text-gray-300 mb-1.5 leading-relaxed font-montserrat font-light">${data.ucapan}</p>
-                        <span class="text-[10px] text-gold/50 font-montserrat">${waktu}</span>
+                        <p class="text-[13px] text-gray-300 mb-2 leading-relaxed font-montserrat">${data.ucapan}</p>
+                        <span class="text-[11px] text-gold/80 font-montserrat">${waktu}</span>
                     </div>
                 </div>`;
             });
