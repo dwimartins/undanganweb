@@ -413,37 +413,28 @@
             const contentUndangan = document.getElementById('content-undangan');
             const audio = document.getElementById('audio');
             const audioToggle = document.getElementById('audio-toggle');
-            let isOpened = false;
 
-            if(btnCover) {
-                btnCover.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    if(!isOpened) {
-                        isOpened = true;
-                        
-                        const btnIcon = document.getElementById('btn-icon');
-                        const btnText = btnCover.querySelector('.elementor-button-text');
-                        if(btnText) btnText.textContent = 'SCROLL KE BAWAH';
-                        if(btnIcon) btnIcon.className = 'fas fa-arrow-down animate-bounce text-[14px]';
-                        
-                        if (audio && audio.paused) { audio.play().catch(err => console.log("Audio block:", err)); }
-                        
-                        unlockScroll();
-                        if(contentUndangan) { contentUndangan.classList.remove('hidden'); contentUndangan.classList.add('flex'); }
-                        
-                        try {
-                            const el = document.documentElement;
-                            if (el.requestFullscreen) el.requestFullscreen();
-                            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-                        } catch(err) {}
-
-                        // Tahan 1.5 detik di cover lalu baru gulir ke bawah
-                        setTimeout(() => { scrollKeTujuan(); }, 1500);
-                    } else {
-                        scrollKeTujuan();
-                    }
-                });
-            }
+            const handleFirstClick = (e) => { 
+                e.preventDefault(); 
+                
+                // Minta Fullscreen DULUAN untuk menghilangkan delay di HP Lama
+                enterFullscreen(document.documentElement);
+                if (audio && audio.paused) { audio.play().catch(err => console.log("Audio play di-block:", err)); } 
+                
+                // Ubah UI tanpa menghambat eksekusi fullscreen
+                setButtonToScroll(); 
+                unlockScroll(); 
+                if(contentUndangan) { contentUndangan.classList.remove('hidden'); contentUndangan.classList.add('flex'); } 
+                
+                // Tahan di sampul selama 1.5 detik lalu auto-scroll mengayun halus
+                setTimeout(() => { scrollKeTujuan(); }, 1500); 
+                
+                // Hapus event lama & ganti jadi langsung scroll untuk klik selanjutnya
+                btnCover.removeEventListener('click', handleFirstClick); 
+                btnCover.addEventListener('click', (ev) => { ev.preventDefault(); scrollKeTujuan(); }); 
+            };
+            
+            if (btnCover) btnCover.addEventListener('click', handleFirstClick);
 
             if(audioToggle) { 
                 audioToggle.addEventListener('click', function () { 
@@ -547,7 +538,7 @@
         const app = initializeApp(firebaseConfig); const db = getFirestore(app);
 
         let pathSegments = window.location.pathname.split('/').filter(segment => segment.length > 0 && !segment.includes('.html'));
-        let brideId = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : "lisa-dan-palmer";
+        let brideId = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : "demo-undangan";
         brideId = brideId.replace(/[^a-zA-Z0-9-_]/g, ''); 
         
         const rsvpCollection = collection(db, 'rsvp_' + brideId);
@@ -584,7 +575,7 @@
                 const namaVal = inputNama ? inputNama.value.trim() : ''; const ucapanVal = inputUcapan ? inputUcapan.value.trim() : ''; const kehadiranVal = inputKehadiran ? inputKehadiran.value : '';
                 if (!namaVal || !ucapanVal || !kehadiranVal) { showModal("Peringatan", "Mohon lengkapi semua kolom form RSVP terlebih dahulu.", [{text:"Mengerti", color:"bg-gold text-black", action:"tutupModal()"}]); return; }
                 
-                if(localStorage.getItem('rsvp_lisa-dan-palmer')) { showModal("Terima Kasih", "Anda sudah mengirimkan RSVP/Ucapan sebelumnya. 1 perangkat hanya dapat mengirim 1 kali.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); return; }
+                if(localStorage.getItem('rsvp_demo-undangan')) { showModal("Terima Kasih", "Anda sudah mengirimkan RSVP/Ucapan sebelumnya. 1 perangkat hanya dapat mengirim 1 kali.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); return; }
                 
                 const badWords = ['anjing', 'babi', 'monyet', 'bangsat', 'kontol', 'memek', 'jembut', 'goblok', 'tolol', 'ngentot', 'fuck', 'shit', 'bitch'];
                 const urlRegex = /(https?:\/\/|www\.)[a-zA-Z0-9\-\.\+\/?\=\&#]+/gi;
@@ -605,7 +596,7 @@
             tutupModal();
             try {
                 await addDoc(rsvpCollection, { nama: namaVal, ucapan: ucapanVal, kehadiran: kehadiranVal, timestamp: serverTimestamp() });
-                localStorage.setItem('rsvp_lisa-dan-palmer', 'true');
+                localStorage.setItem('rsvp_demo-undangan', 'true');
                 formRsvp.reset(); btnKirimPreview.innerHTML = '<i class="fas fa-check"></i> Terkirim!'; btnKirimPreview.classList.replace('text-black', 'text-white'); btnKirimPreview.classList.replace('bg-gold', 'bg-[#28a745]'); btnKirimPreview.classList.replace('border-gold', 'border-[#28a745]');
             } catch (error) { showModal("Error", "Maaf, terjadi kesalahan jaringan. Silakan coba lagi.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); } 
             finally { setTimeout(() => { btnKirimPreview.innerHTML = textAwal; btnKirimPreview.disabled = false; btnKirimPreview.classList.remove('opacity-50', 'cursor-not-allowed', 'text-white', 'bg-[#28a745]', 'border-[#28a745]'); btnKirimPreview.classList.add('text-black', 'bg-gold', 'border-gold'); }, 3000); }
