@@ -458,7 +458,7 @@
         const app = initializeApp(firebaseConfig); const db = getFirestore(app);
 
         let pathSegments = window.location.pathname.split('/').filter(segment => segment.length > 0 && !segment.includes('.html'));
-        let brideId = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : "demo-undangan";
+        let brideId = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : "lisa-dan-palmer";
         brideId = brideId.replace(/[^a-zA-Z0-9-_]/g, ''); 
         
         const rsvpCollection = collection(db, 'rsvp_' + brideId);
@@ -494,7 +494,7 @@
             const namaVal = inputNama.value.trim(); const ucapanVal = inputUcapan.value.trim(); const kehadiranVal = inputKehadiran.value;
             if (!namaVal || !ucapanVal || !kehadiranVal) { showModal("Peringatan", "Mohon lengkapi semua kolom form RSVP terlebih dahulu.", [{text:"Mengerti", color:"bg-gold text-black", action:"tutupModal()"}]); return; }
             
-            if(localStorage.getItem('rsvp_demo-undangan')) { showModal("Terima Kasih", "Anda sudah mengirimkan RSVP/Ucapan sebelumnya. 1 perangkat hanya dapat mengirim 1 kali.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); return; }
+            if(localStorage.getItem('rsvp_lisa-dan-palmer')) { showModal("Terima Kasih", "Anda sudah mengirimkan RSVP/Ucapan sebelumnya. 1 perangkat hanya dapat mengirim 1 kali.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); return; }
             
             const badWords = ['anjing', 'babi', 'monyet', 'bangsat', 'kontol', 'memek', 'jembut', 'goblok', 'tolol', 'ngentot', 'fuck', 'shit', 'bitch'];
             const urlRegex = /(https?:\/\/|www\.)[a-zA-Z0-9\-\.\+\/?\=\&#]+/gi;
@@ -514,7 +514,7 @@
             tutupModal();
             try {
                 await addDoc(rsvpCollection, { nama: namaVal, ucapan: ucapanVal, kehadiran: kehadiranVal, timestamp: serverTimestamp() });
-                localStorage.setItem('rsvp_demo-undangan', 'true');
+                localStorage.setItem('rsvp_lisa-dan-palmer', 'true');
                 formRsvp.reset(); btnKirimPreview.innerHTML = '<i class="fas fa-check"></i> Terkirim!'; btnKirimPreview.classList.replace('text-black', 'text-white'); btnKirimPreview.classList.replace('bg-gold', 'bg-[#28a745]'); btnKirimPreview.classList.replace('border-gold', 'border-[#28a745]');
             } catch (error) { showModal("Error", "Maaf, terjadi kesalahan jaringan. Silakan coba lagi.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); } 
             finally { setTimeout(() => { btnKirimPreview.innerHTML = textAwal; btnKirimPreview.disabled = false; btnKirimPreview.classList.remove('opacity-50', 'cursor-not-allowed', 'text-white', 'bg-[#28a745]', 'border-[#28a745]'); btnKirimPreview.classList.add('text-black', 'bg-gold', 'border-gold'); }, 3000); }
