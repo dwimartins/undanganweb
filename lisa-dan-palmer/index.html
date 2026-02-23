@@ -136,7 +136,7 @@
             <div class="w-[85%] max-w-[300px] bg-[#0c0c0c]/95 border border-gold/40 rounded-xl py-6 px-5 flex flex-col items-center z-10 shadow-2xl mb-4 mt-2 zoom active" style="transition-delay: 0.6s">
                 <p class="font-montserrat text-[12px] text-gold/90 mb-2 font-medium">Kepada Yth: Bpk/Ibu/Saudara/i</p>
                 <h3 class="font-playfair italic text-[14px] md:text-[16px] mb-6 text-goldlight text-center namatamu tracking-wide drop-shadow-md">Tamu Undangan</h3>
-                <button id="tombol-buka-undangan" class="w-full py-3.5 border border-gold/60 rounded-lg text-[11px] tracking-[0.2em] font-bold font-montserrat uppercase text-gold bg-transparent hover:bg-gold/15 hover:border-gold hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] focus:outline-none transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer group">
+                <button id="tombol-buka" class="w-full py-3.5 border border-gold/60 rounded-lg text-[11px] tracking-[0.2em] font-bold font-montserrat uppercase text-gold bg-transparent hover:bg-gold/15 hover:border-gold hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] focus:outline-none transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer group">
                     <i id="btn-icon" class="far fa-envelope-open text-[14px] elementor-button-icon group-hover:scale-110 transition-transform"></i>
                     <span class="elementor-button-text">Buka Undangan</span>
                 </button>
@@ -390,137 +390,75 @@
         (function killNativeSmooth(){ const style = document.createElement('style'); style.id = 'gsap-smooth-killer'; style.textContent = 'html{scroll-behavior:auto !important;}'; document.head.appendChild(style); })();
         if (typeof gsap !== 'undefined' && typeof ScrollToPlugin !== 'undefined') { gsap.registerPlugin(ScrollToPlugin); }
 
-        const setupUI = () => {
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnCover = document.getElementById('tombol-buka'); 
+            const targetSection = document.getElementById('section-tujuan'); 
+            const btnIcon = document.getElementById('btn-icon'); 
+            const btnText = btnCover ? btnCover.querySelector('.elementor-button-text') : null; 
+            const contentUndangan = document.getElementById('content-undangan'); 
+            const audio = document.getElementById('audio'); 
+            const audioToggle = document.getElementById('audio-toggle'); 
+            const fsButton = document.getElementById('enter-fullscreen'); 
+            const fsIcon = fsButton ? fsButton.querySelector('i') : null;
+
             const lockScroll = () => { document.body.classList.add('lock-scroll'); document.documentElement.classList.add('lock-scroll'); window.scrollTo(0, 0); };
             const unlockScroll = () => { document.body.classList.remove('lock-scroll'); document.documentElement.classList.remove('lock-scroll'); };
             lockScroll();
 
-            const targetSection = document.getElementById('section-tujuan');
+            function isFullscreen() { return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement; }
+            function enterFullscreen(el = document.documentElement) { try { if (el.requestFullscreen) el.requestFullscreen(); else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen(); else if (el.msRequestFullscreen) el.msRequestFullscreen(); } catch (_) {} }
+            function exitFullscreen() { if (isFullscreen()) { if (document.exitFullscreen) document.exitFullscreen(); else if (document.webkitExitFullscreen) document.webkitExitFullscreen(); else if (document.msExitFullscreen) document.msExitFullscreen(); } }
+            function toggleFullscreen() { if (!isFullscreen()) enterFullscreen(document.documentElement); else exitFullscreen(); }
+            function updateFullscreenIcon() { if (isFullscreen()) { if(fsIcon) { fsIcon.classList.remove('fa-expand-arrows-alt'); fsIcon.classList.add('fa-compress-arrows-alt'); } } else { if(fsIcon) { fsIcon.classList.remove('fa-compress-arrows-alt'); fsIcon.classList.add('fa-expand-arrows-alt'); } } }
+            if(fsButton) fsButton.addEventListener('click', toggleFullscreen); document.addEventListener('fullscreenchange', updateFullscreenIcon); document.addEventListener('webkitfullscreenchange', updateFullscreenIcon); document.addEventListener('msfullscreenchange', updateFullscreenIcon);
+
+            const setButtonToScroll = () => { if (btnText) btnText.textContent = 'SCROLL KE BAWAH'; if (btnIcon) { btnIcon.classList.remove('fa-envelope-open', 'far', 'group-hover:scale-110'); btnIcon.classList.add('fas', 'fa-arrow-down', 'animate-bounce'); } };
+            
             const scrollKeTujuan = () => { 
                 if (!targetSection) return; 
                 if (typeof gsap !== 'undefined' && window.ScrollToPlugin) { 
                     const currentY = window.pageYOffset || document.documentElement.scrollTop || 0; 
                     const rect = targetSection.getBoundingClientRect(); 
                     const targetY = currentY + rect.top; 
-                    // Scroll diayun halus menggunakan power3.inOut dengan durasi 1.5 detik
                     gsap.to(window, { duration: 1.5, ease: 'power3.inOut', scrollTo: { y: targetSection, autoKill: false } }); 
                 } else { 
                     targetSection.scrollIntoView({ behavior: 'smooth' }); 
                 } 
             };
 
-            const btnCover = document.getElementById('tombol-buka-undangan');
-            const contentUndangan = document.getElementById('content-undangan');
-            const audio = document.getElementById('audio');
-            const audioToggle = document.getElementById('audio-toggle');
-
             const handleFirstClick = (e) => { 
                 e.preventDefault(); 
                 
-                // Minta Fullscreen DULUAN untuk menghilangkan delay di HP Lama
-                enterFullscreen(document.documentElement);
-                if (audio && audio.paused) { audio.play().catch(err => console.log("Audio play di-block:", err)); } 
+                enterFullscreen(document.documentElement); 
+                if (audio && audio.paused) { audio.play().catch(err => console.log("Audio block:", err)); } 
                 
-                // Ubah UI tanpa menghambat eksekusi fullscreen
                 setButtonToScroll(); 
                 unlockScroll(); 
                 if(contentUndangan) { contentUndangan.classList.remove('hidden'); contentUndangan.classList.add('flex'); } 
                 
-                // Tahan di sampul selama 1.5 detik lalu auto-scroll mengayun halus
                 setTimeout(() => { scrollKeTujuan(); }, 1500); 
                 
-                // Hapus event lama & ganti jadi langsung scroll untuk klik selanjutnya
                 btnCover.removeEventListener('click', handleFirstClick); 
                 btnCover.addEventListener('click', (ev) => { ev.preventDefault(); scrollKeTujuan(); }); 
             };
             
             if (btnCover) btnCover.addEventListener('click', handleFirstClick);
+            const onFsChange = () => { if(isFullscreen() && !document.body.classList.contains('lock-scroll')) setButtonToScroll(); }; document.addEventListener('fullscreenchange', onFsChange);
 
-            if(audioToggle) { 
-                audioToggle.addEventListener('click', function () { 
-                    if (audio && audio.paused) audio.play(); else if(audio) audio.pause(); 
-                }); 
-            }
-            if(audio) { 
-                audio.addEventListener('play', function () { if(audioToggle) audioToggle.classList.add('rotating'); }); 
-                audio.addEventListener('pause', function () { if(audioToggle) audioToggle.classList.remove('rotating'); }); 
-            }
-            document.addEventListener('visibilitychange', function () { 
-                if (!audio) return; 
-                if (document.hidden) { 
-                    if (!audio.paused) { audio.pause(); audio.dataset.wasPlaying = "true"; } 
-                    else { audio.dataset.wasPlaying = "false"; } 
-                } else { 
-                    if (audio.dataset.wasPlaying === "true") { audio.play(); } 
-                } 
-            });
+            if(audioToggle) { audioToggle.addEventListener('click', function () { if (audio.paused) audio.play(); else audio.pause(); }); }
+            if(audio) { audio.addEventListener('play', function () { if(audioToggle) audioToggle.classList.add('rotating'); }); audio.addEventListener('pause', function () { if(audioToggle) audioToggle.classList.remove('rotating'); }); }
+            document.addEventListener('visibilitychange', function () { if (!audio) return; if (document.hidden) { if (!audio.paused) { audio.pause(); audio.dataset.wasPlaying = "true"; } else { audio.dataset.wasPlaying = "false"; } } else { if (audio.dataset.wasPlaying === "true") { audio.play(); } } });
 
-            const selector = ".muncul, .muncul-kiri, .muncul-kanan, .zoom"; 
-            const qAll = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-            if ("IntersectionObserver" in window) { 
-                const ioEnter = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("active"); }); }, { root: null, rootMargin: "0px 0px -110px 0px", threshold: 0 }); 
-                const ioExit = new IntersectionObserver((entries) => { entries.forEach(e => { if (!e.isIntersecting) e.target.classList.remove("active"); }); }, { root: null, rootMargin: "0px", threshold: 0 }); 
-                qAll(selector).forEach(el => { ioEnter.observe(el); ioExit.observe(el); }); 
-            }
-
-            const fsButton = document.getElementById('enter-fullscreen');
-            if(fsButton) {
-                fsButton.addEventListener('click', () => {
-                    const isFs = document.fullscreenElement || document.webkitFullscreenElement;
-                    if(!isFs) {
-                        const el = document.documentElement;
-                        if (el.requestFullscreen) el.requestFullscreen();
-                        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-                    } else {
-                        if (document.exitFullscreen) document.exitFullscreen();
-                        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-                    }
-                });
-            }
-            document.addEventListener('fullscreenchange', () => {
-                const isFs = document.fullscreenElement || document.webkitFullscreenElement;
-                const fsIcon = document.querySelector('#enter-fullscreen i');
-                if(fsIcon) {
-                    if(isFs) { fsIcon.classList.remove('fa-expand-arrows-alt'); fsIcon.classList.add('fa-compress-arrows-alt'); }
-                    else { fsIcon.classList.remove('fa-compress-arrows-alt'); fsIcon.classList.add('fa-expand-arrows-alt'); }
-                }
-            });
+            const selector = ".muncul, .muncul-kiri, .muncul-kanan, .zoom"; const elementVisible = 110; const qAll = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+            if ("IntersectionObserver" in window) { const ioEnter = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("active"); }); }, { root: null, rootMargin: `0px 0px -${elementVisible}px 0px`, threshold: 0 }); const ioExit = new IntersectionObserver((entries) => { entries.forEach(e => { if (!e.isIntersecting) e.target.classList.remove("active"); }); }, { root: null, rootMargin: "0px", threshold: 0 }); qAll(selector).forEach(el => { ioEnter.observe(el); ioExit.observe(el); }); }
 
             const countDownDate = new Date("15 Jul 2025 11:00:00").getTime();
 
-            const btnToggleRek = document.getElementById('btn-toggle-rekening'); 
-            const boxRekening = document.getElementById('box-rekening');
-            if (btnToggleRek && boxRekening) { 
-                btnToggleRek.addEventListener('click', () => { 
-                    if (boxRekening.classList.contains('hidden')) { 
-                        boxRekening.classList.remove('hidden'); boxRekening.classList.add('flex', 'fade-in-box'); 
-                        document.getElementById('icon-toggle-rekening').className = 'far fa-eye-slash'; 
-                        document.getElementById('text-toggle-rekening').textContent = 'Sembunyikan Rekening'; 
-                    } else { 
-                        boxRekening.classList.add('hidden'); boxRekening.classList.remove('flex', 'fade-in-box'); 
-                        document.getElementById('icon-toggle-rekening').className = 'fas fa-search'; 
-                        document.getElementById('text-toggle-rekening').textContent = 'Lihat Rekening'; 
-                    } 
-                }); 
-            }
-        };
-
-        setupUI();
+            const btnToggleRek = document.getElementById('btn-toggle-rekening'); const boxRekening = document.getElementById('box-rekening');
+            if (btnToggleRek && boxRekening) { btnToggleRek.addEventListener('click', () => { if (boxRekening.classList.contains('hidden')) { boxRekening.classList.remove('hidden'); boxRekening.classList.add('flex', 'fade-in-box'); document.getElementById('icon-toggle-rekening').className = 'far fa-eye-slash'; document.getElementById('text-toggle-rekening').textContent = 'Sembunyikan Rekening'; } else { boxRekening.classList.add('hidden'); boxRekening.classList.remove('flex', 'fade-in-box'); document.getElementById('icon-toggle-rekening').className = 'fas fa-search'; document.getElementById('text-toggle-rekening').textContent = 'Lihat Rekening'; } }); }
+        });
         
-        window.copyRekening = function(elementId, btnElement) { 
-            const norek = document.getElementById(elementId).innerText; 
-            const tempInput = document.createElement('input'); 
-            tempInput.value = norek; 
-            document.body.appendChild(tempInput); 
-            tempInput.select(); 
-            document.execCommand('copy'); 
-            document.body.removeChild(tempInput); 
-            const spanText = btnElement.querySelector('span'); 
-            const originalText = spanText.textContent; 
-            spanText.textContent = 'Tersalin!'; 
-            btnElement.classList.replace('text-gray-800', 'text-green-600'); 
-            setTimeout(() => { spanText.textContent = originalText; btnElement.classList.replace('text-green-600', 'text-gray-800'); }, 2000); 
-        };
+        window.copyRekening = function(elementId, btnElement) { const norek = document.getElementById(elementId).innerText; const tempInput = document.createElement('input'); tempInput.value = norek; document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); const spanText = btnElement.querySelector('span'); const originalText = spanText.textContent; spanText.textContent = 'Tersalin!'; btnElement.classList.replace('text-gray-800', 'text-green-600'); setTimeout(() => { spanText.textContent = originalText; btnElement.classList.replace('text-green-600', 'text-gray-800'); }, 2000); }
     </script>
 
     <script type="module">
@@ -538,7 +476,7 @@
         const app = initializeApp(firebaseConfig); const db = getFirestore(app);
 
         let pathSegments = window.location.pathname.split('/').filter(segment => segment.length > 0 && !segment.includes('.html'));
-        let brideId = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : "demo-undangan";
+        let brideId = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : "lisa-dan-palmer";
         brideId = brideId.replace(/[^a-zA-Z0-9-_]/g, ''); 
         
         const rsvpCollection = collection(db, 'rsvp_' + brideId);
@@ -575,7 +513,7 @@
                 const namaVal = inputNama ? inputNama.value.trim() : ''; const ucapanVal = inputUcapan ? inputUcapan.value.trim() : ''; const kehadiranVal = inputKehadiran ? inputKehadiran.value : '';
                 if (!namaVal || !ucapanVal || !kehadiranVal) { showModal("Peringatan", "Mohon lengkapi semua kolom form RSVP terlebih dahulu.", [{text:"Mengerti", color:"bg-gold text-black", action:"tutupModal()"}]); return; }
                 
-                if(localStorage.getItem('rsvp_demo-undangan')) { showModal("Terima Kasih", "Anda sudah mengirimkan RSVP/Ucapan sebelumnya. 1 perangkat hanya dapat mengirim 1 kali.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); return; }
+                if(localStorage.getItem('rsvp_lisa-dan-palmer')) { showModal("Terima Kasih", "Anda sudah mengirimkan RSVP/Ucapan sebelumnya. 1 perangkat hanya dapat mengirim 1 kali.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); return; }
                 
                 const badWords = ['anjing', 'babi', 'monyet', 'bangsat', 'kontol', 'memek', 'jembut', 'goblok', 'tolol', 'ngentot', 'fuck', 'shit', 'bitch'];
                 const urlRegex = /(https?:\/\/|www\.)[a-zA-Z0-9\-\.\+\/?\=\&#]+/gi;
@@ -596,7 +534,7 @@
             tutupModal();
             try {
                 await addDoc(rsvpCollection, { nama: namaVal, ucapan: ucapanVal, kehadiran: kehadiranVal, timestamp: serverTimestamp() });
-                localStorage.setItem('rsvp_demo-undangan', 'true');
+                localStorage.setItem('rsvp_lisa-dan-palmer', 'true');
                 formRsvp.reset(); btnKirimPreview.innerHTML = '<i class="fas fa-check"></i> Terkirim!'; btnKirimPreview.classList.replace('text-black', 'text-white'); btnKirimPreview.classList.replace('bg-gold', 'bg-[#28a745]'); btnKirimPreview.classList.replace('border-gold', 'border-[#28a745]');
             } catch (error) { showModal("Error", "Maaf, terjadi kesalahan jaringan. Silakan coba lagi.", [{text:"Tutup", color:"bg-gray-600", action:"tutupModal()"}]); } 
             finally { setTimeout(() => { btnKirimPreview.innerHTML = textAwal; btnKirimPreview.disabled = false; btnKirimPreview.classList.remove('opacity-50', 'cursor-not-allowed', 'text-white', 'bg-[#28a745]', 'border-[#28a745]'); btnKirimPreview.classList.add('text-black', 'bg-gold', 'border-gold'); }, 3000); }
