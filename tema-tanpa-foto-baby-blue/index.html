@@ -4,327 +4,13 @@
     <meta charset="UTF-8">
     <link rel="icon" href="data:,">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Generator Undangan - Tema Baby Blue (Revisi)</title>
-    
-    <!-- Load Font untuk Canvas Thumbnail -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* TEMA GELAP PREMIUM UNTUK DASHBOARD GENERATOR */
-        body { background-color: #030712; font-family: 'Inter', sans-serif; color: #e5e7eb; }
-        
-        /* Scrollbar Khusus Tema Gelap */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #111827; }
-        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #4b5563; }
-
-        /* Styling Kartu Form */
-        .form-section { background: #111827; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid #1f2937; margin-bottom: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); }
-        .form-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid #1f2937; }
-        .form-title { font-size: 1.125rem; font-weight: 600; color: #f3f4f6; display: flex; align-items: center; gap: 0.5rem; margin: 0;}
-        
-        /* Elemen Input */
-        label { display: block; font-size: 0.875rem; font-weight: 500; color: #9ca3af; margin-bottom: 0.35rem; }
-        input[type="text"], input[type="date"], input[type="time"], textarea, select { 
-            width: 100%; padding: 0.6rem 0.75rem; background-color: #1f2937; border: 1px solid #374151; 
-            color: #f3f4f6; border-radius: 0.5rem; margin-bottom: 1rem; font-size: 0.875rem; transition: all 0.2s; 
-        }
-        input[type="text"]:focus, input[type="date"]:focus, input[type="time"]:focus, textarea:focus, select:focus { 
-            outline: none; border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); 
-        }
-        input[type="text"]::placeholder, textarea::placeholder { color: #6b7280; }
-
-        /* Tombol & Item Box */
-        .btn-add { background-color: #1f2937; color: #d1d5db; padding: 0.6rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; border: 1px dashed #4b5563; transition: 0.2s; }
-        .btn-add:hover { background-color: #374151; color: #fff; border-color: #3b82f6; }
-        .btn-remove { color: #f87171; font-size: 0.875rem; cursor: pointer; border: none; background: none; margin-top: -0.5rem; display: block; text-align: right; width: 100%; font-weight: 500; transition: color 0.2s;}
-        .btn-remove:hover { color: #ef4444; }
-        .item-box { border: 1px solid #374151; padding: 1.25rem; border-radius: 0.5rem; margin-bottom: 1rem; position: relative; background: #0f172a; }
-
-        /* Animasi Transisi Container */
-        .toggle-wrap { transition: all 0.3s ease; overflow: hidden; }
-        
-        /* Container Preview */
-        #preview-frame { background-color: #f0f8ff; border-radius: 0.5rem; }
-    </style>
-</head>
-<body class="flex h-screen overflow-hidden">
-
-    <!-- SISI KIRI: INPUT FORM -->
-    <div class="w-1/2 h-full overflow-y-auto p-8 border-r border-gray-800">
-        <div class="mb-8 border-b border-gray-800 pb-4">
-            <h1 class="text-3xl font-bold text-blue-400 flex items-center gap-3"><i class="fas fa-magic text-blue-300"></i> Tema Baby Blue Animasi</h1>
-            <p class="text-sm text-gray-400 mt-2">Isi data klien di bawah ini, klik Generate, lalu lihat hasilnya di tab Live Preview kanan.</p>
-        </div>
-
-        <!-- 1. DATA MASTER -->
-        <div class="form-section">
-            <div class="form-header">
-                <h2 class="form-title"><i class="fas fa-database text-blue-400"></i> Data Master & Konfigurasi Utama</h2>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label>ID Klien (Utk Database Firebase)</label>
-                    <input type="text" id="brideId" value="lisa-dan-palmer" required>
-                </div>
-                <div>
-                    <label>Agama Pengantin</label>
-                    <select id="agama" onchange="autoQuotes()">
-                        <option value="islam">Islam</option>
-                        <option value="kristen">Kristen / Katolik</option>
-                        <option value="hindu">Hindu</option>
-                        <option value="umum">Umum (Lainnya)</option>
-                    </select>
-                </div>
-            </div>
-
-            <label>Lokasi Acara di Sampul (Cover)</label>
-            <input type="text" id="lokasi_cover" value="Kota Medan" onchange="debounceThumb()">
-
-            <label>Link Musik (MP3)</label>
-            <input type="text" id="url_musik" value="https://github.com/undangandigitalku/laguundangan/raw/refs/heads/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez.mp3">
-            
-            <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mt-4 border-t border-gray-700 pt-4">
-                <div class="p-3 bg-gray-800 rounded-md border border-gray-700 flex justify-between items-center">
-                    <div>
-                        <label class="mb-0 text-gray-200 font-bold text-[12px]">Kunci Form RSVP (Versi Demo)</label>
-                        <p class="text-[9px] text-gray-400 mt-1 leading-tight">Pengunjung tidak bisa mengirim pesan iseng</p>
-                    </div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" id="toggle_demo_mode" class="sr-only peer">
-                        <div class="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-500"></div>
-                    </label>
-                </div>
-
-                <div class="p-3 bg-gray-800 rounded-md border border-gray-700 flex justify-between items-center">
-                    <div>
-                        <label class="mb-0 text-gray-200 font-bold text-[12px]">Aktifkan Filter & Anti-Spam</label>
-                        <p class="text-[9px] text-gray-400 mt-1 leading-tight">Filter kata kasar & batas 1x komen</p>
-                    </div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" id="toggle_spam_filter" class="sr-only peer" checked>
-                        <div class="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-green-500"></div>
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <!-- 2. MEMPELAI WANITA -->
-        <div class="form-section">
-            <div class="form-header">
-                <h2 class="form-title"><i class="fas fa-female text-pink-400"></i> Mempelai Wanita</h2>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div><label>Nama Panggilan</label><input type="text" id="w_panggilan" value="Lisa" required oninput="debounceThumb()"></div>
-                <div><label>Nama Lengkap</label><input type="text" id="w_lengkap" value="Lisa Blackpink" required></div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div><label>Nama Ayah</label><input type="text" id="w_ayah" value="Jose Mourinho"></div>
-                <div><label>Nama Ibu</label><input type="text" id="w_ibu" value="Happy Mourinho"></div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div><label>Anak Ke-</label><input type="text" id="w_anak_ke" value="Anak Pertama"></div>
-                <div><label>Username IG (Tanpa @)</label><input type="text" id="w_ig" value="lisablackpink"></div>
-            </div>
-        </div>
-
-        <!-- 3. MEMPELAI PRIA -->
-        <div class="form-section">
-            <div class="form-header">
-                <h2 class="form-title"><i class="fas fa-male text-blue-400"></i> Mempelai Pria</h2>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div><label>Nama Panggilan</label><input type="text" id="p_panggilan" value="Palmer" required oninput="debounceThumb()"></div>
-                <div><label>Nama Lengkap</label><input type="text" id="p_lengkap" value="Cole Palmer" required></div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div><label>Nama Ayah</label><input type="text" id="p_ayah" value="Pep Guardiola"></div>
-                <div><label>Nama Ibu</label><input type="text" id="p_ibu" value="Happy Guardiola"></div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div><label>Anak Ke-</label><input type="text" id="p_anak_ke" value="Anak Pertama"></div>
-                <div><label>Username IG (Tanpa @)</label><input type="text" id="p_ig" value="colepalmer"></div>
-            </div>
-        </div>
-
-        <!-- 4. QUOTES / KUTIPAN -->
-        <div class="form-section">
-            <div class="form-header">
-                <h2 class="form-title"><i class="fas fa-quote-left text-blue-300"></i> Kutipan / Quotes</h2>
-            </div>
-            <label>Isi Quotes</label>
-            <textarea id="q_isi" rows="4">"Dan di antara tanda-tanda kekuasaan-Nya diciptakan-Nya untukmu pasangan hidup dari jenismu sendiri supaya kamu dapat ketenangan hati dan dijadikannya kasih sayang di antara kamu. Sesungguhnya yang demikian menjadi tanda-tanda kebesaran-Nya bagi orang-orang yang berpikir."</textarea>
-            <label>Sumber / Ayat</label>
-            <input type="text" id="q_author" value="- QS. Ar - Rum 21 -">
-        </div>
-
-        <!-- 5. DETAIL ACARA -->
-        <div class="form-section">
-            <div class="form-header">
-                <h2 class="form-title"><i class="far fa-calendar-alt text-blue-300"></i> Detail Acara</h2>
-            </div>
-            <div id="container-acara"></div>
-            <button class="btn-add w-full mt-2" onclick="tambahAcara()">+ Tambah Acara Baru</button>
-        </div>
-
-        
-        <!-- 5B. WIDGET TANGGAL UTAMA (COUNTDOWN & KALENDER) -->
-        <div class="form-section">
-            <div class="form-header">
-                <h2 class="form-title"><i class="fas fa-stopwatch text-blue-300"></i> Tanggal Utama (untuk Countdown & Kalender)</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                    <label>Tanggal (YYYY-MM-DD)</label>
-                    <input type="date" id="event_date_iso" value="">
-                </div>
-                <div>
-                    <label>Jam Mulai</label>
-                    <input type="time" id="event_time_start" value="">
-                </div>
-                <div>
-                    <label>Jam Selesai (opsional)</label>
-                    <input type="time" id="event_time_end" value="">
-                </div>
-            </div>
-        </div>
-<!-- 6. LOVE STORY -->
-        <div class="form-section">
-            <div class="form-header">
-                <h2 class="form-title"><i class="fas fa-heart text-red-500"></i> Love Story</h2>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" id="toggle_lovestory" class="sr-only peer" checked onchange="toggleVis('wrap_lovestory', this.checked)">
-                    <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
-                </label>
-            </div>
-            <div id="wrap_lovestory" class="toggle-wrap">
-                <div id="container-lovestory"></div>
-                <button class="btn-add w-full mt-2" onclick="tambahStory()">+ Tambah Sesi Cerita</button>
-            </div>
-        </div>
-
-        <!-- 7. WEDDING GIFT / REKENING -->
-        <div class="form-section">
-            <div class="form-header">
-                <h2 class="form-title"><i class="fas fa-gift text-blue-300"></i> Wedding Gift & Rekening</h2>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" id="toggle_gift" class="sr-only peer" checked onchange="toggleVis('wrap_gift', this.checked)">
-                    <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
-                </label>
-            </div>
-            <div id="wrap_gift" class="toggle-wrap">
-                
-                <div class="p-3 mb-4 bg-gray-800 rounded-md border border-gray-700 flex justify-between items-center">
-                    <label class="mb-0 text-gray-300">Tampilkan Rekening Langsung (Tanpa Tombol)</label>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" id="toggle_direct_rek" class="sr-only peer">
-                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
-                    </label>
-                </div>
-
-                <label>Alamat Pengiriman Kado Fisik</label>
-                <textarea id="alamat_kado" rows="2">Jl. Perjuangan Kemerdekaan No 19, Kota Surabaya</textarea>
-                <div id="container-rekening" class="mt-4"></div>
-                <button class="btn-add w-full mt-2" onclick="tambahRekening()">+ Tambah Rekening Bank</button>
-            </div>
-        </div>
-
-        <!-- 8. TURUT MENGUNDANG -->
-        <div class="form-section">
-            <div class="form-header">
-                <h2 class="form-title"><i class="fas fa-users text-green-400"></i> Turut Mengundang</h2>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" id="toggle_turut" class="sr-only peer" checked onchange="toggleVis('wrap_turut', this.checked)">
-                    <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
-                </label>
-            </div>
-            <div id="wrap_turut" class="toggle-wrap">
-                <label>Keluarga Mempelai Wanita (1 nama per baris)</label>
-                <textarea id="turut_w" rows="3">Bpk. Budi & Ibu Ani&#10;Keluarga Besar Sitorus&#10;Nama Turut Mengundang 3&#10;Nama Turut Mengundang 4&#10;Nama Turut Mengundang 5</textarea>
-                <label>Keluarga Mempelai Pria (1 nama per baris)</label>
-                <textarea id="turut_p" rows="3">Bpk. Joko & Ibu Ina&#10;Keluarga Besar Marpaung&#10;Nama Turut Mengundang 3&#10;Nama Turut Mengundang 4&#10;Nama Turut Mengundang 5</textarea>
-            </div>
-        </div>
-
-        <!-- 9. THUMBNAIL (OG IMAGE) -->
-        <div class="form-section">
-            <div class="form-header">
-                <h2 class="form-title"><i class="fas fa-image text-purple-400"></i> Thumbnail WhatsApp / IG</h2>
-            </div>
-            <p class="text-[11px] text-gray-400 mb-4 leading-relaxed">Preview gambar yang akan muncul jika link undangan di-share. Klik <b>Download WebP</b>, upload ke ImageKit, lalu paste linknya ke form di bawah.</p>
-            
-            <div class="w-full aspect-video bg-[#0a0a0a] rounded-lg flex items-center justify-center mb-4 overflow-hidden border border-gray-700 relative">
-                <!-- Canvas yang akan digambar otomatis -->
-                <canvas id="thumb-canvas" class="max-w-full max-h-full object-contain shadow-lg"></canvas>
-                <div id="thumb-loading" class="absolute inset-0 flex items-center justify-center bg-black/80 text-blue-300 font-bold text-sm z-10 transition-opacity">
-                    <i class="fas fa-spinner fa-spin mr-2"></i> Menggambar Ulang...
-                </div>
-            </div>
-            
-            <div class="flex gap-3 mb-6">
-                <button onclick="drawThumbnail()" class="flex-1 border border-gray-600 hover:bg-gray-700 text-gray-300 text-xs font-bold py-2.5 rounded transition"><i class="fas fa-sync-alt mr-1"></i> Render Ulang</button>
-                <button onclick="downloadThumbnail()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2.5 rounded transition"><i class="fas fa-download mr-1"></i> Download WebP</button>
-            </div>
-
-            <label class="text-blue-300">Link Thumbnail Hasil Upload (Wajib .webp / .jpg)</label>
-            <input type="text" id="link_thumbnail" placeholder="https://ik.imagekit.io/.../lisa-palmer.webp" value="https://ik.imagekit.io/asetundangan/aset/template-thumbnail/white-brown.webp" class="border-blue-500 focus:border-blue-400">
-        </div>
-
-        <button onclick="window.generateWeb()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-lg shadow-lg transition-all mb-10 text-lg tracking-wide border border-blue-400">🚀 GENERATE KODE & PREVIEW</button>
-    </div>
-
-    <!-- SISI KANAN: OUTPUT & PREVIEW -->
-    <div class="w-1/2 h-full flex flex-col bg-gray-950 border-l border-gray-800">
-        <!-- Tab Navigation -->
-        <div class="p-4 bg-[#0a0a0a] flex justify-between items-center border-b border-gray-800 shadow-md z-10">
-            <div class="flex gap-2 bg-gray-900 p-1 rounded-lg border border-gray-800">
-                <button onclick="switchTab('preview')" id="tab-preview" class="px-5 py-2 bg-gray-800 text-blue-400 rounded-md text-sm font-bold shadow-sm transition-all duration-200"><i class="fas fa-mobile-alt mr-2"></i>Live Preview</button>
-                <button onclick="switchTab('code')" id="tab-code" class="px-5 py-2 bg-transparent text-gray-400 hover:text-gray-200 rounded-md text-sm font-bold transition-all duration-200"><i class="fas fa-code mr-2"></i>Kode HTML</button>
-            </div>
-            <button onclick="copyHasil()" class="bg-gray-800 hover:bg-gray-700 text-blue-400 border border-gray-600 px-4 py-2 rounded-lg text-sm font-bold shadow transition"><i class="far fa-copy mr-1"></i> Copy HTML</button>
-        </div>
-        
-        <!-- Panel Preview -->
-        <div id="panel-preview" class="flex-1 w-full h-full bg-[#eee] p-4 flex justify-center overflow-hidden">
-            <!-- Iframe ukuran HP -->
-            <div class="h-full w-full max-w-[420px] mx-auto bg-white shadow-[0_0_20px_rgba(0,0,0,0.2)] rounded-xl overflow-hidden border border-gray-300 relative">
-                <div id="preview-placeholder" class="absolute inset-0 flex flex-col items-center justify-center text-gray-500 bg-gray-100 z-10">
-                    <i class="fas fa-spinner fa-spin text-4xl mb-3 text-blue-500"></i>
-                    <p class="text-sm">Menyiapkan Preview...</p>
-                </div>
-                <iframe id="preview-frame" class="w-full h-full border-none" allow="fullscreen; autoplay; clipboard-write"></iframe>
-            </div>
-        </div>
-
-        <!-- Panel Code -->
-        <div id="panel-code" class="flex-1 w-full h-full hidden">
-            <textarea id="outputHtml" class="w-full h-full bg-[#0d1117] text-green-400 p-6 font-mono text-[13px] resize-none border-none focus:ring-0 leading-relaxed" readonly placeholder="Kode HTML akan muncul di sini..."></textarea>
-        </div>
-    </div>
-
-<!-- ========================================================================================= -->
-<!-- TEMPLATE MENTAH (HTML INTI - VERSI BABY BLUE LOTTIE) -->
-<!-- ========================================================================================= -->
-<textarea id="raw-template" style="display:none;">
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="data:,">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Meta Tags Open Graph (Untuk Preview WhatsApp / Facebook) -->
-    <title>Undangan Pernikahan {{NAMA_PANGGILAN_GABUNGAN}}</title>
+    <title>Undangan Pernikahan Lisa & Palmer</title>
     <meta name="description" content="Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.">
-    <meta property="og:title" content="Undangan Pernikahan {{NAMA_PANGGILAN_GABUNGAN}}">
+    <meta property="og:title" content="Undangan Pernikahan Lisa & Palmer">
     <meta property="og:description" content="Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.">
-    <meta property="og:image" content="{{LINK_THUMBNAIL}}">
+    <meta property="og:image" content="https://ik.imagekit.io/asetundangan/aset/template-thumbnail/baby-blue.webp">
     <meta property="og:type" content="website">
     
     <!-- Font -->
@@ -333,40 +19,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Lottie Player & GSAP & Tailwind -->
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- GSAP, Tailwind -->
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
     
-    <script>
-        tailwind.config = {
-            safelist: [
-                'flex', 'items-start', 'gap-4', 'bg-white', 'p-4', 'rounded-xl', 'border', 'border-accent/30', 'shadow-sm', 'relative', 'overflow-hidden', 'shrink-0',
-                'w-11', 'h-11', 'min-w-[44px]', 'min-h-[44px]', 'rounded-full', 'text-white', 'items-center', 'justify-center', 'font-extrabold', 'text-[15px]', 'shadow-inner', 'z-10',
-                'flex-col', 'w-full', 'justify-between', 'mb-2', 'flex-wrap', 'gap-2',
-                'font-bold', 'text-textmain', 'text-[12px]', 'md:text-[13px]', 'font-playfair', 'tracking-wide',
-                'text-[13px]', 'text-textsub', 'leading-relaxed', 'font-montserrat',
-                'text-[11px]', 'text-accent', 'font-medium',
-                'absolute', '-bottom-4', '-right-4', 'text-accent/10', 'text-6xl', 'pointer-events-none',
-                'bg-[#22c55e]', 'text-[10px]', 'px-2', 'py-0.5', 'rounded-md', 'gap-1',
-                'bg-[#ef4444]', 'bg-[#eab308]',
-                'border-[#28a745]', 'opacity-50', 'cursor-not-allowed', 'bg-gray-400', 'text-white'
-            ],
-            theme: {
-                extend: {
-                    colors: { 
-                        accent: '#cba052',      /* Classic Gold untuk elemen UI, border, ikon agar serasi dengan Lottie Emas */
-                        textmain: '#1e3a5f',    /* Navy Blue / Biru Dongker Gelap untuk judul dan nama agar kontras mewah */
-                        textsub: '#475569',     /* Slate Grey-Blue untuk teks paragraf / isi undangan */
-                    },
-                    fontFamily: { cinzel: ['Cinzel', 'serif'], montserrat: ['Montserrat', 'sans-serif'], playfair: ['Playfair Display', 'serif'] }
-                }
-            }
-        }
-    </script>
+    
 
-    <style type="text/tailwindcss">
+    
+
+    
+<style>
+
         @layer components {
             .teks-judul { @apply font-cinzel text-2xl md:text-3xl font-bold text-textmain tracking-widest text-center uppercase; }
             .teks-subjudul { @apply font-cinzel text-[13px] tracking-[0.15em] text-textsub uppercase text-center mb-0; }
@@ -378,11 +42,10 @@
             .ornamen-pojok-kiri { @apply absolute -top-4 -left-4 w-[160px] opacity-90 pointer-events-none z-0; }
             .ornamen-pojok-kanan { @apply absolute -bottom-4 -right-4 w-[160px] opacity-90 pointer-events-none z-0 transform rotate-180; }
             .kartu-dalam { @apply w-full bg-[#ffffff] rounded-xl p-6 flex flex-col items-start shadow-sm border border-accent/30 relative z-10; }
-            .input-box { @apply bg-white border border-accent/40 rounded-md p-[14px_16px] text-textmain font-sans text-[14px] w-full transition-all duration-300 focus:outline-none focus:border-textmain focus:bg-white focus:ring-2 focus:ring-textmain/20 placeholder:text-gray-400 shadow-sm; }
+            .input-box { @apply bg-[#f8fafc] border-[1.5px] border-accent/20 rounded-xl p-[15px_18px] text-textmain font-montserrat text-[13px] w-full transition-all duration-300 focus:outline-none focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/10 placeholder:text-gray-400 shadow-inner; }
         }
-    </style>
+    
 
-    <style>
         html { scroll-behavior: auto !important; }
         body { margin: 0; padding: 0; overflow-x: hidden; color: #475569; min-height: 100vh; }
         ::-webkit-scrollbar { width: 4px; background: #e0f2fe; }
@@ -398,15 +61,28 @@
             background-repeat: no-repeat;
         }
 
-        /* FILTER LOTTIE UNTUK MENGUBAH WARNA MENJADI BIRU ELEGAN */
-        .lottie-biru { filter: brightness(0) saturate(100%) invert(20%) sepia(21%) saturate(2318%) hue-rotate(185deg) brightness(97%) contrast(92%); }
-
-        /* BORDER STYLE EKSKLUSIF - Transparan namun Solid */
-        .section-card { position: relative; background-color: #ffffff; border: 1.5px solid rgba(203, 160, 82, 0.5); border-radius: 20px; padding: 4rem 1.5rem; display: flex; flex-direction: column; align-items: center; overflow: hidden; z-index: 10; box-shadow: 0 10px 30px rgba(30, 58, 95, 0.1); }
-        .section-card::after { content: ''; position: absolute; top: 6px; right: 6px; bottom: 6px; left: 6px; border: 1px dashed rgba(203, 160, 82, 0.3); border-radius: 14px; pointer-events: none; z-index: -1; }
+        /* BORDER STYLE EKSKLUSIF - Biru Solid & Mewah dengan Overlay Motif Faint/Samar */
+        .section-card { 
+            position: relative; 
+            background-color: #ffffff; 
+            background-image: linear-gradient(rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.94)), url('https://ik.imagekit.io/asetundangan/aset/background/baby-blue-flowers.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 2px solid rgba(44, 82, 130, 0.7); 
+            border-radius: 20px; 
+            padding: 4rem 1.5rem; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            overflow: hidden; 
+            z-index: 10; 
+            box-shadow: 0 15px 35px rgba(30, 58, 95, 0.12); 
+        }
+        .section-card::after { content: ''; position: absolute; top: 6px; right: 6px; bottom: 6px; left: 6px; border: 1px solid rgba(44, 82, 130, 0.35); border-radius: 14px; pointer-events: none; z-index: -1; }
         
-        .cover-arch { position: absolute; top: 15px; right: 15px; bottom: 15px; left: 15px; border: 1.5px solid rgba(203, 160, 82, 0.6); border-top-left-radius: 200px; border-top-right-radius: 200px; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; pointer-events: none; z-index: 0; }
-        .cover-arch::after { content: ''; position: absolute; top: 5px; right: 5px; bottom: 5px; left: 5px; border: 1px solid rgba(203, 160, 82, 0.3); border-top-left-radius: 200px; border-top-right-radius: 200px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; pointer-events: none; z-index: 0; }
+        .cover-arch { position: absolute; top: 15px; right: 15px; bottom: 15px; left: 15px; border: 2px solid rgba(44, 82, 130, 0.7); border-top-left-radius: 200px; border-top-right-radius: 200px; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; pointer-events: none; z-index: 0; }
+        .cover-arch::after { content: ''; position: absolute; top: 6px; right: 6px; bottom: 6px; left: 6px; border: 1px solid rgba(44, 82, 130, 0.35); border-top-left-radius: 200px; border-top-right-radius: 200px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; pointer-events: none; z-index: 0; }
         
         select.input-box option { background-color: #ffffff; color: #1e3a5f; }
         .floating-btn { position: fixed; right: 20px; width: 38px; height: 38px; background: #ffffff; color: #1e3a5f; border: 1.5px solid rgba(30, 58, 95, 0.6); border-radius: 50%; cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center; box-shadow: 0px 4px 10px rgba(30, 58, 95, 0.15); transition: transform 0.2s ease, background 0.2s ease; }
@@ -441,7 +117,25 @@
         .modal-box { background: #ffffff; border: 1.5px solid #1e3a5f; border-radius: 12px; padding: 24px; width: 90%; max-width: 320px; transform: scale(0.9); transition: transform 0.3s ease; box-shadow: 0 10px 25px rgba(30,58,95,0.2); }
         .modal-overlay.active { display: flex; opacity: 1; }
         .modal-overlay.active .modal-box { transform: scale(1); }
-    </style>
+    
+*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.teks-judul{text-align:center;font-family:Cinzel, serif;font-size:1.5rem;line-height:2rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;--tw-text-opacity:1;color:rgb(30 58 95 / var(--tw-text-opacity, 1))}@media (min-width: 768px){.teks-judul{font-size:1.875rem;line-height:2.25rem}}.teks-subjudul{margin-bottom:0px;text-align:center;font-family:Cinzel, serif;font-size:13px;text-transform:uppercase;letter-spacing:0.15em;--tw-text-opacity:1;color:rgb(71 85 105 / var(--tw-text-opacity, 1))}.teks-paragraf{padding-left:0.5rem;padding-right:0.5rem;text-align:center;font-family:Montserrat, sans-serif;font-size:13px;font-weight:300;line-height:1.8;--tw-text-opacity:1;color:rgb(71 85 105 / var(--tw-text-opacity, 1))}.teks-aksen{text-align:center;font-family:Playfair Display, serif;font-size:15px;font-style:italic;--tw-text-opacity:1;color:rgb(44 82 130 / var(--tw-text-opacity, 1))}.nama-mempelai{margin-bottom:0.5rem;text-align:center;font-family:Playfair Display, serif;font-size:4.5rem;font-style:italic;line-height:1;--tw-text-opacity:1;color:rgb(30 58 95 / var(--tw-text-opacity, 1));--tw-drop-shadow:drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.nama-lengkap{text-align:center;font-family:Cinzel, serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;--tw-text-opacity:1;color:rgb(30 58 95 / var(--tw-text-opacity, 1))}.btn-utama{display:flex;cursor:pointer;align-items:center;justify-content:center;gap:0.5rem;border-radius:0.25rem;border-width:1.5px;--tw-border-opacity:1;border-color:rgb(30 58 95 / var(--tw-border-opacity, 1));--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1));padding-top:0.75rem;padding-bottom:0.75rem;padding-left:1.5rem;padding-right:1.5rem;font-family:Montserrat, sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;--tw-text-opacity:1;color:rgb(30 58 95 / var(--tw-text-opacity, 1));--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.btn-utama:hover{--tw-bg-opacity:1;background-color:rgb(30 58 95 / var(--tw-bg-opacity, 1));--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.ornamen-pojok-kiri{pointer-events:none;position:absolute;top:-1rem;left:-1rem;z-index:0;width:160px;opacity:0.9}.ornamen-pojok-kanan{pointer-events:none;position:absolute;bottom:-1rem;right:-1rem;z-index:0;width:160px;--tw-rotate:180deg;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));opacity:0.9}.kartu-dalam{position:relative;z-index:10;display:flex;width:100%;flex-direction:column;align-items:flex-start;border-radius:0.75rem;border-width:1px;border-color:rgb(44 82 130 / 0.3);--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1));padding:1.5rem;--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.input-box{width:100%;border-radius:0.75rem;border-width:1.5px;border-color:rgb(44 82 130 / 0.2);--tw-bg-opacity:1;background-color:rgb(248 250 252 / var(--tw-bg-opacity, 1));padding:15px 18px;font-family:Montserrat, sans-serif;font-size:13px;--tw-text-opacity:1;color:rgb(30 58 95 / var(--tw-text-opacity, 1));--tw-shadow:inset 0 2px 4px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:inset 0 2px 4px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:300ms}.input-box::placeholder{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.input-box:focus{--tw-border-opacity:1;border-color:rgb(44 82 130 / var(--tw-border-opacity, 1));--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1));outline:2px solid transparent;outline-offset:2px;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(4px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);--tw-ring-color:rgb(44 82 130 / 0.1)}.pointer-events-none{pointer-events:none}.absolute{position:absolute}.relative{position:relative}.inset-\[3px\]{inset:3px}.-bottom-4{bottom:-1rem}.-left-4{left:-1rem}.-right-4{right:-1rem}.top-0{top:0px}.z-0{z-index:0}.z-10{z-index:10}.z-50{z-index:50}.mx-4{margin-left:1rem;margin-right:1rem}.mx-auto{margin-left:auto;margin-right:auto}.my-4{margin-top:1rem;margin-bottom:1rem}.my-6{margin-top:1.5rem;margin-bottom:1.5rem}.my-\[clamp\(0\.5rem\2c 2vh\2c 1\.5rem\)\]{margin-top:clamp(0.5rem,2vh,1.5rem);margin-bottom:clamp(0.5rem,2vh,1.5rem)}.my-\[clamp\(1rem\2c 3vh\2c 2rem\)\]{margin-top:clamp(1rem,3vh,2rem);margin-bottom:clamp(1rem,3vh,2rem)}.-ml-\[0\.25em\]{margin-left:-0.25em}.-mt-\[0\.25em\]{margin-top:-0.25em}.mb-0{margin-bottom:0px}.mb-1{margin-bottom:0.25rem}.mb-10{margin-bottom:2.5rem}.mb-12{margin-bottom:3rem}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-5{margin-bottom:1.25rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.ml-\[0\.25em\]{margin-left:0.25em}.mt-1{margin-top:0.25rem}.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.mt-5{margin-top:1.25rem}.mt-8{margin-top:2rem}.mt-\[0\.25em\]{margin-top:0.25em}.mt-\[clamp\(0\.5rem\2c 2vh\2c 1\.5rem\)\]{margin-top:clamp(0.5rem,2vh,1.5rem)}.mt-auto{margin-top:auto}.flex{display:flex}.grid{display:grid}.hidden{display:none}.aspect-\[1\.58\/1\]{aspect-ratio:1.58/1}.h-11{height:2.75rem}.h-\[100dvh\]{height:100dvh}.h-\[1px\]{height:1px}.h-\[28px\]{height:28px}.h-\[clamp\(6\.5rem\2c 22vh\2c 10rem\)\]{height:clamp(6.5rem,22vh,10rem)}.h-auto{height:auto}.max-h-\[400px\]{max-height:400px}.min-h-\[100dvh\]{min-height:100dvh}.min-h-\[40vh\]{min-height:40vh}.min-h-\[44px\]{min-height:44px}.w-10{width:2.5rem}.w-11{width:2.75rem}.w-12{width:3rem}.w-20{width:5rem}.w-32{width:8rem}.w-\[100px\]{width:100px}.w-\[200px\]{width:200px}.w-\[220px\]{width:220px}.w-\[80\%\]{width:80%}.w-\[85\%\]{width:85%}.w-\[clamp\(160px\2c 50vw\2c 210px\)\]{width:clamp(160px,50vw,210px)}.w-auto{width:auto}.w-full{width:100%}.w-max{width:max-content}.min-w-\[44px\]{min-width:44px}.max-w-\[250px\]{max-width:250px}.max-w-\[280px\]{max-width:280px}.max-w-\[300px\]{max-width:300px}.max-w-\[420px\]{max-width:420px}.max-w-\[60\%\]{max-width:60%}.max-w-\[80\%\]{max-width:80%}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.flex-grow{flex-grow:1}.rotate-180{--tw-rotate:180deg;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-not-allowed{cursor:not-allowed}.cursor-pointer{cursor:pointer}.resize-none{resize:none}.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-end{align-items:flex-end}.items-center{align-items:center}.justify-start{justify-content:flex-start}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1{gap:0.25rem}.gap-1\.5{gap:0.375rem}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-8{gap:2rem}.overflow-hidden{overflow:hidden}.overflow-y-auto{overflow-y:auto}.overflow-x-hidden{overflow-x:hidden}.whitespace-nowrap{white-space:nowrap}.rounded{border-radius:0.25rem}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-md{border-radius:0.375rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-\[1\.5px\]{border-width:1.5px}.border-\[1px\]{border-width:1px}.border-b{border-bottom-width:1px}.border-dashed{border-style:dashed}.border-\[\#28a745\]{--tw-border-opacity:1;border-color:rgb(40 167 69 / var(--tw-border-opacity, 1))}.border-accent\/20{border-color:rgb(44 82 130 / 0.2)}.border-accent\/30{border-color:rgb(44 82 130 / 0.3)}.border-accent\/40{border-color:rgb(44 82 130 / 0.4)}.border-gray-300{--tw-border-opacity:1;border-color:rgb(209 213 219 / var(--tw-border-opacity, 1))}.border-textmain{--tw-border-opacity:1;border-color:rgb(30 58 95 / var(--tw-border-opacity, 1))}.border-textmain\/20{border-color:rgb(30 58 95 / 0.2)}.border-textmain\/40{border-color:rgb(30 58 95 / 0.4)}.bg-\[\#22c55e\]{--tw-bg-opacity:1;background-color:rgb(34 197 94 / var(--tw-bg-opacity, 1))}.bg-\[\#eab308\]{--tw-bg-opacity:1;background-color:rgb(234 179 8 / var(--tw-bg-opacity, 1))}.bg-\[\#ef4444\]{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity, 1))}.bg-accent{--tw-bg-opacity:1;background-color:rgb(44 82 130 / var(--tw-bg-opacity, 1))}.bg-accent\/40{background-color:rgb(44 82 130 / 0.4)}.bg-gray-400{--tw-bg-opacity:1;background-color:rgb(156 163 175 / var(--tw-bg-opacity, 1))}.bg-transparent{background-color:transparent}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-gradient-to-b{background-image:linear-gradient(to bottom, var(--tw-gradient-stops))}.from-white{--tw-gradient-from:#fff var(--tw-gradient-from-position);--tw-gradient-to:rgb(255 255 255 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-\[\#f8fafc\]{--tw-gradient-to:#f8fafc var(--tw-gradient-to-position)}.bg-cover{background-size:cover}.bg-center{background-position:center}.object-contain{object-fit:contain}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-8{padding-left:2rem;padding-right:2rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-3\.5{padding-top:0.875rem;padding-bottom:0.875rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-6{padding-top:1.5rem;padding-bottom:1.5rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-12{padding-bottom:3rem}.pb-16{padding-bottom:4rem}.pb-2{padding-bottom:0.5rem}.pb-4{padding-bottom:1rem}.pr-2{padding-right:0.5rem}.pt-8{padding-top:2rem}.text-center{text-align:center}.font-cinzel{font-family:Cinzel, serif}.font-montserrat{font-family:Montserrat, sans-serif}.font-playfair{font-family:Playfair Display, serif}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-6xl{font-size:3.75rem;line-height:1}.text-\[1\.5rem\]{font-size:1.5rem}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-\[12px\]{font-size:12px}.text-\[13px\]{font-size:13px}.text-\[14px\]{font-size:14px}.text-\[15px\]{font-size:15px}.text-\[16px\]{font-size:16px}.text-\[17px\]{font-size:17px}.text-\[18px\]{font-size:18px}.text-\[20px\]{font-size:20px}.text-\[24px\]{font-size:24px}.text-\[9px\]{font-size:9px}.text-\[clamp\(11px\2c 2\.5vh\2c 13px\)\]{font-size:clamp(11px,2.5vh,13px)}.text-\[clamp\(6\.5rem\2c 22vh\2c 10rem\)\]{font-size:clamp(6.5rem,22vh,10rem)}.text-\[clamp\(9px\2c 2\.2vh\2c 12px\)\]{font-size:clamp(9px,2.2vh,12px)}.text-base{font-size:1rem;line-height:1.5rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-light{font-weight:300}.font-medium{font-weight:500}.font-normal{font-weight:400}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.italic{font-style:italic}.leading-\[1\.8\]{line-height:1.8}.leading-\[2\]{line-height:2}.leading-none{line-height:1}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-\[0\.15em\]{letter-spacing:0.15em}.tracking-\[0\.1em\]{letter-spacing:0.1em}.tracking-\[0\.2em\]{letter-spacing:0.2em}.tracking-wide{letter-spacing:0.025em}.tracking-wider{letter-spacing:0.05em}.tracking-widest{letter-spacing:0.1em}.text-accent{--tw-text-opacity:1;color:rgb(44 82 130 / var(--tw-text-opacity, 1))}.text-accent\/10{color:rgb(44 82 130 / 0.1)}.text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55 / var(--tw-text-opacity, 1))}.text-gray-900{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity, 1))}.text-textmain{--tw-text-opacity:1;color:rgb(30 58 95 / var(--tw-text-opacity, 1))}.text-textmain\/30{color:rgb(30 58 95 / 0.3)}.text-textsub{--tw-text-opacity:1;color:rgb(71 85 105 / var(--tw-text-opacity, 1))}.text-textsub\/50{color:rgb(71 85 105 / 0.5)}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.opacity-50{opacity:0.5}.opacity-70{opacity:0.7}.opacity-80{opacity:0.8}.opacity-95{opacity:0.95}.shadow-\[0_0_40px_rgba\(0\2c 0\2c 0\2c 0\.08\)\]{--tw-shadow:0 0 40px rgba(0,0,0,0.08);--tw-shadow-colored:0 0 40px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-\[0_10px_25px_rgba\(30\2c 58\2c 95\2c 0\.1\)\]{--tw-shadow:0 10px 25px rgba(30,58,95,0.1);--tw-shadow-colored:0 10px 25px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-\[0_15px_40px_rgba\(30\2c 58\2c 95\2c 0\.08\)\]{--tw-shadow:0 15px 40px rgba(30,58,95,0.08);--tw-shadow-colored:0 15px 40px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-inner{--tw-shadow:inset 0 2px 4px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:inset 0 2px 4px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.drop-shadow-md{--tw-drop-shadow:drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.drop-shadow-sm{--tw-drop-shadow:drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}
+        .selection\:bg-textmain *::selection{--tw-bg-opacity:1;background-color:rgb(30 58 95 / var(--tw-bg-opacity, 1))}
+        .selection\:text-white *::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}
+        .selection\:bg-textmain::selection{--tw-bg-opacity:1;background-color:rgb(30 58 95 / var(--tw-bg-opacity, 1))}
+        .selection\:text-white::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}
+        .hover\:bg-\[\#e0f2fe\]:hover{--tw-bg-opacity:1;background-color:rgb(224 242 254 / var(--tw-bg-opacity, 1))}
+        .hover\:bg-gray-100:hover{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity, 1))}
+        .hover\:bg-textmain:hover{--tw-bg-opacity:1;background-color:rgb(30 58 95 / var(--tw-bg-opacity, 1))}
+        .hover\:shadow-lg:hover{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}
+        .hover\:shadow-md:hover{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}
+        .focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}
+        .active\:scale-\[0\.98\]:active{--tw-scale-x:0.98;--tw-scale-y:0.98;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
+        .group:hover .group-hover\:scale-110{--tw-scale-x:1.1;--tw-scale-y:1.1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
+        @media (min-width: 768px){.md\:text-\[13px\]{font-size:13px}.md\:text-\[15px\]{font-size:15px}.md\:text-\[16px\]{font-size:16px}.md\:text-\[18px\]{font-size:18px}.md\:text-\[20px\]{font-size:20px}}
+    
+html{scroll-behavior:auto !important;}
+
+</style>
 </head>
 <body class="flex justify-center antialiased selection:bg-textmain selection:text-white lock-scroll">
 
@@ -459,7 +153,7 @@
     <button id="enter-fullscreen" class="floating-btn"><i class="fas fa-expand-arrows-alt"></i></button>
     <div id="audio-container">
         <audio id="audio" loop>
-            <source src="{{URL_MUSIK}}" type="audio/mpeg">
+            <source src="https://github.com/undangandigitalku/laguundangan/raw/refs/heads/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez.mp3" type="audio/mpeg">
         </audio>
         <div id="audio-toggle" class="floating-btn">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 32a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm-96-32a96 96 0 1 0 192 0 96 96 0 1 0 -192 0zM96 240c0-35 17.5-71.1 45.2-98.8S205 96 240 96c8.8 0 16-7.2 16-16s-7.2-16-16-16c-45.4 0-89.2 22.3-121.5 54.5S64 194.6 64 240c0 8.8 7.2 16 16 16s16-7.2 16-16z"/></svg>
@@ -467,28 +161,26 @@
     </div>
 
     <main id="main-container" class="w-full max-w-[420px] mx-auto min-h-[100dvh] relative shadow-[0_0_40px_rgba(0,0,0,0.08)] overflow-x-hidden">
-        <section id="section-cover" class="relative w-full h-[100dvh] flex flex-col items-center justify-between py-10 px-4 bg-[rgba(255,255,255,0.85)] z-50 shrink-0">
+        <section id="section-cover" class="relative w-full h-[100dvh] flex flex-col items-center justify-between py-10 px-4 bg-white z-50 shrink-0">
             <div class="cover-arch"></div>
             <div class="absolute top-0 -left-4 w-[clamp(160px,50vw,210px)] opacity-95 pointer-events-none z-0 goyang-1">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="w-full">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="w-full">
             </div>
             <div class="flex-1 flex flex-col justify-center items-center w-full z-10 my-[clamp(1rem,3vh,2rem)]">
                 <div class="flex flex-col items-center w-full zoom active">
                     <h2 class="font-cinzel text-[clamp(9px,2.2vh,12px)] tracking-[0.2em] font-semibold text-textsub uppercase mb-1 text-center whitespace-nowrap">The Wedding Of</h2>
                 </div>
-                <div class="relative flex justify-center items-center w-full h-[clamp(6rem,20vh,9.5rem)] my-[clamp(0.5rem,2vh,1.5rem)] zoom active" style="transition-delay: 0.2s">
-                    <h1 class="font-playfair italic text-[clamp(6.5rem,22vh,10rem)] text-textmain drop-shadow-md absolute -ml-[0.25em] -mt-[0.25em] leading-none">{{INISIAL_W}}</h1>
-                    <h1 class="font-playfair italic text-[clamp(6.5rem,22vh,10rem)] text-textmain drop-shadow-md absolute ml-[0.25em] mt-[0.25em] leading-none">{{INISIAL_P}}</h1>
+                <div class="relative flex justify-center items-center w-full h-[clamp(6.5rem,22vh,10rem)] my-[clamp(0.5rem,2vh,1.5rem)] zoom active" style="transition-delay: 0.2s">
+                    <!-- REVISI: Initials diubah menjadi italic -->
+                    <h1 class="font-playfair italic text-[clamp(6.5rem,22vh,10rem)] text-textmain drop-shadow-md absolute -ml-[0.25em] -mt-[0.25em] leading-none">L</h1>
+                    <h1 class="font-playfair italic text-[clamp(6.5rem,22vh,10rem)] text-textmain drop-shadow-md absolute ml-[0.25em] mt-[0.25em] leading-none">p</h1>
                 </div>
                 <div class="flex flex-col items-center mt-[clamp(0.5rem,2vh,1.5rem)] zoom active" style="transition-delay: 0.4s">
-                    <div class="zoom-2 flex justify-center w-full my-2">
-                        <lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/cincin.json" background="transparent" speed="1" style="width: 65px; height: 65px;" loop autoplay></lottie-player>
+                    <div class="flex justify-center w-full my-6">
+                        <img src="https://ik.imagekit.io/asetundangan/aset/biru/cincin-biru.png" alt="Divider" class="w-[100px] h-auto object-contain">
                     </div>
-                    <div class="w-full flex justify-center mb-[clamp(0.5rem,1.5vh,0.75rem)] mt-2">
-                         <lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-3.json" background="transparent" speed="1" style="width: 120px; height: 25px;" loop autoplay></lottie-player>
-                    </div>
-                    <p class="font-cinzel text-[clamp(11px,2.5vh,13px)] tracking-[0.2em] font-bold text-textsub uppercase">{{LOKASI_COVER}}</p>
-                    <p class="font-cinzel text-[clamp(11px,2.5vh,13px)] tracking-[0.2em] font-bold text-textsub uppercase mt-1">{{TANGGAL_COVER}}</p>
+                    <p class="font-cinzel text-[clamp(11px,2.5vh,13px)] tracking-[0.2em] font-bold text-textsub uppercase mt-2">Kota Medan</p>
+                    <p class="font-cinzel text-[clamp(11px,2.5vh,13px)] tracking-[0.2em] font-bold text-textsub uppercase mt-1">Kamis, 19 Maret 2026</p>
                 </div>
             </div>
             
@@ -507,26 +199,25 @@
         <div id="content-undangan" class="hidden flex-col gap-8 w-full px-3 pb-12 pt-8 bg-transparent">
             
             <section id="section-tujuan" class="section-card">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
                 
                 <div class="relative z-10 flex flex-col items-center w-full">
                     
-                    <h3 class="font-cinzel text-[14px] md:text-[16px] text-textmain uppercase tracking-widest mb-4 muncul">{{SALAM_PEMBUKA}}</h3>
+                    <!-- REVISI: Mengganti DEVIDER_TOP dengan SALAM_PEMBUKA dan text pembuka -->
+                    <h3 class="font-cinzel text-[16px] md:text-[18px] text-textmain mb-4 muncul uppercase text-center tracking-widest font-semibold">Assalamu'alaikum Wr. Wb.</h3>
                     <p class="teks-paragraf mb-8 muncul font-medium">Tanpa mengurangi rasa hormat, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:</p>
                     
-                    <h2 class="teks-judul mb-3 muncul">{{NAMA_PANGGILAN_GABUNGAN}}</h2>
+                    <h2 class="teks-judul mb-3 muncul">Lisa & Palmer</h2>
                     
-                    <div class="w-full flex justify-center mb-8 muncul">
-                         <lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-1.json" background="transparent" speed="1" style="width: 200px; height: 35px;" loop autoplay></lottie-player>
-                    </div>
+                    <div class="w-full flex justify-center mb-10 muncul opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-1.png" alt="Divider" class="w-[220px] h-auto object-contain"></div>
 
-                    <h3 class="teks-subjudul mb-10 zoom font-semibold text-textmain">{{TANGGAL_UTAMA}}</h3>
+                    <h3 class="teks-subjudul mb-10 zoom font-semibold text-textmain">KAMIS, 19 MARET 2026</h3>
                     <p class="teks-paragraf mb-10 muncul">Akhirnya, hari yang kami nantikan telah tiba. Hari kebahagiaan yang sangat spesial bagi kami.</p>
                     
-                    {{KALIGRAFI_BISMILLAH}}
+                    <div class="w-full flex justify-center mb-10 zoom"><img src="https://ik.imagekit.io/asetundangan/aset/kaligrafi/bismillah%20biru.png" alt="Bismillah" class="w-[200px] h-auto drop-shadow-sm"></div>
                     
-                    <p class="teks-paragraf mb-10 muncul">{{PARAGRAF_PEMBUKA}}</p>
+                    <p class="teks-paragraf mb-10 muncul">Atas Izin dan Ridho Allah SWT, dan dengan restu orangtua kami. Maka Insya Allah kami akan melangsungkan acara pernikahan kami.</p>
                     <div class="w-32 h-[1px] bg-accent/40 mb-10 muncul"></div>
                     <h2 class="teks-judul text-xl mb-8 muncul">Save The Date</h2>
                     
@@ -556,77 +247,131 @@
                     
                     <p class="font-montserrat text-[11px] text-center text-textsub mb-5 muncul px-4 leading-relaxed">Klik tombol dibawah untuk tambahkan pengingat otomatis ke kalender Google</p>
                     
-                    <div class="zoom"><a href="{{LINK_KALENDER}}" target="_blank" class="btn-utama"><i class="far fa-calendar-alt"></i> Simpan di Kalender</a></div>
+                    <div class="zoom"><a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The%20Wedding%20Of%20Lisa%20%26%20Palmer&details=Tanpa%20mengurangi%20rasa%20hormat%2C%20kami%20mengharapkan%20kehadiran%20Bapak%2FIbu%2FSaudara%2Fi%20pada%20acara%20pernikahan%20kami.%0A%0ASimpan%20pengingat%20ini%20agar%20tidak%20terlewat.&location=Gedung%20Serbaguna%20ABC%2C%20Jl.%20Jendral%20Sudirman%20No.%2045%26%2310%3BKec.%20Medan%20Petisah%2C%20Kota%20Medan&dates=20260319T110000/20260319T140000" target="_blank" class="btn-utama"><i class="far fa-calendar-alt"></i> Simpan di Kalender</a></div>
                     
-                    <div class="w-full flex justify-center mt-14 muncul">
-                         <lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-3.json" background="transparent" speed="1" style="width: 150px; height: 30px;" loop autoplay></lottie-player>
-                    </div>
+                    <div class="w-full flex justify-center mt-8 zoom opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-2.png" alt="Divider" class="w-[200px] h-auto object-contain rotate-180"></div>
                 </div>
             </section>
 
             <section id="section-mempelai" class="section-card">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
                 
                 <div class="relative z-10 flex flex-col items-center w-full">
+                    <div class="w-full flex justify-center mb-6 zoom opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-2.png" alt="Divider" class="w-[200px] h-auto object-contain"></div>
                     
-                    <h3 class="teks-subjudul mb-4 muncul mt-4">Yang Berbahagia</h3>
+                    <h3 class="teks-subjudul mb-4 muncul">Yang Berbahagia</h3>
                     <h2 class="teks-judul mb-4 zoom">Kedua Mempelai</h2>
                     
-                    <div class="w-full flex justify-center mb-12 muncul">
-                         <lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-1.json" background="transparent" speed="1" style="width: 200px; height: 35px;" loop autoplay></lottie-player>
-                    </div>
+                    <div class="w-full flex justify-center mb-10 muncul opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-1.png" alt="Divider" class="w-[220px] h-auto object-contain"></div>
 
                     <div class="flex flex-col items-center mb-8 w-full muncul">
-                        <h1 class="nama-mempelai">{{NAMA_PANGGILAN_W}}</h1>
-                        <h2 class="nama-lengkap mb-4">{{NAMA_LENGKAP_W}}</h2>
-                        <p class="teks-paragraf mb-2 font-normal">{{ANAK_KE_W}} dari Keluarga</p>
-                        <p class="teks-paragraf text-textmain mb-5 font-semibold">{{ORTU_W}}</p>
-                        <div class="zoom"><a href="https://instagram.com/{{IG_W}}" target="_blank" class="px-5 py-2.5 border-[1px] border-textmain/40 bg-white rounded-full text-textmain text-[12px] font-montserrat tracking-wide hover:bg-[#e0f2fe] hover:shadow-md transition-all flex items-center gap-2"><i class="fab fa-instagram text-[15px]"></i> @{{IG_W}}</a></div>
+                        <h1 class="nama-mempelai">Lisa</h1>
+                        <h2 class="nama-lengkap mb-4">Lisa Blackpink</h2>
+                        <p class="teks-paragraf mb-2 font-normal">Anak Pertama dari Keluarga</p>
+                        <p class="teks-paragraf text-textmain mb-5 font-semibold">Bpk. Jose Mourinho<br>& Ibu Happy Mourinho</p>
+                        <div class="zoom"><a href="https://instagram.com/lisablackpink" target="_blank" class="px-5 py-2.5 border-[1px] border-textmain/40 bg-white rounded-full text-textmain text-[12px] font-montserrat tracking-wide hover:bg-[#e0f2fe] hover:shadow-md transition-all flex items-center gap-2"><i class="fab fa-instagram text-[15px]"></i> @lisablackpink</a></div>
                     </div>
                     
-                    <div class="zoom-2 flex justify-center w-full my-6">
-                        <lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/cincin.json" background="transparent" speed="1" style="width: 65px; height: 65px;" loop autoplay></lottie-player>
+                    <div class="flex justify-center w-full my-6 muncul">
+                        <img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-2.png" alt="Divider" class="w-[100px] h-auto object-contain">
                     </div>
 
                     <div class="flex flex-col items-center mb-10 w-full muncul">
-                        <h1 class="nama-mempelai">{{NAMA_PANGGILAN_P}}</h1>
-                        <h2 class="nama-lengkap mb-4">{{NAMA_LENGKAP_P}}</h2>
-                        <p class="teks-paragraf mb-2 font-normal">{{ANAK_KE_P}} dari Keluarga</p>
-                        <p class="teks-paragraf text-textmain mb-5 font-semibold">{{ORTU_P}}</p>
-                        <div class="zoom"><a href="https://instagram.com/{{IG_P}}" target="_blank" class="px-5 py-2.5 border-[1px] border-textmain/40 bg-white rounded-full text-textmain text-[12px] font-montserrat tracking-wide hover:bg-[#e0f2fe] hover:shadow-md transition-all flex items-center gap-2"><i class="fab fa-instagram text-[15px]"></i> @{{IG_P}}</a></div>
+                        <h1 class="nama-mempelai">Palmer</h1>
+                        <h2 class="nama-lengkap mb-4">Cole Palmer</h2>
+                        <p class="teks-paragraf mb-2 font-normal">Anak Pertama dari Keluarga</p>
+                        <p class="teks-paragraf text-textmain mb-5 font-semibold">Bpk. Pep Guardiola<br>& Ibu Happy Guardiola</p>
+                        <div class="zoom"><a href="https://instagram.com/colepalmer" target="_blank" class="px-5 py-2.5 border-[1px] border-textmain/40 bg-white rounded-full text-textmain text-[12px] font-montserrat tracking-wide hover:bg-[#e0f2fe] hover:shadow-md transition-all flex items-center gap-2"><i class="fab fa-instagram text-[15px]"></i> @colepalmer</a></div>
                     </div>
                     
-                    <div class="w-full flex justify-center mt-4 zoom">
-                         <lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-3.json" background="transparent" speed="1" style="width: 150px; height: 30px;" loop autoplay></lottie-player>
-                    </div>
+                    <div class="w-full flex justify-center mt-8 zoom opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-2.png" alt="Divider" class="w-[200px] h-auto object-contain rotate-180"></div>
                 </div>
             </section>
 
-{{SECTION_ACARA}}
+<section id="section-acara" class="section-card">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
+                <div class="relative z-10 flex flex-col items-center w-full">
+                    <div class="w-full flex justify-center mb-6 zoom opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-2.png" alt="Divider" class="w-[200px] h-auto object-contain"></div>
+                    <h3 class="teks-subjudul mb-2 muncul">Waktu & Tempat</h3>
+                    <h2 class="teks-judul mb-4 zoom">Detail Acara</h2>
+                    
+                    <div class="w-full flex justify-center mb-10 muncul opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-1.png" alt="Divider" class="w-[220px] h-auto object-contain"></div>
+                    <div class="w-full flex flex-col items-center mb-10 muncul-kanan">
+                        <h3 class="font-cinzel text-[18px] tracking-[0.15em] text-accent uppercase mb-4 font-bold">Akad Nikah</h3>
+                        <div class="w-[80%] h-[1px] bg-accent/40 mb-8"></div>
+                        <div class="kartu-dalam">
+                            <div class="flex flex-col gap-4 mb-6 w-full">
+                                <div class="flex items-center justify-start gap-3 text-textsub"><i class="far fa-calendar-check text-[15px] text-accent"></i><span class="font-montserrat text-[13px] font-medium">Kamis, 19 Maret 2026</span></div>
+                                <div class="flex items-center justify-start gap-3 text-textsub"><i class="far fa-clock text-[15px] text-accent"></i><span class="font-montserrat text-[13px] font-medium">08.00—10.00 WIB</span></div>
+                            </div>
+                            <div class="flex items-center w-full mb-6 opacity-80 zoom"><div class="h-[1px] bg-accent/40 flex-grow"></div><i class="fas fa-map-marked-alt text-accent mx-4 text-2xl"></i><div class="h-[1px] bg-accent/40 flex-grow"></div></div>
+                            <h4 class="font-montserrat font-bold text-textmain text-[14px] mb-2 w-full text-center">Kediaman Mempelai Wanita</h4>
+                            <p class="font-montserrat text-textsub text-[12px] leading-[1.8] mb-6 font-light text-center w-full">Jl. Gatot Subroto No. 123&#10;Kec. Medan Petisah, Kota Medan</p>
+                            <a href="https://maps.app.goo.gl/K3zFHYvU54Nt5vNX7" target="_blank" class="btn-utama mx-auto"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
+                        </div>
+                    </div>
+                    <div class="w-full flex flex-col items-center mb-10 muncul-kiri">
+                        <h3 class="font-cinzel text-[18px] tracking-[0.15em] text-accent uppercase mb-4 font-bold">Acara Resepsi</h3>
+                        <div class="w-[80%] h-[1px] bg-accent/40 mb-8"></div>
+                        <div class="kartu-dalam">
+                            <div class="flex flex-col gap-4 mb-6 w-full">
+                                <div class="flex items-center justify-start gap-3 text-textsub"><i class="far fa-calendar-check text-[15px] text-accent"></i><span class="font-montserrat text-[13px] font-medium">Kamis, 19 Maret 2026</span></div>
+                                <div class="flex items-center justify-start gap-3 text-textsub"><i class="far fa-clock text-[15px] text-accent"></i><span class="font-montserrat text-[13px] font-medium">11.00—14.00 WIB</span></div>
+                            </div>
+                            <div class="flex items-center w-full mb-6 opacity-80 zoom"><div class="h-[1px] bg-accent/40 flex-grow"></div><i class="fas fa-map-marked-alt text-accent mx-4 text-2xl"></i><div class="h-[1px] bg-accent/40 flex-grow"></div></div>
+                            <h4 class="font-montserrat font-bold text-textmain text-[14px] mb-2 w-full text-center">Gedung Serbaguna ABC</h4>
+                            <p class="font-montserrat text-textsub text-[12px] leading-[1.8] mb-6 font-light text-center w-full">Jl. Jendral Sudirman No. 45&#10;Kec. Medan Petisah, Kota Medan</p>
+                            <a href="https://maps.app.goo.gl/K3zFHYvU54Nt5vNX7" target="_blank" class="btn-utama mx-auto"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
+                        </div>
+                    </div></div></section>
 
-{{SECTION_LOVESTORY}}
+<section id="section-lovestory" class="section-card">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
+                <div class="relative z-10 flex flex-col items-center w-full">
+                    <h3 class="teks-subjudul mb-2 muncul">Cerita Tentang Kami</h3>
+                    <h2 class="teks-judul mb-4 zoom">Love Story</h2>
+                    
+                    <div class="w-full flex justify-center mb-10 muncul opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-1.png" alt="Divider" class="w-[220px] h-auto object-contain"></div>
+                    <div class="kartu-dalam items-center mb-6 muncul">
+                        <div class="w-20 h-[1px] bg-accent/40 mb-4"></div>
+                        <h4 class="font-cinzel text-[12px] tracking-[0.15em] font-bold text-textmain uppercase mb-2">Oktober 2023</h4>
+                        <h3 class="teks-aksen text-[1.5rem] mb-4 leading-none">Hari Pertemuan</h3>
+                        <p class="teks-paragraf italic">Takdir mempertemukan kami pada sebuah hari yang tak terlupakan. Saat itu, kami hanyalah dua orang asing yang tanpa sadar dipertemukan oleh semesta.</p>
+                    </div>
+                    <div class="kartu-dalam items-center mb-6 muncul">
+                        <div class="w-20 h-[1px] bg-accent/40 mb-4"></div>
+                        <h4 class="font-cinzel text-[12px] tracking-[0.15em] font-bold text-textmain uppercase mb-2">Maret 2024</h4>
+                        <h3 class="teks-aksen text-[1.5rem] mb-4 leading-none">Saling Komitmen</h3>
+                        <p class="teks-paragraf italic">Waktu membawa kami lebih dekat, melewati hari-hari dengan cerita penuh tawa, doa, dan harapan. Di tanggal ini, kami mengikrarkan janji untuk saling menjaga, berpegangan erat, dan melangkah bersama.</p>
+                    </div>
+                    <div class="kartu-dalam items-center mb-6 muncul">
+                        <div class="w-20 h-[1px] bg-accent/40 mb-4"></div>
+                        <h4 class="font-cinzel text-[12px] tracking-[0.15em] font-bold text-textmain uppercase mb-2">Januari 2025</h4>
+                        <h3 class="teks-aksen text-[1.5rem] mb-4 leading-none">Hari Pernikahan</h3>
+                        <p class="teks-paragraf italic">Kini, tibalah saatnya kami mengukir babak baru dalam perjalanan cinta ini. Dengan penuh rasa syukur, kami siap mengikat janji suci di hadapan keluarga, sahabat, dan orang-orang tercinta.</p>
+                    </div><div class="w-full flex justify-center mt-8 zoom opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-2.png" alt="Divider" class="w-[200px] h-auto object-contain rotate-180"></div></div></section>
 
             <section id="section-quotes" class="section-card">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
                 <div class="relative z-10 flex flex-col items-center w-full justify-center min-h-[40vh] py-8">
                     <i class="fas fa-quote-left text-3xl text-textmain/30 mb-6 muncul"></i>
-                    <p class="font-playfair text-[14px] md:text-[15px] text-textmain text-center leading-[2] mb-8 muncul px-2 font-medium">{{QUOTES_ISI}}</p>
-                    <h3 class="teks-subjudul mb-0 zoom font-bold">{{QUOTES_AUTHOR}}</h3>
+                    <p class="font-playfair text-[14px] md:text-[15px] text-textmain text-center leading-[2] mb-8 muncul px-2 font-medium">"Dan di antara tanda-tanda kekuasaan-Nya diciptakan-Nya untukmu pasangan hidup dari jenismu sendiri supaya kamu dapat ketenangan hati dan dijadikannya kasih sayang di antara kamu. Sesungguhnya yang demikian menjadi tanda-tanda kebesaran-Nya bagi orang-orang yang berpikir."</p>
+                    <h3 class="teks-subjudul mb-0 zoom font-bold">- QS. Ar - Rum 21 -</h3>
                 </div>
             </section>
 
             <section id="section-ucapan" class="section-card">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
                 <div class="relative z-10 flex flex-col items-center w-full">
                     <h3 class="teks-subjudul mb-2 muncul">Doa & Ucapan</h3>
                     <h2 class="teks-judul mb-4 zoom">Untuk Mempelai</h2>
                     
-                    <div class="w-full flex justify-center mb-10 muncul">
-                         <lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-1.json" background="transparent" speed="1" style="width: 200px; height: 35px;" loop autoplay></lottie-player>
-                    </div>
+                    <div class="w-full flex justify-center mb-10 muncul opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-1.png" alt="Divider" class="w-[220px] h-auto object-contain"></div>
                     
                     <p class="teks-paragraf mb-8 muncul">Silahkan tuliskan doa & ucapan selamat untuk kedua mempelai serta konfirmasi kehadiran pada kolom ucapan dibawah ini.</p>
                     
@@ -637,7 +382,7 @@
                         </div>
                         <form id="form-rsvp" class="flex flex-col gap-4 mb-4">
                             <input type="text" id="input-nama" placeholder="Nama Anda" required class="input-box" maxlength="50">
-                            &lt;textarea id="input-ucapan" placeholder="Tulis ucapan &amp; doa Anda..." rows="4" required class="input-box resize-none" maxlength="300"&gt;&lt;/textarea&gt;
+                            <textarea id="input-ucapan" placeholder="Tulis ucapan & doa Anda..." rows="4" required class="input-box resize-none" maxlength="300"></textarea>
                             <select id="input-kehadiran" required class="input-box cursor-pointer">
                                 <option value="" disabled selected>Konfirmasi Kehadiran</option>
                                 <option value="Hadir">Hadir</option>
@@ -660,24 +405,37 @@
                         </div>
                     </div>
                     
-                    <div class="w-full flex justify-center mt-8 zoom">
-                         <lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-3.json" background="transparent" speed="1" style="width: 150px; height: 30px;" loop autoplay></lottie-player>
-                    </div>
+                    <div class="w-full flex justify-center mt-8 zoom opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-2.png" alt="Divider" class="w-[200px] h-auto object-contain rotate-180"></div>
                 </div>
             </section>
 
-{{SECTION_GIFT}}
+<section id="section-gift" class="section-card">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
+                <div class="relative z-10 flex flex-col items-center w-full">
+                    <h3 class="teks-subjudul mb-2 muncul">Wedding Gift</h3>
+                    <h2 class="teks-judul mb-4 zoom">Kirim Hadiah</h2>
+                    
+                    <div class="w-full flex justify-center mb-10 muncul opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-1.png" alt="Divider" class="w-[220px] h-auto object-contain"></div>
+                    
+                    <p class="teks-paragraf mb-10 muncul">Kehadiran Anda merupakan sebuah do'a serta rasa syukur bagi kami, namun jika memberi adalah bentuk Do'a & cinta kasih bagi Anda, Anda dapat memberi kado secara cashless.</p><div class="flex flex-col items-center zoom mb-10 w-full">
+                    <i class="fas fa-gifts text-4xl text-accent mb-4"></i>
+                    <h4 class="font-playfair text-[16px] font-bold text-textmain mb-2">Kirim Kado / Karangan Bunga</h4>
+                    <p class="teks-paragraf max-w-[80%]">Jl. Perjuangan Kemerdekaan No 19, Kota Surabaya</p>
+                </div><div class="muncul mb-8 w-max max-w-[250px]"><button id="btn-toggle-rekening" class="btn-utama px-8 whitespace-nowrap"><i id="icon-toggle-rekening" class="fas fa-search"></i><span id="text-toggle-rekening">Lihat Rekening</span></button></div>
+                    <div id="box-rekening" class="hidden flex-col gap-4 w-full items-center muncul"><div class="relative w-full max-w-[280px] aspect-[1.58/1] bg-white bg-cover bg-center rounded-xl p-5 shadow-sm flex flex-col justify-between overflow-hidden border border-accent/40" style="background-image: url('https://ik.imagekit.io/asetundangan/aset/icon-bank/Background-atm.webp?updatedAt=1771832799762');">
+                        <div class="flex justify-between items-start w-full z-10"><img src="https://ik.imagekit.io/asetundangan/aset/icon-bank/chip-atm-undangan.webp" alt="Chip" class="w-10 opacity-70"><img src="https://ik.imagekit.io/asetundangan/aset/icon-bank/Logo-Bank-BCA-1.png" onerror="this.src='https://ik.imagekit.io/asetundangan/aset/icon-bank/Logo-Bank-BCA-1.png'" alt="BCA" class="h-[28px] w-auto object-contain"></div>
+                        <div class="flex flex-col items-end w-full z-10 mt-auto"><h5 class="font-montserrat text-[10px] font-bold tracking-[0.1em] text-gray-800 mb-1">COLE PALMER</h5><p class="font-montserrat text-[20px] tracking-[0.15em] font-semibold text-gray-900 mb-3" id="rek-0">12345678987</p><button onclick="copyRekening('rek-0', this)" class="bg-white border border-gray-300 text-gray-800 text-[10px] font-montserrat font-semibold px-3 py-1.5 rounded flex items-center gap-1.5 hover:bg-gray-100 transition-colors"><i class="far fa-copy"></i> <span>Salin Nomor</span></button></div>
+                    </div></div><div class="w-full flex justify-center mt-8 zoom opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-2.png" alt="Divider" class="w-[200px] h-auto object-contain rotate-180"></div></div></section>
 
             <section id="section-penutup" class="section-card">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
                 <div class="relative z-10 flex flex-col items-center w-full">
                     <h3 class="teks-subjudul mb-2 muncul">Kami Mengucapkan</h3>
                     <h2 class="teks-judul mb-4 zoom">Terima Kasih</h2>
                     
-                    <div class="w-full flex justify-center mb-10 muncul">
-                         <lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-1.json" background="transparent" speed="1" style="width: 200px; height: 35px;" loop autoplay></lottie-player>
-                    </div>
+                    <div class="w-full flex justify-center mb-10 muncul opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-1.png" alt="Divider" class="w-[220px] h-auto object-contain"></div>
                     
                     <h3 class="teks-aksen text-[17px] mb-5 muncul">Atas Kehadiran & Doa Restunya</h3>
                     <p class="teks-paragraf mb-12 muncul">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
@@ -687,26 +445,32 @@
                     <div class="mb-6 muncul flex flex-col items-center">
                         <span class="font-playfair text-[13px] italic font-bold text-accent mb-1">Keluarga Besar</span>
                         <span class="font-playfair text-[18px] text-textmain mb-2 font-bold">Mempelai Wanita</span>
-                        <span class="font-montserrat text-[12px] font-light text-textsub text-center">{{ORTU_W}}</span>
+                        <span class="font-montserrat text-[12px] font-light text-textsub text-center">Bpk. Jose Mourinho<br>& Ibu Happy Mourinho</span>
                     </div>
                     <div class="mb-10 muncul flex flex-col items-center mt-2">
                         <span class="font-playfair text-[13px] italic font-bold text-accent mb-1">Keluarga Besar</span>
                         <span class="font-playfair text-[18px] text-textmain mb-2 font-bold">Mempelai Pria</span>
-                        <span class="font-montserrat text-[12px] font-light text-textsub text-center">{{ORTU_P}}</span>
+                        <span class="font-montserrat text-[12px] font-light text-textsub text-center">Bpk. Pep Guardiola<br>& Ibu Happy Guardiola</span>
                     </div>
                     
                     <div class="flex items-center w-full my-6 zoom gap-4 justify-center">
                         <div class="h-[1px] bg-accent/40 w-12"></div><span class="text-2xl drop-shadow-sm">🤍</span><div class="h-[1px] bg-accent/40 w-12"></div>
                     </div>
-                    <h2 class="teks-judul mt-4 zoom">{{NAMA_PANGGILAN_GABUNGAN}}</h2>
+                    <h2 class="teks-judul mt-4 zoom">Lisa & Palmer</h2>
                     
-                    <div class="w-full flex justify-center mt-8 muncul">
-                         <lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-3.json" background="transparent" speed="1" style="width: 150px; height: 30px;" loop autoplay></lottie-player>
-                    </div>
+                    <div class="w-full flex justify-center mt-8 zoom opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-2.png" alt="Divider" class="w-[200px] h-auto object-contain rotate-180"></div>
                 </div>
             </section>
 
-{{SECTION_TURUT_MENGUNDANG}}
+<section id="section-mengundang" class="section-card pb-16">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
+                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru-2.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
+                <div class="relative z-10 flex flex-col items-center w-full">
+                    <h2 class="teks-judul mb-4 zoom leading-tight">Turut<br>Mengundang</h2>
+                    
+                    <div class="w-full flex justify-center mb-10 muncul opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-1.png" alt="Divider" class="w-[220px] h-auto object-contain"></div>
+                    
+                    <p class="teks-paragraf mb-12 muncul">Kami juga berterima kasih kepada semua pihak yang telah membantu mempersiapkan segala persiapan acara pernikahan kami.</p><h4 class="font-cinzel text-[14px] font-semibold tracking-wider text-accent uppercase mb-5 muncul">Keluarga Mempelai Wanita</h4><div class="flex flex-col items-center gap-2 mb-10 muncul w-full"><p class="font-playfair text-[14px] font-medium text-textmain text-center">Bpk. Budi & Ibu Ani</p><p class="font-playfair text-[14px] font-medium text-textmain text-center">Keluarga Besar Sitorus</p><p class="font-playfair text-[14px] font-medium text-textmain text-center">Nama Turut Mengundang 3</p><p class="font-playfair text-[14px] font-medium text-textmain text-center">Nama Turut Mengundang 4</p><p class="font-playfair text-[14px] font-medium text-textmain text-center">Nama Turut Mengundang 5</p></div><div class="flex items-center w-full my-4 zoom gap-3 justify-center max-w-[60%]"><div class="h-[1px] bg-accent/40 flex-grow"></div><i class="fas fa-praying-hands text-xl text-accent"></i><div class="h-[1px] bg-accent/40 flex-grow"></div></div><h4 class="font-cinzel text-[14px] font-semibold tracking-wider text-accent uppercase mb-5 mt-8 muncul">Keluarga Mempelai Pria</h4><div class="flex flex-col items-center gap-2 mb-10 muncul w-full"><p class="font-playfair text-[14px] font-medium text-textmain text-center">Bpk. Joko & Ibu Ina</p><p class="font-playfair text-[14px] font-medium text-textmain text-center">Keluarga Besar Marpaung</p><p class="font-playfair text-[14px] font-medium text-textmain text-center">Nama Turut Mengundang 3</p><p class="font-playfair text-[14px] font-medium text-textmain text-center">Nama Turut Mengundang 4</p><p class="font-playfair text-[14px] font-medium text-textmain text-center">Nama Turut Mengundang 5</p></div><div class="w-full flex justify-center mt-8 zoom opacity-80"><img src="https://ik.imagekit.io/asetundangan/aset/biru/pembatas-biru-2.png" alt="Divider" class="w-[200px] h-auto object-contain rotate-180"></div></div></section>
 
         </div>
     </main>
@@ -794,542 +558,7 @@
             const selector = ".muncul, .muncul-kiri, .muncul-kanan, .zoom"; const elementVisible = 110; const qAll = (sel, root=document) => Array.from(root.querySelectorAll(sel));
             if ("IntersectionObserver" in window) { const ioEnter = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("active"); }); }, { root: null, rootMargin: `0px 0px -${elementVisible}px 0px`, threshold: 0 }); const ioExit = new IntersectionObserver((entries) => { entries.forEach(e => { if (!e.isIntersecting) e.target.classList.remove("active"); }); }, { root: null, rootMargin: "0px", threshold: 0 }); qAll(selector).forEach(el => { ioEnter.observe(el); ioExit.observe(el); }); }
 
-            {{COUNTDOWN_TARGET}}
-
-            const btnToggleRek = document.getElementById('btn-toggle-rekening'); const boxRekening = document.getElementById('box-rekening');
-            if (btnToggleRek && boxRekening) { btnToggleRek.addEventListener('click', () => { if (boxRekening.classList.contains('hidden')) { boxRekening.classList.remove('hidden'); boxRekening.classList.add('flex', 'fade-in-box'); document.getElementById('icon-toggle-rekening').className = 'far fa-eye-slash'; document.getElementById('text-toggle-rekening').textContent = 'Sembunyikan Rekening'; } else { boxRekening.classList.add('hidden'); boxRekening.classList.remove('flex', 'fade-in-box'); document.getElementById('icon-toggle-rekening').className = 'fas fa-search'; document.getElementById('text-toggle-rekening').textContent = 'Lihat Rekening'; } }); }
-        });
-        
-        window.copyRekening = function(elementId, btnElement) { const norek = document.getElementById(elementId).innerText; const tempInput = document.createElement('input'); tempInput.value = norek; document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); const spanText = btnElement.querySelector('span'); const originalText = spanText.textContent; spanText.textContent = 'Tersalin!'; btnElement.classList.replace('text-textmain', 'text-green-600'); setTimeout(() => { spanText.textContent = originalText; btnElement.classList.replace('text-green-600', 'text-textmain'); }, 2000); }
-    </script>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, where } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyAbpnsGjy9p8doAtZx-Jc1U1nod3M-S90Y",
-            authDomain: "sistem-rsvp.firebaseapp.com",
-            projectId: "sistem-rsvp",
-            storageBucket: "sistem-rsvp.firebasestorage.app",
-            messagingSenderId: "634798818741",
-            appId: "1:634798818741:web:83d56bf3122968dc86c5fc"
-        };
-        const app = initializeApp(firebaseConfig); const db = getFirestore(app);
-
-        // Memprioritaskan BRIDE ID dari form jika valid, untuk menghindari override dari URL iframe lokal
-        let brideId = "{{BRIDE_ID}}";
-        
-        // HANYA jika template string tidak diganti (berjalan mandiri di host), barulah coba extract dari URL
-        if (brideId.includes("BRIDE_ID")) {
-            try {
-                const urlPath = window.location.pathname;
-                if (urlPath && urlPath !== '/' && !urlPath.includes('preview') && !urlPath.includes('blob') && !urlPath.includes('srcdoc')) {
-                    const pathSegments = urlPath.split('/').filter(segment => segment.length > 0 && !segment.includes('.html'));
-                    if (pathSegments.length > 0 && pathSegments[pathSegments.length - 1] !== 'index') {
-                        brideId = pathSegments[pathSegments.length - 1];
-                    }
-                }
-            } catch(e) {}
-        }
-        
-        brideId = brideId.replace(/[^a-zA-Z0-9-_]/g, ''); 
-        
-        const masterCollection = collection(db, 'rsvps');
-        const q = query(masterCollection, where("brideId", "==", brideId));
-        
-        const formRsvp = document.getElementById('form-rsvp'); const inputNama = document.getElementById('input-nama'); const inputUcapan = document.getElementById('input-ucapan'); const inputKehadiran = document.getElementById('input-kehadiran'); const btnKirimPreview = document.getElementById('btn-preview-kirim'); const daftarUcapan = document.getElementById('daftar-ucapan'); const countHadir = document.getElementById('count-hadir'); const countTidakHadir = document.getElementById('count-tidak-hadir'); const countRagu = document.getElementById('count-ragu');
-
-        function timeAgo(dateInput) { if (!dateInput) return "Baru saja"; const date = dateInput.toDate ? dateInput.toDate() : new Date(dateInput); const seconds = Math.round((new Date() - date) / 1000); const minutes = Math.round(seconds / 60); const hours = Math.round(minutes / 60); const days = Math.round(hours / 24); if (seconds < 60) return "Baru saja"; if (minutes < 60) return `${minutes} menit yang lalu`; if (hours < 24) return `${hours} jam yang lalu`; if (days === 1) return `Kemarin`; return `${days} hari yang lalu`; }
-        function getAvatarColor(name) { const colors = ['#1e3a5f', '#2a5082', '#3666a6', '#417bc9', '#4b5563', '#64748b', '#cba052']; let hash = 0; for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash); return colors[Math.abs(hash) % colors.length]; }
-
-        onSnapshot(q, (snapshot) => {
-            let ucapanHTML = ''; let hadir = 0, tidakHadir = 0, ragu = 0;
-            const dataPesan = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            dataPesan.sort((a, b) => { const timeA = a.timestamp ? a.timestamp.toMillis() : Date.now(); const timeB = b.timestamp ? b.timestamp.toMillis() : Date.now(); return timeB - timeA; });
-            if(dataPesan.length === 0) { daftarUcapan.innerHTML = '<p class="text-center text-textsub/50 font-montserrat text-xs italic mt-4">Belum ada ucapan. Jadilah yang pertama!</p>'; countHadir.innerText = "0"; countTidakHadir.innerText = "0"; countRagu.innerText = "0"; return; }
-            dataPesan.forEach(data => {
-                if (data.kehadiran === 'Hadir') hadir++; else if (data.kehadiran === 'Tidak Hadir') tidakHadir++; else ragu++;
-                const inisial = data.nama.substring(0, 2).toUpperCase(); const bgColor = getAvatarColor(data.nama); const waktu = timeAgo(data.timestamp);
-                let badgeStatus = '';
-                if (data.kehadiran === 'Hadir') badgeStatus = '<span class="bg-[#22c55e] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Hadir <i class="fas fa-check"></i></span>';
-                else if (data.kehadiran === 'Tidak Hadir') badgeStatus = '<span class="bg-[#ef4444] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Tidak Hadir <i class="fas fa-times"></i></span>';
-                else badgeStatus = '<span class="bg-[#eab308] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Masih Ragu <i class="fas fa-hourglass-half"></i></span>';
-                
-                ucapanHTML += `<div class="flex items-start gap-4 bg-white p-4 rounded-xl border border-accent/30 shadow-sm relative overflow-hidden shrink-0"><div class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full text-white flex items-center justify-center font-extrabold text-[15px] shrink-0 shadow-inner z-10" style="background-color: ${bgColor}">${inisial}</div><div class="flex flex-col w-full z-10"><div class="flex items-center justify-between mb-2 flex-wrap gap-2"><span class="font-bold text-textmain text-[12px] md:text-[13px] font-playfair tracking-wide">${data.nama}</span>${badgeStatus}</div><p class="text-[13px] text-textsub mb-2 leading-relaxed font-montserrat">${data.ucapan}</p><span class="text-[11px] text-accent font-montserrat font-medium">${waktu}</span></div><div class="absolute -bottom-4 -right-4 text-accent/10 text-6xl pointer-events-none"><i class="fas fa-quote-right"></i></div></div>`;
-            });
-            daftarUcapan.innerHTML = ucapanHTML;
-            if(typeof gsap !== 'undefined'){ gsap.to(countHadir, { innerHTML: hadir, duration: 1, snap: { innerHTML: 1 } }); gsap.to(countTidakHadir, { innerHTML: tidakHadir, duration: 1, snap: { innerHTML: 1 } }); gsap.to(countRagu, { innerHTML: ragu, duration: 1, snap: { innerHTML: 1 } }); }
-        });
-
-        // --- SISTEM KEAMANAN RSVP & ANTI SPAM ---
-        {{LOGIKA_FILTER_SPAM}}
-        
-        window.kirimRsvpFinal = async function() {
-            const namaVal = inputNama.value.trim(); const ucapanVal = inputUcapan.value.trim(); const kehadiranVal = inputKehadiran.value;
-            const textAwal = btnKirimPreview.innerHTML; btnKirimPreview.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...'; btnKirimPreview.disabled = true; btnKirimPreview.classList.add('opacity-50', 'cursor-not-allowed');
-            tutupModal();
-            try {
-                await addDoc(masterCollection, { brideId: brideId, nama: namaVal, ucapan: ucapanVal, kehadiran: kehadiranVal, timestamp: serverTimestamp() });
-                {{SET_LOCAL_STORAGE}}
-                formRsvp.reset(); btnKirimPreview.innerHTML = '<i class="fas fa-check"></i> Terkirim!'; btnKirimPreview.classList.replace('text-white', 'text-white'); btnKirimPreview.classList.replace('bg-textmain', 'bg-[#28a745]'); btnKirimPreview.classList.replace('border-textmain', 'border-[#28a745]');
-            } catch (error) { 
-                console.error("Firebase Error:", error);
-                showModal("Error", "Gagal mengirim data. Silakan periksa koneksi atau Rules Firebase Anda.", [{text:"Tutup", color:"bg-gray-400 text-white", action:"tutupModal()"}]); 
-            } 
-            finally { setTimeout(() => { btnKirimPreview.innerHTML = textAwal; btnKirimPreview.disabled = false; btnKirimPreview.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-[#28a745]', 'border-[#28a745]', 'text-white'); btnKirimPreview.classList.add('bg-textmain', 'border-textmain', 'text-white'); }, 3000); }
-        }
-
-        const modal = document.getElementById('custom-modal');
-        window.showModal = function(title, msg, buttons) {
-            document.getElementById('modal-title').innerText = title; document.getElementById('modal-msg').innerText = msg;
-            let btnHtml = ''; buttons.forEach(b => { btnHtml += `<button onclick="${b.action}" class="px-5 py-2 rounded text-xs font-bold ${b.color}">${b.text}</button>`; });
-            document.getElementById('modal-actions').innerHTML = btnHtml; modal.classList.add('active');
-        }
-        window.tutupModal = function() { modal.classList.remove('active'); }
-
-    </script>
-</body>
-</html>
-</textarea>
-
-<!-- ========================================================================================= -->
-<!-- SCRIPT GENERATOR (LOGIKA PENGGABUNGAN DATA & HTML) -->
-<!-- ========================================================================================= -->
-<script>
-    // State Data Acara
-    let listAcara = [
-        { nama: "Akad Nikah", tanggal: "Kamis, 19 Maret 2026", jam: "08.00—10.00 WIB", lokasi: "Kediaman Mempelai Wanita", alamat: "Jl. Gatot Subroto No. 123&#10;Kec. Medan Petisah, Kota Medan", maps: "https://maps.app.goo.gl/K3zFHYvU54Nt5vNX7" },
-        { nama: "Acara Resepsi", tanggal: "Kamis, 19 Maret 2026", jam: "11.00—14.00 WIB", lokasi: "Gedung Serbaguna ABC", alamat: "Jl. Jendral Sudirman No. 45&#10;Kec. Medan Petisah, Kota Medan", maps: "https://maps.app.goo.gl/K3zFHYvU54Nt5vNX7" }
-    ];
-
-    // State Data Love Story 
-    let listStory = [
-        { tgl: "Oktober 2023", judul: "Hari Pertemuan", isi: "Takdir mempertemukan kami pada sebuah hari yang tak terlupakan. Saat itu, kami hanyalah dua orang asing yang tanpa sadar dipertemukan oleh semesta." },
-        { tgl: "Maret 2024", judul: "Saling Komitmen", isi: "Waktu membawa kami lebih dekat, melewati hari-hari dengan cerita penuh tawa, doa, dan harapan. Di tanggal ini, kami mengikrarkan janji untuk saling menjaga, berpegangan erat, dan melangkah bersama." },
-        { tgl: "Januari 2025", judul: "Hari Pernikahan", isi: "Kini, tibalah saatnya kami mengukir babak baru dalam perjalanan cinta ini. Dengan penuh rasa syukur, kami siap mengikat janji suci di hadapan keluarga, sahabat, dan orang-orang tercinta." }
-    ];
-
-    // State Data Rekening
-    let listRekening = [
-        { bank: "BCA", logo: "Logo-Bank-BCA-1.png", norek: "12345678987", nama: "COLE PALMER" }
-    ];
-
-    // Template Quotes Otomatis
-    const quotesDb = {
-        islam: { isi: '"Dan di antara tanda-tanda kekuasaan-Nya diciptakan-Nya untukmu pasangan hidup dari jenismu sendiri supaya kamu dapat ketenangan hati dan dijadikannya kasih sayang di antara kamu. Sesungguhnya yang demikian menjadi tanda-tanda kebesaran-Nya bagi orang-orang yang berpikir."', author: "- QS. Ar - Rum 21 -" },
-        kristen: { isi: '"Demikianlah mereka bukan lagi dua, melainkan satu. Karena itu, apa yang telah dipersatukan Allah, tidak boleh diceraikan manusia."', author: "- Matius 19:6 -" },
-        hindu: { isi: '"Ya Tuhanku yang Maha Pengasih, anugerahkanlah kepada pasangan suami istri ini kebahagiaan, kesehatan, dan keturunan yang suci. Jadikanlah keluarga mereka penuh kedamaian dan kesejahteraan."', author: "- Rg Veda X.85.42 -" },
-        umum: { isi: '"Cinta sejati tidak pernah mati. Ia hanya tumbuh semakin kuat seiring berjalannya waktu. Semoga cinta kita menjadi abadi."', author: "" }
-    };
-
-    function autoQuotes() {
-        const val = document.getElementById('agama').value;
-        if(quotesDb[val]) {
-            document.getElementById('q_isi').value = quotesDb[val].isi;
-            document.getElementById('q_author').value = quotesDb[val].author;
-        }
-    }
-    
-    // Fungsi Tab Panel Code/Preview
-    function switchTab(tab) {
-        const pCode = document.getElementById('panel-code');
-        const pPrev = document.getElementById('panel-preview');
-        const tCode = document.getElementById('tab-code');
-        const tPrev = document.getElementById('tab-preview');
-        
-        if(tab === 'code') {
-            pCode.classList.remove('hidden'); pPrev.classList.add('hidden');
-            tCode.classList.add('bg-gray-800', 'text-blue-400'); tCode.classList.remove('bg-transparent', 'text-gray-400');
-            tPrev.classList.remove('bg-gray-800', 'text-blue-400'); tPrev.classList.add('bg-transparent', 'text-gray-400');
-        } else {
-            pCode.classList.add('hidden'); pPrev.classList.remove('hidden');
-            tPrev.classList.add('bg-gray-800', 'text-blue-400'); tPrev.classList.remove('bg-transparent', 'text-gray-400');
-            tCode.classList.remove('bg-gray-800', 'text-blue-400'); tCode.classList.add('bg-transparent', 'text-gray-400');
-        }
-    }
-
-    // Fungsi Toggle Tampilan Form
-    function toggleVis(id, show) {
-        const el = document.getElementById(id);
-        if(show) {
-            el.style.height = el.scrollHeight + "px";
-            setTimeout(() => el.style.height = "auto", 300);
-        } else {
-            el.style.height = el.scrollHeight + "px";
-            setTimeout(() => el.style.height = "0px", 10);
-        }
-    }
-
-    // Fungsi Render Acara
-    function renderAcara() {
-        const cont = document.getElementById('container-acara');
-        cont.innerHTML = '';
-        listAcara.forEach((a, i) => {
-            cont.innerHTML += `
-                <div class="item-box">
-                    ${i > 0 ? `<button onclick="hapusAcara(${i})" class="btn-remove"><i class="fas fa-times"></i> Hapus</button>` : ''}
-                    <input type="text" placeholder="Nama Acara (cth: Akad)" value="${a.nama}" onchange="updateAcara(${i}, 'nama', this.value); debounceThumb();">
-                    <div class="grid grid-cols-2 gap-2">
-                        <input type="text" placeholder="Tanggal (cth: 15 Juli 2025)" value="${a.tanggal}" onchange="updateAcara(${i}, 'tanggal', this.value); debounceThumb();">
-                        <input type="text" placeholder="Jam (cth: 08.00 WIB)" value="${a.jam}" onchange="updateAcara(${i}, 'jam', this.value)">
-                    </div>
-                    <input type="text" placeholder="Nama Lokasi Gedung" value="${a.lokasi}" onchange="updateAcara(${i}, 'lokasi', this.value); debounceThumb();">
-                    <textarea rows="2" placeholder="Alamat Lengkap Jalan" onchange="updateAcara(${i}, 'alamat', this.value)">${a.alamat}</textarea>
-                    <input type="text" placeholder="Link Google Maps" value="${a.maps}" onchange="updateAcara(${i}, 'maps', this.value)">
-                </div>
-            `;
-        });
-    }
-    function tambahAcara() { listAcara.push({nama:'', tanggal:'', jam:'', lokasi:'', alamat:'', maps:''}); renderAcara(); }
-    function hapusAcara(i) { listAcara.splice(i, 1); renderAcara(); }
-    function updateAcara(i, key, val) { listAcara[i][key] = val; }
-
-    // Fungsi Render Story
-    function renderStory() {
-        const cont = document.getElementById('container-lovestory');
-        cont.innerHTML = '';
-        listStory.forEach((s, i) => {
-            cont.innerHTML += `
-                <div class="item-box">
-                    <button onclick="hapusStory(${i})" class="btn-remove"><i class="fas fa-times"></i> Hapus</button>
-                    <div class="grid grid-cols-2 gap-2">
-                        <input type="text" placeholder="Waktu (cth: Okt 2023)" value="${s.tgl}" onchange="updateStory(${i}, 'tgl', this.value)">
-                        <input type="text" placeholder="Judul Singkat" value="${s.judul}" onchange="updateStory(${i}, 'judul', this.value)">
-                    </div>
-                    <textarea rows="2" placeholder="Isi Cerita..." onchange="updateStory(${i}, 'isi', this.value)">${s.isi}</textarea>
-                </div>
-            `;
-        });
-    }
-    function tambahStory() { listStory.push({tgl:'', judul:'', isi:''}); renderStory(); }
-    function hapusStory(i) { listStory.splice(i, 1); renderStory(); }
-    function updateStory(i, key, val) { listStory[i][key] = val; }
-
-    // Fungsi Render Rekening
-    function renderRekening() {
-        const cont = document.getElementById('container-rekening');
-        cont.innerHTML = '';
-        listRekening.forEach((r, i) => {
-            cont.innerHTML += `
-                <div class="item-box">
-                    ${i > 0 ? `<button onclick="hapusRekening(${i})" class="btn-remove"><i class="fas fa-times"></i> Hapus</button>` : ''}
-                    <div class="grid grid-cols-2 gap-2">
-                        <select onchange="updateRekening(${i}, 'bank', this.options[this.selectedIndex].text); updateRekening(${i}, 'logo', this.value);">
-                            <option value="Logo-Bank-BCA-1.png" ${r.bank=='BCA'?'selected':''}>BCA</option>
-                            <option value="logo-bank-mandiri.png" ${r.bank=='Mandiri'?'selected':''}>Mandiri</option>
-                            <option value="logo-BRI.svg" ${r.bank=='BRI'?'selected':''}>BRI</option>
-                            <option value="BNI_logo.svg" ${r.bank=='BNI'?'selected':''}>BNI</option>
-                            <option value="Logo-Bank-BSI.png" ${r.bank=='BSI'?'selected':''}>BSI</option>
-                            <option value="logo-bank-BTN.png" ${r.bank=='BTN'?'selected':''}>BTN</option>
-                            <option value="Logo-Bank-CIMB-Niaga.png" ${r.bank=='CIMB Niaga'?'selected':''}>CIMB Niaga</option>
-                            <option value="Logo-Bank-Permata.png" ${r.bank=='Permata'?'selected':''}>Permata</option>
-                            <option value="Logo-Bank-Muamalat.png" ${r.bank=='Muamalat'?'selected':''}>Muamalat</option>
-                            <option value="Logo-Bank-Jenius.png" ${r.bank=='Jenius'?'selected':''}>Jenius</option>
-                            <option value="Logo-bank-jago.png" ${r.bank=='Bank Jago'?'selected':''}>Bank Jago</option>
-                            <option value="Logo-Bank-Seabank.png" ${r.bank=='SeaBank'?'selected':''}>SeaBank</option>
-                            <option value="Logo-Bank-Aladin.png" ${r.bank=='Bank Aladin'?'selected':''}>Bank Aladin</option>
-                            <option value="Logo-Bank-BJB.png" ${r.bank=='BJB'?'selected':''}>BJB</option>
-                            <option value="Logo-Bank-DKI.png" ${r.bank=='Bank DKI'?'selected':''}>Bank DKI</option>
-                            <option value="Logo-Bank-Jatim.png" ${r.bank=='Bank Jatim'?'selected':''}>Bank Jatim</option>
-                            <option value="Logo-Bank-Jateng.png" ${r.bank=='Bank Jateng'?'selected':''}>Bank Jateng</option>
-                            <option value="Logo-Bank-Jambi.png" ${r.bank=='Bank Jambi'?'selected':''}>Bank Jambi</option>
-                            <option value="Logo-Bank-Nagari.png" ${r.bank=='Bank Nagari'?'selected':''}>Bank Nagari</option>
-                            <option value="Logo-Bank-Sumut.png" ${r.bank=='Bank Sumut'?'selected':''}>Bank Sumut</option>
-                            <option value="Logo-Bank-Sulselbar.png" ${r.bank=='Bank Sulselbar'?'selected':''}>Bank Sulselbar</option>
-                            <option value="Logo-Bank-Sinarmas.png" ${r.bank=='Sinarmas'?'selected':''}>Sinarmas</option>
-                            <option value="Logo-Bank-OCBC.png" ${r.bank=='OCBC NISP'?'selected':''}>OCBC NISP</option>
-                            <option value="bank-Woori-Saudara-BWS-Wori.png" ${r.bank=='Woori Saudara'?'selected':''}>Woori Saudara</option>
-                            <option value="Logo-Dana.png" ${r.bank=='DANA'?'selected':''}>DANA</option>
-                            <option value="Logo-Gopay.png" ${r.bank=='GoPay'?'selected':''}>GoPay</option>
-                            <option value="Logo-Ovo.png" ${r.bank=='OVO'?'selected':''}>OVO</option>
-                        </select>
-                        <input type="text" placeholder="Nomor Rekening" value="${r.norek}" onchange="updateRekening(${i}, 'norek', this.value)">
-                    </div>
-                    <input type="text" placeholder="Atas Nama" value="${r.nama}" onchange="updateRekening(${i}, 'nama', this.value)">
-                </div>
-            `;
-        });
-    }
-    function tambahRekening() { listRekening.push({bank:'BCA', logo:'Logo-Bank-BCA-1.png', norek:'', nama:''}); renderRekening(); }
-    function hapusRekening(i) { listRekening.splice(i, 1); renderRekening(); }
-    function updateRekening(i, key, val) { listRekening[i][key] = val; }
-
-
-    // ==========================================
-    // WIDGET TANGGAL UTAMA (COUNTDOWN & KALENDER)
-    // ==========================================
-    function _parseIndoDateToYMD(dateStr) {
-        if(!dateStr) return null;
-        const clean = String(dateStr).replace(/Senin,|Selasa,|Rabu,|Kamis,|Jumat,|Sabtu,|Minggu,/gi,'').trim();
-        const parts = clean.split(/\s+/);
-        if(parts.length < 3) return null;
-        const d = String(parts[0]).padStart(2,'0');
-        const mStr = String(parts[1]).toLowerCase();
-        const y = String(parts[2]);
-        const months = { 'januari':'01','februari':'02','maret':'03','april':'04','mei':'05','juni':'06','juli':'07','agustus':'08','september':'09','oktober':'10','november':'11','desember':'12' };
-        const m = months[mStr];
-        if(!m || !/^\d{4}$/.test(y)) return null;
-        return `${y}-${m}-${d}`;
-    }
-
-    function _parseJamRangeToTimes(jamStr) {
-        if(!jamStr) return {start:'', end:''};
-        let clean = String(jamStr).replace(/WIB|WITA|WIT/gi,'').trim();
-        const parts = clean.split(/[-–—]/).map(s=>s.trim()).filter(Boolean);
-        const norm = (s) => {
-            s = s.replace(/\./g,':');
-            if(/^\d{4}$/.test(s)) return `${s.slice(0,2)}:${s.slice(2,4)}`;
-            if(/^\d{1,2}:\d{2}$/.test(s)) return s.padStart(5,'0');
-            if(/^\d{1,2}$/.test(s)) return `${String(s).padStart(2,'0')}:00`;
-            return '';
-        };
-        const start = norm(parts[0] || '');
-        let end = norm(parts[1] || '');
-        if(!end && start){
-            const [h,m] = start.split(':').map(n=>parseInt(n,10));
-            const h2 = (h + 2) % 24;
-            end = `${String(h2).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
-        }
-        return {start, end};
-    }
-
-    // INISIALISASI AWAL
-    renderAcara();
-    renderStory();
-    renderRekening();
-
-    // ==========================================
-    // LOGIKA PEMBUATAN THUMBNAIL OG IMAGE
-    // ==========================================
-    let thumbTimer;
-    function debounceThumb() {
-        clearTimeout(thumbTimer);
-        thumbTimer = setTimeout(drawThumbnail, 500);
-    }
-
-	function drawThumbnail() {
-	    const canvas = document.getElementById('thumb-canvas');
-	    if (!canvas) return;
-	    const ctx = canvas.getContext('2d');
-	    const loader = document.getElementById('thumb-loading');
-	    
-	    if(loader) loader.classList.remove('hidden');
-	
-	    const img = new Image();
-	    img.crossOrigin = "anonymous";
-	    img.src = document.getElementById('link_thumbnail').value || "https://ik.imagekit.io/asetundangan/aset/template-thumbnail/white-brown.webp";
-	    
-	    img.onload = () => {
-	        const TARGET_WIDTH = 720;
-	        let scale = TARGET_WIDTH / img.width;
-	        
-	        canvas.width = TARGET_WIDTH;
-	        canvas.height = img.height * scale;
-	        const cw = canvas.width;
-	        const ch = canvas.height;
-	        
-	        // 1. Gambar Background
-	        ctx.drawImage(img, 0, 0, cw, ch);
-	        
-	        // 2. Ambil Data
-	        const w_pang = document.getElementById('w_panggilan').value || 'Wanita';
-	        const p_pang = document.getElementById('p_panggilan').value || 'Pria';
-	        
-	        let tglCover = "";
-	        let locCover = document.getElementById('lokasi_cover').value || '';
-	        if(listAcara.length > 0) {
-	            tglCover = listAcara[listAcara.length - 1].tanggal;
-	            if(!locCover) locCover = listAcara[listAcara.length - 1].lokasi.split(" ")[0];
-	        }
-	
-	        ctx.textAlign = 'center';
-	        
-	        // === ELEMEN 1: "The Wedding Of" ===
-	        ctx.fillStyle = '#475569'; 
-	        ctx.font = `italic 500 ${Math.floor(ch * 0.035)}px "Playfair Display", serif`;
-	        ctx.fillText('The Wedding Of', cw / 2, ch * 0.22);
-	        
-	        // === ELEMEN 2: NAMA MEMPELAI ===
-	        const fullName = `${w_pang} & ${p_pang}`;
-	        
-	        ctx.shadowColor = "rgba(30, 58, 95, 0.2)";
-	        ctx.shadowBlur = 10;
-	        ctx.shadowOffsetX = 0;
-	        ctx.shadowOffsetY = 4;
-	        
-	        ctx.font = `italic 700 ${Math.floor(ch * 0.11)}px "Playfair Display", serif`;
-	        ctx.fillStyle = '#1e3a5f'; // Deep Navy
-	        ctx.fillText(fullName, cw / 2, ch * 0.38);
-	        
-	        ctx.shadowBlur = 0;
-	        ctx.shadowOffsetY = 0;
-	        
-	        // === ELEMEN 3: GARIS PEMBATAS ELEGAN ===
-	        const lineY = ch * 0.46;
-	        ctx.strokeStyle = '#cba052'; // Gold
-	        ctx.lineWidth = 1.5;
-	        
-	        ctx.beginPath();
-	        ctx.moveTo(cw * 0.15, lineY);
-	        ctx.lineTo(cw * 0.4, lineY);
-	        ctx.stroke();
-	        
-	        ctx.font = `400 ${Math.floor(ch * 0.025)}px "Playfair Display", serif`;
-	        ctx.fillStyle = '#cba052';
-	        ctx.fillText('❦', cw / 2, lineY + ch * 0.012);
-	        
-	        ctx.beginPath();
-	        ctx.moveTo(cw * 0.6, lineY);
-	        ctx.lineTo(cw * 0.85, lineY);
-	        ctx.stroke();
-	        
-	        // === ELEMEN 4: LOKASI & TANGGAL ===
-	        const baseY = ch * 0.54;
-	        const lineHeight = ch * 0.055;
-	        
-	        ctx.font = `700 ${Math.floor(ch * 0.042)}px "Cinzel", serif`;
-	        ctx.fillStyle = '#1e3a5f'; // Navy
-	        
-	        ctx.fillText(locCover.toUpperCase(), cw / 2, baseY);
-	        ctx.fillText(tglCover.toUpperCase(), cw / 2, baseY + lineHeight);
-	        
-	        if(loader) loader.classList.add('hidden');
-	    };
-	
-	    img.onerror = () => {
-	        console.error("Gagal load background thumbnail.");
-	        if(loader) loader.classList.add('hidden');
-	    };
-	}
-	    window.downloadThumbnail = function() {
-	    const canvas = document.getElementById('thumb-canvas');
-	    if(!canvas) return;
-	    
-	    try {
-	        const dataURL = canvas.toDataURL("image/webp", 0.85); 
-	        const link = document.createElement('a');
-	        
-	        const w_pang = document.getElementById('w_panggilan').value || 'Wanita';
-	        const p_pang = document.getElementById('p_panggilan').value || 'Pria';
-	        const safeName = `${w_pang}-${p_pang}`.toLowerCase().replace(/[^a-z0-9]/g, '-');
-	        
-	        link.download = `thumbnail-${safeName}.webp`;
-	        link.href = dataURL;
-	        link.click();
-	    } catch (err) {
-	        alert("Maaf, gagal mendownload gambar. Pastikan gambar background berhasil ter-load.");
-	        console.error(err);
-	    }
-	}
-
-    // FUNGSI UTAMA GENERATE HTML
-    function generateWeb() {
-        const placeholder = document.getElementById('preview-placeholder');
-        if(placeholder) placeholder.style.display = 'none';
-
-        let templateMentah = document.getElementById('raw-template').value.trimStart();
-        
-        const showStory = document.getElementById('toggle_lovestory').checked;
-        const showGift = document.getElementById('toggle_gift').checked;
-        const showTurut = document.getElementById('toggle_turut').checked;
-        const directRekening = document.getElementById('toggle_direct_rek').checked;
-        const isSpamFilterOn = document.getElementById('toggle_spam_filter').checked;
-        const isDemoModeOn = document.getElementById('toggle_demo_mode').checked;
-
-        const agamaDipilih = document.getElementById('agama').value;
-        const v = {
-            brideId: document.getElementById('brideId').value || 'lisa-dan-palmer',
-            lokasi_cover: document.getElementById('lokasi_cover').value, 
-            url_musik: document.getElementById('url_musik').value || 'https://github.com/undangandigitalku/laguundangan/raw/refs/heads/main/Until%20I%20Found%20You%20-%20Stephen%20Sanchez.mp3',
-            link_thumbnail: document.getElementById('link_thumbnail').value || 'https://ik.imagekit.io/asetundangan/aset/template-thumbnail/white-brown.webp',
-            w_pang: document.getElementById('w_panggilan').value || 'Wanita',
-            w_leng: document.getElementById('w_lengkap').value || 'Nama Wanita',
-            w_anak: document.getElementById('w_anak_ke').value || 'Anak Pertama',
-            w_ayah: document.getElementById('w_ayah').value || 'Bapak',
-            w_ibu: document.getElementById('w_ibu').value || 'Ibu',
-            w_ig: document.getElementById('w_ig').value || '',
-            p_pang: document.getElementById('p_panggilan').value || 'Pria',
-            p_leng: document.getElementById('p_lengkap').value || 'Nama Pria',
-            p_anak: document.getElementById('p_anak_ke').value || 'Anak Pertama',
-            p_ayah: document.getElementById('p_ayah').value || 'Bapak',
-            p_ibu: document.getElementById('p_ibu').value || 'Ibu',
-            p_ig: document.getElementById('p_ig').value || '',
-            q_isi: document.getElementById('q_isi').value,
-            q_author: document.getElementById('q_author').value,
-            alamat_kado: document.getElementById('alamat_kado').value,
-            turut_w: document.getElementById('turut_w').value,
-            turut_p: document.getElementById('turut_p').value
-        };
-
-        let salamText = "";
-        let paragrafText = "";
-        let bismillahHtml = "";
-
-        if (agamaDipilih === "islam") {
-            salamText = "Assalamu'alaikum Wr. Wb.";
-            paragrafText = "Atas Izin dan Ridho Allah SWT, dan dengan restu orangtua kami. Maka Insya Allah kami akan melangsungkan acara pernikahan kami.";
-            bismillahHtml = `<div class="w-full flex justify-center mb-10 zoom"><img src="https://ik.imagekit.io/asetundangan/aset/kaligrafi/bismillah-emas.png" alt="Bismillah" class="w-[200px] h-auto drop-shadow-sm lottie-biru"></div>`;
-        } else if (agamaDipilih === "kristen") {
-            salamText = "Shalom!";
-            paragrafText = "Tuhan membuat segala sesuatu indah pada waktunya. Indah saat Dia mempertemukan, indah saat Dia menumbuhkan kasih, dan indah saat Dia mempersatukan kami dalam suatu Ikatan Pernikahan Kudus.";
-        } else if (agamaDipilih === "hindu") {
-            salamText = "Om Swastyastu,";
-            paragrafText = "Atas Asung Kerta Wara Nugraha Ida Sang Hyang Widhi Wasa/Tuhan Yang Maha Esa, kami bermaksud mengundang Bapak/Ibu/Saudara/i pada acara pernikahan kami.";
-        } else {
-            salamText = "Salam Sejahtera,";
-            paragrafText = "Dengan memohon Rahmat dan Ridho Tuhan Yang Maha Esa, kami bermaksud menyelenggarakan acara pernikahan kami.";
-        }
-
-        let tglCover = "", locCover = v.lokasi_cover, countdownScript = "", calLink = "#";
-        const acaraUtama = (listAcara.length > 0) ? listAcara[listAcara.length - 1] : null;
-
-        if(acaraUtama){
-            tglCover = acaraUtama.tanggal;
-            if(!locCover) locCover = (acaraUtama.lokasi || '').split(" ")[0];
-        }
-
-        const elDateIso = document.getElementById('event_date_iso');
-        const elStart = document.getElementById('event_time_start');
-        const elEnd = document.getElementById('event_time_end');
-
-        let dateIso = elDateIso ? (elDateIso.value || '') : '';
-        let timeStart = elStart ? (elStart.value || '') : '';
-        let timeEnd = elEnd ? (elEnd.value || '') : '';
-
-        if((!dateIso || !timeStart) && acaraUtama){
-            const dateFromText = _parseIndoDateToYMD(acaraUtama.tanggal);
-            const t = _parseJamRangeToTimes(acaraUtama.jam);
-            if(!dateIso && dateFromText) dateIso = dateFromText;
-            if(!timeStart && t.start) timeStart = t.start;
-            if(!timeEnd && t.end) timeEnd = t.end;
-        }
-
-        if(dateIso && timeStart){
-            try{
-                const [yy, mm, dd] = dateIso.split('-').map(n => parseInt(n,10));
-                const [hh, mi] = timeStart.split(':').map(n => parseInt(n,10));
-
-                let hh2 = hh, mi2 = mi;
-                if(timeEnd){
-                    const tmp = timeEnd.split(':').map(n => parseInt(n,10));
-                    hh2 = tmp[0]; mi2 = tmp[1];
-                } else {
-                    hh2 = (hh + 2) % 24; mi2 = mi;
-                }
-
-                const pad2 = (n) => String(n).padStart(2,'0');
-                const calStart = `${yy}${pad2(mm)}${pad2(dd)}T${pad2(hh)}${pad2(mi)}00`;
-                const calEnd   = `${yy}${pad2(mm)}${pad2(dd)}T${pad2(hh2)}${pad2(mi2)}00`;
-                const calDates = `${calStart}/${calEnd}`;
-
-                const calendarText = `The Wedding Of ${v.w_pang} & ${v.p_pang}`;
-                const calendarDetails = `Tanpa mengurangi rasa hormat, kami mengharapkan kehadiran Bapak/Ibu/Saudara/i pada acara pernikahan kami.\n\nSimpan pengingat ini agar tidak terlewat.`;
-                const calendarLocation = acaraUtama ? `${acaraUtama.lokasi}, ${acaraUtama.alamat}`.replace(/<br>/g, ', ').replace(/\n/g, ', ') : '';
-
-                calLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(calendarText)}&details=${encodeURIComponent(calendarDetails)}&location=${encodeURIComponent(calendarLocation)}&dates=${calDates}`;
-
-                countdownScript = `
+            
 (function(){
   const daysEl  = document.getElementById('cd-days');
   const hoursEl = document.getElementById('cd-hours');
@@ -1337,7 +566,7 @@
   const secsEl  = document.getElementById('cd-secs');
   if(!daysEl || !hoursEl || !minsEl || !secsEl) return;
 
-  const target = new Date(${yy}, ${mm-1}, ${dd}, ${hh}, ${mi}, 0, 0).getTime();
+  const target = new Date(2026, 2, 19, 11, 0, 0, 0).getTime();
 
   const pad2 = (n) => String(n).padStart(2,'0');
   function paintZero(){
@@ -1370,165 +599,76 @@
   let timer = null;
   update();
   timer = setInterval(update, 1000);
-})();`;
-            } catch(e){
-                console.error("Gagal set countdown/kalendar dari widget", e);
-            }
-        }
+})();
 
-        // --- MERAKIT SECTION ACARA ---
-        let htmlAcara = '';
-        if(listAcara.length > 0) {
-            htmlAcara += `<section id="section-acara" class="section-card">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
-                <div class="relative z-10 flex flex-col items-center w-full">
-                    
-                    <h3 class="teks-subjudul mb-2 muncul mt-4">Waktu & Tempat</h3>
-                    <h2 class="teks-judul mb-4 zoom">Detail Acara</h2>
-                    
-                    <div class="w-full flex justify-center mb-12 muncul">
-                         <lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-1.json" background="transparent" speed="1" style="width: 200px; height: 35px;" loop autoplay></lottie-player>
-                    </div>`;
-            
-            listAcara.forEach((a, i) => {
-                let arah = i % 2 === 0 ? 'muncul-kanan' : 'muncul-kiri';
-                htmlAcara += `
-                    <div class="w-full flex flex-col items-center mb-10 ${arah}">
-                        <h3 class="font-cinzel text-[18px] tracking-[0.15em] text-accent uppercase mb-4 font-bold">${a.nama}</h3>
-                        <div class="w-[80%] h-[1px] bg-accent/40 mb-8"></div>
-                        <div class="kartu-dalam">
-                            <div class="flex flex-col gap-4 mb-6 w-full">
-                                <div class="flex items-center justify-start gap-3 text-textsub"><i class="far fa-calendar-check text-[15px] text-accent"></i><span class="font-montserrat text-[13px] font-medium">${a.tanggal}</span></div>
-                                <div class="flex items-center justify-start gap-3 text-textsub"><i class="far fa-clock text-[15px] text-accent"></i><span class="font-montserrat text-[13px] font-medium">${a.jam}</span></div>
-                            </div>
-                            <div class="flex items-center w-full mb-6 opacity-80 zoom"><div class="h-[1px] bg-accent/40 flex-grow"></div><i class="fas fa-map-marked-alt text-accent mx-4 text-2xl"></i><div class="h-[1px] bg-accent/40 flex-grow"></div></div>
-                            <h4 class="font-montserrat font-bold text-textmain text-[14px] mb-2 w-full text-center">${a.lokasi}</h4>
-                            <p class="font-montserrat text-textsub text-[12px] leading-[1.8] mb-6 font-light text-center w-full">${a.alamat}</p>
-                            <a href="${a.maps}" target="_blank" class="btn-utama mx-auto"><i class="fas fa-map-marker-alt"></i> Open Maps</a>
-                        </div>
-                    </div>`;
-            });
-            htmlAcara += `</div></section>`;
-        }
-
-        // --- MERAKIT SECTION LOVESTORY ---
-        let htmlStory = '';
-        if(showStory && listStory.length > 0) {
-            htmlStory += `<section id="section-lovestory" class="section-card">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
-                <div class="relative z-10 flex flex-col items-center w-full">
-                    <h3 class="teks-subjudul mb-2 muncul">Cerita Tentang Kami</h3>
-                    <h2 class="teks-judul mb-4 zoom">Love Story</h2>
-                    
-                    <div class="w-full flex justify-center mb-12 muncul">
-                         <lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-1.json" background="transparent" speed="1" style="width: 200px; height: 35px;" loop autoplay></lottie-player>
-                    </div>`;
-            
-            listStory.forEach(s => {
-                htmlStory += `
-                    <div class="kartu-dalam items-center mb-6 muncul">
-                        <div class="w-20 h-[1px] bg-accent/40 mb-4"></div>
-                        <h4 class="font-cinzel text-[12px] tracking-[0.15em] font-bold text-textmain uppercase mb-2">${s.tgl}</h4>
-                        <h3 class="teks-aksen text-[1.5rem] mb-4 leading-none">${s.judul}</h3>
-                        <p class="teks-paragraf italic">${s.isi}</p>
-                    </div>`;
-            });
-            htmlStory += `<div class="w-full flex justify-center mt-4 zoom"><lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-3.json" background="transparent" speed="1" style="width: 150px; height: 30px;" loop autoplay></lottie-player></div></div></section>`;
-        }
-
-        // --- MERAKIT WEDDING GIFT ---
-        let htmlGift = '';
-        if(showGift && (listRekening.length > 0 || v.alamat_kado.trim() !== '')) {
-            htmlGift += `<section id="section-gift" class="section-card">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
-                <div class="relative z-10 flex flex-col items-center w-full">
-                    <h3 class="teks-subjudul mb-2 muncul">Wedding Gift</h3>
-                    <h2 class="teks-judul mb-4 zoom">Kirim Hadiah</h2>
-                    
-                    <div class="w-full flex justify-center mb-10 muncul">
-                         <lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-1.json" background="transparent" speed="1" style="width: 200px; height: 35px;" loop autoplay></lottie-player>
-                    </div>
-                    
-                    <p class="teks-paragraf mb-10 muncul">Kehadiran Anda merupakan sebuah do'a serta rasa syukur bagi kami, namun jika memberi adalah bentuk Do'a & cinta kasih bagi Anda, Anda dapat memberi kado secara cashless.</p>`;
-            
-            if(v.alamat_kado.trim() !== '') {
-                htmlGift += `<div class="flex flex-col items-center zoom mb-10 w-full">
-                    <i class="fas fa-gifts text-4xl text-accent mb-4"></i>
-                    <h4 class="font-playfair text-[16px] font-bold text-textmain mb-2">Kirim Kado / Karangan Bunga</h4>
-                    <p class="teks-paragraf max-w-[80%]">${v.alamat_kado}</p>
-                </div>`;
-            }
-
-            if(listRekening.length > 0) {
-                if(!directRekening) {
-                    htmlGift += `<div class="muncul mb-8 w-max max-w-[250px]"><button id="btn-toggle-rekening" class="btn-utama px-8 whitespace-nowrap"><i id="icon-toggle-rekening" class="fas fa-search"></i><span id="text-toggle-rekening">Lihat Rekening</span></button></div>
-                    <div id="box-rekening" class="hidden flex-col gap-4 w-full items-center muncul">`;
-                } else {
-                    htmlGift += `<div id="box-rekening" class="flex flex-col gap-4 w-full items-center muncul">`;
-                }
-                
-                listRekening.forEach((r, idx) => {
-                    htmlGift += `<div class="relative w-full max-w-[280px] aspect-[1.58/1] bg-white bg-cover bg-center rounded-xl p-5 shadow-sm flex flex-col justify-between overflow-hidden border border-accent/40" style="background-image: url('https://ik.imagekit.io/asetundangan/aset/icon-bank/Background-atm.webp?updatedAt=1771832799762');">
-                        <div class="flex justify-between items-start w-full z-10"><img src="https://ik.imagekit.io/asetundangan/aset/icon-bank/chip-atm-undangan.webp" alt="Chip" class="w-10 opacity-70"><img src="https://ik.imagekit.io/asetundangan/aset/icon-bank/${r.logo}" onerror="this.src='https://ik.imagekit.io/asetundangan/aset/icon-bank/Logo-Bank-BCA-1.png'" alt="${r.bank}" class="h-[28px] w-auto object-contain"></div>
-                        <div class="flex flex-col items-end w-full z-10 mt-auto"><h5 class="font-montserrat text-[10px] font-bold tracking-[0.1em] text-gray-800 mb-1">${r.nama.toUpperCase()}</h5><p class="font-montserrat text-[20px] tracking-[0.15em] font-semibold text-gray-900 mb-3" id="rek-${idx}">${r.norek}</p><button onclick="copyRekening('rek-${idx}', this)" class="bg-white border border-gray-300 text-gray-800 text-[10px] font-montserrat font-semibold px-3 py-1.5 rounded flex items-center gap-1.5 hover:bg-gray-100 transition-colors"><i class="far fa-copy"></i> <span>Salin Nomor</span></button></div>
-                    </div>`;
-                });
-                htmlGift += `</div>`;
-            }
-            htmlGift += `<div class="w-full flex justify-center mt-12 zoom"><lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-3.json" background="transparent" speed="1" style="width: 150px; height: 30px;" loop autoplay></lottie-player></div></div></section>`;
-        }
-
-        // --- MERAKIT TURUT MENGUNDANG ---
-        let htmlTurut = '';
-        if(showTurut && (v.turut_w.trim() !== '' || v.turut_p.trim() !== '')) {
-            htmlTurut += `<section id="section-mengundang" class="section-card pb-16">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kiri">
-                <img src="https://ik.imagekit.io/asetundangan/aset/biru/bunga-biru.webp" alt="Ornamen Biru" class="ornamen-pojok-kanan">
-                <div class="relative z-10 flex flex-col items-center w-full">
-                    <h2 class="teks-judul mb-4 zoom leading-tight">Turut<br>Mengundang</h2>
-                    
-                    <div class="w-full flex justify-center mb-10 muncul">
-                         <lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-1.json" background="transparent" speed="1" style="width: 200px; height: 35px;" loop autoplay></lottie-player>
-                    </div>
-                    
-                    <p class="teks-paragraf mb-12 muncul">Kami juga berterima kasih kepada semua pihak yang telah membantu mempersiapkan segala persiapan acara pernikahan kami.</p>`;
-            
-            if(v.turut_w.trim() !== ''){
-                htmlTurut += `<h4 class="font-cinzel text-[14px] font-semibold tracking-wider text-accent uppercase mb-5 muncul">Keluarga Mempelai Wanita</h4><div class="flex flex-col items-center gap-2 mb-10 muncul w-full">`;
-                v.turut_w.split('\n').forEach(line => { if(line.trim() !== '') htmlTurut += `<p class="font-playfair text-[14px] font-medium text-textmain text-center">${line}</p>`; });
-                htmlTurut += `</div>`;
-            }
-
-            if(v.turut_w.trim() !== '' && v.turut_p.trim() !== '') {
-                htmlTurut += `<div class="flex items-center w-full my-4 zoom gap-3 justify-center max-w-[60%]"><div class="h-[1px] bg-accent/40 flex-grow"></div><i class="fas fa-praying-hands text-xl text-accent"></i><div class="h-[1px] bg-accent/40 flex-grow"></div></div>`;
-            }
-
-            if(v.turut_p.trim() !== ''){
-                htmlTurut += `<h4 class="font-cinzel text-[14px] font-semibold tracking-wider text-accent uppercase mb-5 mt-8 muncul">Keluarga Mempelai Pria</h4><div class="flex flex-col items-center gap-2 mb-10 muncul w-full">`;
-                v.turut_p.split('\n').forEach(line => { if(line.trim() !== '') htmlTurut += `<p class="font-playfair text-[14px] font-medium text-textmain text-center">${line}</p>`; });
-                htmlTurut += `</div>`;
-            }
-            htmlTurut += `<div class="w-full flex justify-center mt-4 zoom"><lottie-player class="lottie-biru" src="https://ik.imagekit.io/asetundangan/aset/json/devider-json-3.json" background="transparent" speed="1" style="width: 150px; height: 30px;" loop autoplay></lottie-player></div></div></section>`;
-        }
-
-        // --- MERAKIT LOGIKA ANTI SPAM / DEMO MODE ---
-        let htmlLogikaSpam = ``;
-        let htmlSetLocal = ``;
+            const btnToggleRek = document.getElementById('btn-toggle-rekening'); const boxRekening = document.getElementById('box-rekening');
+            if (btnToggleRek && boxRekening) { btnToggleRek.addEventListener('click', () => { if (boxRekening.classList.contains('hidden')) { boxRekening.classList.remove('hidden'); boxRekening.classList.add('flex', 'fade-in-box'); document.getElementById('icon-toggle-rekening').className = 'far fa-eye-slash'; document.getElementById('text-toggle-rekening').textContent = 'Sembunyikan Rekening'; } else { boxRekening.classList.add('hidden'); boxRekening.classList.remove('flex', 'fade-in-box'); document.getElementById('icon-toggle-rekening').className = 'fas fa-search'; document.getElementById('text-toggle-rekening').textContent = 'Lihat Rekening'; } }); }
+        });
         
-        if (isDemoModeOn) {
-            htmlLogikaSpam = `
-        document.addEventListener('click', function(e) {
-            if(e.target.closest('#btn-preview-kirim')) {
-                e.preventDefault();
-                showModal("Mode Demo", "Maaf, RSVP dan ucapan tidak dapat dikirim karena ini adalah versi demo/preview tema.", [{text:"Mengerti", color:"bg-textmain text-white", action:"tutupModal()"}]);
-            }
-        });`;
-            htmlSetLocal = `// Demo Mode, no local storage`;
-        } else if(isSpamFilterOn) {
-            htmlLogikaSpam = `
+        window.copyRekening = function(elementId, btnElement) { const norek = document.getElementById(elementId).innerText; const tempInput = document.createElement('input'); tempInput.value = norek; document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); const spanText = btnElement.querySelector('span'); const originalText = spanText.textContent; spanText.textContent = 'Tersalin!'; btnElement.classList.replace('text-textmain', 'text-green-600'); setTimeout(() => { spanText.textContent = originalText; btnElement.classList.replace('text-green-600', 'text-textmain'); }, 2000); }
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, where } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAbpnsGjy9p8doAtZx-Jc1U1nod3M-S90Y",
+            authDomain: "sistem-rsvp.firebaseapp.com",
+            projectId: "sistem-rsvp",
+            storageBucket: "sistem-rsvp.firebasestorage.app",
+            messagingSenderId: "634798818741",
+            appId: "1:634798818741:web:83d56bf3122968dc86c5fc"
+        };
+        const app = initializeApp(firebaseConfig); const db = getFirestore(app);
+
+        // Memprioritaskan BRIDE ID dari form jika valid, untuk menghindari override dari URL iframe lokal
+        let brideId = "lisa-dan-palmer";
+        
+        // HANYA jika template string tidak diganti (berjalan mandiri di host), barulah coba extract dari URL
+        if (brideId.includes("BRIDE_ID")) {
+            try {
+                const urlPath = window.location.pathname;
+                if (urlPath && urlPath !== '/' && !urlPath.includes('preview') && !urlPath.includes('blob') && !urlPath.includes('srcdoc')) {
+                    const pathSegments = urlPath.split('/').filter(segment => segment.length > 0 && !segment.includes('.html'));
+                    if (pathSegments.length > 0 && pathSegments[pathSegments.length - 1] !== 'index') {
+                        brideId = pathSegments[pathSegments.length - 1];
+                    }
+                }
+            } catch(e) {}
+        }
+        
+        brideId = brideId.replace(/[^a-zA-Z0-9-_]/g, ''); 
+        
+        const masterCollection = collection(db, 'rsvps');
+        const q = query(masterCollection, where("brideId", "==", brideId));
+        
+        const formRsvp = document.getElementById('form-rsvp'); const inputNama = document.getElementById('input-nama'); const inputUcapan = document.getElementById('input-ucapan'); const inputKehadiran = document.getElementById('input-kehadiran'); const btnKirimPreview = document.getElementById('btn-preview-kirim'); const daftarUcapan = document.getElementById('daftar-ucapan'); const countHadir = document.getElementById('count-hadir'); const countTidakHadir = document.getElementById('count-tidak-hadir'); const countRagu = document.getElementById('count-ragu');
+
+        function timeAgo(dateInput) { if (!dateInput) return "Baru saja"; const date = dateInput.toDate ? dateInput.toDate() : new Date(dateInput); const seconds = Math.round((new Date() - date) / 1000); const minutes = Math.round(seconds / 60); const hours = Math.round(minutes / 60); const days = Math.round(hours / 24); if (seconds < 60) return "Baru saja"; if (minutes < 60) return `${minutes} menit yang lalu`; if (hours < 24) return `${hours} jam yang lalu`; if (days === 1) return `Kemarin`; return `${days} hari yang lalu`; }
+        function getAvatarColor(name) { const colors = ['#1e3a5f', '#2a5082', '#3666a6', '#417bc9', '#4b5563', '#64748b', '#2c5282']; let hash = 0; for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash); return colors[Math.abs(hash) % colors.length]; }
+
+        onSnapshot(q, (snapshot) => {
+            let ucapanHTML = ''; let hadir = 0, tidakHadir = 0, ragu = 0;
+            const dataPesan = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            dataPesan.sort((a, b) => { const timeA = a.timestamp ? a.timestamp.toMillis() : Date.now(); const timeB = b.timestamp ? b.timestamp.toMillis() : Date.now(); return timeB - timeA; });
+            if(dataPesan.length === 0) { daftarUcapan.innerHTML = '<p class="text-center text-textsub/50 font-montserrat text-xs italic mt-4">Belum ada ucapan. Jadilah yang pertama!</p>'; countHadir.innerText = "0"; countTidakHadir.innerText = "0"; countRagu.innerText = "0"; return; }
+            dataPesan.forEach(data => {
+                if (data.kehadiran === 'Hadir') hadir++; else if (data.kehadiran === 'Tidak Hadir') tidakHadir++; else ragu++;
+                const inisial = data.nama.substring(0, 2).toUpperCase(); const bgColor = getAvatarColor(data.nama); const waktu = timeAgo(data.timestamp);
+                let badgeStatus = '';
+                if (data.kehadiran === 'Hadir') badgeStatus = '<span class="bg-[#22c55e] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Hadir <i class="fas fa-check"></i></span>';
+                else if (data.kehadiran === 'Tidak Hadir') badgeStatus = '<span class="bg-[#ef4444] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Tidak Hadir <i class="fas fa-times"></i></span>';
+                else badgeStatus = '<span class="bg-[#eab308] text-white text-[10px] px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">Masih Ragu <i class="fas fa-hourglass-half"></i></span>';
+                
+                ucapanHTML += `<div class="flex items-start gap-4 bg-white p-4 rounded-xl border border-accent/30 shadow-sm relative overflow-hidden shrink-0"><div class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full text-white flex items-center justify-center font-extrabold text-[15px] shrink-0 shadow-inner z-10" style="background-color: ${bgColor}">${inisial}</div><div class="flex flex-col w-full z-10"><div class="flex items-center justify-between mb-2 flex-wrap gap-2"><span class="font-bold text-textmain text-[12px] md:text-[13px] font-playfair tracking-wide">${data.nama}</span>${badgeStatus}</div><p class="text-[13px] text-textsub mb-2 leading-relaxed font-montserrat">${data.ucapan}</p><span class="text-[11px] text-accent font-montserrat font-medium">${waktu}</span></div><div class="absolute -bottom-4 -right-4 text-accent/10 text-6xl pointer-events-none"><i class="fas fa-quote-right"></i></div></div>`;
+            });
+            daftarUcapan.innerHTML = ucapanHTML;
+            if(typeof gsap !== 'undefined'){ gsap.to(countHadir, { innerHTML: hadir, duration: 1, snap: { innerHTML: 1 } }); gsap.to(countTidakHadir, { innerHTML: tidakHadir, duration: 1, snap: { innerHTML: 1 } }); gsap.to(countRagu, { innerHTML: ragu, duration: 1, snap: { innerHTML: 1 } }); }
+        });
+
+        // --- SISTEM KEAMANAN RSVP & ANTI SPAM ---
+        
         document.addEventListener('click', function(e) {
             if(e.target.closest('#btn-preview-kirim')) {
                 e.preventDefault();
@@ -1536,10 +676,10 @@
                 const namaVal = inputNama ? inputNama.value.trim() : ''; const ucapanVal = inputUcapan ? inputUcapan.value.trim() : ''; const kehadiranVal = inputKehadiran ? inputKehadiran.value : '';
                 if (!namaVal || !ucapanVal || !kehadiranVal) { showModal("Peringatan", "Mohon lengkapi semua kolom form RSVP terlebih dahulu.", [{text:"Mengerti", color:"bg-textmain text-white", action:"tutupModal()"}]); return; }
                 
-                if(localStorage.getItem('rsvp_${v.brideId}')) { showModal("Terima Kasih", "Anda sudah mengirimkan RSVP/Ucapan sebelumnya. 1 perangkat hanya dapat mengirim 1 kali.", [{text:"Tutup", color:"bg-gray-400 text-white", action:"tutupModal()"}]); return; }
+                if(localStorage.getItem('rsvp_lisa-dan-palmer')) { showModal("Terima Kasih", "Anda sudah mengirimkan RSVP/Ucapan sebelumnya. 1 perangkat hanya dapat mengirim 1 kali.", [{text:"Tutup", color:"bg-gray-400 text-white", action:"tutupModal()"}]); return; }
                 
                 const badWords = ['anjing', 'babi', 'monyet', 'bangsat', 'kontol', 'memek', 'jembut', 'goblok', 'tolol', 'ngentot', 'fuck', 'shit', 'bitch'];
-                const urlRegex = /(https?:\\/\\/|www\\.)[a-zA-Z0-9\\-\\.\\+\\/?\\=\\&#]+/gi;
+                const urlRegex = /(https?:\/\/|www\.)[a-zA-Z0-9\-\.\+\/?\=\&#]+/gi;
                 const ucapanLower = ucapanVal.toLowerCase();
                 const containsBadWord = badWords.some(word => ucapanLower.includes(word));
                 if(containsBadWord || urlRegex.test(ucapanVal)) { showModal("Peringatan Keamanan", "Maaf, ucapan tidak dapat dikirim karena mengandung tautan/link atau kata-kata yang tidak pantas.", [{text:"Ubah Ucapan", color:"bg-textmain text-white", action:"tutupModal()"}]); return; }
@@ -1549,156 +689,31 @@
                     {text:"Ya, Kirim", color:"bg-[#28a745] text-white", action:"kirimRsvpFinal()"}
                 ]);
             }
-        });`;
-            htmlSetLocal = `localStorage.setItem('rsvp_${v.brideId}', 'true');`;
-        } else {
-            htmlLogikaSpam = `
-        document.addEventListener('click', function(e) {
-            if(e.target.closest('#btn-preview-kirim')) {
-                e.preventDefault();
-                const inputNama = document.getElementById('input-nama'); const inputUcapan = document.getElementById('input-ucapan'); const inputKehadiran = document.getElementById('input-kehadiran');
-                const namaVal = inputNama ? inputNama.value.trim() : ''; const ucapanVal = inputUcapan ? inputUcapan.value.trim() : ''; const kehadiranVal = inputKehadiran ? inputKehadiran.value : '';
-                if (!namaVal || !ucapanVal || !kehadiranVal) { showModal("Peringatan", "Lengkapi semua form", [{text:"Oke", color:"bg-textmain text-white", action:"tutupModal()"}]); return; }
-                if(typeof window.kirimRsvpFinal === 'function') window.kirimRsvpFinal();
-            }
-        });`;
-            htmlSetLocal = `// Anti spam dinonaktifkan`;
-        }
-
-        // --- PROSES REPLACE KE TEMPLATE MENTAH ---
-        let finalHtml = templateMentah;
-        finalHtml = finalHtml.split('{{URL_MUSIK}}').join(v.url_musik);
-        finalHtml = finalHtml.split('{{SALAM_PEMBUKA}}').join(salamText);
-        finalHtml = finalHtml.split('{{PARAGRAF_PEMBUKA}}').join(paragrafText);
-        finalHtml = finalHtml.split('{{KALIGRAFI_BISMILLAH}}').join(bismillahHtml);
-
-        finalHtml = finalHtml.split('{{NAMA_PANGGILAN_GABUNGAN}}').join(v.w_pang + " & " + v.p_pang);
-        finalHtml = finalHtml.split('{{INISIAL_W}}').join(v.w_pang.charAt(0).toUpperCase());
-        finalHtml = finalHtml.split('{{INISIAL_P}}').join(v.p_pang.charAt(0).toUpperCase());
-        finalHtml = finalHtml.split('{{LOKASI_COVER}}').join(locCover || "Kota");
-        finalHtml = finalHtml.split('{{TANGGAL_COVER}}').join(tglCover || "Tanggal Belum Ditentukan");
-        finalHtml = finalHtml.split('{{TANGGAL_UTAMA}}').join((tglCover || "TANGGAL BELUM DITENTUKAN").toUpperCase());
-        
-        finalHtml = finalHtml.split('{{NAMA_PANGGILAN_W}}').join(v.w_pang);
-        finalHtml = finalHtml.split('{{NAMA_LENGKAP_W}}').join(v.w_leng);
-        finalHtml = finalHtml.split('{{ANAK_KE_W}}').join(v.w_anak);
-        finalHtml = finalHtml.split('{{ORTU_W}}').join(`Bpk. ${v.w_ayah}<br>& Ibu ${v.w_ibu}`);
-        finalHtml = finalHtml.split('{{IG_W}}').join(v.w_ig);
-
-        finalHtml = finalHtml.split('{{NAMA_PANGGILAN_P}}').join(v.p_pang);
-        finalHtml = finalHtml.split('{{NAMA_LENGKAP_P}}').join(v.p_leng);
-        finalHtml = finalHtml.split('{{ANAK_KE_P}}').join(v.p_anak);
-        finalHtml = finalHtml.split('{{ORTU_P}}').join(`Bpk. ${v.p_ayah}<br>& Ibu ${v.p_ibu}`);
-        finalHtml = finalHtml.split('{{IG_P}}').join(v.p_ig);
-
-        finalHtml = finalHtml.split('{{QUOTES_ISI}}').join(v.q_isi);
-        finalHtml = finalHtml.split('{{QUOTES_AUTHOR}}').join(v.q_author);
-        finalHtml = finalHtml.split('{{BRIDE_ID}}').join(v.brideId);
-        
-        finalHtml = finalHtml.split('{{COUNTDOWN_TARGET}}').join(countdownScript);
-        finalHtml = finalHtml.split('{{LINK_KALENDER}}').join(calLink);
-        
-        // Replace Link Thumbnail (Meta Tag)
-        finalHtml = finalHtml.split('{{LINK_THUMBNAIL}}').join(v.link_thumbnail);
-
-        // Replace Blocks
-        finalHtml = finalHtml.split('{{SECTION_ACARA}}').join(htmlAcara);
-        finalHtml = finalHtml.split('{{SECTION_LOVESTORY}}').join(htmlStory);
-        finalHtml = finalHtml.split('{{SECTION_GIFT}}').join(htmlGift);
-        finalHtml = finalHtml.split('{{SECTION_TURUT_MENGUNDANG}}').join(htmlTurut);
-        
-        // Replace Logic Spam
-        finalHtml = finalHtml.split('{{LOGIKA_FILTER_SPAM}}').join(htmlLogikaSpam);
-        finalHtml = finalHtml.split('{{SET_LOCAL_STORAGE}}').join(htmlSetLocal);
-
-        // 1. Render ke Iframe Preview (Ini harus dilakukan pertama agar Tailwind CDN di dalam iframe bekerja)
-        const iframe = document.getElementById('preview-frame');
-        iframe.contentWindow.document.open();
-        iframe.contentWindow.document.write(finalHtml);
-        iframe.contentWindow.document.close();
-
-        // 2. Pindah otomatis ke Tab Preview & Efek Glow
-        switchTab('preview');
-        const outBox = document.getElementById('preview-frame').parentElement;
-        outBox.classList.add('ring-4', 'ring-blue-500');
-        setTimeout(() => outBox.classList.remove('ring-4', 'ring-blue-500'), 800);
-
-        // 3. Proses Ekstraksi CSS Murni (Menunggu Tailwind selesai bekerja di dalam iframe)
-        document.getElementById('outputHtml').value = "⏳ Sedang meng-compile CSS Murni... Mohon tunggu sekitar 2 detik.";
-        
-        setTimeout(() => {
-            try {
-                const iframeDoc = iframe.contentWindow.document;
-                let compiledCss = '';
-                
-                // Ambil semua tag style yang sudah diproses oleh Tailwind di iframe
-                const styleTags = iframeDoc.querySelectorAll('style');
-                styleTags.forEach(tag => {
-                    compiledCss += tag.innerHTML + '\n';
-                });
-
-                let pureHtml = finalHtml;
-                
-                // Hapus pemanggilan script CDN Tailwind menggunakan manipulasi string yang aman dari parser HTML
-                pureHtml = pureHtml.split('<script src="https://cdn.tailwindcss.com"></' + 'script>').join('');
-                
-                // Hapus script konfigurasi Tailwind
-                pureHtml = pureHtml.replace(/<script>\s*tailwind\.config[\s\S]*?<\/script>/gi, '');
-                
-                // Hapus semua tag style bawaan (karena akan diganti dengan yang sudah tercompile lengkap)
-                pureHtml = pureHtml.replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, '');
-
-                // Sisipkan CSS Murni tepat di atas penutup </head>
-                const styleBlock = `<style>\n${compiledCss}\n</style>\n`;
-                pureHtml = pureHtml.replace('</head>', styleBlock + '</head>');
-
-                // Tampilkan kode final HTML + Inline CSS murni ke textarea
-                document.getElementById('outputHtml').value = pureHtml;
-
-                // Beri notifikasi visual di UI bahwa CSS murni sudah siap dicopy
-                const tabCodeBtn = document.getElementById('tab-code');
-                if(tabCodeBtn) {
-                    const originalText = tabCodeBtn.innerHTML;
-                    tabCodeBtn.innerHTML = '<i class="fas fa-check text-blue-400"></i> CSS Murni Siap!';
-                    setTimeout(() => { tabCodeBtn.innerHTML = originalText; }, 3000);
-                }
-
-            } catch (err) {
-                console.error("Gagal compile CSS Murni:", err);
-                document.getElementById('outputHtml').value = finalHtml; // Fallback ke versi awal jika gagal
-            }
-        }, 2500); // Tunggu 2.5 detik untuk memastikan Tailwind CDN selesai merender
-    }
-
-    // Export function so inline onclick works
-    window.generateWeb = generateWeb;
-
-    function copyHasil() {
-        const text = document.getElementById('outputHtml');
-        if(!text.value || text.value.includes('Sedang meng-compile')) {
-            alert("Silakan tunggu proses compile selesai!");
-            return;
-        }
-        try {
-            switchTab('code');
-            text.select();
-            text.setSelectionRange(0, 999999); // Untuk support HP
-            document.execCommand('copy');
-            alert("Kode HTML murni berhasil di-copy! Silakan paste di file index.html klien Anda.");
-        } catch (err) {
-            console.error(err);
-            alert("Gagal menyalin otomatis. Silakan blok semua teks (Ctrl+A) lalu Copy (Ctrl+C) secara manual.");
-        }
-    }
-    window.copyHasil = copyHasil;
-    
-    // Pastikan font dimuat sebelum mencoba menggambar ke canvas pertama kali
-    window.onload = function() {
-        document.fonts.ready.then(() => {
-            generateWeb();
         });
-    };
-</script>
+        
+        window.kirimRsvpFinal = async function() {
+            const namaVal = inputNama.value.trim(); const ucapanVal = inputUcapan.value.trim(); const kehadiranVal = inputKehadiran.value;
+            const textAwal = btnKirimPreview.innerHTML; btnKirimPreview.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...'; btnKirimPreview.disabled = true; btnKirimPreview.classList.add('opacity-50', 'cursor-not-allowed');
+            tutupModal();
+            try {
+                await addDoc(masterCollection, { brideId: brideId, nama: namaVal, ucapan: ucapanVal, kehadiran: kehadiranVal, timestamp: serverTimestamp() });
+                localStorage.setItem('rsvp_lisa-dan-palmer', 'true');
+                formRsvp.reset(); btnKirimPreview.innerHTML = '<i class="fas fa-check"></i> Terkirim!'; btnKirimPreview.classList.replace('text-white', 'text-white'); btnKirimPreview.classList.replace('bg-accent', 'bg-[#28a745]');
+            } catch (error) { 
+                console.error("Firebase Error:", error);
+                showModal("Error", "Gagal mengirim data. Silakan periksa koneksi atau Rules Firebase Anda.", [{text:"Tutup", color:"bg-gray-400 text-white", action:"tutupModal()"}]); 
+            } 
+            finally { setTimeout(() => { btnKirimPreview.innerHTML = textAwal; btnKirimPreview.disabled = false; btnKirimPreview.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-[#28a745]', 'text-white'); btnKirimPreview.classList.add('bg-accent', 'text-white'); }, 3000); }
+        }
 
+        const modal = document.getElementById('custom-modal');
+        window.showModal = function(title, msg, buttons) {
+            document.getElementById('modal-title').innerText = title; document.getElementById('modal-msg').innerText = msg;
+            let btnHtml = ''; buttons.forEach(b => { btnHtml += `<button onclick="${b.action}" class="px-5 py-2 rounded text-xs font-bold ${b.color}">${b.text}</button>`; });
+            document.getElementById('modal-actions').innerHTML = btnHtml; modal.classList.add('active');
+        }
+        window.tutupModal = function() { modal.classList.remove('active'); }
+
+    </script>
 </body>
 </html>
