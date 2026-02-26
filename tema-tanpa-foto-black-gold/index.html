@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Meta Tags Open Graph (Untuk Preview WhatsApp / Facebook) -->
-    <title>Undangan Pernikahan Lisa & Palmer</title>
-    <meta name="description" content="Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.">
-    <meta property="og:title" content="Undangan Pernikahan Lisa & Palmer">
-    <meta property="og:description" content="Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.">
+    <title>Tema Tanpa Foto Baby Blue</title>
+    <meta name="description" content="Klik link berikut untuk melihat preview/demo undangan ini secara langsung.">
+    <meta property="og:title" content="Tema Tanpa Foto Black Gold">
+    <meta property="og:description" content="Undangan digital pernikahan tanpa foto dengan nuansa Hitam Emas yang elegan.">
     <meta property="og:image" content="https://ik.imagekit.io/asetundangan/aset/template-thumbnail/hitam-emas.webp">
     <meta property="og:type" content="website">
     
@@ -60,11 +60,11 @@
         .cover-arch { position: absolute; top: 15px; right: 15px; bottom: 15px; left: 15px; border: 1px solid rgba(212, 175, 55, 0.4); border-top-left-radius: 200px; border-top-right-radius: 200px; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; pointer-events: none; z-index: 0; }
         select.input-box option { background-color: #1a1a1a; color: #fff; }
         /* Tombol Floating Elegan (Music & Fullscreen) */
-        .floating-btn { position: fixed; right: 20px; width: 40px; height: 40px; background: rgba(15, 15, 15, 0.65); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(212, 175, 55, 0.3); color: #d4af37; border-radius: 50%; cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(212, 175, 55, 0.05); transition: all 0.3s ease; }
+        .floating-btn { position: fixed; right: 20px; width: 38px; height: 40px; background: rgba(15, 15, 15, 0.65); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(212, 175, 55, 0.3); color: #d4af37; border-radius: 50%; cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(212, 175, 55, 0.05); transition: all 0.3s ease; }
         .floating-btn:hover { background: rgba(20, 20, 20, 0.9); border-color: rgba(212, 175, 55, 0.8); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.3); transform: translateY(-2px); color: #e8c96b; }
         .floating-btn:active { transform: scale(0.95); }
-        #enter-fullscreen { bottom: 85px; font-size: 16px; }
-        #audio-toggle { bottom: 25px; }
+        #enter-fullscreen { bottom: 70px; font-size: 16px; }
+        #audio-toggle { bottom: 20px; }
         #audio-toggle svg { width: 22px; height: 22px; fill: #d4af37; transition: fill 0.3s ease; }
         .floating-btn:hover svg { fill: #e8c96b; }
         @keyframes spin-continuous { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -183,7 +183,7 @@ html{scroll-behavior:auto !important;}
                     </div>
                     <p class="font-montserrat text-[11px] text-center text-gold/70 mb-5 muncul px-4 leading-relaxed">Klik tombol dibawah untuk tambahkan pengingat otomatis ke kalender Google</p>
                     
-                    <div class="zoom"><a href="#" target="_blank" class="btn-utama"><i class="far fa-calendar-alt"></i> Simpan di Kalender</a></div>
+                    <div class="zoom"><a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The%20Wedding%20Of%20Lisa%20%26%20Palmer&details=Kami%20sangat%20mengharapkan%20kehadiran%20Bapak%2FIbu%2FSaudara%2Fi%20pada%20acara%20pernikahan%20kami.&location=Gedung%20Serbaguna%20ABC%2C%20Jl.%20Jendral%20Sudirman%20No.%2045%26%2310%3BKec.%20Medan%20Petisah%2C%20Kota%20Medan&dates=20260319T090000/20260319T190000" target="_blank" class="btn-utama"><i class="far fa-calendar-alt"></i> Simpan di Kalender</a></div>
                     <img src="https://ik.imagekit.io/asetundangan/aset/gold/pembatas%20emas%205.webp" alt="Line" class="garis-pembatas mt-14 muncul">
                 </div>
             </section>
@@ -525,6 +525,47 @@ html{scroll-behavior:auto !important;}
             if ("IntersectionObserver" in window) { const ioEnter = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("active"); }); }, { root: null, rootMargin: `0px 0px -${elementVisible}px 0px`, threshold: 0 }); const ioExit = new IntersectionObserver((entries) => { entries.forEach(e => { if (!e.isIntersecting) e.target.classList.remove("active"); }); }, { root: null, rootMargin: "0px", threshold: 0 }); qAll(selector).forEach(el => { ioEnter.observe(el); ioExit.observe(el); }); }
 
             
+(function(){
+  const daysEl  = document.getElementById('cd-days');
+  const hoursEl = document.getElementById('cd-hours');
+  const minsEl  = document.getElementById('cd-mins');
+  const secsEl  = document.getElementById('cd-secs');
+  if(!daysEl || !hoursEl || !minsEl || !secsEl) return;
+
+  const target = new Date(2026, 2, 19, 9, 0, 0, 0).getTime();
+
+  const pad2 = (n) => String(n).padStart(2,'0');
+  function paintZero(){
+    daysEl.textContent='00'; hoursEl.textContent='00'; minsEl.textContent='00'; secsEl.textContent='00';
+  }
+
+  if(!Number.isFinite(target)){
+    paintZero(); return;
+  }
+
+  function update(){
+    const now = Date.now();
+    let dist = target - now;
+    if(dist <= 0){ paintZero(); if(timer) clearInterval(timer); return; }
+
+    const days = Math.floor(dist / (1000*60*60*24));
+    dist -= days * (1000*60*60*24);
+    const hours = Math.floor(dist / (1000*60*60));
+    dist -= hours * (1000*60*60);
+    const mins = Math.floor(dist / (1000*60));
+    dist -= mins * (1000*60);
+    const secs = Math.floor(dist / 1000);
+
+    daysEl.textContent = String(days).padStart(2,'0');
+    hoursEl.textContent = pad2(hours);
+    minsEl.textContent = pad2(mins);
+    secsEl.textContent = pad2(secs);
+  }
+
+  let timer = null;
+  update();
+  timer = setInterval(update, 1000);
+})();
 
             const btnToggleRek = document.getElementById('btn-toggle-rekening'); const boxRekening = document.getElementById('box-rekening');
             if (btnToggleRek && boxRekening) { btnToggleRek.addEventListener('click', () => { if (boxRekening.classList.contains('hidden')) { boxRekening.classList.remove('hidden'); boxRekening.classList.add('flex', 'fade-in-box'); document.getElementById('icon-toggle-rekening').className = 'far fa-eye-slash'; document.getElementById('text-toggle-rekening').textContent = 'Sembunyikan Rekening'; } else { boxRekening.classList.add('hidden'); boxRekening.classList.remove('flex', 'fade-in-box'); document.getElementById('icon-toggle-rekening').className = 'fas fa-search'; document.getElementById('text-toggle-rekening').textContent = 'Lihat Rekening'; } }); }
