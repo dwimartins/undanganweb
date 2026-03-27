@@ -62,7 +62,7 @@
             width: 100%;
             max-width: 420px;
             height: 100dvh;
-            background-image: url('https://ik.imagekit.io/asetundangan/aset/background/background%20biru%20islami%20khita.jpg?tr=w-800,q-70,f-auto'); /* Dioptimasi backgroundnya */
+            background-image: url('https://ik.imagekit.io/asetundangan/aset/background/background%20biru%20islami%20khita.jpg?tr=w-800,q-70,f-auto'); 
             background-size: cover;
             background-position: center;
             z-index: 0;
@@ -171,7 +171,7 @@
             <div class="w-full max-w-[340px] premium-card rounded-[2rem] p-8 flex flex-col items-center relative z-10 mt-8">
                 <div class="absolute inset-[8px] border-[1px] border-white/40 rounded-[1.6rem] pointer-events-none z-0"></div>
 
-                <div class="relative w-[150px] mb-8 -mt-20 z-10 flex flex-col items-center img-placeholder rounded-t-[6rem] rounded-b-[4px] zoom active">
+                <div class="relative w-[150px] mb-8 -mt-20 z-10 flex flex-col items-center img-placeholder rounded-t-[6rem] rounded-b-[4px] muncul active">
                     <div class="w-full h-[190px] border-[2px] border-emas/80 rounded-t-[6rem] rounded-b-[4px] shadow-lg bg-transparent p-[4px]">
                         <img src="https://ik.imagekit.io/asetundangan/aset/khitan/muslimboy.jpg?tr=w-300,h-400,q-80,f-auto" alt="Foto Khitan" class="w-full h-full object-cover rounded-t-[5.8rem] rounded-b-[2px]" decoding="async">
                     </div>
@@ -183,8 +183,8 @@
                     <div class="w-1.5 h-1.5 bg-emas transform rotate-45 opacity-80"></div>
                 </div>
                 
-                <h1 class="font-great-vibes text-biru-teks text-[6rem] leading-[0.9] mb-3 drop-shadow-sm z-10 zoom active">Khitan</h1>
-                <h2 class="font-playfair font-bold italic text-biru-teks text-[2rem] tracking-wide mb-10 z-10 muncul active">Nicolas Jackson</h2>
+                <h1 class="font-great-vibes text-biru-teks text-[6rem] leading-[0.9] mb-3 drop-shadow-sm z-10 muncul active">Khitan</h1>
+                <h2 class="font-playfair font-bold italic text-biru-teks text-[2.2rem] tracking-wide mb-10 z-10 muncul active">Nicolas Jackson</h2>
 
                 <div class="flex items-center justify-center gap-4 w-[85%] mb-8 z-10 muncul active">
                     <div class="h-[1px] bg-biru-teks/20 flex-grow"></div>
@@ -227,23 +227,28 @@
                         Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta'ala, insyaaAllah kami akan menyelenggarakan acara Tasyakuran Khitan anak kami :
                     </p>
 
-                    <div class="relative w-[150px] mb-8 z-10 flex flex-col items-center img-placeholder rounded-t-[6rem] rounded-b-[4px] zoom">
+                    <!-- Foto Anak & Komposisi Teks (Dipercantik sesuai Image 1) -->
+                    <div class="relative w-[150px] mb-8 z-10 flex flex-col items-center img-placeholder rounded-t-[6rem] rounded-b-[4px] muncul">
                         <div class="w-full h-[190px] border-[2px] border-emas/80 rounded-t-[6rem] rounded-b-[4px] shadow-lg bg-transparent p-[4px]">
                             <img src="https://ik.imagekit.io/asetundangan/aset/khitan/muslimboy.jpg?tr=w-300,h-400,q-80,f-auto" alt="Foto Anak" class="w-full h-full object-cover rounded-t-[5.8rem] rounded-b-[2px]" loading="lazy" decoding="async">
                         </div>
                     </div>
 
-                    <h2 class="font-playfair font-bold italic text-biru-teks text-[2rem] tracking-wide mb-10 muncul">Nicolas Jackson</h2>
+                    <h2 class="font-playfair font-bold italic text-biru-teks text-[2.2rem] tracking-wide mb-10 muncul">Nicolas Jackson</h2>
 
                     <div class="w-full flex flex-col items-center muncul">
                         <div class="flex items-center justify-center w-full mb-6 opacity-80">
-                            <div class="h-[1px] bg-biru-teks/30 flex-grow"></div>
+                            <div class="h-[1px] bg-biru-teks/40 flex-grow"></div>
                             <span class="font-montserrat font-bold text-[8.5px] text-biru-teks px-4 uppercase tracking-[0.25em]">Putra Pertama Dari</span>
-                            <div class="h-[1px] bg-biru-teks/30 flex-grow"></div>
+                            <div class="h-[1px] bg-biru-teks/40 flex-grow"></div>
                         </div>
-                        <h3 class="font-playfair font-bold text-biru-teks text-[15px] tracking-wide text-center mb-2">Bapak Jose Mourinho</h3>
-                        <span class="font-great-vibes text-emas text-[1.5rem] leading-none mb-2 drop-shadow-sm">dan</span>
-                        <h3 class="font-playfair font-bold text-biru-teks text-[15px] tracking-wide text-center">Ibu Happy Mourinho</h3>
+                        
+                        <!-- Nama Orang Tua Lebih Elegan & Dekat -->
+                        <div class="flex flex-col gap-1.5 items-center">
+                            <h3 class="font-playfair font-bold text-biru-teks text-[16px] tracking-wide text-center">Bapak Jose Mourinho</h3>
+                            <span class="font-playfair italic text-biru-teks/70 text-[15px] leading-none drop-shadow-sm">dan</span>
+                            <h3 class="font-playfair font-bold text-biru-teks text-[16px] tracking-wide text-center">Ibu Happy Mourinho</h3>
+                        </div>
                     </div>
                 </div>
 
@@ -263,7 +268,7 @@
                     
                     <div class="absolute inset-[8px] border-[1px] border-white/40 rounded-[1.6rem] pointer-events-none z-0"></div>
 
-                    <h2 class="font-cinzel text-biru-teks text-[22px] font-bold tracking-[0.15em] text-center leading-snug mb-4 mt-2 zoom">
+                    <h2 class="font-cinzel text-biru-teks text-[22px] font-bold tracking-[0.15em] text-center leading-snug mb-4 mt-2 muncul">
                         TASYAKURAN<br>KHITAN
                     </h2>
                     
@@ -271,20 +276,21 @@
                         Dengan segala kerendahan hati kami berharap kehadiran Bapak/Ibu/Saudara/i dalam acara Tasyakuran Khitan anak kami yang akan diselenggarakan pada :
                     </p>
 
+                    <!-- Tanggal dan Jam Diperbesar Sedikit agar terbaca -->
                     <div class="grid grid-cols-2 gap-3 w-full mb-8">
                         <div class="border-[1.5px] border-biru-teks/20 rounded-xl p-4 flex flex-col items-center bg-white/30 shadow-[0_4px_15px_rgba(0,0,0,0.05)] muncul-kiri">
-                            <div class="w-10 h-10 rounded-full border-[1.5px] border-biru-teks/30 flex items-center justify-center mb-3 bg-white/50 text-biru-teks shadow-sm">
-                                <i class="far fa-calendar-alt text-[16px]"></i>
+                            <div class="w-11 h-11 rounded-full border-[1.5px] border-biru-teks/30 flex items-center justify-center mb-3 bg-white/50 text-biru-teks shadow-sm">
+                                <i class="far fa-calendar-alt text-[18px]"></i>
                             </div>
-                            <h4 class="font-montserrat font-bold text-biru-teks text-[13px] tracking-wide mb-1">Sabtu</h4>
-                            <p class="font-montserrat font-medium text-biru-teks/70 text-[10px]">02 Juli 2025</p>
+                            <h4 class="font-montserrat font-bold text-biru-teks text-[15px] tracking-wide mb-1">Sabtu</h4>
+                            <p class="font-montserrat font-semibold text-biru-teks/80 text-[11.5px]">02 Juli 2025</p>
                         </div>
                         <div class="border-[1.5px] border-biru-teks/20 rounded-xl p-4 flex flex-col items-center bg-white/30 shadow-[0_4px_15px_rgba(0,0,0,0.05)] muncul-kanan">
-                            <div class="w-10 h-10 rounded-full border-[1.5px] border-biru-teks/30 flex items-center justify-center mb-3 bg-white/50 text-biru-teks shadow-sm">
-                                <i class="far fa-clock text-[16px]"></i>
+                            <div class="w-11 h-11 rounded-full border-[1.5px] border-biru-teks/30 flex items-center justify-center mb-3 bg-white/50 text-biru-teks shadow-sm">
+                                <i class="far fa-clock text-[18px]"></i>
                             </div>
-                            <h4 class="font-montserrat font-bold text-biru-teks text-[13px] tracking-wide mb-1">Pukul</h4>
-                            <p class="font-montserrat font-medium text-biru-teks/70 text-[10px]">10.00 WIB</p>
+                            <h4 class="font-montserrat font-bold text-biru-teks text-[15px] tracking-wide mb-1">Pukul</h4>
+                            <p class="font-montserrat font-semibold text-biru-teks/80 text-[11.5px]">10.00 WIB</p>
                         </div>
                     </div>
 
@@ -321,9 +327,12 @@
                         Klik tombol dibawah untuk menambahkan pengingat otomatis ke kalender Google.
                     </p>
 
-                    <a href="#" class="w-[90%] bg-biru-teks hover:bg-[#0e2242] text-white border border-emas/40 font-montserrat font-bold text-[9.5px] tracking-[0.2em] py-3.5 rounded-md transition-colors duration-300 flex items-center justify-center gap-3 group shadow-md zoom">
-                        <i class="far fa-calendar-alt text-[12px] group-hover:scale-110 transition-transform"></i> SIMPAN DI KALENDER
-                    </a>
+                    <!-- Tombol Diseragamkan menggunakan efek 'muncul' -->
+                    <div class="w-[90%] muncul">
+                        <a href="#" class="w-full bg-biru-teks hover:bg-[#0e2242] text-white border border-emas/40 font-montserrat font-bold text-[9.5px] tracking-[0.2em] py-3.5 rounded-md transition-colors duration-300 flex items-center justify-center gap-3 group shadow-md">
+                            <i class="far fa-calendar-alt text-[12px] group-hover:scale-110 transition-transform"></i> SIMPAN DI KALENDER
+                        </a>
+                    </div>
 
                 </div>
 
@@ -343,7 +352,7 @@
                     
                     <div class="absolute inset-[8px] border-[1px] border-white/40 rounded-[1.6rem] pointer-events-none z-0"></div>
 
-                    <div class="flex items-center justify-center w-full mb-6 mt-2 zoom">
+                    <div class="flex items-center justify-center w-full mb-6 mt-2 muncul">
                         <div class="h-[1px] bg-biru-teks/40 flex-grow"></div>
                         <h2 class="font-cinzel text-biru-teks text-[20px] font-bold tracking-[0.1em] px-4 uppercase text-center">Lokasi Acara</h2>
                         <div class="h-[1px] bg-biru-teks/40 flex-grow"></div>
@@ -365,14 +374,17 @@
                         Kec. Medan Petisah, Kota Medan
                     </p>
 
-                    <!-- Animasi Zoom dihapus dari iFrame Map agar tidak berat/lompat -->
+                    <!-- Animasi Dihapus dari Wrapper Iframe (Biarkan Load Halus) -->
                     <div class="w-full h-[250px] rounded-xl border-[2px] border-white overflow-hidden shadow-sm mb-8 bg-white">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127453.308734266!2d98.57564755106574!3d3.593132649065095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x303131b0c0349b11%3A0xc3ec51b32d0c2e27!2sMasjid%20Agung%20Kota%20Medan!5e0!3m2!1sid!2sid!4v1714445558123!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
 
-                    <a href="https://maps.app.goo.gl/SRkgbhFnmvKziUGD7" target="_blank" class="w-[90%] bg-biru-teks hover:bg-[#0e2242] text-white border border-emas/40 font-montserrat font-bold text-[9.5px] tracking-[0.2em] py-3.5 rounded-md transition-colors duration-300 flex items-center justify-center gap-3 group shadow-md zoom">
-                        <i class="fas fa-map-marker-alt text-[12px] group-hover:animate-bounce"></i> LIHAT GOOGLE MAPS
-                    </a>
+                    <!-- Tombol Diseragamkan menggunakan efek 'muncul' -->
+                    <div class="w-[90%] muncul">
+                        <a href="https://maps.app.goo.gl/SRkgbhFnmvKziUGD7" target="_blank" class="w-full bg-biru-teks hover:bg-[#0e2242] text-white border border-emas/40 font-montserrat font-bold text-[9.5px] tracking-[0.2em] py-3.5 rounded-md transition-colors duration-300 flex items-center justify-center gap-3 group shadow-md">
+                            <i class="fas fa-map-marker-alt text-[12px] group-hover:animate-bounce"></i> LIHAT GOOGLE MAPS
+                        </a>
+                    </div>
 
                 </div>
 
@@ -392,7 +404,7 @@
                     
                     <div class="absolute inset-[8px] border-[1px] border-white/40 rounded-[1.6rem] pointer-events-none z-0"></div>
 
-                    <div class="flex items-center justify-center w-full mb-4 mt-2 zoom">
+                    <div class="flex items-center justify-center w-full mb-4 mt-2 muncul">
                         <div class="h-[1px] bg-biru-teks/40 flex-grow"></div>
                         <h2 class="font-cinzel text-biru-teks text-[20px] font-bold tracking-[0.1em] px-4 uppercase text-center">Gallery Foto</h2>
                         <div class="h-[1px] bg-biru-teks/40 flex-grow"></div>
@@ -431,7 +443,7 @@
                 <div class="w-full max-w-[340px] premium-card rounded-[2rem] px-8 pt-8 pb-12 flex flex-col items-center relative mt-8 mb-6">
                     <div class="absolute inset-[8px] border-[1px] border-white/40 rounded-[1.6rem] pointer-events-none z-0"></div>
 
-                    <div class="flex items-center justify-center w-full mb-4 mt-2 zoom">
+                    <div class="flex items-center justify-center w-full mb-4 mt-2 muncul">
                         <div class="h-[1px] bg-biru-teks/40 flex-grow"></div>
                         <h2 class="font-cinzel text-biru-teks text-[20px] font-bold tracking-[0.1em] px-4 uppercase text-center">Kirim Hadiah</h2>
                         <div class="h-[1px] bg-biru-teks/40 flex-grow"></div>
@@ -441,7 +453,8 @@
                         Kehadiran Anda merupakan sebuah do'a serta rasa syukur bagi kami, namun jika memberi adalah bentuk Do'a & cinta kasih bagi Anda, Anda dapat memberi kado secara cashless.
                     </p>
 
-                    <div class="mb-8 w-[90%] zoom">
+                    <!-- Tombol Diseragamkan -->
+                    <div class="mb-8 w-[90%] muncul">
                         <button id="btn-toggle-rekening" class="w-full bg-biru-teks hover:bg-[#0e2242] text-white border border-emas/40 font-montserrat font-bold text-[9.5px] tracking-[0.2em] py-3.5 rounded-md transition-colors duration-300 flex items-center justify-center gap-3 group shadow-md">
                             <i id="icon-toggle-rekening" class="fas fa-search group-hover:scale-110 transition-transform"></i>
                             <span id="text-toggle-rekening">LIHAT REKENING</span>
@@ -480,7 +493,7 @@
                     
                     <div class="absolute inset-[8px] border-[1px] border-white/40 rounded-[1.6rem] pointer-events-none z-0"></div>
 
-                    <div class="flex items-center justify-center w-full mb-4 mt-2 zoom">
+                    <div class="flex items-center justify-center w-full mb-4 mt-2 muncul">
                         <div class="h-[1px] bg-biru-teks/40 flex-grow"></div>
                         <h2 class="font-cinzel text-biru-teks text-[20px] font-bold tracking-[0.1em] px-4 uppercase text-center">Doa & Ucapan</h2>
                         <div class="h-[1px] bg-biru-teks/40 flex-grow"></div>
@@ -520,7 +533,8 @@
                                 <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-biru-teks/50 group-focus-within:text-[#5179bc]"><i class="fas fa-chevron-down text-[12px]"></i></div>
                             </div>
 
-                            <button type="button" id="btn-preview-kirim" class="w-full mt-2 relative bg-biru-teks hover:bg-[#0e2242] text-white border border-emas/40 font-montserrat font-bold text-[9.5px] tracking-[0.2em] py-3.5 rounded-md transition-colors duration-300 flex justify-center items-center gap-3 group shadow-md zoom">
+                            <!-- Tombol Diseragamkan Animasi Muncul -->
+                            <button type="button" id="btn-preview-kirim" class="w-full mt-2 relative bg-biru-teks hover:bg-[#0e2242] text-white border border-emas/40 font-montserrat font-bold text-[9.5px] tracking-[0.2em] py-3.5 rounded-md transition-colors duration-300 flex justify-center items-center gap-3 group shadow-md muncul">
                                 <i class="fas fa-paper-plane group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300"></i> KIRIM UCAPAN
                             </button>
                         </form>
@@ -572,7 +586,7 @@
                     
                     <div class="absolute inset-[8px] border-[1px] border-white/40 rounded-[1.6rem] pointer-events-none z-0"></div>
 
-                    <div class="flex items-center justify-center w-full mb-6 mt-2 zoom">
+                    <div class="flex items-center justify-center w-full mb-6 mt-2 muncul">
                         <div class="h-[1px] bg-biru-teks/40 flex-grow"></div>
                         <h2 class="font-cinzel text-biru-teks text-[20px] font-bold tracking-[0.1em] px-4 uppercase text-center">Terima Kasih</h2>
                         <div class="h-[1px] bg-biru-teks/40 flex-grow"></div>
@@ -601,6 +615,7 @@
                         </div>
                     </div>
 
+                    <!-- Komposisi Keluarga Penutup Mirip Profil -->
                     <div class="flex items-center justify-center w-[90%] mb-8 opacity-80 muncul">
                         <div class="h-[1px] bg-biru-teks/40 flex-grow"></div>
                         <span class="font-montserrat font-bold text-[10.5px] text-biru-teks px-5 uppercase tracking-[0.2em]">Keluarga Besar</span>
@@ -608,19 +623,13 @@
                     </div>
 
                     <div class="flex flex-col items-center gap-1.5 w-full mb-12 muncul">
-                        <p class="font-playfair font-bold text-biru-teks text-[15px] tracking-wide text-center">
-                            Bapak Jose Mourinho
-                        </p>
-                        <p class="font-great-vibes text-emas text-[1.4rem] leading-none my-1 drop-shadow-sm">
-                            dan
-                        </p>
-                        <p class="font-playfair font-bold text-biru-teks text-[15px] tracking-wide text-center">
-                            Ibu Happy Mourinho
-                        </p>
+                        <p class="font-playfair font-bold text-biru-teks text-[16px] tracking-wide text-center">Bapak Jose Mourinho</p>
+                        <p class="font-playfair italic text-biru-teks/70 text-[15px] leading-none drop-shadow-sm my-0.5">dan</p>
+                        <p class="font-playfair font-bold text-biru-teks text-[16px] tracking-wide text-center">Ibu Happy Mourinho</p>
                     </div>
 
-                    <h3 class="font-playfair font-bold text-biru-teks text-[14px] tracking-[0.15em] uppercase mb-4 text-center zoom">
-                        WASSALAMUALAIKUM WR. WB.
+                    <h3 class="font-playfair font-bold text-biru-teks text-[15px] tracking-[0.15em] uppercase mb-4 text-center muncul">
+                        Wassalamualaikum Wr. Wb.
                     </h3>
 
                 </div>
@@ -634,11 +643,12 @@
             <!-- ========================================= -->
             <section id="footer" class="relative w-full flex flex-col items-center justify-center pb-12 pt-10 z-10 bg-biru-box">
                 
+                <!-- Animasi Lottie dengan Filter CSS untuk warna Biru Dongker -->
                 <lottie-player 
                     src="https://ik.imagekit.io/asetundangan/aset/json/thanksjson.json" 
                     background="transparent" 
                     speed="1" 
-                    style="width: 140px; height: auto; filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.1));" 
+                    style="width: 140px; height: auto; filter: invert(13%) sepia(35%) saturate(3369%) hue-rotate(201deg) brightness(94%) contrast(97%);" 
                     loop 
                     autoplay>
                 </lottie-player>
