@@ -755,16 +755,16 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             
-            // Inisialisasi Lenis untuk efek scrolling mengayun dan premium (Diperhalus)
+            // Inisialisasi Lenis untuk efek scrolling mengayun dan premium
             const lenis = new Lenis({
-                duration: 1.5, // Ditingkatkan agar scroll lebih mengayun dan panjang
+                duration: 1.5, 
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                 direction: 'vertical',
                 gestureDirection: 'vertical',
                 smooth: true,
                 smoothWheel: true,
                 wheelMultiplier: 1,
-                smoothTouch: true, // Diaktifkan agar di HP juga terasa efek mengayun
+                smoothTouch: true, 
                 touchMultiplier: 1.5
             });
 
@@ -774,21 +774,11 @@
             }
             requestAnimationFrame(raf);
 
-            // ==============================================================
-            // MEMBUKA KUNCI SCROLL & MENAMPILKAN KONTEN SEJAK AWAL
-            // Mengatasi bug scroll wheel mouse yang tidak bisa digunakan
-            // ==============================================================
-            document.body.classList.remove('lock-scroll');
-            document.documentElement.classList.remove('lock-scroll');
-            document.body.style.overflow = 'auto';
-            document.documentElement.style.overflow = 'auto';
-            
+            // Kunci Lenis secara eksplisit agar tidak bisa discroll sebelum klik
+            lenis.stop();
+
+            // Sembunyikan bagian dalam sampai di klik
             const contentUndangan = document.getElementById('content-undangan'); 
-            if(contentUndangan) { 
-                contentUndangan.classList.remove('hidden'); 
-                contentUndangan.classList.add('flex'); 
-            }
-            // ==============================================================
 
             // --- FITUR FOKUS GALERI (LIGHTBOX) ---
             const lightbox = document.createElement('div');
@@ -833,13 +823,11 @@
                 img.style.cursor = 'zoom-in';
                 img.classList.add('hover:opacity-80', 'transition-opacity', 'duration-300');
                 img.addEventListener('click', () => {
-                    // Gunakan Regex agar secara otomatis menghapus batas tinggi (crop imagekit) dan meload resolusi kualitas tinggi original
                     imgLightbox.src = img.src.replace(/tr=[a-zA-Z0-9,-]+/, 'tr=w-1200,q-90,f-auto'); 
                     lightbox.classList.remove('hidden');
                     lightbox.classList.add('flex');
                     if(lenis) lenis.stop(); // Kunci scroll background dengan benar via lenis
                     
-                    // Trigger reflow untuk animasi
                     void lightbox.offsetWidth;
                     
                     lightbox.classList.remove('opacity-0');
@@ -859,6 +847,8 @@
             const fsButton = document.getElementById('enter-fullscreen'); 
             const fsIcon = fsButton ? fsButton.querySelector('i') : null;
 
+            const unlockScroll = () => { document.body.classList.remove('lock-scroll'); document.documentElement.classList.remove('lock-scroll'); };
+
             function isFullscreen() { return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement; }
             function enterFullscreen(el = document.documentElement) { try { if (el.requestFullscreen) el.requestFullscreen(); else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen(); else if (el.msRequestFullscreen) el.msRequestFullscreen(); } catch (_) {} }
             function exitFullscreen() { if (isFullscreen()) { if (document.exitFullscreen) document.exitFullscreen(); else if (document.webkitExitFullscreen) document.webkitExitFullscreen(); else if (document.msExitFullscreen) document.msExitFullscreen(); } }
@@ -872,17 +862,26 @@
                 if (!targetSection) return; 
                 if (typeof gsap !== 'undefined' && window.ScrollToPlugin) { 
                     const currentY = window.pageYOffset || document.documentElement.scrollTop || 0; const rect = targetSection.getBoundingClientRect(); const targetY = currentY + rect.top; 
-                    // Durasi disesuaikan jadi 1.8 agar lebih halus seperti referensi
                     gsap.to(window, { duration: 1.8, ease: 'power3.inOut', scrollTo: { y: targetSection, autoKill: false } }); 
                 } else { targetSection.scrollIntoView({ behavior: 'smooth' }); } 
             };
 
             const handleFirstClick = (e) => { 
                 e.preventDefault(); 
+                
+                unlockScroll(); // Hapus pembatas overflow pada CSS
+                
+                // Aktifkan konten dan Lenis setelah di klik
+                if(contentUndangan) { 
+                    contentUndangan.classList.remove('hidden'); 
+                    contentUndangan.classList.add('flex'); 
+                }
+                lenis.start(); // Aktifkan smooth scroll mouse wheel
+
                 enterFullscreen(document.documentElement); 
                 if (audio && audio.paused) { audio.play().catch(err => console.log("Audio block:", err)); } 
                 setButtonToScroll(); 
-                // Waktu tunggu disamakan dengan referensi (1500ms) agar transisi amplop lebih rapi
+                
                 setTimeout(() => { scrollKeTujuan(); }, 1500); 
                 btnCover.removeEventListener('click', handleFirstClick); 
                 btnCover.addEventListener('click', (ev) => { ev.preventDefault(); scrollKeTujuan(); }); 
