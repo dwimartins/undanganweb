@@ -61,11 +61,18 @@
         html { scroll-behavior: auto !important; }
         body { 
             background-color: #062352; 
-            /* Opacity motif dikurangi menjadi 0.03 agar sangat halus */
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2394b4d6' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            background-size: 120px 120px; /* Memperlebar jarak antar motif */
-            background-attachment: fixed; /* Membuat background diam/sticky saat discroll */
             display: flex; justify-content: center; margin: 0; min-height: 100vh; overflow-x: hidden; 
+        }
+        
+        /* Pindahkan tekstur ke layer terpisah agar Wheel Scroll Lenis tidak rusak */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2394b4d6' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-size: 120px 120px;
+            pointer-events: none;
+            z-index: -1;
         }
         
         .mobile-container {
@@ -839,7 +846,9 @@
 
             const lockScroll = () => { document.body.classList.add('lock-scroll'); document.documentElement.classList.add('lock-scroll'); window.scrollTo(0, 0); };
             const unlockScroll = () => { document.body.classList.remove('lock-scroll'); document.documentElement.classList.remove('lock-scroll'); };
-            lockScroll();
+            
+            // Dimatikan agar scroll wheel mouse bebas digunakan sejak awal (seperti versi sebelumnya)
+            // lockScroll();
 
             function isFullscreen() { return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement; }
             function enterFullscreen(el = document.documentElement) { try { if (el.requestFullscreen) el.requestFullscreen(); else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen(); else if (el.msRequestFullscreen) el.msRequestFullscreen(); } catch (_) {} }
