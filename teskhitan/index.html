@@ -774,6 +774,22 @@
             }
             requestAnimationFrame(raf);
 
+            // ==============================================================
+            // MEMBUKA KUNCI SCROLL & MENAMPILKAN KONTEN SEJAK AWAL
+            // Mengatasi bug scroll wheel mouse yang tidak bisa digunakan
+            // ==============================================================
+            document.body.classList.remove('lock-scroll');
+            document.documentElement.classList.remove('lock-scroll');
+            document.body.style.overflow = 'auto';
+            document.documentElement.style.overflow = 'auto';
+            
+            const contentUndangan = document.getElementById('content-undangan'); 
+            if(contentUndangan) { 
+                contentUndangan.classList.remove('hidden'); 
+                contentUndangan.classList.add('flex'); 
+            }
+            // ==============================================================
+
             // --- FITUR FOKUS GALERI (LIGHTBOX) ---
             const lightbox = document.createElement('div');
             lightbox.id = 'gallery-lightbox';
@@ -802,7 +818,7 @@
                 setTimeout(() => {
                     lightbox.classList.remove('flex');
                     lightbox.classList.add('hidden');
-                    document.body.style.overflow = ''; // Kembalikan scroll
+                    if(lenis) lenis.start(); // Kembalikan scroll lenis
                 }, 300);
             };
 
@@ -821,7 +837,7 @@
                     imgLightbox.src = img.src.replace(/tr=[a-zA-Z0-9,-]+/, 'tr=w-1200,q-90,f-auto'); 
                     lightbox.classList.remove('hidden');
                     lightbox.classList.add('flex');
-                    document.body.style.overflow = 'hidden'; // Kunci scroll di background
+                    if(lenis) lenis.stop(); // Kunci scroll background dengan benar via lenis
                     
                     // Trigger reflow untuk animasi
                     void lightbox.offsetWidth;
@@ -838,17 +854,10 @@
             const targetSection = document.getElementById('section-profil'); 
             const btnIcon = document.getElementById('btn-icon'); 
             const btnText = btnCover ? btnCover.querySelector('.elementor-button-text') : null; 
-            const contentUndangan = document.getElementById('content-undangan'); 
             const audio = document.getElementById('audio'); 
             const audioToggle = document.getElementById('audio-toggle'); 
             const fsButton = document.getElementById('enter-fullscreen'); 
             const fsIcon = fsButton ? fsButton.querySelector('i') : null;
-
-            const lockScroll = () => { document.body.classList.add('lock-scroll'); document.documentElement.classList.add('lock-scroll'); window.scrollTo(0, 0); };
-            const unlockScroll = () => { document.body.classList.remove('lock-scroll'); document.documentElement.classList.remove('lock-scroll'); };
-            
-            // Dimatikan agar scroll wheel mouse bebas digunakan sejak awal (seperti versi sebelumnya)
-            // lockScroll();
 
             function isFullscreen() { return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement; }
             function enterFullscreen(el = document.documentElement) { try { if (el.requestFullscreen) el.requestFullscreen(); else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen(); else if (el.msRequestFullscreen) el.msRequestFullscreen(); } catch (_) {} }
@@ -873,15 +882,13 @@
                 enterFullscreen(document.documentElement); 
                 if (audio && audio.paused) { audio.play().catch(err => console.log("Audio block:", err)); } 
                 setButtonToScroll(); 
-                unlockScroll(); 
-                if(contentUndangan) { contentUndangan.classList.remove('hidden'); contentUndangan.classList.add('flex'); } 
                 // Waktu tunggu disamakan dengan referensi (1500ms) agar transisi amplop lebih rapi
                 setTimeout(() => { scrollKeTujuan(); }, 1500); 
                 btnCover.removeEventListener('click', handleFirstClick); 
                 btnCover.addEventListener('click', (ev) => { ev.preventDefault(); scrollKeTujuan(); }); 
             };
             if (btnCover) btnCover.addEventListener('click', handleFirstClick);
-            const onFsChange = () => { if(isFullscreen() && !document.body.classList.contains('lock-scroll')) setButtonToScroll(); }; 
+            const onFsChange = () => { if(isFullscreen()) setButtonToScroll(); }; 
             document.addEventListener('fullscreenchange', onFsChange);
 
             if(audioToggle) { audioToggle.addEventListener('click', function () { if (audio.paused) audio.play(); else audio.pause(); }); }
