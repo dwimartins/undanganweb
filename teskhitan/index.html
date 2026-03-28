@@ -774,10 +774,11 @@
             }
             requestAnimationFrame(raf);
 
-            // Kunci Lenis secara eksplisit agar tidak bisa discroll sebelum klik
-            lenis.stop();
+            // PENTING: Hapus class lock-scroll bawaan HTML agar Lenis bisa membaca wheel mouse secara bebas di cover.
+            // Tenang saja, section selanjutnya tetap aman karena statusnya 'hidden' (display: none).
+            document.body.classList.remove('lock-scroll');
+            document.documentElement.classList.remove('lock-scroll');
 
-            // Sembunyikan bagian dalam sampai di klik
             const contentUndangan = document.getElementById('content-undangan'); 
 
             // --- FITUR FOKUS GALERI (LIGHTBOX) ---
@@ -847,8 +848,6 @@
             const fsButton = document.getElementById('enter-fullscreen'); 
             const fsIcon = fsButton ? fsButton.querySelector('i') : null;
 
-            const unlockScroll = () => { document.body.classList.remove('lock-scroll'); document.documentElement.classList.remove('lock-scroll'); };
-
             function isFullscreen() { return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement; }
             function enterFullscreen(el = document.documentElement) { try { if (el.requestFullscreen) el.requestFullscreen(); else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen(); else if (el.msRequestFullscreen) el.msRequestFullscreen(); } catch (_) {} }
             function exitFullscreen() { if (isFullscreen()) { if (document.exitFullscreen) document.exitFullscreen(); else if (document.webkitExitFullscreen) document.webkitExitFullscreen(); else if (document.msExitFullscreen) document.msExitFullscreen(); } }
@@ -869,20 +868,17 @@
             const handleFirstClick = (e) => { 
                 e.preventDefault(); 
                 
-                unlockScroll(); // Hapus pembatas overflow pada CSS
-                
-                // Aktifkan konten dan Lenis setelah di klik
+                // Aktifkan (unhide) konten isi undangan setelah di klik
                 if(contentUndangan) { 
                     contentUndangan.classList.remove('hidden'); 
                     contentUndangan.classList.add('flex'); 
                 }
-                lenis.start(); // Aktifkan smooth scroll mouse wheel
 
                 enterFullscreen(document.documentElement); 
                 if (audio && audio.paused) { audio.play().catch(err => console.log("Audio block:", err)); } 
                 setButtonToScroll(); 
                 
-                setTimeout(() => { scrollKeTujuan(); }, 1500); 
+                setTimeout(() => { scrollKeTujuan(); }, 1200); 
                 btnCover.removeEventListener('click', handleFirstClick); 
                 btnCover.addEventListener('click', (ev) => { ev.preventDefault(); scrollKeTujuan(); }); 
             };
